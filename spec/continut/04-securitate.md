@@ -1,0 +1,152 @@
+# 04 — Securitate și continuitate (`/servicii/securitate`)
+
+**Title:** Securitate IT, backup și continuitate pentru firme · BitUp
+**Description:** Protecție împotriva atacurilor, accese sub control, backup testat, plan de continuitate. Audit de securitate și pregătire NIS2 / ISO 27001 pentru firme mici și mijlocii, pe înțelesul patronului.
+
+**JSON-LD:** Service (name: „Securitate și continuitate”) + FAQPage.
+
+Ancore obligatorii: `#backup`, `#audit`, `#nis2`, `#incidente`, `#intrebari`.
+
+---
+
+## Hero (intern)
+
+Eyebrow: `Securitate și continuitate`
+**H1:** Firmele mici nu sunt atacate pentru că sunt interesante. Sunt atacate pentru că sunt ușoare.
+Lead: Atacurile sunt automate: un program scanează internetul și intră unde e mai simplu. Eu am grijă să nu fii tu locul simplu și să poți reveni repede dacă totuși se întâmplă ceva.
+Buton: **Radiografie IT gratuită** (`/radiografie-it`)
+
+---
+
+## Situația
+
+Eyebrow: `De unde pornim`
+**H2:** „Suntem prea mici să ne atace cineva”
+
+Text (70ch):
+
+Aud asta la fiecare a doua firmă. Și înțeleg de unde vine: în filme, hackerul alege o țintă. În realitate, un program scanează internetul, găsește un server cu o parolă slabă sau un email fără protecție, și intră. Nu contează dacă ai 5 sau 500 de angajați. Contează dacă ușa e deschisă.
+
+Ce văd cel mai des când intru într-o firmă nouă: aceeași parolă la mai multe conturi, fără autentificare în doi pași; conturi ale unor foști angajați încă active; un singur om cu drepturi de administrator peste tot; actualizări amânate de luni; backup care rulează, dar pe care nu l-a restaurat nimeni; și niciun plan pentru dimineața în care nimic nu mai merge.
+
+Niciuna dintre astea nu cere tehnologie scumpă. Cer pe cineva care să le facă și să le țină făcute.
+
+---
+
+## Ce protejăm și cum
+
+Eyebrow: `Ce facem`
+**H2:** Șase lucruri, în ordinea în care contează
+
+Șase carduri:
+
+**Accese și parole**
+Autentificare în doi pași pentru toată lumea, manager de parole pentru firmă, drepturi de administrator doar unde e nevoie, conturi închise în ziua în care pleacă cineva.
+
+**Emailul**
+Cel mai folosit drum de intrare. Configurăm protecția împotriva phishing-ului și a emailurilor falsificate (SPF, DKIM, DMARC), filtre, și învățăm oamenii ce să nu deschidă.
+
+**Stații și servere**
+Antivirus sau EDR administrat, cu cineva care se uită la alerte. Actualizări la timp. Hard-disk-uri criptate pe laptopuri. Sistemele vechi izolate, nu lăsate la vedere.
+
+**Rețea și acces de la distanță**
+Firewall configurat corect, Wi-Fi separat pentru vizitatori, VPN pentru cine lucrează de acasă, acces limitat la ce are nevoie fiecare.
+
+**Backup și continuitate** → `#backup`
+Backup local și în alt loc, testat periodic, cu un plan scris pentru cât timp poate sta firma fără sisteme și cum revenim.
+
+**Oameni**
+Cele mai multe incidente încep cu un click. Fac o oră pe an cu echipa ta, cu exemple reale.
+
+---
+
+## Backup și continuitate {#backup}
+
+Eyebrow: `Backup și continuitate`
+**H2:** Ai backup. Ai și restore?
+
+Text (70ch):
+
+Backup-ul e bun doar dacă, în dimineața în care serverul nu mai pornește, firma lucrează din nou până la prânz. Și asta știi doar dacă cineva a încercat restaurarea înainte să fie nevoie.
+
+Ce fac: două copii, în două locuri (local, pentru viteză, și în alt datacenter, pentru dezastre), cu retenție care ține și greșelile descoperite după săptămâni. Test de restaurare periodic, cu raport. Și două cifre pe care le scriem în contract: câte date poți pierde în cel mai rău caz (de exemplu, ultimele 4 ore) și în cât timp revine firma (de exemplu, sub o zi lucrătoare).
+
+Planul de continuitate răspunde la întrebările pe care nu vrei să ți le pui într-o dimineață proastă: ce pornim întâi, cine sună pe cine, de unde lucrează oamenii, ce le spunem clienților.
+
+Exemplu real: pentru Cosmio, o platformă de contabilitate, replicăm serverele în alt datacenter la fiecare 4 ore și testăm recuperarea în fiecare trimestru. → Citește cazul (`/rezultate/cosmio`, doar când `draft: false`)
+
+---
+
+## Audit de securitate {#audit}
+
+Eyebrow: `Audit de securitate`
+**H2:** Când vrei să știi exact unde stai
+
+Text (70ch):
+
+Radiografia IT gratuită îți arată, în 30 de minute, culorile: ce e verde, ce e roșu. Auditul de securitate e pasul de după, pentru firmele care vor tot tabloul, cu dovezi.
+
+Verific tot: accesele, emailul, stațiile, serverele, rețeaua și backup-ul. Vorbesc scurt cu oamenii-cheie. Scriu un raport pe înțelesul patronului, cu prioritățile în ordine: ce am găsit, ce risc înseamnă, ce costă să repari. Apoi îl parcurgem împreună, într-o ședință. Durează între câteva zile și două săptămâni, în funcție de mărime. Îl plătești separat, cu ofertă înainte.
+
+Ce nu include: nu e un test de penetrare cu „hackeri etici” și nu e un certificat. Dacă ai nevoie de ele, îți spun când și de la cine.
+
+---
+
+## NIS2 și ISO 27001 {#nis2}
+
+Eyebrow: `Conformitate`
+**H2:** NIS2 și ISO 27001, fără hârtii de dragul hârtiilor
+
+Text (70ch):
+
+Două cuvinte pe care le aud tot mai des de la patroni, de obicei cu îngrijorare. Pe scurt: NIS2 e legea europeană (în România, OUG 155/2024) care obligă firmele din unele domenii, peste o anumită mărime, să aibă măsuri de securitate reale și să raporteze incidentele. ISO 27001 e standardul internațional pentru cum îți organizezi securitatea, pe care îl ceri sau ți-l cere un client mare.
+
+Îți spun în cuvinte simple dacă te privește și cât de departe ești. Transform cerințele în lucruri concrete de făcut, nu în documente de bifat. Fac partea tehnică și scriu documentele care chiar descriu ce faci. Dacă e cazul, te pregătesc pentru un audit extern.
+
+De unde știu: doi ani și jumătate de audituri ISO 27001, interne și externe, într-o corporație din Fortune 500. Am văzut ce cer auditorii și ce nu contează. Aduc la scara ta doar ce contează.
+
+---
+
+## Ce se întâmplă când se întâmplă {#incidente}
+
+Eyebrow: `Incidente`
+**H2:** Primele 24 de ore
+
+Steps (4):
+
+**1. Izolăm.** Oprim răspândirea: deconectăm ce trebuie deconectat, schimbăm parolele critice, blocăm accesele suspecte. În prima oră.
+
+**2. Înțelegem.** Ce s-a întâmplat, de unde a intrat, ce a fost atins. Fără presupuneri, cu loguri.
+
+**3. Revenim.** Din backup curat sau din replica din alt datacenter, în ordinea din planul de continuitate. Întâi ce ține firma în picioare.
+
+**4. Închidem ușa.** Reparăm ce a permis intrarea, documentăm, și dacă legea cere raportare (NIS2, GDPR), o facem la timp și corect.
+
+Rând sub pași: Dacă ai un incident acum și nu ești client, sună. Răspund, și pentru asta nu trebuie să semnezi nimic înainte. +40 757 150 894
+
+---
+
+## Întrebări frecvente {#intrebari}
+
+Faq:
+
+**Avem antivirus. Nu e suficient?**
+Antivirusul e o parte. Cele mai multe intrări de azi nu trec prin fișiere infectate, ci prin parole furate, emailuri false și conturi neînchise. Antivirusul nu vede niciuna dintre ele.
+
+**Cât costă securitatea pentru o firmă de 30 de oameni?**
+Mai puțin decât crezi, dacă e făcută ca parte din administrare, și mult mai mult dacă e făcută după un incident. Pentru clienții cu abonament de suport, măsurile de bază sunt incluse. Auditul și pregătirea pentru NIS2 sau ISO au ofertă separată.
+
+**Ne privește NIS2?**
+Depinde de domeniu și de mărime. Îți răspund în cinci minute la radiografie, cu da, nu sau „probabil, din motivul X”. Nu te trimit să citești legea.
+
+**Ce faceți cu datele noastre?**
+Le administrez, nu le colecționez. Accesul meu e documentat, parolele stau într-un manager de parole, iar când colaborarea se termină, primești tot și accesul meu se închide. Detaliile sunt în contract, nu pe o pagină de marketing.
+
+**Poți garanta că nu vom fi atacați?**
+Nu. Nimeni nu poate, și cine spune că poate minte. Ce garantez: că ușile evidente sunt închise, că observăm repede dacă cineva încearcă, și că poți reveni dintr-un backup testat.
+
+---
+
+## Banda finală
+
+CtaBand, varianta implicită.
