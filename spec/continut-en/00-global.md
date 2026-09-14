@@ -72,7 +72,7 @@ Variant for the IT Health Check page (no band; the form is the CTA).
 
 ## FactStrip under the hero (homepage)
 
-Right under the hero, full container width, on `--surface`, four cells: `Since 2020` · `Cluj-Napoca` · `Response under 2 hours in business hours` · Microsoft Partner · Fortinet Advocate · Veeam Partner (badges from [[LOGO_PARTENERI]], monochrome; text until they exist). The hero has no trust row: the information doesn't appear twice on the same screen.
+Right under the hero, full container width, on `--surface`, four cells: `Since 2020` · `Cluj-Napoca` · `Response under 2 hours during business hours` · Microsoft Partner · Fortinet Advocate · Veeam Partner (badges from [[LOGO_PARTENERI]], monochrome; text until they exist). The hero has no trust row: the information doesn't appear twice on the same screen.
 
 ("Response under 2 hours" is the contractual time during business hours; the real helpdesk average, under 30 minutes, appears in the copy on /en/services/it-support, /en/how-we-work, and /en/support, not in the FactStrip.)
 
@@ -98,7 +98,7 @@ Right under the hero, full container width, on `--surface`, four cells: `Since 2
 - Send error: "It didn't send. Not your fault. Your text is still here; try again in a minute, or call us directly at +40 757 150 894 / write to office@bitup.ro."
 - Anti-spam check failed (Turnstile): "The anti-spam check didn't pass. Reload the page and try again; if it keeps happening, email us directly at office@bitup.ro."
 - Button while sending: "Sending…"
-- Without JavaScript (`<noscript>`, both forms): "The form needs JavaScript for the anti-spam check. Call +40 757 150 894, write to office@bitup.ro, or pick a time in the calendar directly." + the Calendly link (https://calendly.com/marius-galmati-bitup/30min).
+- Without JavaScript (`<noscript>`, both forms): "The form needs JavaScript for the anti-spam check. Call +40 757 150 894, write to office@bitup.ro, or pick a time in the calendar." + the Calendly link (https://calendly.com/marius-galmati-bitup/30min).
 
 ## The /en/thank-you page
 

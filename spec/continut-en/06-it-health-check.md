@@ -90,7 +90,7 @@ Success → `/en/thank-you?kind=radiografie`.
 ## Who does it
 
 Eyebrow: `Who`
-**H2:** Me, not a team of consultants
+**H2:** Who runs the health check
 
 Text (square portrait on the left):
 

@@ -31,13 +31,17 @@ Lucruri pe care le-am scris din deducție și trebuie confirmate de tine înaint
 - Suport IT § Cloud: „Am clienți cu tot în Microsoft 365 și niciun server în birou, și clienți care au nevoie de un server local” — confirmă că e adevărat.
 - Suport IT § Echipamente: „Lucrez cu Fortinet pentru firewall-uri, Synology pentru NAS-uri, Microsoft pentru licențe” — din SOW și din LinkedIn, confirmă.
 - Suport IT § FAQ: „preaviz de o lună”, „primești toată documentația… în 30 de zile” — trebuie să fie ce scrie în contractul tău.
-- Suport IT, Cum lucrăm, Suport: „prin contract răspund în mai puțin de două ore; media reală din helpdesk e sub 30 de minute” — din răspunsul tău; media reală se schimbă în timp, verific-o la câteva luni.
+- Suport IT, Cum lucrăm, Suport: „prin contract răspundem în mai puțin de două ore; media reală din helpdesk e sub 30 de minute” — din răspunsul tău; media reală se schimbă în timp, verific-o la câteva luni.
 - Cum lucrăm § Planul: „într-o săptămână după radiografie primești planul” — angajament de ținut.
 - Cum lucrăm § Preluarea: „nu plecăm din luna 1 fără o restaurare reușită” — angajament.
-- Securitate § Incidente: „Dacă ai un incident acum și nu ești client, sună. Răspund” — angajament public.
+- Securitate § Incidente: „Dacă ai un incident acum și nu ești client, sună. Răspundem” — angajament public.
 - Automatizări § Ce construim: „API-urile aplicațiilor voastre și, când trebuie, cod”, „modele rulate la noi când datele sunt sensibile” — confirmă că oferi asta.
 - Automatizări § Ce nu construim: „aplicații mobile native, site-uri de prezentare, magazine online” — confirmă lista.
 - Despre § Traseul: anii și descrierile sunt din LinkedIn; „2026 · BitUp, full-time” e dedus din faptul că rolul Concentrix s-a încheiat în iunie 2026.
 - Confidențialitate: „office@bitup.ro e în Microsoft 365”, „căsuța de email are autentificare în doi pași”, „12 luni păstrare pentru cererile fără contract” — confirmă sau spune-mi valorile reale.
 - Cookies: rândul cu `__cf_bm` (Cloudflare) rămâne doar dacă activezi Bot Fight Mode.
 - Suport (EN): Cipri trebuie să recunoască și „I want a ticket”, nu doar „vreau ticket”; dacă nu, spune-mi și punem fraza românească și pe pagina engleză.
+
+Adăugate la 14 septembrie 2026, odată cu trecerea vocii la persoana I plural (afirmații despre firmă, pe care trebuie să le poți susține la telefon):
+- Cum lucrăm § FAQ „Câți oameni sunt în spatele BitUp?”: „un nucleu mic și colaboratori pe specialități: tehnicieni locali unde e nevoie de cineva la fața locului în afara Clujului, dezvoltatori pentru partea de software”; „fiecare client are documentația lui, accesele sunt înregistrate, tichetele și rapoartele sunt în platformă”; „primești tot în 30 de zile, scris în contract” — confirmă că descrie firma reală și contractul real (și în EN).
+- Securitate § NIS2 / ISO 27001: „De unde știm: experiența de securitate cu care a venit fondatorul, doi ani și jumătate de audituri ISO 27001, interne și externe, într-o corporație din Fortune 500” — experiența e atribuită explicit fondatorului, nu unei echipe; confirmă formularea (și în EN).

@@ -103,7 +103,7 @@ Două cuvinte pe care le auzim tot mai des de la patroni, de obicei cu îngrijor
 
 Îți spunem în cuvinte simple dacă te privește și cât de departe ești. Transformăm cerințele în lucruri concrete de făcut, nu în documente de bifat. Facem partea tehnică și scriem documentele care chiar descriu ce faci. Dacă e cazul, te pregătim pentru un audit extern.
 
-De unde știm: doi ani și jumătate de audituri ISO 27001, interne și externe, într-o corporație din Fortune 500. Am văzut ce cer auditorii și ce nu contează. Aducem la scara ta doar ce contează.
+De unde știm: experiența de securitate cu care a venit fondatorul, doi ani și jumătate de audituri ISO 27001, interne și externe, într-o corporație din Fortune 500. Am văzut ce cer auditorii și ce nu contează. Aducem la scara ta doar ce contează.
 
 ---
 

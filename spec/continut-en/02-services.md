@@ -10,7 +10,7 @@
 ## Hero (internal, on `--surface-2`)
 
 Eyebrow: `Services`
-**H1:** Three groups of services. One person accountable.
+**H1:** Three service groups. One partner accountable.
 Lead: You can take them separately. They work best together: security and backup are part of how you run IT, not added afterward.
 
 ---

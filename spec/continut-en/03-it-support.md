@@ -1,7 +1,7 @@
 # 03 — IT support and administration (`/en/services/it-support`)
 
 **Title:** IT support and administration on subscription, Cluj · BitUp
-**Description:** IT support for companies with 10–100 employees: server administration, Microsoft 365, cloud, equipment, security included. WhatsApp support, monthly report, one person accountable.
+**Description:** IT support for companies with 10–100 employees: server administration, Microsoft 365, cloud, equipment, security included. WhatsApp support, monthly report, one partner accountable.
 
 **JSON-LD:** Service (name: "IT support and administration", provider: BitUp, areaServed: Romania, description = Description) + FAQPage from § FAQ.
 
@@ -74,7 +74,7 @@ You already have someone. They keep the day-to-day. We take over security, backu
 Just servers and Microsoft 365, for example. Or just backup and security. A clear line between what's ours and what's yours.
 
 **Full**
-All of IT, on subscription. One phone number, one monthly report, one person accountable. The option most companies pick after the first month.
+All of IT, on subscription. One phone number, one monthly report, one partner accountable. The option most companies pick after the first month.
 
 ---
 
@@ -130,7 +130,7 @@ Two columns:
 
 **It's for you if**
 - you have 10–100 employees and IT has become a worry, not an advantage;
-- you want one person accountable, not three vendors;
+- you want one partner accountable, not three vendors;
 - you accept a monthly subscription instead of hourly invoices when things break;
 - you want to know what's going on, every month, without asking.
 

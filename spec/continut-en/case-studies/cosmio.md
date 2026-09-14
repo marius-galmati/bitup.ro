@@ -64,7 +64,7 @@ Every objective below is defined in the contract, measured at every test, and re
 
 ### What changed for Cosmio
 
-The Cosmio team knows, in writing, how much data it can lose in the worst case and how fast the platform comes back. Backup is no longer an assumption: it's tested every quarter, with a report. And when a problem comes up, there's one number to call and one person accountable.
+The Cosmio team knows, in writing, how much data it can lose in the worst case and how fast the platform comes back. Backup is no longer an assumption: it's tested every quarter, with a report. And when a problem comes up, there's one number to call and one partner accountable.
 
 > [[CITAT_COSMIN]] (optional; published only if ticked in the signed consent)
 > — Cosmin Cenan, managing director, Cosmio Fintech SRL

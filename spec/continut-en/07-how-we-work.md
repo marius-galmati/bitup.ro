@@ -135,8 +135,8 @@ At 30 days you have the first report and a tested backup. Most of the "reds" fro
 **Do I, the owner, have to be involved?**
 For the health check and the plan, yes, 30 minutes plus one meeting. After that, only for decisions (what we buy, what we change). The rest runs without you. That's the point.
 
-**Do you work alone?**
-Yes, and it's deliberate: a person with a name answers, not a department. For on-site work outside Cluj we use local technicians we coordinate. For big projects we bring in collaborators, but the accountability and the report stay with us.
+**How many people are behind BitUp?**
+A small core and specialist collaborators: local technicians where someone has to be on site outside Cluj, developers for the software work. The question behind the question is what happens when someone is away. Nothing lives in one person's memory: every client has their own documentation, access is recorded, tickets and reports are in the platform. If you decide to move to another provider tomorrow, you get everything within 30 days, written in the contract.
 
 ---
 

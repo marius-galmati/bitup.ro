@@ -90,7 +90,7 @@ Succes → `/multumesc?kind=radiografie`.
 ## Cine o face
 
 Eyebrow: `Cine`
-**H2:** Eu, nu o echipă de consultanți
+**H2:** Cine face radiografia
 
 Text (portret pătrat în stânga):
 

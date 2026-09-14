@@ -19,9 +19,9 @@ Lead (max-width 60ch): IT support and administration for companies with 10–100
 
 Buttons: **Free IT Health Check** (primary → `/en/it-health-check`) · **See how we work** (secondary → `/en/how-we-work`)
 
-Right under the hero: the FactStrip from `00-global.md` § FactStrip under the hero (`Since 2020` · `Cluj-Napoca` · `Response under 2 hours in business hours` · partner badges). It is the visual anchor of the first screen.
+Right under the hero: the FactStrip from `00-global.md` § FactStrip under the hero (`Since 2020` · `Cluj-Napoca` · `Response under 2 hours during business hours` · partner badges). It is the visual anchor of the first screen.
 
-Post-launch variant, once `[[CAPTURA_RAPORT_LUNAR]]` exists: two-column hero, on the right a Figure with the first page of the anonymized monthly report, as a paper document (background `--surface`, 1 px `--line` border, `--radius`, no shadow, no perspective, no laptop frame). Caption and alt: "The monthly report every client receives. Anonymized." The object in the hero is the deliverable, not the founder.
+Post-launch variant, once `[[CAPTURA_RAPORT_LUNAR]]` exists: two-column hero, on the right a Figure with the first page of the anonymized monthly report, as a paper document (background `--surface`, 1 px `--line` border, `--radius`, no shadow, no perspective, no laptop frame). Caption and alt: "The monthly report every client gets. Anonymized." The object in the hero is the deliverable, not the founder.
 
 ---
 

@@ -55,7 +55,35 @@ Fișier de lucru. Se actualizează la fiecare fază. Spec-ul din `spec/` e sursa
 
 La finalul fiecărei pagini: captură la 1440 px, privită la 50% zoom, unde se văd doar formele. Dacă pagina arată ca un teanc de dreptunghiuri de aceeași înălțime, ritmul e greșit. Ce s-a văzut și ce s-a schimbat după test se notează aici, pe pagină.
 
-## Întrebări deschise pentru Marius
+## Răspunsurile la întrebările deschise (14 septembrie 2026, aplicate în commit-ul „spec: răspunsuri la întrebările deschise”)
+
+1. **FOTO-CONTEXT.md** aliniat cu DESIGN § Hero (homepage): hero fără nicio imagine la lansare; portretul în trei locuri; `[[CAPTURA_RAPORT_LUNAR]]` devine obiectul din hero; textura, dacă apare vreodată, doar ca fundal al CtaBand (nu în spatele portretului; corectat și în DESIGN § Imagini și în PLACEHOLDERS); `[[FOTO_CONTEXT]]` pe Despre sau în articol. Promptul și lista „ce nu se generează” neatinse.
+2. **FAQ Cum lucrăm:** „Lucrezi singur?” a devenit „Câți oameni sunt în spatele BitUp?” / „How many people are behind BitUp?”, cu răspunsul dat de Marius (nucleu mic + colaboratori; nimic nu stă în memoria unui om; tot în 30 de zile, scris în contract). Adăugat în UMANIZARE § Pentru Marius ca afirmație de confirmat.
+3. **Radiografie, H2 „Cine o face”:** „Eu, nu o echipă de consultanți” → „Cine face radiografia” / „Who runs the health check”. Paragraful semnat rămâne la persoana I.
+4. **EN „One person accountable”** → „One partner accountable” în H1-ul de pe Services („Three service groups. One partner accountable.”) și în cazul Cosmio. Aceeași formulare apărea și de trei ori în 03-it-support (description, cardul „Full”, lista „Fit”), unde RO spune „un singur responsabil”; am aplicat aceeași înlocuire și acolo. Neatins: 05-automation „one assistant, one job, one person accountable”, unde RO spune deliberat „un om responsabil” (un om care răspunde de asistent, în contrast cu AI-ul).
+5. **Securitate § NIS2:** „De unde știm: experiența de securitate cu care a venit fondatorul, doi ani și jumătate de audituri ISO 27001…” (RO și EN, textul lui Marius). Adăugat în UMANIZARE § Pentru Marius.
+6. **Traducerile EN** înlocuite exact: FactStrip „Response under 2 hours during business hours”; noscript „…or pick a time in the calendar.”; legenda „The monthly report every client gets. Anonymized.”
+7. **/multumesc:** „a ajuns la noi” rămâne.
+8. **Meta Contact** (RO și EN) înlocuită cu textul lui Marius („Telefon, email, formular sau un slot de 30 de minute în calendar. Îți răspundem personal, în maximum o zi lucrătoare. Cluj-Napoca.”). Restul meta rămâne cum e, listat mai jos (§ Meta).
+9. **Verificarea secțiunilor mixte** (plural de firmă și persoana I singular în aceeași secțiune): rezultatul e mai jos, § Verificarea 9.
+10. **UMANIZARE § Pentru Marius:** două afirmații noi adăugate (punctele 2 și 5); două citate vechi din listă („răspund în mai puțin de două ore”, „Răspund”) aduse la forma actuală („răspundem”).
+
+Regulă nouă pentru fazele următoare (de la Marius): maximum trei editori în paralel, cu raport după fiecare fișier, nu la final.
+
+## Verificarea 9: secțiuni cu plural de firmă și persoana I singular împreună
+
+Metodă: fiecare fișier din `spec/continut/` și `spec/continut-en/` (fără blog) împărțit pe secțiuni `## …`; în fiecare secțiune s-au căutat forme de persoana I singular (verbe frecvente la persoana I, pronume, clitice; în EN I / my / me / mine / myself) și forme de plural de firmă (noi / nostru / ne / verbe la persoana I plural; în EN we / our / us). S-au listat secțiunile cu ambele. Apoi fiecare potrivire a fost citită.
+
+**Rezultat: nicio secțiune nu amestecă vocea firmei la singular cu cea la plural.** Cele patru excepții (01 § 7 „Cine răspunde”, 06 § „Cine o face”, 09 hero + § Povestea + § Traseul, blogul) sunt secțiuni *pure* la persoana I singular, fără nicio formă de plural de firmă în ele, deci nu apar deloc în lista de secțiuni mixte. Secțiunile care au apărut ca „mixte” sunt toate false pozitive ale scanerului, verificate una câte una:
+
+- Verbe la persoana a III-a plural identice ca formă cu persoana I singular: „vin vizitatorii” (00 banner, 15 § Ce folosim), „vin mai târziu” (02), „scriu pe WhatsApp” = angajații (03 § Ce include), „o aleg cele mai multe firme” (03 § Trei formule), „firmele care fac radiografia … văd cum lucrăm” (06 § Întrebări), „puțini furnizori răspund” (07 hero), „se fac doar după acordul tău” (07 § Cum se facturează), „patronii își pot evalua” (09), „statisticile pornesc” (14, 15), „îl folosesc clienții noștri” (05), „îl folosesc zilnic ingineri” (proq).
+- Vocea cititorului sau a clientului: textul checkbox-ului de consimțământ („să-mi răspundă” / „I agree”), citatul „Avem backup. Cred.” / „I think”, „nu știu” din verificarea 9 și din placeholder-ul formularului (06), întrebările din FAQ formulate de patron („Trebuie să instalez ceva…”, „Dacă nu vreau să continui…”, „Cât durează până văd…”, „Trebuie să fiu eu, patronul…”, „Do I have to…”, „What happens with what I tell you?”, „How long until I see…”), replicile-exemplu de pe /suport („I clicked the link…”).
+
+Niciun rest dintr-un fișier neterminat: 03 și 05 (editorii relansați) și 10–12 (editorul căzut după ce modificase) nu conțin nicio formă de persoana I singular în vocea firmei.
+
+## Întrebări închise (istoric)
+
+Lista de mai jos e cea trimisă lui Marius pe 14 septembrie; răspunsurile sunt mai sus.
 
 1. **`spec/assets/FOTO-CONTEXT.md`** încă spune că „portretul real rămâne imaginea din hero” (§ Recomandarea, punctele 1 și 4, § Cum se folosește textura (a), § Pentru Claude Code). Contrazice A2. Nu e în lista fișierelor pe care le pot modifica; propun să-l actualizezi tu sau să-mi dai OK pentru: hero fără fotografie; textura doar în spatele portretului de pe Despre sau ca fundal al CtaBand; `[[FOTO_CONTEXT]]` pe Despre sau în articol.
 2. **07-cum-lucram, FAQ „Lucrezi singur?”** Răspunsul începe cu „Da, și e deliberat: răspunde un om cu nume, nu un departament.” (afirmație, neatinsă conform regulii 5), apoi continuă la plural („lucrăm cu tehnicieni locali coordonați de noi”). Trei variante: (a) rămâne așa; (b) întrebarea devine „Cine răspunde, concret?” cu răspunsul actual; (c) se scoate din FAQ (schimbă și JSON-LD FAQPage). Recomand (b).
@@ -544,6 +572,7 @@ Notă: descrierea de pe 11-contact („Scrie-i lui Marius Galmati direct… Răs
 
 ## Propuneri (nu se fac fără acord)
 
+- **Versiunea Astro.** `ARHITECTURA.md` spune „Astro 5”, iar tot spec-ul (loader-ele `glob`, `content.config.ts`, opțiunile `i18n`) e scris pe API-ul lui 5. La 14 septembrie 2026, `npm view astro version` dă 7.3.2, iar ultimul 5 e 5.18.2. `npm create astro@latest` (PLAN, Faza 0, pasul 1) ar instala 7. Am urmat spec-ul: proiectul e fixat pe `astro@^5.18` (scheletul e scris de mână, echivalent cu template-ul minimal), iar integrările sunt la versiunile compatibile cu 5. Propunere: după Faza 1, o încercare de upgrade la 7 pe o ramură, cu build și capturi comparate; dacă trece fără schimbări de conținut, migrăm înainte de Faza 2, ca să nu lansăm pe o versiune în întreținere.
 - Faza 5: Astro are suport experimental pentru CSP cu hash-uri generate la build (`experimental.csp`), care ar scoate `'unsafe-inline'` din `script-src` și `style-src`. E îmbunătățirea menționată în `ARHITECTURA.md` § Headere ca „nu o condiție de lansare”. De evaluat când ajungem acolo.
 
 ## Placeholder-e rămase

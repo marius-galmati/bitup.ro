@@ -103,7 +103,7 @@ Two words we hear more and more from owners, usually worried. In short: NIS2 is 
 
 We tell you in plain words if it applies and how far off you are. We turn requirements into concrete things to do, not boxes to tick. We do the technical part and write documents that actually describe what you do. If needed, we prepare you for an external audit.
 
-How we know: two and a half years of ISO 27001 audits, internal and external, in a Fortune 500 corporation. We've seen what auditors ask for and what doesn't matter. We bring only what matters to your scale.
+How we know: the security experience the founder brought with him, two and a half years of ISO 27001 audits, internal and external, at a Fortune 500 corporation. We've seen what auditors ask for and what doesn't matter. We bring only what matters to your scale.
 
 ---
 

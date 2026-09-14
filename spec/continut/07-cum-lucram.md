@@ -135,8 +135,8 @@ La 30 de zile ai primul raport și backup-ul testat. Cele mai multe „roșuri�
 **Trebuie să fiu eu, patronul, implicat?**
 La radiografie și la plan, da, 30 de minute plus o ședință. După, doar la decizii (ce cumpărăm, ce schimbăm). Restul merge fără tine. Asta e ideea.
 
-**Lucrezi singur?**
-Da, și e deliberat: răspunde un om cu nume, nu un departament. Pentru intervențiile fizice în afara Clujului lucrăm cu tehnicieni locali coordonați de noi. Pentru proiecte mari aducem colaboratori, dar responsabilitatea și raportul rămân la noi.
+**Câți oameni sunt în spatele BitUp?**
+Un nucleu mic și colaboratori pe specialități: tehnicieni locali unde e nevoie de cineva la fața locului în afara Clujului, dezvoltatori pentru partea de software. Întrebarea din spatele întrebării e ce se întâmplă când cineva lipsește. Nimic nu stă în memoria unui om: fiecare client are documentația lui, accesele sunt înregistrate, tichetele și rapoartele sunt în platformă. Dacă mâine vrei să pleci la alt furnizor, primești tot în 30 de zile, scris în contract.
 
 ---
 

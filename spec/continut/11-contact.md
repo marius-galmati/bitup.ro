@@ -1,7 +1,7 @@
 # 11 — Contact (`/contact`)
 
 **Title:** Contact · BitUp Technology, Cluj-Napoca
-**Description:** Scrie-i lui Marius Galmati direct: telefon, email, formular sau un slot de 30 de minute în calendar. Răspuns personal în maximum o zi lucrătoare. Cluj-Napoca.
+**Description:** Telefon, email, formular sau un slot de 30 de minute în calendar. Îți răspundem personal, în maximum o zi lucrătoare. Cluj-Napoca.
 
 **JSON-LD:** global (ProfessionalService are aici toate câmpurile: oraș, telefon, email, program; fără stradă, fără geo).
 
