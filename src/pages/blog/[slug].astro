@@ -1,0 +1,13 @@
+---
+/** /blog/[slug]: articolele în română; draft-urile primesc pagină doar în afara producției. */
+import { render } from 'astro:content';
+import PostLayout from '../../layouts/PostLayout.astro';
+import { visiblePosts, slugOf } from '../../lib/collections';
+
+export async function getStaticPaths() {
+  return (await visiblePosts('ro')).map((entry) => ({ params: { slug: slugOf(entry.id) }, props: { entry } }));
+}
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+---
+<PostLayout lang="ro" entry={entry}><Content /></PostLayout>

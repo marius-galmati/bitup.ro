@@ -1,0 +1,26 @@
+---
+/**
+ * Caseta de logo a unui studiu de caz (DESIGN § Studiu de caz): fundal alb sau navy-2 după `logoDark`, --radius-lg, 260 px în hero, 120 px pe carduri.
+ * Până e salvat logo-ul în public/logos/, caseta arată placeholder-ul ([[LOGO_PROQ_LOCAL]] etc.), vizibil, cum cere CLAUDE.md regula 3.
+ */
+import type { CollectionEntry } from 'astro:content';
+import { caseLogo } from '../lib/collections';
+
+interface Props { entry: CollectionEntry<'cases'>; size?: number; class?: string }
+const { entry, size = 260, class: className } = Astro.props;
+const logo = caseLogo(entry);
+const style = `--logo-size: ${size}px`;
+---
+<div class:list={['logo-box', { 'logo-box--dark': entry.data.logoDark }, className]} style={style}>
+  {'src' in logo
+    ? <img src={logo.src} alt={entry.data.client} width={Math.round(size * 0.7)} height={Math.round(size * 0.25)} loading="lazy" decoding="async" />
+    : <span class="logo-box__placeholder mono">{logo.placeholder}</span>}
+</div>
+
+<style>
+  .logo-box { width: var(--logo-size); max-width: 100%; aspect-ratio: 2 / 1; display: grid; place-items: center; padding: var(--s-3); background: #FFFFFF; border: 1px solid var(--line); border-radius: var(--radius-lg); }
+  .logo-box--dark { background: var(--navy-2, #003343); border-color: transparent; }
+  .logo-box img { max-width: 100%; height: auto; }
+  .logo-box__placeholder { font-size: var(--fs-eyebrow); color: var(--muted); text-align: center; word-break: break-word; }
+  .logo-box--dark .logo-box__placeholder { color: var(--on-navy-muted, #C9D8DB); }
+</style>

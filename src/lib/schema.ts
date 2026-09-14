@@ -90,6 +90,27 @@ export function person(locale: Locale, imageUrl?: string) {
   };
 }
 
+/** Article (ARHITECTURA § SEO): articole de blog și studii de caz publicate. `about` = Organization a clientului, doar când cazul nu e draft. */
+export function article(
+  locale: Locale,
+  a: { headline: string; description: string; url: string; datePublished: Date; dateModified?: Date; imageUrl?: string; about?: { name: string; url?: string } },
+) {
+  return {
+    '@type': 'Article',
+    headline: a.headline,
+    description: a.description,
+    url: a.url,
+    mainEntityOfPage: a.url,
+    inLanguage: locale,
+    datePublished: a.datePublished.toISOString().slice(0, 10),
+    ...(a.dateModified ? { dateModified: a.dateModified.toISOString().slice(0, 10) } : {}),
+    author: { '@id': `${site.url}/#founder` },
+    publisher: { '@id': ORG_ID },
+    ...(a.imageUrl ? { image: a.imageUrl } : {}),
+    ...(a.about ? { about: { '@type': 'Organization', name: a.about.name, ...(a.about.url ? { url: a.about.url } : {}) } } : {}),
+  };
+}
+
 /** Graful de bază, pe toate paginile. */
 export function baseGraph(locale: Locale, extra: Record<string, unknown>[] = []) {
   return {

@@ -5,6 +5,8 @@ import icon from 'astro-icon';
 
 // ARHITECTURA.md § Stack, § Limbi, § Rute. Astro (versiunea din package.json), static, fără adapter (Cloudflare Pages servește dist/).
 export default defineConfig({
+  // Markdown: fără smartypants (Astro 7 îl are pornit implicit și transforma "…" și ' din textul EN în “…” și ’, adică alt text decât cel din spec).
+  markdown: { smartypants: false },
   site: 'https://bitup.ro',
   output: 'static',
   trailingSlash: 'never',

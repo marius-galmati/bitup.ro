@@ -787,6 +787,78 @@ Privite una lângă alta: 02 = trei benzi late numerotate + două secțiuni de t
 - `[[LOGO_BITUP_SVG]]`: logo PNG în header / footer (nu apare ca text).
 - Rămân pentru Faza 3: `[[ACORD_COSMIO]]`, `[[CITAT_COSMIN]]`, `[[LOGO_COSMIO_LOCAL]]` (cazul Cosmio), `[[FOTO_CONTEXT]]` (opțional, nefolosit).
 
+## Între 2b și 3: cele trei puncte (14 septembrie 2026)
+
+- `aria-label` „Cuprins” / „Contents” confirmat; adăugat în 00-global RO și EN § Microcopy.
+- Capturile ies din git: `.gitignore` are `qa/**/*.png` și `qa/**/*.jpg`; în repo rămân doar `qa/<faza>/rezumat/*.webp` (calitate 80) și rapoartele JSON. Rezumatele create pentru fazele 0, 1, 2a, 2b (0,2 / 1,2 / 1,0 / 3,2 MB). Istoricul a fost rescris o singură dată cu `git filter-repo --invert-paths --path-glob 'qa/**/*.png'` (instalat prin `pip install git-filter-repo`, nu exista): pack-ul a scăzut la 6,2 MB, niciun PNG din `qa/` în niciun commit, arborele neschimbat în afara imaginilor, build-ul trece, NOTES.md întreg (15 secțiuni). Două lucruri de știut: (1) `filter-repo` rescrie și tag-urile, deci `backup-pre-cleanup` arată acum tot spre istoricul curățat, nu spre cel vechi (obiectele vechi au fost șterse la gc; un backup independent ar fi trebuit făcut prin `git clone --mirror` înainte); (2) la checkout-ul istoricului nou, PNG-urile din `qa/faza-0…2b` au dispărut și de pe disc (erau urmărite); se regenerează cu `qa/capture.mjs` când e nevoie. Capturile din Faza 3 sunt locale.
+- Regula cazului draft: când un studiu de caz e draft sau lipsește, propoziția care îl linkuiește nu se randează deloc, pe nicio pagină (03 § Cloud, 04 § Backup, RO și EN); fără link de rezervă către /rezultate. `qa/textdiff.mjs` o tratează ca abatere așteptată **cu condiție**: fragmentele care menționează Cosmio sunt acceptate ca lipsă doar dacă pagina chiar nu are link către `/rezultate/cosmio`; când cazul se publică, condiția cade și diff-ul cere propoziția înapoi.
+
+## Faza 3 — Colecții: studii de caz și blog, RO și EN (14 septembrie 2026)
+
+### Ce s-a făcut
+- Colecțiile populate din spec: `src/content/cases/{ro,en}/{cosmio,proq}.md` și `src/content/blog/{ro,en}/…`. Copiate exact, cu trei ajustări de formă, nu de text: (1) nota „(Se randează din `numbers`.)” și blocul „Notă de subsol (randată de layout)” nu sunt text de corp; nota de subsol a intrat în frontmatter ca `footnote` (câmp opțional adăugat în schema `cases`, ARHITECTURA nu-l avea) și o randează `CaseLayout` sub ultima secțiune; (2) nota editorială de după `[[CITAT_COSMIN]]` („opțional; se publică doar dacă e bifat…”) nu e text de pagină; placeholder-ul rămâne vizibil în citat; (3) calea imaginilor din articol e `../../../assets/blog/helpdesk/…` (colecția stă un nivel mai jos decât presupunea spec-ul: `src/content/blog/ro/`). Articolul: `draft: false` în ambele limbi (decizia lui Marius; spec-ul avea `true`), `translationOf` pus în ambele direcții. Cosmio: `draft: true` în ambele limbi, `consent: "[[ACORD_COSMIO]]"`.
+- Pagini: `/rezultate`, `/rezultate/[slug]`, `/blog`, `/blog/[slug]`, `/rss.xml` și perechile EN. Șabloane: `CaseLayout` (hero navy cu gradient discret spre navy-2, eyebrow teal-2, h1, lead, caseta de logo 260 px; FactStrip din `facts`; secțiunile din Markdown împărțite pe `##` în modelul două coloane, `###` ca titlu; a doua secțiune ca grid de carduri din lista cu titluri îngroșate; NumberTiles din `numbers` după a treia; citatul ca Quote cu nume și funcție din rândul „— …”; rândul de subsol; CtaBand) și `PostLayout` (antet pe `--bg` cu eyebrow „Blog · categorie”, h1, lead, byline mono nume · dată · timp de citit, fără avatar; Prose 70ch; imaginile din Markdown devin figuri cu legenda din `alt`, bordură, `loading="lazy"`, `width`/`height` și AVIF/WebP prin pipeline-ul Astro; caseta de autor cu portretul rotund de 96 px și textul din 00-global; CtaBand varianta blog). Markdown-ul vine prin `Astro.slots.render` și e transformat ca text (fără plugin-uri noi).
+- `/rezultate`: carduri cu caseta de logo (120 px, alb sau navy după `logoDark`), kicker, titlu, două propoziții din `summary`, `facts[0]` și `facts[1]` mono, „Citește cazul”; sub grid rândul din 08 cât timp există un caz draft. `/blog`: un singur articol → card pe lățimea întreagă cu `heroImage` în dreapta; Trei teme; rândul de abonare cu LinkedIn și RSS; CtaBand blog; `<link rel="alternate" type="application/rss+xml">` în `<head>` (prop nou `rss` pe BaseLayout).
+- Meta pentru colecții, după regula stabilită: title „{client} · {kicker} · BitUp”, description din `summary` tăiată la ultima propoziție întreagă când depășește 155 (`src/lib/collections.ts`). Articole: „{title} · BitUp”, description din frontmatter. Lungimile reale sunt mai jos; **sunt peste limită** și trebuie decizie.
+- JSON-LD: `Article` pe articole (headline, description, author → Person, publisher, datePublished, inLanguage, image) și pe studii de caz (cu `about: Organization` a clientului doar când nu e draft; ProQ cu `url` pro-q.ro). Draft-urile au `noindex`.
+- Comutatorul de limbă: pe un caz duce la același slug; pe un articol la `translationOf` sau la indexul blogului din cealaltă limbă (ARHITECTURA § Limbi). Linkurile externe din Markdown primesc `target="_blank" rel="noopener"` (00-global).
+- RSS: `@astrojs/rss` cu `trailingSlash: false` (linkurile fără slash final, cum s-a notat la spike), `<language>`, `atom:link rel="self"`, categoriile din `tags`, doar articolele publicate.
+- Timpul de citit: cuvintele din corpul articolului în limba lui, la 200 de cuvinte pe minut (același calcul ca pe homepage): 5 minute RO, 5 min EN.
+- Componente noi: `AuthorBox`, `CaseLogo` (caseta de logo; până e salvat fișierul în `public/logos/`, arată placeholder-ul), `ResultsPage`, `BlogPage`; `src/lib/collections.ts` (vizibilitate, meta, timp de citit, logo), `src/lib/rss.ts`; `qa/mddiff.mjs` (diff textual pentru intrări de colecție: frontmatter + corp Markdown).
+
+### Markdown pe Astro 7, element cu element (PLAN § Faza 3, punctul 1)
+Comparat sursa cu HTML-ul randat: titlurile `##`/`###` → `h2`/`h3` cu id-uri; paragrafele → `p`; `**text**` → `strong`; listele → `ul`/`li` (cu `strong` la început unde sursa are titlu îngroșat); citatul → `blockquote` cu `br` între rânduri; imaginile → `img` cu `src` optimizat din `_astro/`, `width`/`height`, `loading="lazy"`, `decoding="async"`; linkurile → `a`. Spațierea vine din Prose (`> * + *`), identică cu paginile legale. **O singură diferență de text, reparată din configurare, nu din CSS:** procesorul implicit din Astro 7 are `smartypants` pornit și transforma ghilimelele drepte și apostrofurile din textul EN (`"Accept"`, `don't`) în „”/’; RO nu era afectat (are deja „…”). Oprit cu `markdown: { smartypants: false }` în `astro.config.mjs`; diff-ul textual e acum zero pe toate cele șase intrări. Nu a fost nevoie de pipeline-ul vechi.
+
+### Testul de forme la 50 % pe homepage, după umplerea colecțiilor (`qa/faza-3/rezumat/forme-50_index-1440-light-50.webp`)
+- § 8 Rezultate: pe staging două carduri late, egale (Cosmio cu eticheta „Draft, nepublicat” și ProQ) și rândul „Următorul caz…”; **în producție un singur card** (ProQ, pe lățimea grid-ului) plus rândul (`qa/faza-3/rezumat/productie_index-1440-light.webp`, build cu `CF_PAGES_BRANCH=main`).
+- § 9 Parteneri: neschimbat, bandă joasă.
+- § 10 Din blog: un card lat cu titlu, description și rândul mono dată · timp de citit (fără imagine, cum cere 12).
+- Ritmul s-a schimbat față de 2a: în loc de trei benzi joase la rând (§ 8, 9, 10), acum e carduri (late) · bandă joasă · card lat, între § 7 (bandă compactă cu foto) și § 11 (acordeon). Nu mai sunt două secțiuni consecutive cu aceeași formă. Nu a fost nevoie de modificări.
+
+### Ce s-a verificat
+- `npm run build`: 0 erori, **0 avertismente** (cele două pentru colecțiile goale au dispărut, cum cere PLAN § Faza 3), 39 de pagini pe staging / 35 în producție. `npm run check`: 0 erori, 0 avertismente, 0 sugestii.
+- Diff textual pe intrările de colecție (`node qa/mddiff.mjs`, 6 intrări): 49/49, 55/55, 49/49, 55/55, 32/32, 32/32, zero diferențe (tag-urile 2–4 nu sunt text de pagină; doar primul e eyebrow, cum cere 12). Diff-ul pe 08 și 12 (`textdiff.mjs`): zero.
+- Draft în producție (`CF_PAGES_BRANCH=main`, build separat, apoi servit și verificat): `/rezultate/cosmio` și `/en/results/cosmio` nu există (HTTP 404 la URL direct), Cosmio nu apare în `/rezultate`, `/en/results`, pe homepage, în `sitemap-0.xml` și în niciun fișier din `dist` (grep pe tot); propoziția din 03/04 nu se randează; `/qa/*` lipsește. Pe staging: pagina există, cu `noindex`, eticheta „Draft, nepublicat” în hero și pe card, și apare în sitemap (staging).
+- RSS: ambele fluxuri valide la validator.w3.org (0 erori; singurul avertisment, „Self reference doesn't match document location”, vine din faptul că validarea s-a făcut prin `rawdata`, nu de la URL-ul public; rapoartele în `qa/faza-3/rss-validator-*.soap`). Linkurile din fluxuri răspund 200 și nu au slash final.
+- `node qa/pagecheck.mjs` pe 37 de pagini: un h1, zero salturi, imagini cu dimensiuni (5 pe articol), orange ≤ 2 pe paginile noi, FAQPage doar unde sunt întrebări.
+- 96 + 48 + 24 de capturi (12 pagini × 4 lățimi × 2 teme, plus recapturarea paginilor EN după `smartypants` și trei pagini din build-ul de producție), privite pe cazul ProQ, cazul Cosmio (dark), lista de rezultate, indexul blogului, articolul (1440 și 375) și homepage-ul de producție. Consolă curată pe toate, zero cereri externe.
+- Tastatură pe `/rezultate/proq`, `/blog/…`, `/en/blog`: toate trec.
+- Lighthouse mobil (`qa/faza-3/lighthouse-*-mobile.summary.json`): `/rezultate` 98/100/100/100 (231 KiB), `/rezultate/proq` 98/100/100/100, `/blog` 98/100/100/100 (263 KiB), `/blog/cum-ne-am-construit-propriul-helpdesk` 97/100/100/100 (313 KiB **cu** cele două imagini de conținut și portretul din caseta de autor; fără imagini ~235, în buget), `/en/results/proq` 100/100/100/100, `/en/blog/how-we-built-our-own-helpdesk` 99/100/100/100.
+- JSON-LD validat (validator.schema.org): `/rezultate/proq` (Article + about), `/blog/…` RO și EN (Article), `/rezultate`: 0 erori, 0 avertismente.
+
+### Lungimile meta pentru intrările de colecție (de decis)
+| Pagină | Title | Description |
+|---|---|---|
+| /rezultate/proq | 67 („ProQ (produs BitUp) · Software la comandă și produs propriu · BitUp”) | 141 |
+| /rezultate/cosmio | 63 | 82 |
+| /en/results/proq | 68 | 132 |
+| /en/results/cosmio | 65 | 65 |
+| /blog/cum-ne-am-construit-propriul-helpdesk | 80 | 187 (description-ul e o singură propoziție, nu se poate tăia la propoziție întreagă; rămâne întreg) |
+| /en/blog/how-we-built-our-own-helpdesk | 78 | 167 (la fel) |
+
+Regula „{client} · {kicker} · BitUp” dă 63–68 de caractere pe toate cele patru pagini de caz (întrebarea din § Verificarea 9, punctul 8, a rămas fără răspuns), iar titlurile articolelor au 78–80 cu sufix. Descrierile cazurilor sunt în limită. Opțiuni, fără să inventez text: (a) title-ul cazurilor fără paranteza din `client` și, dacă tot depășește, fără sufixul „· BitUp”; (b) un câmp `metaTitle` / `metaDescription` în frontmatter, cu textul scris de tine; (c) accepți depășirea pe intrările de colecție. Până la decizie, paginile folosesc regula așa cum e.
+
+### Lista de mirosuri (1–16) pe paginile din Faza 3
+1. **Nu.** Hero-ul de caz e navy cu text și caseta de logo (cum cere DESIGN), fără badge, fără mockup; articolul are antet tipografic.
+2. **Nu.** Singurul gradient e cel permis explicit, navy → navy-2, în hero-ul de caz.
+3. **Nu.** Cardurile din caz sunt șase, cu titluri din conținut; rezultatele sunt două carduri late; blogul un card lat.
+4. **Nu.** Zero iconițe.
+5. **Nu.** Fără umbre; raze 4/8 px.
+6. **Nu.** NumberTiles statice.
+7. **Nu.**
+8. **Nu.** Cifrele din NumberTiles vin din frontmatter (contract/măsurători), cu explicație; citatul are nume și funcție reale (placeholder până la acord).
+9. **Nu.** Sentence case; „Citește cazul”, „Cum l-am construit și de ce”.
+10. **Nu.** Cazul alternează două coloane · carduri · plăci navy · listă · text+citat; articolul e text lung cu figuri; lista de rezultate e carduri + text.
+11. **Nu.**
+12. **Nu.** `--section-y`, Prose 70ch.
+13. **Nu.** Dark din tokeni (plăcile navy folosesc `--navy-surface`, caseta de logo alb rămâne albă intenționat, ca logo-ul să fie lizibil).
+14. **Nu.** Aceleași capturi reale din helpdesk și portretul; logo-urile sunt placeholder-e până se salvează local.
+15. **Nu.** `article`, `section` + `aria-labelledby`, `figure`/`figcaption`, `blockquote`, `time` cu `datetime`, `dl` pentru fapte, `aside` pentru caseta de autor.
+16. **Nu.** Portretul rotund apare doar în caseta de autor (singurul loc permis pentru rotund), nu în byline, nu în hero.
+
+### Placeholder-e vizibile în paginile din Faza 3
+- `[[LOGO_PROQ_LOCAL]]` (caseta de logo pe /rezultate și /rezultate/proq, RO și EN), `[[LOGO_COSMIO_LOCAL]]` și `[[CITAT_COSMIN]]` (doar pe staging, cazul e draft), `[[ACORD_COSMIO]]` în frontmatter (nu se randează), `[[LOGO_PARTENERI]]` în footer.
+
 ## Spike Astro (14 septembrie 2026, ramura `spike/astro-current`, ~60 de minute): GO
 
 Decizia lui Marius: „Astro 5” din spec era versiunea curentă la scriere, nu o decizie de arhitectură; site-ul pornește pe ultima versiune majoră stabilă. Spec corectat: `ARHITECTURA.md` § Stack și `PLAN.md` Faza 0 nu mai conțin un număr fix.
@@ -802,4 +874,4 @@ Decizia lui Marius: „Astro 5” din spec era versiunea curentă la scriere, nu
 
 ## Placeholder-e rămase
 
-Lista din `spec/PLACEHOLDERS.md` § Rămase, neschimbată ca listă. Unde apar efectiv în pagini după Faza 2b: `[[LOGO_PARTENERI]]` (footer, homepage § 9), `[[CAPTURA_RAPORT_LUNAR]]` (03, 07), `[[CAPTURA_RAPORT_RADIOGRAFIE]]` și `[[CAPACITATE_RADIOGRAFII]]` (06), `[[LOGO_PROQ_LOCAL]]` (05), `[[LOGO_BITUP_SVG]]` (logo PNG placeholder). Nefolosite încă: `[[ACORD_COSMIO]]`, `[[CITAT_COSMIN]]`, `[[LOGO_COSMIO_LOCAL]]` (Faza 3), `[[FOTO_CONTEXT]]` (opțional).
+Lista din `spec/PLACEHOLDERS.md` § Rămase, neschimbată ca listă. Unde apar efectiv după Faza 3: `[[LOGO_PARTENERI]]` (footer, homepage § 9), `[[CAPTURA_RAPORT_LUNAR]]` (03, 07), `[[CAPTURA_RAPORT_RADIOGRAFIE]]` și `[[CAPACITATE_RADIOGRAFII]]` (06), `[[LOGO_PROQ_LOCAL]]` (05, /rezultate, /rezultate/proq), `[[LOGO_COSMIO_LOCAL]]` și `[[CITAT_COSMIN]]` (cazul Cosmio, doar pe staging), `[[ACORD_COSMIO]]` (frontmatter Cosmio, `consent`), `[[LOGO_BITUP_SVG]]` (logo PNG placeholder). Nefolosit: `[[FOTO_CONTEXT]]` (opțional).

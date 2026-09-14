@@ -1,0 +1,13 @@
+---
+/** /rezultate/[slug]: studiile de caz în română; draft-urile primesc pagină doar în afara producției (CF_PAGES_BRANCH ≠ main). */
+import { render } from 'astro:content';
+import CaseLayout from '../../layouts/CaseLayout.astro';
+import { visibleCases, slugOf } from '../../lib/collections';
+
+export async function getStaticPaths() {
+  return (await visibleCases('ro')).map((entry) => ({ params: { slug: slugOf(entry.id) }, props: { entry } }));
+}
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+---
+<CaseLayout lang="ro" entry={entry}><Content /></CaseLayout>

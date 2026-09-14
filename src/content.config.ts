@@ -19,6 +19,7 @@ const cases = defineCollection({
       order: z.number(),
       draft: z.boolean().default(false),
       consent: z.string().optional(), // „acord semnat 2026-09-xx” — obligatoriu când draft=false și client ≠ BitUp
+      footnote: z.string().optional(), // nota de subsol din fișierul de conținut („randată de layout, nu din corp”), sub ultima secțiune
     }),
 });
 

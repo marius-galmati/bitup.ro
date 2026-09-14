@@ -1,0 +1,796 @@
+{
+ "isRendered": false,
+ "tripleGroups": [
+  {
+   "ownerSet": {},
+   "nodes": [
+    {
+     "types": [
+      {
+       "pred": "itemtype",
+       "value": "Article",
+       "errors": [],
+       "begin": 3923,
+       "end": 3932
+      }
+     ],
+     "typeGroup": "Article",
+     "errors": [],
+     "properties": [
+      {
+       "pred": "headline",
+       "value": "How we built our own helpdesk: WhatsApp, an AI assistant, and a person",
+       "errors": [],
+       "begin": 3944,
+       "end": 4016
+      },
+      {
+       "pred": "description",
+       "value": "Why I didn't buy a ticketing system, what a support request at BitUp looks like today, from first WhatsApp message to month-end report, and what I learned building it.",
+       "errors": [],
+       "begin": 4031,
+       "end": 4200
+      },
+      {
+       "pred": "url",
+       "value": "https://bitup.ro/en/blog/how-we-built-our-own-helpdesk",
+       "errors": [],
+       "begin": 4207,
+       "end": 4263
+      },
+      {
+       "pred": "mainEntityOfPage",
+       "value": "https://bitup.ro/en/blog/how-we-built-our-own-helpdesk",
+       "errors": [],
+       "begin": 4283,
+       "end": 4339
+      },
+      {
+       "pred": "inLanguage",
+       "value": "en",
+       "errors": [],
+       "begin": 4353,
+       "end": 4357
+      },
+      {
+       "pred": "datePublished",
+       "value": "2026-09-10",
+       "errors": [],
+       "begin": 4374,
+       "end": 4386
+      },
+      {
+       "pred": "image",
+       "value": "https://bitup.ro/_astro/whatsapp-cipri.Barm3I36.jpg",
+       "errors": [],
+       "begin": 4493,
+       "end": 4546
+      }
+     ],
+     "nodeProperties": [
+      {
+       "pred": "author",
+       "target": {
+        "types": [
+         {
+          "pred": "itemtype",
+          "value": "Thing",
+          "errors": [],
+          "begin": 4396,
+          "end": 4431
+         }
+        ],
+        "typeGroup": "Thing",
+        "idProperty": {
+         "pred": "urn:spore:url",
+         "value": "https://bitup.ro/#founder",
+         "errors": [],
+         "begin": 4403,
+         "end": 4430
+        },
+        "errors": [],
+        "properties": [],
+        "nodeProperties": [],
+        "numErrors": 0,
+        "numWarnings": 0
+       },
+       "errors": [],
+       "begin": 4396,
+       "end": 4431
+      },
+      {
+       "pred": "publisher",
+       "target": {
+        "types": [
+         {
+          "pred": "itemtype",
+          "value": "Organization",
+          "errors": [],
+          "begin": 2509,
+          "end": 2523
+         }
+        ],
+        "typeGroup": "Organization",
+        "idProperty": {
+         "pred": "urn:spore:url",
+         "value": "https://bitup.ro/#organization",
+         "errors": [],
+         "begin": 2530,
+         "end": 2562
+        },
+        "errors": [],
+        "properties": [
+         {
+          "pred": "name",
+          "value": "BitUp Technology SRL",
+          "errors": [],
+          "begin": 2570,
+          "end": 2592
+         },
+         {
+          "pred": "alternateName",
+          "value": "BitUp",
+          "errors": [],
+          "begin": 2609,
+          "end": 2616
+         },
+         {
+          "pred": "url",
+          "value": "https://bitup.ro/",
+          "errors": [],
+          "begin": 2623,
+          "end": 2642
+         },
+         {
+          "pred": "logo",
+          "value": "https://bitup.ro/logo-bitup.png",
+          "errors": [],
+          "begin": 2650,
+          "end": 2683
+         },
+         {
+          "pred": "telephone",
+          "value": "+40757150894",
+          "errors": [],
+          "begin": 2696,
+          "end": 2710
+         },
+         {
+          "pred": "email",
+          "value": "office@bitup.ro",
+          "errors": [],
+          "begin": 2719,
+          "end": 2736
+         },
+         {
+          "pred": "sameAs",
+          "value": "https://www.linkedin.com/company/bitup-technology",
+          "errors": [],
+          "begin": 2747,
+          "end": 2798
+         },
+         {
+          "pred": "foundingDate",
+          "value": "2020-06",
+          "errors": [],
+          "begin": 2815,
+          "end": 2824
+         }
+        ],
+        "nodeProperties": [
+         {
+          "pred": "founder",
+          "target": {
+           "types": [
+            {
+             "pred": "itemtype",
+             "value": "Person",
+             "errors": [],
+             "begin": 2844,
+             "end": 2852
+            }
+           ],
+           "typeGroup": "Person",
+           "errors": [],
+           "properties": [
+            {
+             "pred": "name",
+             "value": "Marius Galmati",
+             "errors": [],
+             "begin": 2860,
+             "end": 2876
+            },
+            {
+             "pred": "jobTitle",
+             "value": "Founder",
+             "errors": [],
+             "begin": 2888,
+             "end": 2897
+            },
+            {
+             "pred": "sameAs",
+             "value": "https://www.linkedin.com/in/nicolae-marius-galmati",
+             "errors": [],
+             "begin": 2907,
+             "end": 2959
+            }
+           ],
+           "nodeProperties": [],
+           "numErrors": 0,
+           "numWarnings": 0
+          },
+          "errors": [],
+          "begin": 2835,
+          "end": 2960
+         },
+         {
+          "pred": "contactPoint",
+          "target": {
+           "types": [
+            {
+             "pred": "itemtype",
+             "value": "ContactPoint",
+             "errors": [],
+             "begin": 2985,
+             "end": 2999
+            }
+           ],
+           "typeGroup": "ContactPoint",
+           "errors": [],
+           "properties": [
+            {
+             "pred": "telephone",
+             "value": "+40757150894",
+             "errors": [],
+             "begin": 3012,
+             "end": 3026
+            },
+            {
+             "pred": "email",
+             "value": "office@bitup.ro",
+             "errors": [],
+             "begin": 3035,
+             "end": 3052
+            },
+            {
+             "pred": "contactType",
+             "value": "customer service",
+             "errors": [],
+             "begin": 3067,
+             "end": 3085
+            },
+            {
+             "pred": "availableLanguage",
+             "value": "Romanian",
+             "errors": [],
+             "begin": 3107,
+             "end": 3117
+            },
+            {
+             "pred": "availableLanguage",
+             "value": "English",
+             "errors": [],
+             "begin": 3118,
+             "end": 3127
+            },
+            {
+             "pred": "areaServed",
+             "value": "RO",
+             "errors": [],
+             "begin": 3142,
+             "end": 3146
+            }
+           ],
+           "nodeProperties": [],
+           "numErrors": 0,
+           "numWarnings": 0
+          },
+          "errors": [],
+          "begin": 2976,
+          "end": 3147
+         }
+        ],
+        "numErrors": 0,
+        "numWarnings": 0
+       },
+       "errors": [],
+       "begin": 4444,
+       "end": 4484
+      }
+     ],
+     "numErrors": 0,
+     "numWarnings": 0
+    }
+   ],
+   "numNodesWithError": 0,
+   "numNodesWithWarning": 0,
+   "numErrors": 0,
+   "numWarnings": 0,
+   "type": "Article"
+  },
+  {
+   "ownerSet": {},
+   "nodes": [
+    {
+     "types": [
+      {
+       "pred": "itemtype",
+       "value": "ProfessionalService",
+       "errors": [],
+       "begin": 3158,
+       "end": 3179
+      }
+     ],
+     "typeGroup": "ProfessionalService",
+     "idProperty": {
+      "pred": "urn:spore:url",
+      "value": "https://bitup.ro/#professionalservice",
+      "errors": [],
+      "begin": 3186,
+      "end": 3225
+     },
+     "errors": [],
+     "properties": [
+      {
+       "pred": "name",
+       "value": "BitUp",
+       "errors": [],
+       "begin": 3233,
+       "end": 3240
+      },
+      {
+       "pred": "legalName",
+       "value": "BitUp Technology SRL",
+       "errors": [],
+       "begin": 3253,
+       "end": 3275
+      },
+      {
+       "pred": "url",
+       "value": "https://bitup.ro/",
+       "errors": [],
+       "begin": 3282,
+       "end": 3301
+      },
+      {
+       "pred": "telephone",
+       "value": "+40757150894",
+       "errors": [],
+       "begin": 3314,
+       "end": 3328
+      },
+      {
+       "pred": "email",
+       "value": "office@bitup.ro",
+       "errors": [],
+       "begin": 3337,
+       "end": 3354
+      },
+      {
+       "pred": "image",
+       "value": "https://bitup.ro/logo-bitup.png",
+       "errors": [],
+       "begin": 3363,
+       "end": 3396
+      },
+      {
+       "pred": "areaServed",
+       "value": "Cluj-Napoca",
+       "errors": [],
+       "begin": 3586,
+       "end": 3599
+      },
+      {
+       "pred": "areaServed",
+       "value": "România",
+       "errors": [],
+       "begin": 3600,
+       "end": 3610
+      },
+      {
+       "pred": "sameAs",
+       "value": "https://www.linkedin.com/company/bitup-technology",
+       "errors": [],
+       "begin": 3860,
+       "end": 3911
+      }
+     ],
+     "nodeProperties": [
+      {
+       "pred": "parentOrganization",
+       "target": {
+        "types": [
+         {
+          "pred": "itemtype",
+          "value": "Organization",
+          "errors": [],
+          "begin": 2509,
+          "end": 2523
+         }
+        ],
+        "typeGroup": "Organization",
+        "idProperty": {
+         "pred": "urn:spore:url",
+         "value": "https://bitup.ro/#organization",
+         "errors": [],
+         "begin": 2530,
+         "end": 2562
+        },
+        "errors": [],
+        "properties": [
+         {
+          "pred": "name",
+          "value": "BitUp Technology SRL",
+          "errors": [],
+          "begin": 2570,
+          "end": 2592
+         },
+         {
+          "pred": "alternateName",
+          "value": "BitUp",
+          "errors": [],
+          "begin": 2609,
+          "end": 2616
+         },
+         {
+          "pred": "url",
+          "value": "https://bitup.ro/",
+          "errors": [],
+          "begin": 2623,
+          "end": 2642
+         },
+         {
+          "pred": "logo",
+          "value": "https://bitup.ro/logo-bitup.png",
+          "errors": [],
+          "begin": 2650,
+          "end": 2683
+         },
+         {
+          "pred": "telephone",
+          "value": "+40757150894",
+          "errors": [],
+          "begin": 2696,
+          "end": 2710
+         },
+         {
+          "pred": "email",
+          "value": "office@bitup.ro",
+          "errors": [],
+          "begin": 2719,
+          "end": 2736
+         },
+         {
+          "pred": "sameAs",
+          "value": "https://www.linkedin.com/company/bitup-technology",
+          "errors": [],
+          "begin": 2747,
+          "end": 2798
+         },
+         {
+          "pred": "foundingDate",
+          "value": "2020-06",
+          "errors": [],
+          "begin": 2815,
+          "end": 2824
+         }
+        ],
+        "nodeProperties": [
+         {
+          "pred": "founder",
+          "target": {
+           "types": [
+            {
+             "pred": "itemtype",
+             "value": "Person",
+             "errors": [],
+             "begin": 2844,
+             "end": 2852
+            }
+           ],
+           "typeGroup": "Person",
+           "errors": [],
+           "properties": [
+            {
+             "pred": "name",
+             "value": "Marius Galmati",
+             "errors": [],
+             "begin": 2860,
+             "end": 2876
+            },
+            {
+             "pred": "jobTitle",
+             "value": "Founder",
+             "errors": [],
+             "begin": 2888,
+             "end": 2897
+            },
+            {
+             "pred": "sameAs",
+             "value": "https://www.linkedin.com/in/nicolae-marius-galmati",
+             "errors": [],
+             "begin": 2907,
+             "end": 2959
+            }
+           ],
+           "nodeProperties": [],
+           "numErrors": 0,
+           "numWarnings": 0
+          },
+          "errors": [],
+          "begin": 2835,
+          "end": 2960
+         },
+         {
+          "pred": "contactPoint",
+          "target": {
+           "types": [
+            {
+             "pred": "itemtype",
+             "value": "ContactPoint",
+             "errors": [],
+             "begin": 2985,
+             "end": 2999
+            }
+           ],
+           "typeGroup": "ContactPoint",
+           "errors": [],
+           "properties": [
+            {
+             "pred": "telephone",
+             "value": "+40757150894",
+             "errors": [],
+             "begin": 3012,
+             "end": 3026
+            },
+            {
+             "pred": "email",
+             "value": "office@bitup.ro",
+             "errors": [],
+             "begin": 3035,
+             "end": 3052
+            },
+            {
+             "pred": "contactType",
+             "value": "customer service",
+             "errors": [],
+             "begin": 3067,
+             "end": 3085
+            },
+            {
+             "pred": "availableLanguage",
+             "value": "Romanian",
+             "errors": [],
+             "begin": 3107,
+             "end": 3117
+            },
+            {
+             "pred": "availableLanguage",
+             "value": "English",
+             "errors": [],
+             "begin": 3118,
+             "end": 3127
+            },
+            {
+             "pred": "areaServed",
+             "value": "RO",
+             "errors": [],
+             "begin": 3142,
+             "end": 3146
+            }
+           ],
+           "nodeProperties": [],
+           "numErrors": 0,
+           "numWarnings": 0
+          },
+          "errors": [],
+          "begin": 2976,
+          "end": 3147
+         }
+        ],
+        "numErrors": 0,
+        "numWarnings": 0
+       },
+       "errors": [],
+       "begin": 3418,
+       "end": 3458
+      },
+      {
+       "pred": "address",
+       "target": {
+        "types": [
+         {
+          "pred": "itemtype",
+          "value": "PostalAddress",
+          "errors": [],
+          "begin": 3478,
+          "end": 3493
+         }
+        ],
+        "typeGroup": "PostalAddress",
+        "errors": [],
+        "properties": [
+         {
+          "pred": "addressLocality",
+          "value": "Cluj-Napoca",
+          "errors": [],
+          "begin": 3512,
+          "end": 3525
+         },
+         {
+          "pred": "addressRegion",
+          "value": "Cluj",
+          "errors": [],
+          "begin": 3542,
+          "end": 3548
+         }
+        ],
+        "nodeProperties": [
+         {
+          "pred": "addressCountry",
+          "target": {
+           "types": [
+            {
+             "pred": "itemtype",
+             "value": "Country",
+             "errors": [],
+             "begin": 3566,
+             "end": 3570
+            }
+           ],
+           "typeGroup": "Country",
+           "errors": [],
+           "properties": [
+            {
+             "pred": "name",
+             "value": "RO",
+             "errors": [],
+             "begin": 3566,
+             "end": 3570
+            }
+           ],
+           "nodeProperties": [],
+           "numErrors": 0,
+           "numWarnings": 0
+          },
+          "errors": [],
+          "begin": 3566,
+          "end": 3570
+         }
+        ],
+        "numErrors": 0,
+        "numWarnings": 0
+       },
+       "errors": [],
+       "begin": 3469,
+       "end": 3571
+      },
+      {
+       "pred": "openingHoursSpecification",
+       "target": {
+        "types": [
+         {
+          "pred": "itemtype",
+          "value": "OpeningHoursSpecification",
+          "errors": [],
+          "begin": 3649,
+          "end": 3676
+         }
+        ],
+        "typeGroup": "OpeningHoursSpecification",
+        "errors": [],
+        "properties": [
+         {
+          "pred": "dayOfWeek",
+          "value": "http://schema.org/Monday",
+          "errors": [],
+          "begin": 3690,
+          "end": 3698
+         },
+         {
+          "pred": "dayOfWeek",
+          "value": "http://schema.org/Tuesday",
+          "errors": [],
+          "begin": 3699,
+          "end": 3708
+         },
+         {
+          "pred": "dayOfWeek",
+          "value": "http://schema.org/Wednesday",
+          "errors": [],
+          "begin": 3709,
+          "end": 3720
+         },
+         {
+          "pred": "dayOfWeek",
+          "value": "http://schema.org/Thursday",
+          "errors": [],
+          "begin": 3721,
+          "end": 3731
+         },
+         {
+          "pred": "dayOfWeek",
+          "value": "http://schema.org/Friday",
+          "errors": [],
+          "begin": 3732,
+          "end": 3740
+         },
+         {
+          "pred": "opens",
+          "value": "08:00",
+          "errors": [],
+          "begin": 3750,
+          "end": 3757
+         },
+         {
+          "pred": "closes",
+          "value": "18:00",
+          "errors": [],
+          "begin": 3767,
+          "end": 3774
+         }
+        ],
+        "nodeProperties": [],
+        "numErrors": 0,
+        "numWarnings": 0
+       },
+       "errors": [],
+       "begin": 3640,
+       "end": 3775
+      },
+      {
+       "pred": "founder",
+       "target": {
+        "types": [
+         {
+          "pred": "itemtype",
+          "value": "Person",
+          "errors": [],
+          "begin": 3795,
+          "end": 3803
+         }
+        ],
+        "typeGroup": "Person",
+        "errors": [],
+        "properties": [
+         {
+          "pred": "name",
+          "value": "Marius Galmati",
+          "errors": [],
+          "begin": 3811,
+          "end": 3827
+         },
+         {
+          "pred": "jobTitle",
+          "value": "Founder",
+          "errors": [],
+          "begin": 3839,
+          "end": 3848
+         }
+        ],
+        "nodeProperties": [],
+        "numErrors": 0,
+        "numWarnings": 0
+       },
+       "errors": [],
+       "begin": 3786,
+       "end": 3849
+      }
+     ],
+     "numErrors": 0,
+     "numWarnings": 0
+    }
+   ],
+   "numNodesWithError": 0,
+   "numNodesWithWarning": 0,
+   "numErrors": 0,
+   "numWarnings": 0,
+   "type": "ProfessionalService"
+  }
+ ],
+ "numObjects": 2,
+ "html": "<!DOCTYPE html><html lang=\"en\"> <head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"><title>How we built our own helpdesk: WhatsApp, an AI assistant, and a person · BitUp</title><meta name=\"description\" content=\"Why I didn't buy a ticketing system, what a support request at BitUp looks like today, from first WhatsApp message to month-end report, and what I learned building it.\"><link rel=\"canonical\" href=\"https://bitup.ro/en/blog/how-we-built-our-own-helpdesk\"><link rel=\"alternate\" hreflang=\"ro\" href=\"https://bitup.ro/blog/cum-ne-am-construit-propriul-helpdesk\"><link rel=\"alternate\" hreflang=\"en\" href=\"https://bitup.ro/en/blog/how-we-built-our-own-helpdesk\"><link rel=\"alternate\" hreflang=\"x-default\" href=\"https://bitup.ro/blog/cum-ne-am-construit-propriul-helpdesk\"><meta property=\"og:type\" content=\"article\"><meta property=\"og:site_name\" content=\"BitUp\"><meta property=\"og:locale\" content=\"en_US\"><meta property=\"og:locale:alternate\" content=\"ro_RO\"><meta property=\"og:title\" content=\"How we built our own helpdesk: WhatsApp, an AI assistant, and a person · BitUp\"><meta property=\"og:description\" content=\"Why I didn't buy a ticketing system, what a support request at BitUp looks like today, from first WhatsApp message to month-end report, and what I learned building it.\"><meta property=\"og:url\" content=\"https://bitup.ro/en/blog/how-we-built-our-own-helpdesk\"><meta name=\"twitter:card\" content=\"summary_large_image\"><link rel=\"alternate\" type=\"application/rss+xml\" title=\"BitUp\" href=\"https://bitup.ro/en/rss.xml\"><link rel=\"icon\" href=\"/favicon.svg\" type=\"image/svg+xml\"><link rel=\"icon\" href=\"/favicon.ico\" sizes=\"16x16 32x32 48x48\"><link rel=\"apple-touch-icon\" href=\"/apple-touch-icon.png\"><meta name=\"theme-color\" content=\"#F5F8F8\" media=\"(prefers-color-scheme: light)\"><meta name=\"theme-color\" content=\"#0C181D\" media=\"(prefers-color-scheme: dark)\"><script>\n      (function () {\n        try {\n          var t = localStorage.getItem('bitup-theme');\n          if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t);\n        } catch (e) {}\n      })();\n    </script><link rel=\"preload\" as=\"font\" type=\"font/woff2\" crossorigin href=\"/_astro/bricolage-grotesque-latin-wght-normal.DLoelf7F.woff2\"><link rel=\"preload\" as=\"font\" type=\"font/woff2\" crossorigin href=\"/_astro/bricolage-grotesque-latin-ext-wght-normal.CcLUaPy7.woff2\"><script type=\"application/ld+json\">{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"Organization\",\"@id\":\"https://bitup.ro/#organization\",\"name\":\"BitUp Technology SRL\",\"alternateName\":\"BitUp\",\"url\":\"https://bitup.ro/\",\"logo\":\"https://bitup.ro/logo-bitup.png\",\"telephone\":\"+40757150894\",\"email\":\"office@bitup.ro\",\"sameAs\":[\"https://www.linkedin.com/company/bitup-technology\"],\"foundingDate\":\"2020-06\",\"founder\":{\"@type\":\"Person\",\"name\":\"Marius Galmati\",\"jobTitle\":\"Founder\",\"sameAs\":\"https://www.linkedin.com/in/nicolae-marius-galmati\"},\"contactPoint\":{\"@type\":\"ContactPoint\",\"telephone\":\"+40757150894\",\"email\":\"office@bitup.ro\",\"contactType\":\"customer service\",\"availableLanguage\":[\"Romanian\",\"English\"],\"areaServed\":\"RO\"}},{\"@type\":\"ProfessionalService\",\"@id\":\"https://bitup.ro/#professionalservice\",\"name\":\"BitUp\",\"legalName\":\"BitUp Technology SRL\",\"url\":\"https://bitup.ro/\",\"telephone\":\"+40757150894\",\"email\":\"office@bitup.ro\",\"image\":\"https://bitup.ro/logo-bitup.png\",\"parentOrganization\":{\"@id\":\"https://bitup.ro/#organization\"},\"address\":{\"@type\":\"PostalAddress\",\"addressLocality\":\"Cluj-Napoca\",\"addressRegion\":\"Cluj\",\"addressCountry\":\"RO\"},\"areaServed\":[\"Cluj-Napoca\",\"România\"],\"openingHoursSpecification\":{\"@type\":\"OpeningHoursSpecification\",\"dayOfWeek\":[\"Monday\",\"Tuesday\",\"Wednesday\",\"Thursday\",\"Friday\"],\"opens\":\"08:00\",\"closes\":\"18:00\"},\"founder\":{\"@type\":\"Person\",\"name\":\"Marius Galmati\",\"jobTitle\":\"Founder\"},\"sameAs\":[\"https://www.linkedin.com/company/bitup-technology\"]},{\"@type\":\"Article\",\"headline\":\"How we built our own helpdesk: WhatsApp, an AI assistant, and a person\",\"description\":\"Why I didn't buy a ticketing system, what a support request at BitUp looks like today, from first WhatsApp message to month-end report, and what I learned building it.\",\"url\":\"https://bitup.ro/en/blog/how-we-built-our-own-helpdesk\",\"mainEntityOfPage\":\"https://bitup.ro/en/blog/how-we-built-our-own-helpdesk\",\"inLanguage\":\"en\",\"datePublished\":\"2026-09-10\",\"author\":{\"@id\":\"https://bitup.ro/#founder\"},\"publisher\":{\"@id\":\"https://bitup.ro/#organization\"},\"image\":\"https://bitup.ro/_astro/whatsapp-cipri.Barm3I36.jpg\"}]}</script><link rel=\"stylesheet\" href=\"/_astro/Section.DjiERX02.css\"><style>.eyebrow[data-astro-cid-2lydxdhj]{font-family:var(--font-mono);font-size:var(--fs-eyebrow);letter-spacing:.08em;text-transform:uppercase;color:var(--teal);margin:0;font-weight:500}.eyebrow--navy[data-astro-cid-2lydxdhj]{color:var(--teal-2)}\n.prose{font-size:var(--fs-body);hyphens:auto;max-width:70ch;line-height:1.65}.prose>*+*{margin-top:var(--s-4)}.prose h2{font-size:var(--fs-h2);margin-top:36px}.prose h3{margin-top:var(--s-5);font-size:var(--fs-h3)}.prose h2+*,.prose h3+*{margin-top:var(--s-3)}.prose p{text-wrap:pretty}.prose ul,.prose ol{padding-left:var(--s-5)}.prose li+li{margin-top:var(--s-2)}.prose li::marker{color:var(--teal)}.prose a{color:var(--teal);text-underline-offset:3px;text-decoration:underline}.prose a:hover{color:var(--navy)}.prose blockquote{padding:var(--s-4) var(--s-5);background:var(--teal-soft);border-left:4px solid var(--teal);margin:0;font-style:italic}.prose code{font-family:var(--font-mono);background:var(--surface-2);padding:1px var(--s-1);border-radius:var(--radius);font-size:.92em}.prose table{border-collapse:collapse;width:100%;font-size:var(--fs-small)}.prose th,.prose td{text-align:left;vertical-align:top;padding:var(--s-2) var(--s-3);border-bottom:1px solid var(--line)}.prose th{font-family:var(--font-display);font-weight:600}.prose hr{border:0;border-top:1px solid var(--line);margin-block:var(--s-6)}.prose strong{font-weight:600}\n.cta-wrap[data-astro-cid-hwvj6ntz]{padding-block:var(--section-y);background:var(--bg)}.cta[data-astro-cid-hwvj6ntz]{background:var(--navy-surface);border:1px solid var(--line);border-radius:var(--radius-lg);padding:var(--s-7) var(--s-6);gap:var(--s-4);max-width:100%;display:grid}@media (width>=768px){.cta[data-astro-cid-hwvj6ntz]{padding:var(--s-8)}}.cta__title[data-astro-cid-hwvj6ntz]{color:var(--on-navy);max-width:24ch}.cta__text[data-astro-cid-hwvj6ntz]{color:var(--on-navy-muted);max-width:60ch;font-size:var(--fs-lead)}.cta__actions[data-astro-cid-hwvj6ntz]{align-items:center;gap:var(--s-4) var(--s-5);margin-top:var(--s-2);flex-wrap:wrap;display:flex}.cta__contact[data-astro-cid-hwvj6ntz]{color:var(--on-navy-muted);font-size:var(--fs-small)}\n.author[data-astro-cid-hbs4ykhd]{gap:var(--s-5);padding:var(--s-5);background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);grid-template-columns:96px 1fr;align-items:start;display:grid}@media (width<=479px){.author[data-astro-cid-hbs4ykhd]{grid-template-columns:1fr}}.author[data-astro-cid-hbs4ykhd] .author__photo{object-fit:cover;border-radius:50%;width:96px;height:96px}.author__body[data-astro-cid-hbs4ykhd]{gap:var(--s-2);display:grid}.author__text[data-astro-cid-hbs4ykhd]{font-size:var(--fs-small);color:var(--text)}.author__link[data-astro-cid-hbs4ykhd]{font-family:var(--font-display);color:var(--teal);text-underline-offset:3px;justify-self:start;font-weight:600;text-decoration:underline}.author__link[data-astro-cid-hbs4ykhd]:hover{color:var(--navy)}.post-head__h1{margin-top:var(--s-3);max-width:22ch}.post-head__lead{margin-top:var(--s-4);max-width:60ch}.post-head__byline{margin-top:var(--s-5)}.prose .figure{margin:var(--s-6) 0;gap:var(--s-2);display:grid}.prose .figure__media{background:var(--bg);border:1px solid var(--line);border-radius:var(--radius);padding:10px}.prose .figure__media img{border-radius:var(--radius);width:100%;height:auto;display:block}:root[data-theme=dark] .prose .figure--screenshot img{filter:brightness(.92)}@media (prefers-color-scheme:dark){:root:not([data-theme=light]) .prose .figure--screenshot img{filter:brightness(.92)}}.prose .figure__caption{font-size:var(--fs-small);color:var(--muted)}.prose+.author{margin-top:var(--s-8)}\n</style></head> <body> <a class=\"skip-link\" href=\"#continut\">Skip to content</a> <header class=\"header\" data-astro-cid-nen7h5rs> <div class=\"container header__inner\" data-astro-cid-ap6mcnip> <a class=\"header__logo\" href=\"/en\" aria-label=\"BitUp\" data-astro-cid-nen7h5rs> <img src=\"/logo-bitup.png\" alt=\"BitUp\" width=\"132\" height=\"36\" decoding=\"async\" fetchpriority=\"high\" data-astro-cid-nen7h5rs> </a> <nav class=\"header__nav\" aria-label=\"Main navigation\" data-astro-cid-nen7h5rs> <ul class=\"nav\" data-astro-cid-nen7h5rs> <li class=\"nav__item nav__item--services\" data-astro-cid-nen7h5rs> <button type=\"button\" class=\"nav__link nav__button\" data-services-toggle aria-expanded=\"false\" aria-controls=\"services-menu\" data-astro-cid-nen7h5rs> Services<span class=\"nav__caret\" aria-hidden=\"true\" data-astro-cid-nen7h5rs>▾</span> </button> <ul id=\"services-menu\" class=\"submenu\" hidden data-astro-cid-nen7h5rs> <li data-astro-cid-nen7h5rs><a class=\"submenu__link\" href=\"/en/services/it-support\" data-astro-cid-nen7h5rs>IT support and administration</a></li><li data-astro-cid-nen7h5rs><a class=\"submenu__link\" href=\"/en/services/security\" data-astro-cid-nen7h5rs>Security and continuity</a></li><li data-astro-cid-nen7h5rs><a class=\"submenu__link\" href=\"/en/services/automation\" data-astro-cid-nen7h5rs>Automation and software</a></li><li data-astro-cid-nen7h5rs><a class=\"submenu__link\" href=\"/en/services\" data-astro-cid-nen7h5rs>All services</a></li> </ul> </li> <li class=\"nav__item\" data-astro-cid-nen7h5rs><a class=\"nav__link\" href=\"/en/how-we-work\" data-astro-cid-nen7h5rs>How we work</a></li><li class=\"nav__item\" data-astro-cid-nen7h5rs><a class=\"nav__link\" href=\"/en/results\" data-astro-cid-nen7h5rs>Results</a></li><li class=\"nav__item\" data-astro-cid-nen7h5rs><a class=\"nav__link\" href=\"/en/about\" data-astro-cid-nen7h5rs>About</a></li><li class=\"nav__item\" data-astro-cid-nen7h5rs><a class=\"nav__link\" href=\"/en/blog\" data-astro-cid-nen7h5rs>Blog</a></li> </ul> </nav> <div class=\"header__tools\" data-astro-cid-nen7h5rs> <a class=\"header__phone mono\" href=\"tel:+40757150894\" data-event=\"tel_click\" data-astro-cid-nen7h5rs>+40 757 150 894</a> <nav class=\"lang header__lang\" aria-label=\"Change language\" data-astro-cid-lemdd452>  <a class=\"lang__other\" href=\"/blog/cum-ne-am-construit-propriul-helpdesk\" hreflang=\"ro\" lang=\"ro\" data-event=\"lang_switch\" data-astro-cid-lemdd452>RO</a> <span class=\"lang__sep\" aria-hidden=\"true\" data-astro-cid-lemdd452>·</span> <span class=\"lang__current\" aria-current=\"true\" lang=\"en\" data-astro-cid-lemdd452>EN</span> </nav> <button type=\"button\" class=\"theme-toggle header__theme\" data-theme-toggle aria-label=\"Switch theme: light / dark\" title=\"Switch theme: light / dark\" aria-pressed=\"false\" data-event=\"theme_toggle\" data-astro-cid-l6lhmie6> <svg width=\"1em\" height=\"1em\" viewBox=\"0 0 24 24\" class=\"theme-toggle__icon theme-toggle__icon--moon\" aria-hidden=\"true\" data-astro-cid-l6lhmie6=\"true\" data-icon=\"lucide:moon\">   <symbol id=\"ai:lucide:moon\"><path fill=\"none\" stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401\"/></symbol><use href=\"#ai:lucide:moon\"></use>  </svg> <svg width=\"1em\" height=\"1em\" viewBox=\"0 0 24 24\" class=\"theme-toggle__icon theme-toggle__icon--sun\" aria-hidden=\"true\" data-astro-cid-l6lhmie6=\"true\" data-icon=\"lucide:sun\">   <symbol id=\"ai:lucide:sun\"><g fill=\"none\" stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\"><circle cx=\"12\" cy=\"12\" r=\"4\"/><path d=\"M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41\"/></g></symbol><use href=\"#ai:lucide:sun\"></use>  </svg> </button> <script type=\"module\">var e=document.documentElement,t=window.matchMedia(`(prefers-color-scheme: dark)`),n=()=>e.getAttribute(`data-theme`)??(t.matches?`dark`:`light`),r=()=>{let e=n()===`dark`;document.querySelectorAll(`[data-theme-toggle]`).forEach(t=>t.setAttribute(`aria-pressed`,String(e)))};document.querySelectorAll(`[data-theme-toggle]`).forEach(t=>{t.addEventListener(`click`,()=>{let t=n()===`dark`?`light`:`dark`;e.setAttribute(`data-theme`,t);try{localStorage.setItem(`bitup-theme`,t)}catch{}r()})}),t.addEventListener(`change`,r),r();</script> <a href=\"/en/it-health-check\" class=\"btn btn--primary btn--small header__cta\" data-event=\"cta_radiografie_click\" data-astro-cid-nen7h5rs=\"true\" data-astro-cid-ekguhzzh>Free IT Health Check</a> <button type=\"button\" class=\"burger\" data-menu-toggle aria-expanded=\"false\" aria-controls=\"mobile-menu\" aria-label=\"Menu\" data-label-open=\"Menu\" data-label-close=\"Close menu\" data-astro-cid-nen7h5rs> <span class=\"burger__bar\" aria-hidden=\"true\" data-astro-cid-nen7h5rs></span> <span class=\"burger__bar\" aria-hidden=\"true\" data-astro-cid-nen7h5rs></span> <span class=\"burger__bar\" aria-hidden=\"true\" data-astro-cid-nen7h5rs></span> </button> </div> </div> <div id=\"mobile-menu\" class=\"mobile\" hidden data-mobile-menu data-astro-cid-nen7h5rs> <nav class=\"mobile__nav\" aria-label=\"Main navigation\" data-astro-cid-nen7h5rs> <a href=\"/en/it-health-check\" class=\"btn btn--primary mobile__cta\" data-event=\"cta_radiografie_click\" data-astro-cid-nen7h5rs=\"true\" data-astro-cid-ekguhzzh>Free IT Health Check</a> <p class=\"mobile__group eyebrow\" data-astro-cid-nen7h5rs>Services</p> <ul class=\"mobile__list\" data-astro-cid-nen7h5rs> <li data-astro-cid-nen7h5rs><a class=\"mobile__link\" href=\"/en/services/it-support\" data-astro-cid-nen7h5rs>IT support and administration</a></li><li data-astro-cid-nen7h5rs><a class=\"mobile__link\" href=\"/en/services/security\" data-astro-cid-nen7h5rs>Security and continuity</a></li><li data-astro-cid-nen7h5rs><a class=\"mobile__link\" href=\"/en/services/automation\" data-astro-cid-nen7h5rs>Automation and software</a></li><li data-astro-cid-nen7h5rs><a class=\"mobile__link\" href=\"/en/services\" data-astro-cid-nen7h5rs>All services</a></li> </ul> <ul class=\"mobile__list mobile__list--main\" data-astro-cid-nen7h5rs> <li data-astro-cid-nen7h5rs><a class=\"mobile__link\" href=\"/en/how-we-work\" data-astro-cid-nen7h5rs>How we work</a></li><li data-astro-cid-nen7h5rs><a class=\"mobile__link\" href=\"/en/results\" data-astro-cid-nen7h5rs>Results</a></li><li data-astro-cid-nen7h5rs><a class=\"mobile__link\" href=\"/en/about\" data-astro-cid-nen7h5rs>About</a></li><li data-astro-cid-nen7h5rs><a class=\"mobile__link\" href=\"/en/blog\" data-astro-cid-nen7h5rs>Blog</a></li> </ul> </nav> <div class=\"mobile__bottom\" data-astro-cid-nen7h5rs> <a class=\"mobile__contact mono\" href=\"tel:+40757150894\" data-event=\"tel_click\" data-astro-cid-nen7h5rs>Call: +40 757 150 894</a> <a class=\"mobile__contact\" href=\"/en/support\" data-astro-cid-nen7h5rs>Clients: message Cipri on WhatsApp</a> <div class=\"mobile__tools\" data-astro-cid-nen7h5rs> <nav class=\"lang\" aria-label=\"Change language\" data-astro-cid-lemdd452>  <a class=\"lang__other\" href=\"/blog/cum-ne-am-construit-propriul-helpdesk\" hreflang=\"ro\" lang=\"ro\" data-event=\"lang_switch\" data-astro-cid-lemdd452>RO</a> <span class=\"lang__sep\" aria-hidden=\"true\" data-astro-cid-lemdd452>·</span> <span class=\"lang__current\" aria-current=\"true\" lang=\"en\" data-astro-cid-lemdd452>EN</span> </nav> <button type=\"button\" class=\"theme-toggle\" data-theme-toggle aria-label=\"Switch theme: light / dark\" title=\"Switch theme: light / dark\" aria-pressed=\"false\" data-event=\"theme_toggle\" data-astro-cid-l6lhmie6> <svg width=\"1em\" height=\"1em\" viewBox=\"0 0 24 24\" class=\"theme-toggle__icon theme-toggle__icon--moon\" aria-hidden=\"true\" data-astro-cid-l6lhmie6=\"true\" data-icon=\"lucide:moon\">   <use href=\"#ai:lucide:moon\"></use>  </svg> <svg width=\"1em\" height=\"1em\" viewBox=\"0 0 24 24\" class=\"theme-toggle__icon theme-toggle__icon--sun\" aria-hidden=\"true\" data-astro-cid-l6lhmie6=\"true\" data-icon=\"lucide:sun\">   <use href=\"#ai:lucide:sun\"></use>  </svg> </button>  </div> </div> </div> </header> <script type=\"module\">var e=document.querySelector(`[data-services-toggle]`),t=document.getElementById(`services-menu`);if(e&&t){let n=n=>{e.setAttribute(`aria-expanded`,String(n)),t.hidden=!n};e.addEventListener(`click`,()=>n(t.hidden)),document.addEventListener(`click`,r=>{!t.hidden&&!e.contains(r.target)&&!t.contains(r.target)&&n(!1)}),document.addEventListener(`keydown`,r=>{r.key===`Escape`&&!t.hidden&&(n(!1),e.focus())}),t.addEventListener(`focusout`,r=>{let i=r.relatedTarget;i&&!t.contains(i)&&i!==e&&n(!1)})}var n=document.querySelector(`[data-menu-toggle]`),r=document.querySelector(`[data-mobile-menu]`);if(n&&r){let e=()=>Array.from(r.querySelectorAll(`a[href], button:not([disabled])`)),t=t=>{n.setAttribute(`aria-expanded`,String(t)),n.setAttribute(`aria-label`,t?n.dataset.labelClose??``:n.dataset.labelOpen??``),r.hidden=!t,document.body.style.overflow=t?`hidden`:``,t&&e()[0]?.focus()};n.addEventListener(`click`,()=>t(r.hidden)),document.addEventListener(`keydown`,i=>{if(!r.hidden){if(i.key===`Escape`){t(!1),n.focus();return}if(i.key===`Tab`){let t=[n,...e()],r=t[0],a=t[t.length-1];i.shiftKey&&document.activeElement===r?(i.preventDefault(),a.focus()):!i.shiftKey&&document.activeElement===a&&(i.preventDefault(),r.focus())}}}),window.matchMedia(`(min-width: 1024px)`).addEventListener(`change`,e=>{e.matches&&!r.hidden&&t(!1)})}</script> <main id=\"continut\" tabindex=\"-1\">  <section class=\"section section--bg post-head\" data-astro-cid-w6ymvdtg>  <div class=\"container container--narrow\" data-astro-cid-ap6mcnip> <p data-astro-cid-2lydxdhj=\"true\" class=\"eyebrow\">Blog<span> · IT support</span></p> <h1 class=\"post-head__h1\">How we built our own helpdesk: WhatsApp, an AI assistant, and a person</h1> <p class=\"lead post-head__lead\">Why I didn&#39;t buy a ticketing system, what a support request at BitUp looks like today, from first WhatsApp message to month-end report, and what I learned building it.</p> <p class=\"mono small muted post-head__byline\">Marius Galmati · <time datetime=\"2026-09-10\">September 10, 2026</time> · 5 min read</p> </div>  </section> <section class=\"section section--surface section--line\" data-astro-cid-w6ymvdtg>  <div class=\"container container--narrow\" data-astro-cid-ap6mcnip> <div class=\"prose\" lang=\"en\"><p>Every business owner I've talked to in recent years has asked, one way or another, the same question: \"and when I have a problem, where does it go? Who answers?\" Good question. In a small company, IT support usually looks like this: a number you call hoping someone picks up, an email sent Tuesday and forgotten until Thursday, a post-it on the monitor saying \"tell X\". Nobody knows how many problems there were last month, how long each took, what got fixed, what was left hanging.</p>\n<p>I wanted BitUp's answer to be one, and short. So I built the system that gives it.</p>\n<h2 id=\"why-i-didnt-buy-one\">Why I didn't buy one</h2>\n<p>I tried. Ticketing systems on the market are good, but built for corporations: a portal with an account to create and a password to remember, a ten-field form for \"my printer doesn't work\", per-agent licenses, and a feature list where a 30-person company uses three.</p>\n<p>I wanted three things, together. A channel people already use, no account, no new app. A first reply right away, at any hour, not \"we will get back to you as soon as possible\". And a written trail for every request, so at month's end I can tell the client exactly what happened, not from memory.</p>\n<p>The channel was obvious: WhatsApp. My clients' employees are already there all day. The rest I built.</p>\n<h2 id=\"what-a-support-request-looks-like-today\">What a support request looks like today</h2>\n<p>Here's a real request, from first message to report. I've hidden the client's name and phone numbers.</p>\n<p><strong>1. You write on WhatsApp.</strong> An employee writes to the BitUp support number, in their own words: \"hi, I can't connect to the VPN\". That's it. No account, no form, no need to know what a ticket is.</p>\n<p><strong>2. Cipri recognizes you.</strong> Cipri, our virtual assistant, identifies the company by phone number and replies in seconds. Not with a paragraph, but with the questions that matter for that problem, and buttons: \"There's an error\", \"It won't connect\", \"I want a ticket\".</p>\n<figure class=\"figure figure--screenshot\"><div class=\"figure__media\"><img alt=\"WhatsApp conversation with Cipri: the message &quot;I can&#39;t connect to the VPN&quot;, the clarifying questions, and the reply buttons\" loading=\"lazy\" decoding=\"async\" width=\"777\" height=\"1010\" src=\"/_astro/whatsapp-cipri.Barm3I36_AUfzk.webp\"></div><figcaption class=\"figure__caption\">WhatsApp conversation with Cipri: the message &quot;I can&#39;t connect to the VPN&quot;, the clarifying questions, and the reply buttons</figcaption></figure>\n<p><strong>3. It collects what matters.</strong> Screenshots, error messages, details. For common problems it suggests fix-it steps; if they work, it closes there and nobody else gets bothered. Any time, \"I want a ticket\" jumps straight to the next step.</p>\n<p><strong>4. It opens the ticket by itself.</strong> When the steps don't solve it, Cipri creates the ticket in BitUp Helpdesk with all the context: who wrote, which company, what problem, what was tried, attachments, priority. A person picks it up, name on the ticket, work time clocked.</p>\n<figure class=\"figure figure--screenshot\"><div class=\"figure__media\"><img alt=\"Ticket created automatically in BitUp Helpdesk: description, channel, priority, attachment, WhatsApp conversation, and work timer\" loading=\"lazy\" decoding=\"async\" width=\"1400\" height=\"600\" src=\"/_astro/tichet-helpdesk.BNob_3Yc_Z2df6hH.webp\"></div><figcaption class=\"figure__caption\">Ticket created automatically in BitUp Helpdesk: description, channel, priority, attachment, WhatsApp conversation, and work timer</figcaption></figure>\n<p><strong>5. You hear back on the same channel.</strong> If you wrote on WhatsApp, the status comes back on WhatsApp. If you opened the ticket from the helpdesk.bitup.ro form, it comes over email. And at month's end, the company gets the report with all its activity: what was asked, what was fixed, how long it took, what's still open. The report is generated from tickets. Nobody writes it from memory.</p>\n<h2 id=\"what-the-ai-does-and-what-it-doesnt\">What the AI does and what it doesn't</h2>\n<p>Because I work in security, I know the next question, so I'll answer before it's asked.</p>\n<p>Cipri runs on the WhatsApp Business API, with a language model (ChatGPT) behind it. What it does: the immediate first reply, clarifying the problem, fix-it steps for common situations, collecting attachments, opening the ticket with all the context.</p>\n<p>What it doesn't do: go into the client's systems, change passwords, run commands, or decide on its own that a problem is closed when the person says it isn't. Anything the steps don't solve goes to a person.</p>\n<p>The data: conversations and tickets live in the BitUp platform, isolated per client in the database. One company can't see or touch anything from another. The assistant gets only the current request's context, not access to anyone's infrastructure.</p>\n<h2 id=\"what-i-learned-building-it\">What I learned building it</h2>\n<p><strong>The first reply matters more than a fast fix.</strong> The person writing \"it doesn't work\" wants, above all, to know someone heard them. A reply in ten seconds, even one that only asks a question, changes the tone of the whole conversation.</p>\n<p><strong>Buttons beat paragraphs.</strong> The first version of Cipri wrote a lot. People didn't read it. Now it asks one question and gives three buttons.</p>\n<p><strong>Write everything down and the monthly report comes on its own.</strong> I didn't build the report as a separate feature. It appeared because every request, every minute worked, and every fix were already written somewhere. The report is just what happened, in order.</p>\n<p><strong>The person stays where it matters.</strong> AI is good at listening, asking, and organizing. Not at taking responsibility. There's always a person's name on the ticket, and that person answers.</p>\n<p><strong>A name matters more than I thought.</strong> Nobody used \"the BitUp virtual assistant\". \"Message Cipri\" caught on in the first week.</p>\n<h2 id=\"why-im-telling-you-this\">Why I'm telling you this</h2>\n<p>If you're a BitUp client, this is your day-to-day: you don't chase anyone, nothing gets lost, and at month's end you know exactly what you paid for.</p>\n<p>If you're not, this is how we work. We built the flow for ourselves, put it in production, and use it daily before proposing it to anyone. We bring the same approach into your company: the process in code, a person where it matters, and a record of everything.</p>\n<p>Got a support, ordering, or approval process that lives on the phone and over email? Tell me what keeps repeating and where things get lost. In 30 minutes we'll see whether it's worth automating, and how. It's called the <a href=\"/en/it-health-check\">IT Health Check</a> and it's free.</p>\n</div> <aside class=\"author\" aria-label=\"Marius Galmati\" data-astro-cid-hbs4ykhd> <picture data-astro-cid-hbs4ykhd=\"true\"> <source srcset=\"/_astro/marius-avatar-200x200.CtycO5s-_ZE8PaF.avif, /_astro/marius-avatar-200x200.CtycO5s-_ZE8PaF.avif 1x, /_astro/marius-avatar-200x200.CtycO5s-_sOS4O.avif 2x\" type=\"image/avif\"><source srcset=\"/_astro/marius-avatar-200x200.CtycO5s-_1bapFM.webp, /_astro/marius-avatar-200x200.CtycO5s-_1bapFM.webp 1x, /_astro/marius-avatar-200x200.CtycO5s-_eXqDK.webp 2x\" type=\"image/webp\">  <img src=\"/_astro/marius-avatar-200x200.CtycO5s-_1WbM3q.jpg\" srcset=\"/_astro/marius-avatar-200x200.CtycO5s-_1WbM3q.jpg 1x, /_astro/marius-avatar-200x200.CtycO5s-_Z1oyecg.jpg 2x\" alt=\"Marius Galmati\" loading=\"lazy\" decoding=\"async\" data-astro-cid-hbs4ykhd=\"true\" width=\"96\" height=\"96\" class=\"author__photo\"> </picture> <div class=\"author__body\" data-astro-cid-hbs4ykhd> <p class=\"author__text\" data-astro-cid-hbs4ykhd>Marius Galmati, BitUp founder. In IT since 2017, the last two and a half years in information security at a Fortune 500 corporation. He writes about what surfaces when you run IT for small companies: what breaks, what repeats, what&#39;s worth automating.</p> <a class=\"author__link\" href=\"https://www.linkedin.com/in/nicolae-marius-galmati\" target=\"_blank\" rel=\"noopener\" data-astro-cid-hbs4ykhd>LinkedIn<span aria-hidden=\"true\" data-astro-cid-hbs4ykhd> →</span></a> </div> </aside> </div>  </section> <section class=\"cta-wrap\" aria-labelledby=\"cta-title\" data-astro-cid-hwvj6ntz> <div class=\"container\" data-astro-cid-ap6mcnip> <div class=\"cta\" data-astro-cid-hwvj6ntz> <h2 id=\"cta-title\" class=\"cta__title\" data-astro-cid-hwvj6ntz>Want to see where your company stands with IT?</h2> <p class=\"cta__text\" data-astro-cid-hwvj6ntz>30 minutes, remote, 10 checks, one page with what&#39;s fine, what&#39;s urgent, and what it would cost. No obligations.</p> <div class=\"cta__actions\" data-astro-cid-hwvj6ntz> <a href=\"/en/it-health-check\" class=\"btn btn--primary\" data-event=\"cta_radiografie_click\" data-astro-cid-hwvj6ntz=\"true\" data-astro-cid-ekguhzzh>Book the IT Health Check</a>  </div> </div> </div> </section>  </main> <footer class=\"footer\" data-astro-cid-jo6i4kqk> <div class=\"container\" data-astro-cid-ap6mcnip> <div class=\"footer__grid\" data-astro-cid-jo6i4kqk> <div class=\"footer__brand\" data-astro-cid-jo6i4kqk> <img class=\"footer__logo\" src=\"/logo-bitup.png\" alt=\"BitUp\" width=\"132\" height=\"36\" loading=\"lazy\" decoding=\"async\" data-astro-cid-jo6i4kqk> <address class=\"footer__address\" data-astro-cid-jo6i4kqk> <strong class=\"footer__name\" data-astro-cid-jo6i4kqk>BitUp Technology SRL</strong><br data-astro-cid-jo6i4kqk> Cluj-Napoca, Romania<br data-astro-cid-jo6i4kqk> <span class=\"mono footer__ids\" data-astro-cid-jo6i4kqk>VAT no. RO42613248 · Trade Register no. J12/1556/2020</span><br data-astro-cid-jo6i4kqk> <a href=\"mailto:office@bitup.ro\" data-astro-cid-jo6i4kqk>office@bitup.ro</a> · <a href=\"tel:+40757150894\" class=\"mono\" data-event=\"tel_click\" data-astro-cid-jo6i4kqk>+40 757 150 894</a><br data-astro-cid-jo6i4kqk> LinkedIn: <a href=\"https://www.linkedin.com/company/bitup-technology\" target=\"_blank\" rel=\"noopener\" data-astro-cid-jo6i4kqk>BitUp Technology</a> </address> </div> <nav class=\"footer__col\" aria-label=\"Secondary navigation\" data-astro-cid-jo6i4kqk> <ul class=\"footer__list\" data-astro-cid-jo6i4kqk> <li data-astro-cid-jo6i4kqk><a href=\"/en/services/it-support\" data-astro-cid-jo6i4kqk>IT support and administration</a></li><li data-astro-cid-jo6i4kqk><a href=\"/en/services/security\" data-astro-cid-jo6i4kqk>Security and continuity</a></li><li data-astro-cid-jo6i4kqk><a href=\"/en/services/automation\" data-astro-cid-jo6i4kqk>Automation and software</a></li><li data-astro-cid-jo6i4kqk><a href=\"/en/it-health-check\" data-astro-cid-jo6i4kqk>Free IT Health Check</a></li> </ul> <ul class=\"footer__list footer__list--company\" data-astro-cid-jo6i4kqk> <li data-astro-cid-jo6i4kqk><a href=\"/en/how-we-work\" data-astro-cid-jo6i4kqk>How we work</a></li><li data-astro-cid-jo6i4kqk><a href=\"/en/results\" data-astro-cid-jo6i4kqk>Results</a></li><li data-astro-cid-jo6i4kqk><a href=\"/en/about\" data-astro-cid-jo6i4kqk>About</a></li><li data-astro-cid-jo6i4kqk><a href=\"/en/blog\" data-astro-cid-jo6i4kqk>Blog</a></li><li data-astro-cid-jo6i4kqk><a href=\"/en/contact\" data-astro-cid-jo6i4kqk>Contact</a></li><li data-astro-cid-jo6i4kqk><a href=\"/en/support\" data-astro-cid-jo6i4kqk>Client support</a></li> </ul> </nav> <div class=\"footer__col footer__partners\" data-astro-cid-jo6i4kqk> <ul class=\"footer__list footer__list--partners\" data-astro-cid-jo6i4kqk> <li class=\"footer__partner\" data-astro-cid-jo6i4kqk>Microsoft Partner<span class=\"footer__level muted small\" data-astro-cid-jo6i4kqk>[[LOGO_PARTENERI]]</span></li><li class=\"footer__partner\" data-astro-cid-jo6i4kqk>Fortinet Advocate<span class=\"footer__level muted small\" data-astro-cid-jo6i4kqk>[[LOGO_PARTENERI]]</span></li><li class=\"footer__partner\" data-astro-cid-jo6i4kqk>Veeam Partner<span class=\"footer__level muted small\" data-astro-cid-jo6i4kqk>[[LOGO_PARTENERI]]</span></li> </ul> </div> </div> <div class=\"footer__bottom\" data-astro-cid-jo6i4kqk> <p class=\"footer__copy small muted\" data-astro-cid-jo6i4kqk>© 2026 BitUp Technology SRL</p> <ul class=\"footer__legal small\" data-astro-cid-jo6i4kqk> <li data-astro-cid-jo6i4kqk><a href=\"/en/terms\" data-astro-cid-jo6i4kqk>Terms</a></li> <li data-astro-cid-jo6i4kqk><a href=\"/en/privacy\" data-astro-cid-jo6i4kqk>Privacy</a></li> <li data-astro-cid-jo6i4kqk><a href=\"/en/cookies\" data-astro-cid-jo6i4kqk>Cookies</a></li> <li data-astro-cid-jo6i4kqk><button type=\"button\" class=\"footer__cookie-btn\" data-consent-open data-astro-cid-jo6i4kqk>Cookie settings</button></li> </ul> <nav class=\"lang\" aria-label=\"Change language\" data-astro-cid-lemdd452>  <a class=\"lang__other\" href=\"/blog/cum-ne-am-construit-propriul-helpdesk\" hreflang=\"ro\" lang=\"ro\" data-event=\"lang_switch\" data-astro-cid-lemdd452>RO</a> <span class=\"lang__sep\" aria-hidden=\"true\" data-astro-cid-lemdd452>·</span> <span class=\"lang__current\" aria-current=\"true\" lang=\"en\" data-astro-cid-lemdd452>EN</span> </nav> </div> </div> </footer> <div class=\"consent\" role=\"region\" aria-label=\"Cookies\" tabindex=\"-1\" data-consent-banner hidden data-astro-cid-u6s5b3h2> <p class=\"consent__title\" data-astro-cid-u6s5b3h2>Statistics cookies, only if you want them</p> <p class=\"consent__text\" data-astro-cid-u6s5b3h2>We use Google Analytics to see which pages get read and where visitors come from. It doesn&#39;t start until you accept, doesn&#39;t run ads, and doesn&#39;t sell anything to anyone. You can change your mind anytime from &quot;Cookie settings&quot; at the bottom of the page. <a href=\"/en/cookies\" data-astro-cid-u6s5b3h2>How we use cookies</a></p> <div class=\"consent__actions\" data-astro-cid-u6s5b3h2> <button type=\"button\" class=\"btn btn--secondary btn--small\" data-consent=\"accept\" data-astro-cid-u6s5b3h2=\"true\" data-astro-cid-ekguhzzh>Accept</button> <button type=\"button\" class=\"btn btn--secondary btn--small\" data-consent=\"decline\" data-astro-cid-u6s5b3h2=\"true\" data-astro-cid-ekguhzzh>Decline</button> </div>  </div> </body> </html>",
+ "errors": [],
+ "totalNumErrors": 0,
+ "totalNumWarnings": 0
+}

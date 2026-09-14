@@ -1,0 +1,134 @@
+---
+/**
+ * CaseLayout (DESIGN § Studiu de caz, ARHITECTURA § Colecții): hero navy cu gradient discret spre navy-2 (eyebrow teal-2, h1 alb, lead, caseta de logo 260 px),
+ * FactStrip din `facts`, apoi secțiunile din Markdown (## = eyebrow, ### = titlu) în modelul „două coloane”; a doua secțiune („Ce am livrat / Ce am construit”)
+ * ca grid de carduri din lista cu titluri îngroșate; după a treia („Angajamente / Cifre”) NumberTiles din `numbers`; citatul (dacă există) ca Quote;
+ * rândul de subsol din `footnote`; CtaBand. Markdown-ul vine randat prin slot (Content) și e împărțit pe <h2>.
+ */
+import BaseLayout from './BaseLayout.astro';
+import Container from '../components/Container.astro';
+import Section from '../components/Section.astro';
+import Eyebrow from '../components/Eyebrow.astro';
+import TwoCol from '../components/TwoCol.astro';
+import FactStrip from '../components/FactStrip.astro';
+import NumberTiles from '../components/NumberTiles.astro';
+import Quote from '../components/Quote.astro';
+import CtaBand from '../components/CtaBand.astro';
+import CaseLogo from '../components/CaseLogo.astro';
+import type { CollectionEntry } from 'astro:content';
+import { absoluteUrl, dynamicPath, t, type Locale } from '../i18n';
+import { article } from '../lib/schema';
+import { caseMeta, slugOf } from '../lib/collections';
+
+interface Props { lang: Locale; entry: CollectionEntry<'cases'> }
+const { lang, entry } = Astro.props;
+const dict = t(lang);
+const d = entry.data;
+const slug = slugOf(entry.id);
+const path = dynamicPath('caseStudy', lang, slug);
+const meta = caseMeta(entry);
+
+// Markdown-ul randat, împărțit pe secțiuni <h2>; textul curat al unui tag (fără marcaj) pentru eyebrow/titluri
+// linkurile externe din Markdown se deschid în tab nou, cu noopener (00-global § Microcopy)
+const html = (await Astro.slots.render('default')).replace(/<a href="http/g, '<a target="_blank" rel="noopener" href="http');
+const text = (s: string) => s.replace(/<[^>]+>/g, '').replace(/&amp;/g, '&').replace(/&quot;/g, '"').replace(/&#39;/g, "'").trim();
+const parts = html.split(/(?=<h2\b)/).filter((p) => p.trim());
+type Sec = { eyebrow: string; title: string; body: string; cards: { title: string; text: string }[] | null; quote: { text: string; name: string; role?: string } | null };
+const sections: Sec[] = parts.map((p, i) => {
+  const h2 = p.match(/<h2\b[^>]*>([\s\S]*?)<\/h2>/);
+  const h3 = p.match(/<h3\b[^>]*>([\s\S]*?)<\/h3>/);
+  let body = p.replace(/<h2\b[^>]*>[\s\S]*?<\/h2>/, '').replace(/<h3\b[^>]*>[\s\S]*?<\/h3>/, '').trim();
+  let cards: Sec['cards'] = null;
+  if (i === 1) {
+    // a doua secțiune: lista cu „**Titlu.** text” devine carduri
+    const ul = body.match(/<ul>([\s\S]*?)<\/ul>/);
+    if (ul) {
+      cards = [...ul[1].matchAll(/<li>\s*<strong>([\s\S]*?)<\/strong>\s*([\s\S]*?)<\/li>/g)].map((m) => ({ title: text(m[1]), text: m[2].trim() }));
+      body = body.replace(ul[0], '').trim();
+    }
+  }
+  let quote: Sec['quote'] = null;
+  const bq = body.match(/<blockquote>([\s\S]*?)<\/blockquote>/);
+  if (bq) {
+    const inner = text(bq[1].replace(/<br\s*\/?>/g, '\n'));
+    const lines = inner.split('\n').map((l) => l.trim()).filter(Boolean);
+    const attribution = lines.find((l) => l.startsWith('—')) ?? '';
+    const [name, ...role] = attribution.replace(/^—\s*/, '').split(/,\s*/);
+    quote = { text: lines.filter((l) => !l.startsWith('—')).join(' '), name, role: role.join(', ') || undefined };
+    body = body.replace(bq[0], '').trim();
+  }
+  return { eyebrow: text(h2?.[1] ?? ''), title: text(h3?.[1] ?? ''), body, cards, quote };
+});
+const tones = ['bg', 'surface', 'bg', 'surface', 'bg', 'surface'] as const;
+const jsonLd = [article(lang, {
+  headline: d.title, description: meta.description, url: absoluteUrl(path), datePublished: new Date('2026-09-10'),
+  ...(!d.draft ? { about: { name: d.client.replace(/\s*\(.*\)$/, ''), ...(slug === 'proq' ? { url: 'https://pro-q.ro' } : {}) } } : {}),
+})];
+---
+<BaseLayout lang={lang} path={path} altPath={dynamicPath('caseStudy', lang === 'ro' ? 'en' : 'ro', slug)} title={meta.title} description={meta.description} jsonLd={jsonLd} ogType="article" noindex={d.draft}>
+  <section class="case-hero">
+    <Container>
+      <div class="case-hero__grid">
+        <div class="case-hero__text">
+          <div class="case-hero__eyebrow"><Eyebrow>{d.kicker}{d.draft && <span> · {dict.misc.draft}</span>}</Eyebrow></div>
+          <h1 class="case-hero__h1">{d.title}</h1>
+          <p class="lead case-hero__lead">{d.summary}</p>
+        </div>
+        <CaseLogo entry={entry} size={260} class="case-hero__logo" />
+      </div>
+    </Container>
+  </section>
+
+  <Section tone="bg" class="case-facts">
+    <Container><FactStrip items={d.facts} /></Container>
+  </Section>
+
+  {sections.map((s, i) => (
+    <Section tone={tones[i % tones.length]} labelledby={`sec-${i}-title`}>
+      <Container>
+        <TwoCol id={`sec-${i}-title`} eyebrow={s.eyebrow} title={s.title}>
+          {s.body && <div class="case-body" set:html={s.body} />}
+          {s.quote && <Quote name={s.quote.name} role={s.quote.role} class="case-quote">{s.quote.text}</Quote>}
+        </TwoCol>
+        {s.cards && (
+          <ul class="case-cards">
+            {s.cards.map((c) => <li class="case-card"><h3 class="case-card__title">{c.title}</h3><p set:html={c.text} /></li>)}
+          </ul>
+        )}
+        {i === 2 && d.numbers && d.numbers.length > 0 && <NumberTiles items={d.numbers} class="case-numbers" />}
+      </Container>
+    </Section>
+  ))}
+
+  {d.footnote && (
+    <Section tone="surface" line class="case-foot">
+      <Container><p class="small muted case-foot__text">{d.footnote}</p></Container>
+    </Section>
+  )}
+
+  <CtaBand lang={lang} />
+</BaseLayout>
+
+<style>
+  .case-hero { padding-block: var(--section-y); background: linear-gradient(135deg, #00202E 0%, #003343 100%); color: var(--on-navy, #FFFFFF); }
+  .case-hero__grid { display: grid; gap: var(--s-6); align-items: center; }
+  @media (min-width: 1024px) { .case-hero__grid { grid-template-columns: minmax(0, 1fr) 260px; gap: var(--s-8); } }
+  .case-hero__text { display: grid; gap: var(--s-4); }
+  .case-hero__eyebrow :global(.eyebrow) { color: #4A9396; }
+  .case-hero__h1 { color: #FFFFFF; max-width: 20ch; }
+  .case-hero__lead { color: #D7E4E6; max-width: 60ch; }
+  .case-body { display: grid; gap: var(--s-4); }
+  .case-body :global(p) { text-wrap: pretty; }
+  .case-body :global(ul) { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--s-3); }
+  .case-body :global(li) { position: relative; padding-left: var(--s-5); }
+  .case-body :global(li::before) { content: ''; position: absolute; left: 0; top: .6em; width: var(--s-3); height: 3px; background: var(--teal); }
+  .case-body :global(strong) { font-family: var(--font-display); font-weight: 600; color: var(--navy); }
+  .case-body :global(a) { color: var(--teal); text-decoration: underline; text-underline-offset: 3px; }
+  .case-quote { margin-top: var(--s-5); }
+  .case-cards { list-style: none; margin: var(--s-6) 0 0; padding: 0; display: grid; gap: var(--s-4); grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+  .case-card { display: grid; gap: var(--s-2); align-content: start; padding: var(--s-5); background: var(--surface); border: 1px solid var(--line); border-top: 3px solid var(--teal); border-radius: var(--radius); }
+  .case-card__title { font-size: var(--fs-body); font-family: var(--font-display); font-weight: 600; color: var(--navy); }
+  .case-card p { font-size: var(--fs-small); }
+  .case-numbers { margin-top: var(--s-6); }
+  .case-foot__text { max-width: 70ch; }
+</style>

@@ -153,12 +153,19 @@ export const ro = {
     under: 'Dacă ai ajuns aici dintr-un link de pe alt site, scrie-ne la office@bitup.ro și îl reparăm.',
   },
 
+  /** Caseta de autor (00-global § Caseta de autor): la persoana a III-a, deliberat (bio, nu vocea firmei). */
+  authorBox: {
+    text: 'Marius Galmati, fondator BitUp. În IT din 2017, cu ultimii doi ani și jumătate în securitate informațională într-o corporație din Fortune 500. Scrie despre ce iese la iveală când administrezi IT-ul unor firme mici: ce se strică, ce se repetă, ce merită automatizat.',
+    linkLabel: 'LinkedIn',
+    portraitAlt: 'Marius Galmati',
+  },
   misc: {
     whatsappButton: 'Scrie-i lui Cipri pe WhatsApp',
     readTime: (minutes: number) => `${minutes} minute de citit`,
     draft: 'Draft, nepublicat',
     legalUpdated: 'Ultima actualizare: 10 septembrie 2026',
     legalToc: 'Cuprins',
+    blogEyebrow: 'Blog',
     externalRel: 'noopener',
   },
 } as const;

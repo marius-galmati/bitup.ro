@@ -1,0 +1,28 @@
+---
+/** Caseta de autor (DESIGN § Articol, 00-global § Caseta de autor): portret 96 px, rotund (singurul loc cu poză rotundă), bio la persoana a III-a, link LinkedIn. */
+import { Picture } from 'astro:assets';
+import { t, type Locale } from '../i18n';
+import { site } from '../lib/site';
+import avatar from '../assets/foto-marius/marius-avatar-200x200.jpg';
+
+interface Props { lang: Locale }
+const { lang } = Astro.props;
+const a = t(lang).authorBox;
+---
+<aside class="author" aria-label={site.founder.name}>
+  <Picture src={avatar} alt={a.portraitAlt} width={96} height={96} densities={[1, 2]} formats={['avif', 'webp']} loading="lazy" decoding="async" class="author__photo" />
+  <div class="author__body">
+    <p class="author__text">{a.text}</p>
+    <a class="author__link" href={site.founder.linkedin} target="_blank" rel="noopener">{a.linkLabel}<span aria-hidden="true"> →</span></a>
+  </div>
+</aside>
+
+<style>
+  .author { display: grid; grid-template-columns: 96px 1fr; gap: var(--s-5); align-items: start; padding: var(--s-5); background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); }
+  @media (max-width: 479px) { .author { grid-template-columns: 1fr; } }
+  .author :global(.author__photo) { width: 96px; height: 96px; border-radius: 50%; object-fit: cover; }
+  .author__body { display: grid; gap: var(--s-2); }
+  .author__text { font-size: var(--fs-small); color: var(--text); }
+  .author__link { font-family: var(--font-display); font-weight: 600; color: var(--teal); text-decoration: underline; text-underline-offset: 3px; justify-self: start; }
+  .author__link:hover { color: var(--navy); }
+</style>

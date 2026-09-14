@@ -1,0 +1,72 @@
+---
+/**
+ * /rezultate, /en/results (08): hero intern → grid-ul cazurilor din colecția `cases` (ordonate după `order`; draft-urile doar pe staging, cu eticheta „Draft”)
+ * → rândul „Următorul caz…” cât timp există un caz draft → Reguli (două coloane) → CtaBand implicit. JSON-LD: global.
+ */
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import HeroInternal from '../HeroInternal.astro';
+import Container from '../Container.astro';
+import Section from '../Section.astro';
+import TwoCol from '../TwoCol.astro';
+import CtaBand from '../CtaBand.astro';
+import CaseLogo from '../CaseLogo.astro';
+import { dynamicPath, t, type Locale } from '../../i18n';
+import { visibleCases, hasDraftCase, slugOf, twoSentences } from '../../lib/collections';
+import type { ResultsCopy } from '../../copy/results.ro';
+
+interface Props { lang: Locale; copy: ResultsCopy }
+const { lang, copy } = Astro.props;
+const dict = t(lang);
+const cases = await visibleCases(lang);
+const showNext = (await hasDraftCase(lang)) || cases.length < 2;
+---
+<BaseLayout lang={lang} routeKey="results" title={copy.title} description={copy.description}>
+  <HeroInternal eyebrow={copy.hero.eyebrow} h1={copy.hero.h1} lead={copy.hero.lead} />
+
+  <Section tone="bg">
+    <Container>
+      {cases.length > 0 && (
+        <ul class="cases">
+          {cases.map((c) => (
+            <li class="case">
+              <CaseLogo entry={c} size={120} />
+              <p class="eyebrow">{c.data.kicker}{c.data.draft && <span class="muted"> · {dict.misc.draft}</span>}</p>
+              <h2 class="case__title">{c.data.title}</h2>
+              <p>{twoSentences(c.data.summary)}</p>
+              <dl class="case__facts">
+                {c.data.facts.slice(0, 2).map((f) => <div class="case__fact"><dt class="mono">{f.k}</dt><dd class="mono">{f.v}</dd></div>)}
+              </dl>
+              <a class="case__link" href={dynamicPath('caseStudy', lang, slugOf(c.id))}>{copy.readCase}<span aria-hidden="true"> →</span></a>
+            </li>
+          ))}
+        </ul>
+      )}
+      {showNext && <p class:list={['muted', 'next', { 'next--first': cases.length === 0 }]}>{copy.nextCase}</p>}
+    </Container>
+  </Section>
+
+  <Section tone="surface" labelledby="rules-title">
+    <Container>
+      <TwoCol id="rules-title" eyebrow={copy.rules.eyebrow} title={copy.rules.h2}>
+        <div class="stack">{copy.rules.paragraphs.map((p) => <p>{p}</p>)}</div>
+      </TwoCol>
+    </Container>
+  </Section>
+
+  <CtaBand lang={lang} />
+</BaseLayout>
+
+<style>
+  .cases { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--s-5); grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); }
+  .case { display: flex; flex-direction: column; gap: var(--s-3); padding: var(--s-5); background: var(--surface); border: 1px solid var(--line); border-top: 3px solid var(--teal); border-radius: var(--radius); }
+  .case__title { font-size: var(--fs-h3); }
+  .case__facts { margin: var(--s-2) 0 0; display: grid; gap: var(--s-1); }
+  .case__fact { display: grid; grid-template-columns: 96px 1fr; gap: var(--s-3); font-size: var(--fs-small); }
+  .case__fact dt { color: var(--teal); text-transform: uppercase; letter-spacing: .06em; font-size: var(--fs-eyebrow); font-weight: 500; padding-top: 2px; }
+  .case__fact dd { margin: 0; color: var(--text); }
+  .case__link { margin-top: auto; padding-top: var(--s-2); font-family: var(--font-display); font-weight: 600; color: var(--teal); text-decoration: underline; text-underline-offset: 3px; }
+  .case__link:hover { color: var(--navy); }
+  .next { margin-top: var(--s-5); max-width: 70ch; }
+  .next--first { margin-top: 0; }
+  .stack { display: grid; gap: var(--s-4); }
+</style>

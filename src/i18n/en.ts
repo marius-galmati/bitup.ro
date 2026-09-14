@@ -153,12 +153,19 @@ export const en = {
     under: "If you got here from a link on another site, email us at office@bitup.ro and we'll fix it.",
   },
 
+  /** Author box (00-global § Author box): third person, deliberately (a bio, not the company's voice). */
+  authorBox: {
+    text: "Marius Galmati, BitUp founder. In IT since 2017, the last two and a half years in information security at a Fortune 500 corporation. He writes about what surfaces when you run IT for small companies: what breaks, what repeats, what's worth automating.",
+    linkLabel: 'LinkedIn',
+    portraitAlt: 'Marius Galmati',
+  },
   misc: {
     whatsappButton: 'Message Cipri on WhatsApp',
     readTime: (minutes: number) => `${minutes} min read`,
     draft: 'Draft, unpublished',
     legalUpdated: 'Last updated: September 10, 2026',
     legalToc: 'Contents',
+    blogEyebrow: 'Blog',
     externalRel: 'noopener',
   },
 } as const;

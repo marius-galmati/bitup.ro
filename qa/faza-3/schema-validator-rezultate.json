@@ -1,0 +1,489 @@
+{
+ "isRendered": false,
+ "tripleGroups": [
+  {
+   "ownerSet": {},
+   "nodes": [
+    {
+     "types": [
+      {
+       "pred": "itemtype",
+       "value": "ProfessionalService",
+       "errors": [],
+       "begin": 2718,
+       "end": 2739
+      }
+     ],
+     "typeGroup": "ProfessionalService",
+     "idProperty": {
+      "pred": "urn:spore:url",
+      "value": "https://bitup.ro/#professionalservice",
+      "errors": [],
+      "begin": 2746,
+      "end": 2785
+     },
+     "errors": [],
+     "properties": [
+      {
+       "pred": "name",
+       "value": "BitUp",
+       "errors": [],
+       "begin": 2793,
+       "end": 2800
+      },
+      {
+       "pred": "legalName",
+       "value": "BitUp Technology SRL",
+       "errors": [],
+       "begin": 2813,
+       "end": 2835
+      },
+      {
+       "pred": "url",
+       "value": "https://bitup.ro/",
+       "errors": [],
+       "begin": 2842,
+       "end": 2861
+      },
+      {
+       "pred": "telephone",
+       "value": "+40757150894",
+       "errors": [],
+       "begin": 2874,
+       "end": 2888
+      },
+      {
+       "pred": "email",
+       "value": "office@bitup.ro",
+       "errors": [],
+       "begin": 2897,
+       "end": 2914
+      },
+      {
+       "pred": "image",
+       "value": "https://bitup.ro/logo-bitup.png",
+       "errors": [],
+       "begin": 2923,
+       "end": 2956
+      },
+      {
+       "pred": "areaServed",
+       "value": "Cluj-Napoca",
+       "errors": [],
+       "begin": 3146,
+       "end": 3159
+      },
+      {
+       "pred": "areaServed",
+       "value": "România",
+       "errors": [],
+       "begin": 3160,
+       "end": 3170
+      },
+      {
+       "pred": "sameAs",
+       "value": "https://www.linkedin.com/company/bitup-technology",
+       "errors": [],
+       "begin": 3421,
+       "end": 3472
+      }
+     ],
+     "nodeProperties": [
+      {
+       "pred": "parentOrganization",
+       "target": {
+        "types": [
+         {
+          "pred": "itemtype",
+          "value": "Organization",
+          "errors": [],
+          "begin": 2068,
+          "end": 2082
+         }
+        ],
+        "typeGroup": "Organization",
+        "idProperty": {
+         "pred": "urn:spore:url",
+         "value": "https://bitup.ro/#organization",
+         "errors": [],
+         "begin": 2089,
+         "end": 2121
+        },
+        "errors": [],
+        "properties": [
+         {
+          "pred": "name",
+          "value": "BitUp Technology SRL",
+          "errors": [],
+          "begin": 2129,
+          "end": 2151
+         },
+         {
+          "pred": "alternateName",
+          "value": "BitUp",
+          "errors": [],
+          "begin": 2168,
+          "end": 2175
+         },
+         {
+          "pred": "url",
+          "value": "https://bitup.ro/",
+          "errors": [],
+          "begin": 2182,
+          "end": 2201
+         },
+         {
+          "pred": "logo",
+          "value": "https://bitup.ro/logo-bitup.png",
+          "errors": [],
+          "begin": 2209,
+          "end": 2242
+         },
+         {
+          "pred": "telephone",
+          "value": "+40757150894",
+          "errors": [],
+          "begin": 2255,
+          "end": 2269
+         },
+         {
+          "pred": "email",
+          "value": "office@bitup.ro",
+          "errors": [],
+          "begin": 2278,
+          "end": 2295
+         },
+         {
+          "pred": "sameAs",
+          "value": "https://www.linkedin.com/company/bitup-technology",
+          "errors": [],
+          "begin": 2306,
+          "end": 2357
+         },
+         {
+          "pred": "foundingDate",
+          "value": "2020-06",
+          "errors": [],
+          "begin": 2374,
+          "end": 2383
+         }
+        ],
+        "nodeProperties": [
+         {
+          "pred": "founder",
+          "target": {
+           "types": [
+            {
+             "pred": "itemtype",
+             "value": "Person",
+             "errors": [],
+             "begin": 2403,
+             "end": 2411
+            }
+           ],
+           "typeGroup": "Person",
+           "errors": [],
+           "properties": [
+            {
+             "pred": "name",
+             "value": "Marius Galmati",
+             "errors": [],
+             "begin": 2419,
+             "end": 2435
+            },
+            {
+             "pred": "jobTitle",
+             "value": "Fondator",
+             "errors": [],
+             "begin": 2447,
+             "end": 2457
+            },
+            {
+             "pred": "sameAs",
+             "value": "https://www.linkedin.com/in/nicolae-marius-galmati",
+             "errors": [],
+             "begin": 2467,
+             "end": 2519
+            }
+           ],
+           "nodeProperties": [],
+           "numErrors": 0,
+           "numWarnings": 0
+          },
+          "errors": [],
+          "begin": 2394,
+          "end": 2520
+         },
+         {
+          "pred": "contactPoint",
+          "target": {
+           "types": [
+            {
+             "pred": "itemtype",
+             "value": "ContactPoint",
+             "errors": [],
+             "begin": 2545,
+             "end": 2559
+            }
+           ],
+           "typeGroup": "ContactPoint",
+           "errors": [],
+           "properties": [
+            {
+             "pred": "telephone",
+             "value": "+40757150894",
+             "errors": [],
+             "begin": 2572,
+             "end": 2586
+            },
+            {
+             "pred": "email",
+             "value": "office@bitup.ro",
+             "errors": [],
+             "begin": 2595,
+             "end": 2612
+            },
+            {
+             "pred": "contactType",
+             "value": "customer service",
+             "errors": [],
+             "begin": 2627,
+             "end": 2645
+            },
+            {
+             "pred": "availableLanguage",
+             "value": "Romanian",
+             "errors": [],
+             "begin": 2667,
+             "end": 2677
+            },
+            {
+             "pred": "availableLanguage",
+             "value": "English",
+             "errors": [],
+             "begin": 2678,
+             "end": 2687
+            },
+            {
+             "pred": "areaServed",
+             "value": "RO",
+             "errors": [],
+             "begin": 2702,
+             "end": 2706
+            }
+           ],
+           "nodeProperties": [],
+           "numErrors": 0,
+           "numWarnings": 0
+          },
+          "errors": [],
+          "begin": 2536,
+          "end": 2707
+         }
+        ],
+        "numErrors": 0,
+        "numWarnings": 0
+       },
+       "errors": [],
+       "begin": 2978,
+       "end": 3018
+      },
+      {
+       "pred": "address",
+       "target": {
+        "types": [
+         {
+          "pred": "itemtype",
+          "value": "PostalAddress",
+          "errors": [],
+          "begin": 3038,
+          "end": 3053
+         }
+        ],
+        "typeGroup": "PostalAddress",
+        "errors": [],
+        "properties": [
+         {
+          "pred": "addressLocality",
+          "value": "Cluj-Napoca",
+          "errors": [],
+          "begin": 3072,
+          "end": 3085
+         },
+         {
+          "pred": "addressRegion",
+          "value": "Cluj",
+          "errors": [],
+          "begin": 3102,
+          "end": 3108
+         }
+        ],
+        "nodeProperties": [
+         {
+          "pred": "addressCountry",
+          "target": {
+           "types": [
+            {
+             "pred": "itemtype",
+             "value": "Country",
+             "errors": [],
+             "begin": 3126,
+             "end": 3130
+            }
+           ],
+           "typeGroup": "Country",
+           "errors": [],
+           "properties": [
+            {
+             "pred": "name",
+             "value": "RO",
+             "errors": [],
+             "begin": 3126,
+             "end": 3130
+            }
+           ],
+           "nodeProperties": [],
+           "numErrors": 0,
+           "numWarnings": 0
+          },
+          "errors": [],
+          "begin": 3126,
+          "end": 3130
+         }
+        ],
+        "numErrors": 0,
+        "numWarnings": 0
+       },
+       "errors": [],
+       "begin": 3029,
+       "end": 3131
+      },
+      {
+       "pred": "openingHoursSpecification",
+       "target": {
+        "types": [
+         {
+          "pred": "itemtype",
+          "value": "OpeningHoursSpecification",
+          "errors": [],
+          "begin": 3209,
+          "end": 3236
+         }
+        ],
+        "typeGroup": "OpeningHoursSpecification",
+        "errors": [],
+        "properties": [
+         {
+          "pred": "dayOfWeek",
+          "value": "http://schema.org/Monday",
+          "errors": [],
+          "begin": 3250,
+          "end": 3258
+         },
+         {
+          "pred": "dayOfWeek",
+          "value": "http://schema.org/Tuesday",
+          "errors": [],
+          "begin": 3259,
+          "end": 3268
+         },
+         {
+          "pred": "dayOfWeek",
+          "value": "http://schema.org/Wednesday",
+          "errors": [],
+          "begin": 3269,
+          "end": 3280
+         },
+         {
+          "pred": "dayOfWeek",
+          "value": "http://schema.org/Thursday",
+          "errors": [],
+          "begin": 3281,
+          "end": 3291
+         },
+         {
+          "pred": "dayOfWeek",
+          "value": "http://schema.org/Friday",
+          "errors": [],
+          "begin": 3292,
+          "end": 3300
+         },
+         {
+          "pred": "opens",
+          "value": "08:00",
+          "errors": [],
+          "begin": 3310,
+          "end": 3317
+         },
+         {
+          "pred": "closes",
+          "value": "18:00",
+          "errors": [],
+          "begin": 3327,
+          "end": 3334
+         }
+        ],
+        "nodeProperties": [],
+        "numErrors": 0,
+        "numWarnings": 0
+       },
+       "errors": [],
+       "begin": 3200,
+       "end": 3335
+      },
+      {
+       "pred": "founder",
+       "target": {
+        "types": [
+         {
+          "pred": "itemtype",
+          "value": "Person",
+          "errors": [],
+          "begin": 3355,
+          "end": 3363
+         }
+        ],
+        "typeGroup": "Person",
+        "errors": [],
+        "properties": [
+         {
+          "pred": "name",
+          "value": "Marius Galmati",
+          "errors": [],
+          "begin": 3371,
+          "end": 3387
+         },
+         {
+          "pred": "jobTitle",
+          "value": "Fondator",
+          "errors": [],
+          "begin": 3399,
+          "end": 3409
+         }
+        ],
+        "nodeProperties": [],
+        "numErrors": 0,
+        "numWarnings": 0
+       },
+       "errors": [],
+       "begin": 3346,
+       "end": 3410
+      }
+     ],
+     "numErrors": 0,
+     "numWarnings": 0
+    }
+   ],
+   "numNodesWithError": 0,
+   "numNodesWithWarning": 0,
+   "numErrors": 0,
+   "numWarnings": 0,
+   "type": "ProfessionalService"
+  }
+ ],
+ "numObjects": 1,
+ "html": "<!DOCTYPE html><html lang=\"ro\"> <head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"><title>Rezultate: studii de caz cu nume · BitUp</title><meta name=\"description\" content=\"Ce am făcut, pentru cine și ce s-a schimbat. Studii de caz cu numele clientului, publicate cu acordul lui.\"><link rel=\"canonical\" href=\"https://bitup.ro/rezultate\"><link rel=\"alternate\" hreflang=\"ro\" href=\"https://bitup.ro/rezultate\"><link rel=\"alternate\" hreflang=\"en\" href=\"https://bitup.ro/en/results\"><link rel=\"alternate\" hreflang=\"x-default\" href=\"https://bitup.ro/rezultate\"><meta property=\"og:type\" content=\"website\"><meta property=\"og:site_name\" content=\"BitUp\"><meta property=\"og:locale\" content=\"ro_RO\"><meta property=\"og:locale:alternate\" content=\"en_US\"><meta property=\"og:title\" content=\"Rezultate: studii de caz cu nume · BitUp\"><meta property=\"og:description\" content=\"Ce am făcut, pentru cine și ce s-a schimbat. Studii de caz cu numele clientului, publicate cu acordul lui.\"><meta property=\"og:url\" content=\"https://bitup.ro/rezultate\"><meta name=\"twitter:card\" content=\"summary_large_image\"><link rel=\"icon\" href=\"/favicon.svg\" type=\"image/svg+xml\"><link rel=\"icon\" href=\"/favicon.ico\" sizes=\"16x16 32x32 48x48\"><link rel=\"apple-touch-icon\" href=\"/apple-touch-icon.png\"><meta name=\"theme-color\" content=\"#F5F8F8\" media=\"(prefers-color-scheme: light)\"><meta name=\"theme-color\" content=\"#0C181D\" media=\"(prefers-color-scheme: dark)\"><script>\n      (function () {\n        try {\n          var t = localStorage.getItem('bitup-theme');\n          if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t);\n        } catch (e) {}\n      })();\n    </script><link rel=\"preload\" as=\"font\" type=\"font/woff2\" crossorigin href=\"/_astro/bricolage-grotesque-latin-wght-normal.DLoelf7F.woff2\"><link rel=\"preload\" as=\"font\" type=\"font/woff2\" crossorigin href=\"/_astro/bricolage-grotesque-latin-ext-wght-normal.CcLUaPy7.woff2\"><script type=\"application/ld+json\">{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"Organization\",\"@id\":\"https://bitup.ro/#organization\",\"name\":\"BitUp Technology SRL\",\"alternateName\":\"BitUp\",\"url\":\"https://bitup.ro/\",\"logo\":\"https://bitup.ro/logo-bitup.png\",\"telephone\":\"+40757150894\",\"email\":\"office@bitup.ro\",\"sameAs\":[\"https://www.linkedin.com/company/bitup-technology\"],\"foundingDate\":\"2020-06\",\"founder\":{\"@type\":\"Person\",\"name\":\"Marius Galmati\",\"jobTitle\":\"Fondator\",\"sameAs\":\"https://www.linkedin.com/in/nicolae-marius-galmati\"},\"contactPoint\":{\"@type\":\"ContactPoint\",\"telephone\":\"+40757150894\",\"email\":\"office@bitup.ro\",\"contactType\":\"customer service\",\"availableLanguage\":[\"Romanian\",\"English\"],\"areaServed\":\"RO\"}},{\"@type\":\"ProfessionalService\",\"@id\":\"https://bitup.ro/#professionalservice\",\"name\":\"BitUp\",\"legalName\":\"BitUp Technology SRL\",\"url\":\"https://bitup.ro/\",\"telephone\":\"+40757150894\",\"email\":\"office@bitup.ro\",\"image\":\"https://bitup.ro/logo-bitup.png\",\"parentOrganization\":{\"@id\":\"https://bitup.ro/#organization\"},\"address\":{\"@type\":\"PostalAddress\",\"addressLocality\":\"Cluj-Napoca\",\"addressRegion\":\"Cluj\",\"addressCountry\":\"RO\"},\"areaServed\":[\"Cluj-Napoca\",\"România\"],\"openingHoursSpecification\":{\"@type\":\"OpeningHoursSpecification\",\"dayOfWeek\":[\"Monday\",\"Tuesday\",\"Wednesday\",\"Thursday\",\"Friday\"],\"opens\":\"08:00\",\"closes\":\"18:00\"},\"founder\":{\"@type\":\"Person\",\"name\":\"Marius Galmati\",\"jobTitle\":\"Fondator\"},\"sameAs\":[\"https://www.linkedin.com/company/bitup-technology\"]}]}</script><link rel=\"stylesheet\" href=\"/_astro/Section.DjiERX02.css\"><style>.eyebrow[data-astro-cid-2lydxdhj]{font-family:var(--font-mono);font-size:var(--fs-eyebrow);letter-spacing:.08em;text-transform:uppercase;color:var(--teal);margin:0;font-weight:500}.eyebrow--navy[data-astro-cid-2lydxdhj]{color:var(--teal-2)}\n.hero-int[data-astro-cid-4smgh3tl]{background:var(--surface-2);padding-block:var(--section-y)}.hero-int__inner[data-astro-cid-4smgh3tl]{gap:var(--s-4);justify-items:start;display:grid}.hero-int__h1[data-astro-cid-4smgh3tl]{max-width:22ch}.hero-int__lead[data-astro-cid-4smgh3tl]{max-width:60ch}.hero-int__actions[data-astro-cid-4smgh3tl]{gap:var(--s-3);margin-top:var(--s-2);justify-items:start;display:grid}.hero-int__note[data-astro-cid-4smgh3tl]{max-width:50ch}\n.twocol[data-astro-cid-rcmffm6f]{gap:var(--s-5);display:grid}.twocol__aside[data-astro-cid-rcmffm6f]{gap:var(--s-3);align-content:start;display:grid}.twocol__title[data-astro-cid-rcmffm6f]{max-width:18ch}.twocol__body[data-astro-cid-rcmffm6f]{max-width:70ch}@media (width>=1024px){.twocol[data-astro-cid-rcmffm6f]{gap:var(--s-8);grid-template-columns:240px minmax(0,1fr)}.twocol__aside[data-astro-cid-rcmffm6f]{top:calc(64px + var(--s-6));position:sticky}}\n.logo-box[data-astro-cid-7b25uqmk]{width:var(--logo-size);aspect-ratio:2;max-width:100%;padding:var(--s-3);border:1px solid var(--line);border-radius:var(--radius-lg);background:#fff;place-items:center;display:grid}.logo-box--dark[data-astro-cid-7b25uqmk]{background:var(--navy-2,#003343);border-color:#0000}.logo-box[data-astro-cid-7b25uqmk] img[data-astro-cid-7b25uqmk]{max-width:100%;height:auto}.logo-box__placeholder[data-astro-cid-7b25uqmk]{font-size:var(--fs-eyebrow);color:var(--muted);text-align:center;word-break:break-word}.logo-box--dark[data-astro-cid-7b25uqmk] .logo-box__placeholder[data-astro-cid-7b25uqmk]{color:var(--on-navy-muted,#c9d8db)}\n.cta-wrap[data-astro-cid-hwvj6ntz]{padding-block:var(--section-y);background:var(--bg)}.cta[data-astro-cid-hwvj6ntz]{background:var(--navy-surface);border:1px solid var(--line);border-radius:var(--radius-lg);padding:var(--s-7) var(--s-6);gap:var(--s-4);max-width:100%;display:grid}@media (width>=768px){.cta[data-astro-cid-hwvj6ntz]{padding:var(--s-8)}}.cta__title[data-astro-cid-hwvj6ntz]{color:var(--on-navy);max-width:24ch}.cta__text[data-astro-cid-hwvj6ntz]{color:var(--on-navy-muted);max-width:60ch;font-size:var(--fs-lead)}.cta__actions[data-astro-cid-hwvj6ntz]{align-items:center;gap:var(--s-4) var(--s-5);margin-top:var(--s-2);flex-wrap:wrap;display:flex}.cta__contact[data-astro-cid-hwvj6ntz]{color:var(--on-navy-muted);font-size:var(--fs-small)}\n.cases[data-astro-cid-g6j2v5ph]{gap:var(--s-5);grid-template-columns:repeat(auto-fit,minmax(320px,1fr));margin:0;padding:0;list-style:none;display:grid}.case[data-astro-cid-g6j2v5ph]{gap:var(--s-3);padding:var(--s-5);background:var(--surface);border:1px solid var(--line);border-top:3px solid var(--teal);border-radius:var(--radius);flex-direction:column;display:flex}.case__title[data-astro-cid-g6j2v5ph]{font-size:var(--fs-h3)}.case__facts[data-astro-cid-g6j2v5ph]{margin:var(--s-2) 0 0;gap:var(--s-1);display:grid}.case__fact[data-astro-cid-g6j2v5ph]{gap:var(--s-3);font-size:var(--fs-small);grid-template-columns:96px 1fr;display:grid}.case__fact[data-astro-cid-g6j2v5ph] dt[data-astro-cid-g6j2v5ph]{color:var(--teal);text-transform:uppercase;letter-spacing:.06em;font-size:var(--fs-eyebrow);padding-top:2px;font-weight:500}.case__fact[data-astro-cid-g6j2v5ph] dd[data-astro-cid-g6j2v5ph]{color:var(--text);margin:0}.case__link[data-astro-cid-g6j2v5ph]{padding-top:var(--s-2);font-family:var(--font-display);color:var(--teal);text-underline-offset:3px;margin-top:auto;font-weight:600;text-decoration:underline}.case__link[data-astro-cid-g6j2v5ph]:hover{color:var(--navy)}.next[data-astro-cid-g6j2v5ph]{margin-top:var(--s-5);max-width:70ch}.next--first[data-astro-cid-g6j2v5ph]{margin-top:0}.stack[data-astro-cid-g6j2v5ph]{gap:var(--s-4);display:grid}\n</style></head> <body> <a class=\"skip-link\" href=\"#continut\">Sari la conținut</a> <header class=\"header\" data-astro-cid-nen7h5rs> <div class=\"container header__inner\" data-astro-cid-ap6mcnip> <a class=\"header__logo\" href=\"/\" aria-label=\"BitUp\" data-astro-cid-nen7h5rs> <img src=\"/logo-bitup.png\" alt=\"BitUp\" width=\"132\" height=\"36\" decoding=\"async\" fetchpriority=\"high\" data-astro-cid-nen7h5rs> </a> <nav class=\"header__nav\" aria-label=\"Navigare principală\" data-astro-cid-nen7h5rs> <ul class=\"nav\" data-astro-cid-nen7h5rs> <li class=\"nav__item nav__item--services\" data-astro-cid-nen7h5rs> <button type=\"button\" class=\"nav__link nav__button\" data-services-toggle aria-expanded=\"false\" aria-controls=\"services-menu\" data-astro-cid-nen7h5rs> Servicii<span class=\"nav__caret\" aria-hidden=\"true\" data-astro-cid-nen7h5rs>▾</span> </button> <ul id=\"services-menu\" class=\"submenu\" hidden data-astro-cid-nen7h5rs> <li data-astro-cid-nen7h5rs><a class=\"submenu__link\" href=\"/servicii/suport-it\" data-astro-cid-nen7h5rs>Suport și administrare IT</a></li><li data-astro-cid-nen7h5rs><a class=\"submenu__link\" href=\"/servicii/securitate\" data-astro-cid-nen7h5rs>Securitate și continuitate</a></li><li data-astro-cid-nen7h5rs><a class=\"submenu__link\" href=\"/servicii/automatizari\" data-astro-cid-nen7h5rs>Automatizări și software</a></li><li data-astro-cid-nen7h5rs><a class=\"submenu__link\" href=\"/servicii\" data-astro-cid-nen7h5rs>Toate serviciile</a></li> </ul> </li> <li class=\"nav__item\" data-astro-cid-nen7h5rs><a class=\"nav__link\" href=\"/cum-lucram\" data-astro-cid-nen7h5rs>Cum lucrăm</a></li><li class=\"nav__item\" data-astro-cid-nen7h5rs><a class=\"nav__link\" href=\"/rezultate\" aria-current=\"page\" data-astro-cid-nen7h5rs>Rezultate</a></li><li class=\"nav__item\" data-astro-cid-nen7h5rs><a class=\"nav__link\" href=\"/despre\" data-astro-cid-nen7h5rs>Despre</a></li><li class=\"nav__item\" data-astro-cid-nen7h5rs><a class=\"nav__link\" href=\"/blog\" data-astro-cid-nen7h5rs>Blog</a></li> </ul> </nav> <div class=\"header__tools\" data-astro-cid-nen7h5rs> <a class=\"header__phone mono\" href=\"tel:+40757150894\" data-event=\"tel_click\" data-astro-cid-nen7h5rs>+40 757 150 894</a> <nav class=\"lang header__lang\" aria-label=\"Schimbă limba\" data-astro-cid-lemdd452>  <span class=\"lang__current\" aria-current=\"true\" lang=\"ro\" data-astro-cid-lemdd452>RO</span> <span class=\"lang__sep\" aria-hidden=\"true\" data-astro-cid-lemdd452>·</span> <a class=\"lang__other\" href=\"/en/results\" hreflang=\"en\" lang=\"en\" data-event=\"lang_switch\" data-astro-cid-lemdd452>EN</a> </nav> <button type=\"button\" class=\"theme-toggle header__theme\" data-theme-toggle aria-label=\"Comută tema: luminos / întunecat\" title=\"Comută tema: luminos / întunecat\" aria-pressed=\"false\" data-event=\"theme_toggle\" data-astro-cid-l6lhmie6> <svg width=\"1em\" height=\"1em\" viewBox=\"0 0 24 24\" class=\"theme-toggle__icon theme-toggle__icon--moon\" aria-hidden=\"true\" data-astro-cid-l6lhmie6=\"true\" data-icon=\"lucide:moon\">   <symbol id=\"ai:lucide:moon\"><path fill=\"none\" stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401\"/></symbol><use href=\"#ai:lucide:moon\"></use>  </svg> <svg width=\"1em\" height=\"1em\" viewBox=\"0 0 24 24\" class=\"theme-toggle__icon theme-toggle__icon--sun\" aria-hidden=\"true\" data-astro-cid-l6lhmie6=\"true\" data-icon=\"lucide:sun\">   <symbol id=\"ai:lucide:sun\"><g fill=\"none\" stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\"><circle cx=\"12\" cy=\"12\" r=\"4\"/><path d=\"M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41\"/></g></symbol><use href=\"#ai:lucide:sun\"></use>  </svg> </button> <script type=\"module\">var e=document.documentElement,t=window.matchMedia(`(prefers-color-scheme: dark)`),n=()=>e.getAttribute(`data-theme`)??(t.matches?`dark`:`light`),r=()=>{let e=n()===`dark`;document.querySelectorAll(`[data-theme-toggle]`).forEach(t=>t.setAttribute(`aria-pressed`,String(e)))};document.querySelectorAll(`[data-theme-toggle]`).forEach(t=>{t.addEventListener(`click`,()=>{let t=n()===`dark`?`light`:`dark`;e.setAttribute(`data-theme`,t);try{localStorage.setItem(`bitup-theme`,t)}catch{}r()})}),t.addEventListener(`change`,r),r();</script> <a href=\"/radiografie-it\" class=\"btn btn--primary btn--small header__cta\" data-event=\"cta_radiografie_click\" data-astro-cid-nen7h5rs=\"true\" data-astro-cid-ekguhzzh>Radiografie IT gratuită</a> <button type=\"button\" class=\"burger\" data-menu-toggle aria-expanded=\"false\" aria-controls=\"mobile-menu\" aria-label=\"Meniu\" data-label-open=\"Meniu\" data-label-close=\"Închide meniul\" data-astro-cid-nen7h5rs> <span class=\"burger__bar\" aria-hidden=\"true\" data-astro-cid-nen7h5rs></span> <span class=\"burger__bar\" aria-hidden=\"true\" data-astro-cid-nen7h5rs></span> <span class=\"burger__bar\" aria-hidden=\"true\" data-astro-cid-nen7h5rs></span> </button> </div> </div> <div id=\"mobile-menu\" class=\"mobile\" hidden data-mobile-menu data-astro-cid-nen7h5rs> <nav class=\"mobile__nav\" aria-label=\"Navigare principală\" data-astro-cid-nen7h5rs> <a href=\"/radiografie-it\" class=\"btn btn--primary mobile__cta\" data-event=\"cta_radiografie_click\" data-astro-cid-nen7h5rs=\"true\" data-astro-cid-ekguhzzh>Radiografie IT gratuită</a> <p class=\"mobile__group eyebrow\" data-astro-cid-nen7h5rs>Servicii</p> <ul class=\"mobile__list\" data-astro-cid-nen7h5rs> <li data-astro-cid-nen7h5rs><a class=\"mobile__link\" href=\"/servicii/suport-it\" data-astro-cid-nen7h5rs>Suport și administrare IT</a></li><li data-astro-cid-nen7h5rs><a class=\"mobile__link\" href=\"/servicii/securitate\" data-astro-cid-nen7h5rs>Securitate și continuitate</a></li><li data-astro-cid-nen7h5rs><a class=\"mobile__link\" href=\"/servicii/automatizari\" data-astro-cid-nen7h5rs>Automatizări și software</a></li><li data-astro-cid-nen7h5rs><a class=\"mobile__link\" href=\"/servicii\" data-astro-cid-nen7h5rs>Toate serviciile</a></li> </ul> <ul class=\"mobile__list mobile__list--main\" data-astro-cid-nen7h5rs> <li data-astro-cid-nen7h5rs><a class=\"mobile__link\" href=\"/cum-lucram\" data-astro-cid-nen7h5rs>Cum lucrăm</a></li><li data-astro-cid-nen7h5rs><a class=\"mobile__link\" href=\"/rezultate\" aria-current=\"page\" data-astro-cid-nen7h5rs>Rezultate</a></li><li data-astro-cid-nen7h5rs><a class=\"mobile__link\" href=\"/despre\" data-astro-cid-nen7h5rs>Despre</a></li><li data-astro-cid-nen7h5rs><a class=\"mobile__link\" href=\"/blog\" data-astro-cid-nen7h5rs>Blog</a></li> </ul> </nav> <div class=\"mobile__bottom\" data-astro-cid-nen7h5rs> <a class=\"mobile__contact mono\" href=\"tel:+40757150894\" data-event=\"tel_click\" data-astro-cid-nen7h5rs>Sună: +40 757 150 894</a> <a class=\"mobile__contact\" href=\"/suport\" data-astro-cid-nen7h5rs>Clienți: scrie-i lui Cipri pe WhatsApp</a> <div class=\"mobile__tools\" data-astro-cid-nen7h5rs> <nav class=\"lang\" aria-label=\"Schimbă limba\" data-astro-cid-lemdd452>  <span class=\"lang__current\" aria-current=\"true\" lang=\"ro\" data-astro-cid-lemdd452>RO</span> <span class=\"lang__sep\" aria-hidden=\"true\" data-astro-cid-lemdd452>·</span> <a class=\"lang__other\" href=\"/en/results\" hreflang=\"en\" lang=\"en\" data-event=\"lang_switch\" data-astro-cid-lemdd452>EN</a> </nav> <button type=\"button\" class=\"theme-toggle\" data-theme-toggle aria-label=\"Comută tema: luminos / întunecat\" title=\"Comută tema: luminos / întunecat\" aria-pressed=\"false\" data-event=\"theme_toggle\" data-astro-cid-l6lhmie6> <svg width=\"1em\" height=\"1em\" viewBox=\"0 0 24 24\" class=\"theme-toggle__icon theme-toggle__icon--moon\" aria-hidden=\"true\" data-astro-cid-l6lhmie6=\"true\" data-icon=\"lucide:moon\">   <use href=\"#ai:lucide:moon\"></use>  </svg> <svg width=\"1em\" height=\"1em\" viewBox=\"0 0 24 24\" class=\"theme-toggle__icon theme-toggle__icon--sun\" aria-hidden=\"true\" data-astro-cid-l6lhmie6=\"true\" data-icon=\"lucide:sun\">   <use href=\"#ai:lucide:sun\"></use>  </svg> </button>  </div> </div> </div> </header> <script type=\"module\">var e=document.querySelector(`[data-services-toggle]`),t=document.getElementById(`services-menu`);if(e&&t){let n=n=>{e.setAttribute(`aria-expanded`,String(n)),t.hidden=!n};e.addEventListener(`click`,()=>n(t.hidden)),document.addEventListener(`click`,r=>{!t.hidden&&!e.contains(r.target)&&!t.contains(r.target)&&n(!1)}),document.addEventListener(`keydown`,r=>{r.key===`Escape`&&!t.hidden&&(n(!1),e.focus())}),t.addEventListener(`focusout`,r=>{let i=r.relatedTarget;i&&!t.contains(i)&&i!==e&&n(!1)})}var n=document.querySelector(`[data-menu-toggle]`),r=document.querySelector(`[data-mobile-menu]`);if(n&&r){let e=()=>Array.from(r.querySelectorAll(`a[href], button:not([disabled])`)),t=t=>{n.setAttribute(`aria-expanded`,String(t)),n.setAttribute(`aria-label`,t?n.dataset.labelClose??``:n.dataset.labelOpen??``),r.hidden=!t,document.body.style.overflow=t?`hidden`:``,t&&e()[0]?.focus()};n.addEventListener(`click`,()=>t(r.hidden)),document.addEventListener(`keydown`,i=>{if(!r.hidden){if(i.key===`Escape`){t(!1),n.focus();return}if(i.key===`Tab`){let t=[n,...e()],r=t[0],a=t[t.length-1];i.shiftKey&&document.activeElement===r?(i.preventDefault(),a.focus()):!i.shiftKey&&document.activeElement===a&&(i.preventDefault(),r.focus())}}}),window.matchMedia(`(min-width: 1024px)`).addEventListener(`change`,e=>{e.matches&&!r.hidden&&t(!1)})}</script> <main id=\"continut\" tabindex=\"-1\">  <section class=\"hero-int\" data-astro-cid-4smgh3tl> <div class=\"container\" data-astro-cid-ap6mcnip> <div class=\"hero-int__inner\" data-astro-cid-4smgh3tl> <p data-astro-cid-2lydxdhj=\"true\" class=\"eyebrow\">Rezultate</p> <h1 class=\"hero-int__h1\" data-astro-cid-4smgh3tl>Ce am făcut, cu nume</h1> <p class=\"lead hero-int__lead\" data-astro-cid-4smgh3tl>Puține, dar reale. Fiecare caz de aici e publicat cu acordul scris al clientului și fără detalii despre cum îi sunt configurate sistemele. Vrei să vorbești cu unul dintre ei? Cere-ne. Facem legătura.</p>   </div> </div> </section> <section class=\"section section--bg\" data-astro-cid-w6ymvdtg>  <div class=\"container\" data-astro-cid-ap6mcnip><ul class=\"cases\" data-astro-cid-g6j2v5ph> <li class=\"case\" data-astro-cid-g6j2v5ph> <div class=\"logo-box\" style=\"--logo-size: 120px\" data-astro-cid-7b25uqmk> <span class=\"logo-box__placeholder mono\" data-astro-cid-7b25uqmk>[[LOGO_COSMIO_LOCAL]]</span> </div> <p class=\"eyebrow\" data-astro-cid-g6j2v5ph>Cloud, backup și disaster recovery<span class=\"muted\" data-astro-cid-g6j2v5ph> · Draft, nepublicat</span></p> <h2 class=\"case__title\" data-astro-cid-g6j2v5ph>Cosmio: o platformă de contabilitate în cloud, cu backup, replicare și plan de recuperare, de la un singur partener</h2> <p data-astro-cid-g6j2v5ph>Cosmio este o platformă de contabilitate automatizată pentru SRL-uri din servicii. Din martie 2026, BitUp găzduiește, protejează și operează infrastructura ei de producție, în abonament lunar, cu obiective de recuperare scrise în contract și testate trimestrial.</p> <dl class=\"case__facts\" data-astro-cid-g6j2v5ph> <div class=\"case__fact\" data-astro-cid-g6j2v5ph><dt class=\"mono\" data-astro-cid-g6j2v5ph>Client</dt><dd class=\"mono\" data-astro-cid-g6j2v5ph>Cosmio Fintech SRL</dd></div><div class=\"case__fact\" data-astro-cid-g6j2v5ph><dt class=\"mono\" data-astro-cid-g6j2v5ph>Domeniu</dt><dd class=\"mono\" data-astro-cid-g6j2v5ph>Fintech · contabilitate automatizată (SaaS)</dd></div> </dl> <a class=\"case__link\" href=\"/rezultate/cosmio\" data-astro-cid-g6j2v5ph>Citește cazul<span aria-hidden=\"true\" data-astro-cid-g6j2v5ph> →</span></a> </li><li class=\"case\" data-astro-cid-g6j2v5ph> <div class=\"logo-box logo-box--dark\" style=\"--logo-size: 120px\" data-astro-cid-7b25uqmk> <span class=\"logo-box__placeholder mono\" data-astro-cid-7b25uqmk>[[LOGO_PROQ_LOCAL]]</span> </div> <p class=\"eyebrow\" data-astro-cid-g6j2v5ph>Software la comandă și produs propriu</p> <h2 class=\"case__title\" data-astro-cid-g6j2v5ph>ProQ: platforma de planificare a calității pentru furnizorii auto, construită de BitUp și folosită pe trei continente</h2> <p data-astro-cid-g6j2v5ph>ProQ este software-ul APQP dezvoltat integral de BitUp și vândut ca SaaS unor companii din industria auto din România, Mexic, India și China. Un produs, nu un proiect: 29 de module, găzduit de noi sau instalat la client, actualizat continuu, cu suport de la oamenii care l-au scris.</p> <dl class=\"case__facts\" data-astro-cid-g6j2v5ph> <div class=\"case__fact\" data-astro-cid-g6j2v5ph><dt class=\"mono\" data-astro-cid-g6j2v5ph>Produs</dt><dd class=\"mono\" data-astro-cid-g6j2v5ph>ProQ · pro-q.ro</dd></div><div class=\"case__fact\" data-astro-cid-g6j2v5ph><dt class=\"mono\" data-astro-cid-g6j2v5ph>Rolul BitUp</dt><dd class=\"mono\" data-astro-cid-g6j2v5ph>Dezvoltare 100%, găzduire, operare, actualizări, suport</dd></div> </dl> <a class=\"case__link\" href=\"/rezultate/proq\" data-astro-cid-g6j2v5ph>Citește cazul<span aria-hidden=\"true\" data-astro-cid-g6j2v5ph> →</span></a> </li> </ul><p class=\"muted next\" data-astro-cid-g6j2v5ph>Următorul caz, cu numele clientului, apare după ce semnează acordul. Nu publicăm nimic pe cuvânt.</p></div>  </section> <section class=\"section section--surface\" aria-labelledby=\"rules-title\" data-astro-cid-w6ymvdtg>  <div class=\"container\" data-astro-cid-ap6mcnip> <div class=\"twocol\" data-astro-cid-rcmffm6f> <div class=\"twocol__aside\" data-astro-cid-rcmffm6f> <p data-astro-cid-2lydxdhj=\"true\" class=\"eyebrow\">Reguli</p> <h2 id=\"rules-title\" class=\"twocol__title\" data-astro-cid-rcmffm6f>Cum ajunge un caz pe pagina asta</h2> </div> <div class=\"twocol__body\" data-astro-cid-rcmffm6f> <div class=\"stack\" data-astro-cid-g6j2v5ph><p data-astro-cid-g6j2v5ph>Întâi scriem cazul. Apoi îl trimitem clientului, exact așa cum ar apărea, împreună cu un acord de o pagină care spune ce putem folosi (numele, logo-ul, un citat), unde, și că poate retrage acordul oricând. Se publică doar după semnătură.</p><p data-astro-cid-g6j2v5ph>Ce nu apare niciodată: cum sunt configurate sistemele clientului, ce vulnerabilități am găsit, ce incidente a avut, cât plătește, ce aplicații interne folosește. Un studiu de caz al unei firme de securitate nu poate fi o hartă pentru cine vrea să intre. Dacă ți se pare că lipsesc detalii, asta e de ce.</p><p data-astro-cid-g6j2v5ph>Referințe cu nume, la telefon, pentru firmele care vor să întrebe un client direct: la cerere, cu acordul lui.</p></div> </div> </div> </div>  </section> <section class=\"cta-wrap\" aria-labelledby=\"cta-title\" data-astro-cid-hwvj6ntz> <div class=\"container\" data-astro-cid-ap6mcnip> <div class=\"cta\" data-astro-cid-hwvj6ntz> <h2 id=\"cta-title\" class=\"cta__title\" data-astro-cid-hwvj6ntz>Cum ar fi o zi fără grija sistemelor, a backup-urilor și a securității datelor?</h2> <p class=\"cta__text\" data-astro-cid-hwvj6ntz>Începe cu 30 de minute. Îți spunem exact unde stai și ce ar însemna să preluăm noi grija asta.</p> <div class=\"cta__actions\" data-astro-cid-hwvj6ntz> <a href=\"/radiografie-it\" class=\"btn btn--primary\" data-event=\"cta_radiografie_click\" data-astro-cid-hwvj6ntz=\"true\" data-astro-cid-ekguhzzh>Programează Radiografia IT</a> <p class=\"cta__contact mono\" data-astro-cid-hwvj6ntz>+40 757 150 894 · office@bitup.ro</p> </div> </div> </div> </section>  </main> <footer class=\"footer\" data-astro-cid-jo6i4kqk> <div class=\"container\" data-astro-cid-ap6mcnip> <div class=\"footer__grid\" data-astro-cid-jo6i4kqk> <div class=\"footer__brand\" data-astro-cid-jo6i4kqk> <img class=\"footer__logo\" src=\"/logo-bitup.png\" alt=\"BitUp\" width=\"132\" height=\"36\" loading=\"lazy\" decoding=\"async\" data-astro-cid-jo6i4kqk> <address class=\"footer__address\" data-astro-cid-jo6i4kqk> <strong class=\"footer__name\" data-astro-cid-jo6i4kqk>BitUp Technology SRL</strong><br data-astro-cid-jo6i4kqk> Cluj-Napoca, România<br data-astro-cid-jo6i4kqk> <span class=\"mono footer__ids\" data-astro-cid-jo6i4kqk>CUI RO42613248 · J12/1556/2020</span><br data-astro-cid-jo6i4kqk> <a href=\"mailto:office@bitup.ro\" data-astro-cid-jo6i4kqk>office@bitup.ro</a> · <a href=\"tel:+40757150894\" class=\"mono\" data-event=\"tel_click\" data-astro-cid-jo6i4kqk>+40 757 150 894</a><br data-astro-cid-jo6i4kqk> LinkedIn: <a href=\"https://www.linkedin.com/company/bitup-technology\" target=\"_blank\" rel=\"noopener\" data-astro-cid-jo6i4kqk>BitUp Technology</a> </address> </div> <nav class=\"footer__col\" aria-label=\"Navigare secundară\" data-astro-cid-jo6i4kqk> <ul class=\"footer__list\" data-astro-cid-jo6i4kqk> <li data-astro-cid-jo6i4kqk><a href=\"/servicii/suport-it\" data-astro-cid-jo6i4kqk>Suport și administrare IT</a></li><li data-astro-cid-jo6i4kqk><a href=\"/servicii/securitate\" data-astro-cid-jo6i4kqk>Securitate și continuitate</a></li><li data-astro-cid-jo6i4kqk><a href=\"/servicii/automatizari\" data-astro-cid-jo6i4kqk>Automatizări și software</a></li><li data-astro-cid-jo6i4kqk><a href=\"/radiografie-it\" data-astro-cid-jo6i4kqk>Radiografie IT gratuită</a></li> </ul> <ul class=\"footer__list footer__list--company\" data-astro-cid-jo6i4kqk> <li data-astro-cid-jo6i4kqk><a href=\"/cum-lucram\" data-astro-cid-jo6i4kqk>Cum lucrăm</a></li><li data-astro-cid-jo6i4kqk><a href=\"/rezultate\" data-astro-cid-jo6i4kqk>Rezultate</a></li><li data-astro-cid-jo6i4kqk><a href=\"/despre\" data-astro-cid-jo6i4kqk>Despre</a></li><li data-astro-cid-jo6i4kqk><a href=\"/blog\" data-astro-cid-jo6i4kqk>Blog</a></li><li data-astro-cid-jo6i4kqk><a href=\"/contact\" data-astro-cid-jo6i4kqk>Contact</a></li><li data-astro-cid-jo6i4kqk><a href=\"/suport\" data-astro-cid-jo6i4kqk>Suport pentru clienți</a></li> </ul> </nav> <div class=\"footer__col footer__partners\" data-astro-cid-jo6i4kqk> <ul class=\"footer__list footer__list--partners\" data-astro-cid-jo6i4kqk> <li class=\"footer__partner\" data-astro-cid-jo6i4kqk>Microsoft Partner<span class=\"footer__level muted small\" data-astro-cid-jo6i4kqk>[[LOGO_PARTENERI]]</span></li><li class=\"footer__partner\" data-astro-cid-jo6i4kqk>Fortinet Advocate<span class=\"footer__level muted small\" data-astro-cid-jo6i4kqk>[[LOGO_PARTENERI]]</span></li><li class=\"footer__partner\" data-astro-cid-jo6i4kqk>Veeam Partner<span class=\"footer__level muted small\" data-astro-cid-jo6i4kqk>[[LOGO_PARTENERI]]</span></li> </ul> </div> </div> <div class=\"footer__bottom\" data-astro-cid-jo6i4kqk> <p class=\"footer__copy small muted\" data-astro-cid-jo6i4kqk>© 2026 BitUp Technology SRL</p> <ul class=\"footer__legal small\" data-astro-cid-jo6i4kqk> <li data-astro-cid-jo6i4kqk><a href=\"/termeni\" data-astro-cid-jo6i4kqk>Termeni</a></li> <li data-astro-cid-jo6i4kqk><a href=\"/confidentialitate\" data-astro-cid-jo6i4kqk>Confidențialitate</a></li> <li data-astro-cid-jo6i4kqk><a href=\"/cookies\" data-astro-cid-jo6i4kqk>Cookies</a></li> <li data-astro-cid-jo6i4kqk><button type=\"button\" class=\"footer__cookie-btn\" data-consent-open data-astro-cid-jo6i4kqk>Setări cookie-uri</button></li> </ul> <nav class=\"lang\" aria-label=\"Schimbă limba\" data-astro-cid-lemdd452>  <span class=\"lang__current\" aria-current=\"true\" lang=\"ro\" data-astro-cid-lemdd452>RO</span> <span class=\"lang__sep\" aria-hidden=\"true\" data-astro-cid-lemdd452>·</span> <a class=\"lang__other\" href=\"/en/results\" hreflang=\"en\" lang=\"en\" data-event=\"lang_switch\" data-astro-cid-lemdd452>EN</a> </nav> </div> </div> </footer> <div class=\"consent\" role=\"region\" aria-label=\"Cookie-uri\" tabindex=\"-1\" data-consent-banner hidden data-astro-cid-u6s5b3h2> <p class=\"consent__title\" data-astro-cid-u6s5b3h2>Cookie-uri de statistici, doar dacă vrei</p> <p class=\"consent__text\" data-astro-cid-u6s5b3h2>Folosim Google Analytics ca să vedem ce pagini se citesc și de unde vin vizitatorii. Nu pornește până nu accepți, nu face reclame și nu vinde nimic nimănui. Te poți răzgândi oricând din „Setări cookie-uri”, jos în pagină. <a href=\"/cookies\" data-astro-cid-u6s5b3h2>Cum folosim cookie-urile</a></p> <div class=\"consent__actions\" data-astro-cid-u6s5b3h2> <button type=\"button\" class=\"btn btn--secondary btn--small\" data-consent=\"accept\" data-astro-cid-u6s5b3h2=\"true\" data-astro-cid-ekguhzzh>Accept</button> <button type=\"button\" class=\"btn btn--secondary btn--small\" data-consent=\"decline\" data-astro-cid-u6s5b3h2=\"true\" data-astro-cid-ekguhzzh>Refuz</button> </div>  </div> </body> </html>",
+ "errors": [],
+ "totalNumErrors": 0,
+ "totalNumWarnings": 0
+}

@@ -36,8 +36,10 @@ interface Props {
   noAlternates?: boolean;
   jsonLd?: Record<string, unknown>[];
   ogType?: 'website' | 'article';
+  /** Calea fluxului RSS al limbii (pe paginile de blog): <link rel="alternate" type="application/rss+xml">. */
+  rss?: string;
 }
-const { lang, title, description, routeKey, path, altPath, noindex = false, noAlternates = false, jsonLd = [], ogType = 'website' } = Astro.props;
+const { lang, title, description, routeKey, path, altPath, noindex = false, noAlternates = false, jsonLd = [], ogType = 'website', rss } = Astro.props;
 
 const dict = t(lang);
 const other: Locale = lang === 'ro' ? 'en' : 'ro';
@@ -73,6 +75,7 @@ const graph = baseGraph(lang, jsonLd);
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     <meta name="twitter:card" content="summary_large_image" />
+    {rss && <link rel="alternate" type="application/rss+xml" title={site.name} href={absoluteUrl(rss)} />}
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />

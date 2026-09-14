@@ -1,0 +1,19 @@
+{
+  "url": "http://localhost:4321/en/blog/how-we-built-our-own-helpdesk",
+  "performance": 99,
+  "accessibility": 100,
+  "bestPractices": 100,
+  "seo": 100,
+  "lcp": "1.9 s",
+  "cls": "0.02",
+  "tbt": "40 ms",
+  "transferKiB": 254,
+  "failed": [
+    "first-contentful-paint: First Contentful Paint",
+    "largest-contentful-paint: Largest Contentful Paint",
+    "max-potential-fid: Max Potential First Input Delay",
+    "image-delivery-insight: Improve image delivery",
+    "network-dependency-tree-insight: Network dependency tree",
+    "render-blocking-insight: Render-blocking requests"
+  ]
+}
