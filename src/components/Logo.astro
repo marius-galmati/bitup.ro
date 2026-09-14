@@ -1,0 +1,25 @@
+---
+/**
+ * Logo BitUp, SVG inline (vectorizat din BITUP-Final-logo.png, căile în logo-paths.json; fișierele întregi sunt în public/logos/).
+ * Culorile vin din tokeni, deci varianta pentru temă închisă e automată: textul „BIT” în --logo-ink, „UP” în --logo-accent, marca orange neschimbată.
+ * În header (link cu aria-label) e decorativ; în footer are rol de imagine cu etichetă.
+ */
+import paths from './logo-paths.json';
+
+interface Props { width?: number; label?: string; class?: string; decorative?: boolean }
+const { width = 132, label = 'BitUp', class: className, decorative = false } = Astro.props;
+const [, , vw, vh] = paths.viewBox.split(' ').map(Number);
+const height = Math.round((width * vh) / vw);
+---
+<svg class:list={['logo', className]} viewBox={paths.viewBox} width={width} height={height} {...(decorative ? { 'aria-hidden': 'true' } : { role: 'img', 'aria-label': label })}>
+  <path class="logo__ink" fill-rule="evenodd" d={paths.navy} />
+  <path class="logo__accent" fill-rule="evenodd" d={paths.teal} />
+  <path class="logo__mark" fill-rule="evenodd" d={paths.orange} />
+</svg>
+
+<style>
+  .logo { display: block; height: auto; }
+  .logo__ink { fill: var(--logo-ink); }
+  .logo__accent { fill: var(--logo-accent); }
+  .logo__mark { fill: #FE982A; }
+</style>

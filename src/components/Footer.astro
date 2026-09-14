@@ -4,6 +4,7 @@
  * Fără newsletter, fără coloane egale de linkuri. Text pe --surface, navy pe titluri. Linkul „Setări cookie-uri” e buton (funcțional în Faza 5).
  */
 import Container from './Container.astro';
+import Logo from './Logo.astro';
 import LangSwitch from './LangSwitch.astro';
 import { t, localePath, type Locale, type RouteKey } from '../i18n';
 import { site } from '../lib/site';
@@ -17,7 +18,7 @@ const f = dict.footer;
   <Container>
     <div class="footer__grid">
       <div class="footer__brand">
-        <img class="footer__logo" src="/logo-bitup.png" alt="BitUp" width="132" height="36" loading="lazy" decoding="async" />
+        <Logo width={132} class="footer__logo" />
         <address class="footer__address">
           <strong class="footer__name">{f.company.name}</strong><br />
           {f.company.city}<br />
@@ -62,9 +63,7 @@ const f = dict.footer;
   @media (min-width: 768px) { .footer__grid { grid-template-columns: 1.6fr 1fr 1fr; gap: var(--s-7); } }
   @media (min-width: 1024px) { .footer__grid { grid-template-columns: 2fr 1.2fr 1fr; } }
   .footer__brand { display: grid; gap: var(--s-4); align-content: start; }
-  .footer__logo { width: 132px; height: auto; }
-  :root[data-theme="dark"] .footer__logo { filter: brightness(0) invert(1); } /* PLACEHOLDER până la [[LOGO_BITUP_SVG]] varianta dark */
-  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .footer__logo { filter: brightness(0) invert(1); } }
+  .footer :global(.footer__logo) { width: 132px; }
   .footer__address { font-style: normal; line-height: 1.7; color: var(--text); }
   .footer__name { font-family: var(--font-display); font-weight: 600; color: var(--navy); font-size: var(--fs-body); }
   .footer__ids { font-size: var(--fs-eyebrow); color: var(--muted); }

@@ -26,8 +26,8 @@ Site-ul are două teme: **light** (implicită pentru cine nu are preferință de
   --ok: #2E7D5B; --warn: #C97A12; --crit: #B4432F;  /* doar pentru semafor (Radiografie) și stări de formular */
 
   /* tipografie */
-  --font-display: "IBM Plex Sans Variable", "Segoe UI", system-ui, sans-serif;
-  --font-body: "IBM Plex Sans Variable", "Segoe UI", system-ui, sans-serif;
+  --font-display: "Public Sans Variable", "Segoe UI", system-ui, sans-serif;
+  --font-body: "Public Sans Variable", "Segoe UI", system-ui, sans-serif;
   --font-mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
 
   /* scară de tip (desktop; pe mobil se reduc cu clamp) */
@@ -97,8 +97,8 @@ Reguli:
 
 ## Tipografie
 
-- **Display (titluri, butoane, eyebrow, meniu):** IBM Plex Sans (variabil), greutate 600 la titluri și butoane, `letter-spacing: -0.015em` la h1 și `-0.01em` la h2, `text-wrap: balance` pe toate headingurile. Aceeași familie ca textul curent: o singură voce tipografică, clară, fără caracter „de pliant”; ierarhia vine din mărime și greutate.
-- **Body:** IBM Plex Sans (variabil), 400 și 600, 17 px / 1.6. Lățime maximă a textului curent: 70 de caractere (`--container-narrow`).
+- **Display (titluri, butoane, eyebrow, meniu):** Public Sans (variabil), greutate 600 la titluri și butoane, `letter-spacing: -0.015em` la h1 și `-0.01em` la h2, `text-wrap: balance` pe toate headingurile. Aceeași familie ca textul curent: o singură voce tipografică, neutră și deschisă (aperturi largi, înălțime-x mare), aleasă pentru lizibilitate; ierarhia vine din mărime și greutate.
+- **Body:** Public Sans (variabil), 400 și 600, 17 px / 1.6. Lățime maximă a textului curent: 70 de caractere (`--container-narrow`).
 - **Mono:** IBM Plex Mono, doar pentru: eyebrow-uri (uppercase, `letter-spacing: .08em`), cifre în benzi de fapte, coduri (headere, URL-uri) în pagini tehnice.
 - Ierarhie: un `h1` per pagină; `h2` pentru secțiuni; `h3` în carduri. Fără `h4` în paginile de marketing.
 - Titluri în „Sentence case”, niciodată Title Case, niciodată toate majuscule (excepție: eyebrow-urile).

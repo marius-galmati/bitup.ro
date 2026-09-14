@@ -23,8 +23,8 @@
   --ok: #2E7D5B; --warn: #C97A12; --crit: #B4432F;  /* doar pentru semafor (Radiografie) și stări de formular */
 
   /* tipografie */
-  --font-display: "IBM Plex Sans Variable", "Segoe UI", system-ui, sans-serif;
-  --font-body: "IBM Plex Sans Variable", "Segoe UI", system-ui, sans-serif;
+  --font-display: "Public Sans Variable", "Segoe UI", system-ui, sans-serif;
+  --font-body: "Public Sans Variable", "Segoe UI", system-ui, sans-serif;
   --font-mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
 
   /* scară de tip (desktop; pe mobil se reduc cu clamp) */
@@ -53,6 +53,8 @@
   --navy-surface-2: var(--navy-2);
   --on-navy: #FFFFFF;
   --on-navy-muted: #C9D8DB;
+  --logo-ink: #00202E;     /* „BIT” din logo */
+  --logo-accent: #20686C;  /* „UP” din logo */
 
   color-scheme: light;
 }
@@ -74,6 +76,8 @@
   --navy-surface-2: #163845;
   --on-navy: #FFFFFF;
   --on-navy-muted: #B9CCD0;
+  --logo-ink: #E4ECEE;
+  --logo-accent: #5FB0B4;
   --orange: #FE982A;      /* neschimbat; text pe buton rămâne #00202E */
   --ok: #4CAF82; --warn: #E0983A; --crit: #E06A54;
   --shadow: none;         /* în dark, ridicarea se face cu bordură, nu cu umbră */
@@ -98,6 +102,8 @@
     --navy-surface-2: #163845;
     --on-navy: #FFFFFF;
     --on-navy-muted: #B9CCD0;
+    --logo-ink: #E4ECEE;
+    --logo-accent: #5FB0B4;
     --orange: #FE982A;
     --ok: #4CAF82; --warn: #E0983A; --crit: #E06A54;
     --shadow: none;

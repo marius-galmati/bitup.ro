@@ -8,6 +8,7 @@
  */
 import Button from './Button.astro';
 import Container from './Container.astro';
+import Logo from './Logo.astro';
 import ThemeToggle from './ThemeToggle.astro';
 import LangSwitch from './LangSwitch.astro';
 import { t, localePath, type Locale, type RouteKey } from '../i18n';
@@ -30,7 +31,7 @@ const isCurrent = (route: RouteKey) => (route === currentKey ? 'page' : undefine
 <header class="header">
   <Container class="header__inner">
     <a class="header__logo" href={localePath('home', lang)} aria-label="BitUp">
-      <img src="/logo-bitup.png" alt="BitUp" width="132" height="36" decoding="async" fetchpriority="high" />
+      <Logo width={132} decorative />
     </a>
 
     <nav class="header__nav" aria-label={nav.ariaLabel}>
@@ -95,9 +96,6 @@ const isCurrent = (route: RouteKey) => (route === currentKey ? 'page' : undefine
   @media (min-width: 1024px) { .header { position: sticky; top: 0; } }
   .header :global(.header__inner) { display: flex; align-items: center; gap: var(--s-5); min-height: 64px; }
   .header__logo { display: inline-flex; align-items: center; flex: none; }
-  .header__logo img { width: 132px; height: auto; }
-  :root[data-theme="dark"] .header__logo img { filter: brightness(0) invert(1); } /* PLACEHOLDER până la [[LOGO_BITUP_SVG]] varianta dark */
-  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .header__logo img { filter: brightness(0) invert(1); } }
 
   .header__nav { display: none; margin-left: var(--s-3); }
   .nav { list-style: none; margin: 0; padding: 0; display: flex; align-items: center; gap: var(--s-1); }

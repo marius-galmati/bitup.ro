@@ -6,7 +6,7 @@
 - **Două limbi:** română (implicită, la rădăcină) și engleză (sub `/en/`), prin i18n-ul nativ din Astro. Detalii la § Limbi.
 - **Două teme:** light și dark, prin tokeni CSS și `data-theme` pe `<html>`. Detalii în `DESIGN.md` § Dark mode.
 - **Stilizare:** CSS pur cu variabile (tokenii din `DESIGN.md`) în `src/styles/`, plus utilitare minime scrise de mână. Fără Tailwind: proiectul are ~20 de pagini pe limbă și un sistem de design mic; utilitarele ar aduce mai mult zgomot decât ajutor. Dacă Claude Code consideră că Tailwind v4 accelerează mult, poate propune în `NOTES.md`, dar nu îl instalează fără acord.
-- **Fonturi:** self-hosted prin `@fontsource-variable/ibm-plex-sans`, `@fontsource/ibm-plex-mono` (400, 500). Subset latin + latin-ext (diacriticele românești sunt în latin-ext). `font-display: swap`.
+- **Fonturi:** self-hosted prin `@fontsource-variable/public-sans`, `@fontsource/ibm-plex-mono` (400, 500). Subset latin + latin-ext (diacriticele românești sunt în latin-ext). `font-display: swap`.
 - **Integrări Astro:** `@astrojs/sitemap` (cu configurarea i18n), `@astrojs/rss`, `astro-og-canvas` (imagini OG la build), `astro-icon` doar dacă e nevoie de iconițe (set: `lucide`, maximum 12 iconițe în tot site-ul, inclusiv soare/lună pentru temă).
 - **Imagini:** `astro:assets` (`<Image>` / `<Picture>`), AVIF + WebP, dimensiuni declarate.
 - **Formulare:** HTML nativ + `fetch` către o funcție proprie (`/api/lead`, Cloudflare Pages Function) care verifică Turnstile și trimite emailul prin **Resend**. Cheile stau doar pe server. Detalii la § Formulare.
@@ -276,7 +276,7 @@ Secretele (`RESEND_API_KEY`, `TURNSTILE_SECRET_KEY`, `LEAD_TO_EMAIL`) se seteaz�
 - Tokenii pentru light în `:root`; cei pentru dark în `:root[data-theme="dark"]` și, când nu există alegere explicită, în `@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { … } }`. Paleta e în `DESIGN.md` § Dark mode.
 - Un script inline de maximum 10 rânduri în `<head>`, înainte de CSS, citește `localStorage.getItem('bitup-theme')` și pune `data-theme` pe `<html>` ca să nu apară flash-ul de fundal alb. `color-scheme: light dark` pe `:root`.
 - `ThemeToggle.astro`: buton în header (iconițe soare/lună din `lucide`), `aria-label` din i18n, `aria-pressed`. Ciclu: sistem → light → dark → sistem, sau mai simplu, doar light/dark, pornind de la preferința sistemului. Alegerea se salvează în `localStorage` (nu e cookie, nu trimite nimic la server, nu cere consimțământ; e menționată totuși pe pagina de cookies, la „stocare locală”).
-- Logo-ul: `logo-bitup.svg` pe light, `logo-bitup-dark.svg` pe dark, prin `<picture>` cu `media="(prefers-color-scheme: dark)"` plus CSS după `data-theme`.
+- Logo-ul: SVG inline (`Logo.astro`, căile din `logo-paths.json`) cu culorile din tokeni (`--logo-ink`, `--logo-accent`), deci urmează și `prefers-color-scheme`, și comutatorul `data-theme`; fișierele `logo-bitup.svg` / `logo-bitup-dark.svg` din `public/` sunt aceleași desene, pentru JSON-LD, OG și uz extern.
 - Imaginile OG rămân pe fundal navy, indiferent de temă.
 
 ## Headere de securitate (`public/_headers`)
@@ -336,7 +336,7 @@ https://www.bitup.ro/*                https://bitup.ro/:splat         301
   - Articole: `Article` (headline, author, datePublished, inLanguage, image).
   - Studii de caz: `Article` cu `about: Organization` a clientului (doar când `draft: false`).
 - Sitemap automat cu alternativele de limbă, `robots.txt` cu `Sitemap:`; `/multumesc`, `/en/thank-you`, `/404`, `/api/*` excluse.
-- Imagini OG: 1200×630, generate la build, fundal navy, titlul paginii cu IBM Plex Sans, logo jos-stânga; una per pagină per limbă.
+- Imagini OG: 1200×630, generate la build, fundal navy, titlul paginii cu Public Sans, logo jos-stânga; una per pagină per limbă.
 
 ## Domenii permise (singurele cereri de rețea admise de pe site)
 
