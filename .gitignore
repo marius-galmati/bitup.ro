@@ -10,6 +10,10 @@ dist/
 .dev.vars
 .wrangler/
 
+# capturi QA: rămân locale; în repo intră doar qa/<faza>/rezumat/ (WebP) și rapoartele JSON
+qa/**/*.png
+qa/**/*.jpg
+
 # unelte
 test-results/
 playwright-report/

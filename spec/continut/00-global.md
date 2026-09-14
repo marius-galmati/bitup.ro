@@ -138,3 +138,4 @@ Sub o linie, varianta engleză (din `continut-en/00-global.md` § 404), pentru c
 - Butonul de meniu (hamburger), `aria-label`: „Meniu” când e închis, „Închide meniul” când e deschis.
 - `aria-label` pe navigația din header: „Navigare principală”.
 - `aria-label` pe navigația din footer: „Navigare secundară”.
+- `aria-label` pe cuprinsul din dreapta al paginilor legale: „Cuprins”.

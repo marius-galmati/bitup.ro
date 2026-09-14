@@ -26,7 +26,8 @@ interface Props { lang: Locale; copy: SecurityCopy }
 const { lang, copy } = Astro.props;
 const a = anchors.security[lang];
 const cosmio = (await getCollection('cases', (e) => e.id === `${lang}/cosmio`))[0];
-const showCosmioLink = !!cosmio && (!cosmio.data.draft || !isProduction);
+// Regula (Faza 2b, decizia lui Marius): când studiul de caz e draft sau lipsește, propoziția care îl linkuiește nu se randează deloc, pe nicio pagină.
+const showCosmio = !!cosmio && (!cosmio.data.draft || !isProduction);
 const jsonLd = [service(lang, copy.serviceName, copy.description, absoluteUrl(routes.security[lang]))];
 ---
 <BaseLayout lang={lang} routeKey="security" title={copy.title} description={copy.description} jsonLd={jsonLd}>
@@ -58,7 +59,7 @@ const jsonLd = [service(lang, copy.serviceName, copy.description, absoluteUrl(ro
       <TwoCol id="backup-title" eyebrow={copy.backup.eyebrow} title={copy.backup.h2}>
         <div class="stack">
           {copy.backup.paragraphs.map((p) => <p>{p}</p>)}
-          <p>{copy.backup.example}{showCosmioLink && <> <a href={dynamicPath('caseStudy', lang, 'cosmio')}>{copy.backup.caseLink}<span aria-hidden="true"> →</span></a></>}</p>
+          {showCosmio && <p>{copy.backup.example} <a href={dynamicPath('caseStudy', lang, 'cosmio')}>{copy.backup.caseLink}<span aria-hidden="true"> →</span></a></p>}
         </div>
       </TwoCol>
     </Container>

@@ -139,3 +139,4 @@ This English block sits under a rule, below the Romanian version (from `continut
 - `aria-label` on the header navigation: "Main navigation".
 - `aria-label` on the footer navigation: "Secondary navigation".
 - `aria-label` on the consent banner region: "Cookies".
+- `aria-label` on the table of contents on the legal pages: "Contents".

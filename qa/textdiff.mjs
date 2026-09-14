@@ -76,15 +76,21 @@ for (let raw of md.split('\n')) {
 }
 
 const missing = [];
+const expected = [];
 const found = (s) => pageText.includes(norm(s));
+// abatere așteptată, cu condiție (decizia din Faza 2b): propoziția care linkuiește un studiu de caz draft nu se randează deloc;
+// e acceptată ca lipsă doar dacă pagina chiar nu are link către cazul respectiv
+const draftCase = (f) => /Cosmio/.test(f) && !/href="[^"]*\/(rezultate|results)\/cosmio"/.test(html);
 for (const f of fragments) {
   if (found(f)) continue;
   // toleranță doar de formatare: un rând compus („Titlu · meta · text”, „Etichetă: valoare”, rând de tabel „| a | b |”) e ok
   // dacă fiecare parte a lui apare identic în pagină (URL-urile brute nu sunt text de pagină)
   const parts = f.replace(/https?:\/\/\S+/g, '').split(/\s*[|·]\s*|:\s+|(?=\[\[)|(?<=\]\])/).map((p) => p.trim()).filter((p) => p.length >= 3);
   if (parts.length > 1 && parts.every(found)) continue;
+  if (draftCase(f)) { expected.push(norm(f)); continue; }
   missing.push(norm(f));
 }
-console.log(`${fragments.length} fragmente din ${mdPath}; ${fragments.length - missing.length} găsite identic în ${htmlPath}.`);
+console.log(`${fragments.length} fragmente din ${mdPath}; ${fragments.length - missing.length - expected.length} găsite identic în ${htmlPath}.`);
+if (expected.length) { console.log(`Așteptat lipsă (cazul Cosmio e draft, propoziția nu se randează): ${expected.length}`); expected.forEach((m) => console.log('  ~ ' + m)); }
 if (missing.length) { console.log('Lipsă / diferite:'); missing.forEach((m) => console.log('  · ' + m)); process.exit(1); }
 console.log('Zero diferențe de text.');
