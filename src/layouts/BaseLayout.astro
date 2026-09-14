@@ -1,0 +1,106 @@
+---
+/**
+ * BaseLayout (PLAN Faza 1, ARHITECTURA § Limbi, § SEO, § Dark mode).
+ * Primește limba și cheia rutei; setează <html lang>, title/description, canonical, hreflang (ro, en, x-default), Open Graph,
+ * JSON-LD Organization + ProfessionalService (plus ce dă pagina), scriptul de temă, skip-link, header, <main>, footer, ConsentBanner.
+ */
+import '@fontsource-variable/bricolage-grotesque/wght.css';
+import '@fontsource-variable/source-sans-3/wght.css';
+import '@fontsource/ibm-plex-mono/latin-400.css';
+import '@fontsource/ibm-plex-mono/latin-ext-400.css';
+import '@fontsource/ibm-plex-mono/latin-500.css';
+import '@fontsource/ibm-plex-mono/latin-ext-500.css';
+import '../styles/tokens.css';
+import '../styles/base.css';
+import bricolageLatin from '@fontsource-variable/bricolage-grotesque/files/bricolage-grotesque-latin-wght-normal.woff2?url';
+import bricolageLatinExt from '@fontsource-variable/bricolage-grotesque/files/bricolage-grotesque-latin-ext-wght-normal.woff2?url';
+
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import ConsentBanner from '../components/ConsentBanner.astro';
+import { t, routes, absoluteUrl, type Locale, type RouteKey } from '../i18n';
+import { baseGraph } from '../lib/schema';
+import { site } from '../lib/site';
+
+interface Props {
+  lang: Locale;
+  title: string;            // exact din fișierul de conținut (include „· BitUp” unde e cazul)
+  description: string;
+  /** Cheia rutei statice: dă canonical, hreflang și pagina pereche. */
+  routeKey?: RouteKey;
+  /** Pentru rute dinamice: calea curentă și calea pereche (sau indexul secțiunii din cealaltă limbă). */
+  path?: string;
+  altPath?: string;
+  noindex?: boolean;
+  /** Fără hreflang (pagina nu are pereche reală, de ex. 404). */
+  noAlternates?: boolean;
+  jsonLd?: Record<string, unknown>[];
+  ogType?: 'website' | 'article';
+}
+const { lang, title, description, routeKey, path, altPath, noindex = false, noAlternates = false, jsonLd = [], ogType = 'website' } = Astro.props;
+
+const dict = t(lang);
+const other: Locale = lang === 'ro' ? 'en' : 'ro';
+const currentPath = path ?? (routeKey ? routes[routeKey][lang] : Astro.url.pathname);
+const pairPath = altPath ?? (routeKey ? routes[routeKey][other] : routes.home[other]);
+const canonical = absoluteUrl(currentPath);
+const altAbsolute = absoluteUrl(pairPath);
+const roUrl = lang === 'ro' ? canonical : altAbsolute;
+const enUrl = lang === 'en' ? canonical : altAbsolute;
+const graph = baseGraph(lang, jsonLd);
+---
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
+    <link rel="canonical" href={canonical} />
+    {!noAlternates && (
+      <>
+        <link rel="alternate" hreflang="ro" href={roUrl} />
+        <link rel="alternate" hreflang="en" href={enUrl} />
+        <link rel="alternate" hreflang="x-default" href={roUrl} />
+      </>
+    )}
+    <meta property="og:type" content={ogType} />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:locale" content={lang === 'ro' ? 'ro_RO' : 'en_US'} />
+    <meta property="og:locale:alternate" content={lang === 'ro' ? 'en_US' : 'ro_RO'} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="theme-color" content="#F5F8F8" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0C181D" media="(prefers-color-scheme: dark)" />
+    <script is:inline>
+      (function () {
+        try {
+          var t = localStorage.getItem('bitup-theme');
+          if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t);
+        } catch (e) {}
+      })();
+    </script>
+    <link rel="preload" as="font" type="font/woff2" crossorigin href={bricolageLatin} />
+    <link rel="preload" as="font" type="font/woff2" crossorigin href={bricolageLatinExt} />
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(graph)} />
+    <slot name="head" />
+  </head>
+  <body>
+    <a class="skip-link" href="#continut">{dict.skipLink}</a>
+    <Header lang={lang} altHref={pairPath} currentKey={routeKey ?? null} />
+    <main id="continut" tabindex="-1">
+      <slot />
+    </main>
+    <Footer lang={lang} altHref={pairPath} />
+    <ConsentBanner lang={lang} />
+  </body>
+</html>
+
+<style is:global>
+  .skip-link { position: absolute; left: var(--s-4); top: -100px; z-index: 100; padding: var(--s-2) var(--s-4); background: var(--navy-surface); color: var(--on-navy); font-family: var(--font-display); font-weight: 600; border-radius: var(--radius); text-decoration: none; }
+  .skip-link:focus { top: var(--s-4); outline: 2px solid var(--teal); outline-offset: 2px; }
+  main:focus { outline: none; }
+</style>

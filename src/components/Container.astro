@@ -1,0 +1,12 @@
+---
+/** Container 1120 px (sau 760 px pentru text lung), gutter 20 px pe mobil, 32 px de la 768 px. */
+interface Props { narrow?: boolean; class?: string }
+const { narrow = false, class: className } = Astro.props;
+---
+<div class:list={['container', { 'container--narrow': narrow }, className]}><slot /></div>
+
+<style>
+  .container { width: 100%; max-width: var(--container); margin-inline: auto; padding-inline: 20px; }
+  .container--narrow { max-width: var(--container-narrow); }
+  @media (min-width: 768px) { .container { padding-inline: 32px; } }
+</style>

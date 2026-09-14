@@ -1,0 +1,15 @@
+---
+/** Quote (DESIGN § Quote): fundal --teal-soft, bordură stânga 4 px teal, italic, sursă în --muted. Doar cu nume și funcție reale. */
+interface Props { name: string; role?: string; class?: string }
+const { name, role, class: className } = Astro.props;
+---
+<figure class:list={['quote', className]}>
+  <blockquote class="quote__text"><slot /></blockquote>
+  <figcaption class="quote__source">{name}{role && <span>, {role}</span>}</figcaption>
+</figure>
+
+<style>
+  .quote { margin: 0; padding: var(--s-5) var(--s-6); background: var(--teal-soft); border-left: 4px solid var(--teal); border-radius: 0 var(--radius) var(--radius) 0; display: grid; gap: var(--s-3); }
+  .quote__text { margin: 0; font-style: italic; font-size: var(--fs-lead); line-height: 1.5; color: var(--text); }
+  .quote__source { color: var(--muted); font-size: var(--fs-small); }
+</style>

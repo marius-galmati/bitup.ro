@@ -1,0 +1,37 @@
+---
+/**
+ * LegalLayout (ARHITECTURA § Structura, DESIGN § Prose): pagini legale. Hero intern pe --surface-2 (eyebrow, h1, lead),
+ * data ultimei actualizări, apoi Prose în coloana îngustă. Fără CtaBand.
+ */
+import BaseLayout from './BaseLayout.astro';
+import Container from '../components/Container.astro';
+import Section from '../components/Section.astro';
+import Eyebrow from '../components/Eyebrow.astro';
+import Prose from '../components/Prose.astro';
+import { t, type Locale, type RouteKey } from '../i18n';
+
+interface Props { lang: Locale; routeKey: RouteKey; title: string; description: string; eyebrow: string; h1: string; lead?: string; jsonLd?: Record<string, unknown>[] }
+const { lang, routeKey, title, description, eyebrow, h1, lead, jsonLd } = Astro.props;
+const dict = t(lang);
+---
+<BaseLayout lang={lang} routeKey={routeKey} title={title} description={description} jsonLd={jsonLd}>
+  <Section tone="surface-2">
+    <Container narrow>
+      <Eyebrow>{eyebrow}</Eyebrow>
+      <h1 class="legal__h1">{h1}</h1>
+      {lead && <p class="lead legal__lead">{lead}</p>}
+      <p class="mono small muted legal__updated">{dict.misc.legalUpdated}</p>
+    </Container>
+  </Section>
+  <Section tone="bg">
+    <Container narrow>
+      <Prose lang={lang}><slot /></Prose>
+    </Container>
+  </Section>
+</BaseLayout>
+
+<style>
+  .legal__h1 { margin-top: var(--s-3); }
+  .legal__lead { margin-top: var(--s-4); }
+  .legal__updated { margin-top: var(--s-5); }
+</style>

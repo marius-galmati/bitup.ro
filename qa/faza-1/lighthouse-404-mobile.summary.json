@@ -1,0 +1,27 @@
+{
+ "url": "http://localhost:4321/404.html",
+ "formFactor": "mobile",
+ "scores": {
+  "performance": 96,
+  "accessibility": 100,
+  "best-practices": 100,
+  "seo": 66,
+  "agentic-browsing": 100
+ },
+ "metrics": {
+  "first-contentful-paint": "2.1 s",
+  "largest-contentful-paint": "2.4 s",
+  "total-blocking-time": "0 ms",
+  "cumulative-layout-shift": "0",
+  "speed-index": "2.1 s",
+  "total-byte-weight": "Total size was 373 KiB"
+ },
+ "failed": [
+  "first-contentful-paint: First Contentful Paint",
+  "largest-contentful-paint: Largest Contentful Paint",
+  "speed-index: Speed Index",
+  "interactive: Time to Interactive",
+  "is-crawlable: Page is blocked from indexing",
+  "network-dependency-tree-insight: Network dependency tree"
+ ]
+}

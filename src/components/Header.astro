@@ -1,0 +1,191 @@
+---
+/**
+ * Header (DESIGN § Header, 00-global § Meniu).
+ * Fundal --surface, 64 px, linie jos de 1 px; sticky pe desktop, fără umbră; nu e sticky pe mobil.
+ * Stânga: logo 132 px. Centru-dreapta: Servicii ▾ (buton real, aria-expanded, Esc și click în afară închid), Cum lucrăm, Rezultate, Despre, Blog.
+ * Dreapta: telefon (mono, --muted; ascuns între 1024 și 1200 px), RO · EN, comutatorul de temă, butonul orange.
+ * Sub 1024 px: hamburger; panou full-height cu aceleași linkuri (Servicii ca listă desfășurată), butonul de Radiografie sus, telefon, WhatsApp (→ /suport), limbă și temă jos.
+ */
+import Button from './Button.astro';
+import Container from './Container.astro';
+import ThemeToggle from './ThemeToggle.astro';
+import LangSwitch from './LangSwitch.astro';
+import { t, localePath, type Locale, type RouteKey } from '../i18n';
+import { site } from '../lib/site';
+
+interface Props { lang: Locale; altHref: string; currentKey?: RouteKey | null }
+const { lang, altHref, currentKey = null } = Astro.props;
+const dict = t(lang);
+const nav = dict.nav;
+const mainLinks: { label: string; route: RouteKey }[] = [
+  { label: nav.howWeWork, route: 'howWeWork' },
+  { label: nav.results, route: 'results' },
+  { label: nav.about, route: 'about' },
+  { label: nav.blog, route: 'blog' },
+];
+const serviceKeys: RouteKey[] = ['itSupport', 'security', 'automation', 'services'];
+const servicesCurrent = currentKey !== null && serviceKeys.includes(currentKey);
+const isCurrent = (route: RouteKey) => (route === currentKey ? 'page' : undefined);
+---
+<header class="header">
+  <Container class="header__inner">
+    <a class="header__logo" href={localePath('home', lang)} aria-label="BitUp">
+      <img src="/logo-bitup.png" alt="BitUp" width="132" height="36" decoding="async" fetchpriority="high" />
+    </a>
+
+    <nav class="header__nav" aria-label={nav.ariaLabel}>
+      <ul class="nav">
+        <li class="nav__item nav__item--services">
+          <button type="button" class="nav__link nav__button" data-services-toggle aria-expanded="false" aria-controls="services-menu" aria-current={servicesCurrent ? 'true' : undefined}>
+            {nav.services}<span class="nav__caret" aria-hidden="true">▾</span>
+          </button>
+          <ul id="services-menu" class="submenu" hidden>
+            {nav.servicesItems.map((it) => (
+              <li><a class="submenu__link" href={localePath(it.route as RouteKey, lang)} aria-current={isCurrent(it.route as RouteKey)}>{it.label}</a></li>
+            ))}
+          </ul>
+        </li>
+        {mainLinks.map((l) => (
+          <li class="nav__item"><a class="nav__link" href={localePath(l.route, lang)} aria-current={isCurrent(l.route)}>{l.label}</a></li>
+        ))}
+      </ul>
+    </nav>
+
+    <div class="header__tools">
+      <a class="header__phone mono" href={site.phone.href} data-event="tel_click">{site.phone.display}</a>
+      <LangSwitch lang={lang} altHref={altHref} class="header__lang" />
+      <ThemeToggle label={dict.theme.ariaLabel} class="header__theme" />
+      <Button href={localePath('healthCheck', lang)} size="small" class="header__cta" data-event="cta_radiografie_click">{nav.primary}</Button>
+      <button type="button" class="burger" data-menu-toggle aria-expanded="false" aria-controls="mobile-menu" aria-label={nav.menuOpen} data-label-open={nav.menuOpen} data-label-close={nav.menuClose}>
+        <span class="burger__bar" aria-hidden="true"></span>
+        <span class="burger__bar" aria-hidden="true"></span>
+        <span class="burger__bar" aria-hidden="true"></span>
+      </button>
+    </div>
+  </Container>
+
+  <div id="mobile-menu" class="mobile" hidden data-mobile-menu>
+    <nav class="mobile__nav" aria-label={nav.ariaLabel}>
+      <Button href={localePath('healthCheck', lang)} class="mobile__cta" data-event="cta_radiografie_click">{nav.primary}</Button>
+      <p class="mobile__group eyebrow">{nav.services}</p>
+      <ul class="mobile__list">
+        {nav.servicesItems.map((it) => (
+          <li><a class="mobile__link" href={localePath(it.route as RouteKey, lang)} aria-current={isCurrent(it.route as RouteKey)}>{it.label}</a></li>
+        ))}
+      </ul>
+      <ul class="mobile__list mobile__list--main">
+        {mainLinks.map((l) => (
+          <li><a class="mobile__link" href={localePath(l.route, lang)} aria-current={isCurrent(l.route)}>{l.label}</a></li>
+        ))}
+      </ul>
+    </nav>
+    <div class="mobile__bottom">
+      <a class="mobile__contact mono" href={site.phone.href} data-event="tel_click">{nav.mobile.call}</a>
+      <a class="mobile__contact" href={localePath('support', lang)}>{nav.mobile.clients}</a>
+      <div class="mobile__tools">
+        <LangSwitch lang={lang} altHref={altHref} />
+        <ThemeToggle label={dict.theme.ariaLabel} />
+      </div>
+    </div>
+  </div>
+</header>
+
+<style>
+  .header { background: var(--surface); border-bottom: 1px solid var(--line); position: relative; z-index: 20; }
+  @media (min-width: 1024px) { .header { position: sticky; top: 0; } }
+  .header :global(.header__inner) { display: flex; align-items: center; gap: var(--s-5); min-height: 64px; }
+  .header__logo { display: inline-flex; align-items: center; flex: none; }
+  .header__logo img { width: 132px; height: auto; }
+  :root[data-theme="dark"] .header__logo img { filter: brightness(0) invert(1); } /* PLACEHOLDER până la [[LOGO_BITUP_SVG]] varianta dark */
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .header__logo img { filter: brightness(0) invert(1); } }
+
+  .header__nav { display: none; margin-left: var(--s-3); }
+  .nav { list-style: none; margin: 0; padding: 0; display: flex; align-items: center; gap: var(--s-1); }
+  .nav__item { position: relative; }
+  .nav__link { display: inline-flex; align-items: center; gap: var(--s-1); white-space: nowrap; padding: var(--s-2) var(--s-3); font-family: var(--font-display); font-weight: 600; font-size: var(--fs-small); color: var(--text); text-decoration: none; border-radius: var(--radius); background: none; border: 0; cursor: pointer; transition: color 150ms; line-height: 1.2; }
+  .nav__link:hover, .nav__link[aria-expanded="true"] { color: var(--teal); }
+  .nav__link[aria-current] { color: var(--teal); text-decoration: underline; text-underline-offset: 6px; text-decoration-thickness: 2px; }
+  .nav__caret { font-size: .8em; transition: transform 150ms; }
+  .nav__button[aria-expanded="true"] .nav__caret { transform: rotate(180deg); }
+  .submenu { position: absolute; top: calc(100% + var(--s-2)); left: 0; min-width: 280px; margin: 0; padding: var(--s-2); list-style: none; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); z-index: 30; }
+  .submenu__link { display: block; padding: var(--s-2) var(--s-3); color: var(--text); text-decoration: none; font-size: var(--fs-small); font-family: var(--font-display); font-weight: 600; border-radius: var(--radius); }
+  .submenu__link:hover { background: var(--surface-2); color: var(--teal); }
+  .submenu__link[aria-current] { color: var(--teal); }
+  .submenu li:last-child { border-top: 1px solid var(--line); margin-top: var(--s-1); padding-top: var(--s-1); }
+
+  .header__tools { margin-left: auto; display: flex; align-items: center; gap: var(--s-3); }
+  .header__phone { display: none; color: var(--muted); text-decoration: none; font-size: var(--fs-small); white-space: nowrap; }
+  .header :global(.header__cta) { white-space: nowrap; }
+  .header__phone:hover { color: var(--teal); }
+  .header :global(.header__lang), .header :global(.header__theme), .header :global(.header__cta) { display: none; }
+
+  .burger { width: 44px; height: 44px; display: inline-flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px; padding: 0; background: none; border: 1px solid transparent; border-radius: var(--radius); cursor: pointer; color: var(--navy); }
+  .burger__bar { display: block; width: 20px; height: 2px; background: currentColor; transition: transform 150ms, opacity 150ms; }
+  .burger[aria-expanded="true"] .burger__bar:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .burger[aria-expanded="true"] .burger__bar:nth-child(2) { opacity: 0; }
+  .burger[aria-expanded="true"] .burger__bar:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  @media (min-width: 1024px) {
+    .header__nav { display: block; }
+    .header :global(.header__lang), .header :global(.header__theme), .header :global(.header__cta) { display: inline-flex; }
+    .burger { display: none; }
+  }
+  /* Telefonul se vede doar de la 1200 px; între 1024 și 1200 rămâne în meniul mobil și în footer. */
+  @media (min-width: 1200px) { .header__phone { display: inline; } }
+
+  .mobile { position: fixed; inset: 64px 0 0 0; background: var(--surface); box-shadow: var(--shadow); border-top: 1px solid var(--line); overflow-y: auto; display: flex; flex-direction: column; padding: var(--s-5) 20px var(--s-6); gap: var(--s-6); z-index: 25; }
+  .mobile[hidden] { display: none; }
+  .mobile__nav { display: grid; gap: var(--s-5); }
+  .mobile :global(.mobile__cta) { width: 100%; }
+  .mobile__group { margin-top: var(--s-2); }
+  .mobile__list { list-style: none; margin: 0; padding: 0; display: grid; }
+  .mobile__list--main { border-top: 1px solid var(--line); padding-top: var(--s-3); }
+  .mobile__link { display: block; padding: var(--s-3) 0; font-family: var(--font-display); font-weight: 600; font-size: var(--fs-lead); color: var(--navy); text-decoration: none; }
+  .mobile__link[aria-current] { color: var(--teal); }
+  .mobile__bottom { margin-top: auto; display: grid; gap: var(--s-3); padding-top: var(--s-5); border-top: 1px solid var(--line); }
+  .mobile__contact { color: var(--text); text-decoration: none; padding: var(--s-2) 0; }
+  .mobile__contact.mono { font-size: var(--fs-small); color: var(--muted); }
+  .mobile__tools { display: flex; align-items: center; justify-content: space-between; gap: var(--s-4); }
+  @media (min-width: 1024px) { .mobile { display: none !important; } }
+  @media (prefers-reduced-motion: no-preference) { .mobile { animation: menu-in 200ms ease-out; } }
+  @keyframes menu-in { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: none; } }
+</style>
+
+<script>
+  // Dropdown „Servicii”: buton real, click deschide/închide, Esc și click în afară închid, focusul revine pe buton.
+  const toggle = document.querySelector<HTMLButtonElement>('[data-services-toggle]');
+  const menu = document.getElementById('services-menu');
+  if (toggle && menu) {
+    const setOpen = (open: boolean) => { toggle.setAttribute('aria-expanded', String(open)); menu.hidden = !open; };
+    toggle.addEventListener('click', () => setOpen(menu.hidden));
+    document.addEventListener('click', (e) => { if (!menu.hidden && !toggle.contains(e.target as Node) && !menu.contains(e.target as Node)) setOpen(false); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !menu.hidden) { setOpen(false); toggle.focus(); } });
+    menu.addEventListener('focusout', (e) => { const to = e.relatedTarget as Node | null; if (to && !menu.contains(to) && to !== toggle) setOpen(false); });
+  }
+
+  // Meniul mobil: aria-expanded, Esc închide, focus trap simplu, blocarea scroll-ului pe body.
+  const burger = document.querySelector<HTMLButtonElement>('[data-menu-toggle]');
+  const panel = document.querySelector<HTMLElement>('[data-mobile-menu]');
+  if (burger && panel) {
+    const focusables = () => Array.from(panel.querySelectorAll<HTMLElement>('a[href], button:not([disabled])'));
+    const setOpen = (open: boolean) => {
+      burger.setAttribute('aria-expanded', String(open));
+      burger.setAttribute('aria-label', open ? burger.dataset.labelClose ?? '' : burger.dataset.labelOpen ?? '');
+      panel.hidden = !open;
+      document.body.style.overflow = open ? 'hidden' : '';
+      if (open) focusables()[0]?.focus();
+    };
+    burger.addEventListener('click', () => setOpen(panel.hidden));
+    document.addEventListener('keydown', (e) => {
+      if (panel.hidden) return;
+      if (e.key === 'Escape') { setOpen(false); burger.focus(); return; }
+      if (e.key === 'Tab') {
+        const items = [burger, ...focusables()];
+        const first = items[0], last = items[items.length - 1];
+        if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+        else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+      }
+    });
+    window.matchMedia('(min-width: 1024px)').addEventListener('change', (m) => { if (m.matches && !panel.hidden) setOpen(false); });
+  }
+</script>

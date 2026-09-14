@@ -1,0 +1,89 @@
+---
+/**
+ * Footer (00-global § Footer). Patru coloane inegale: prima e bloc de adresă (mai lată), apoi servicii, firma, parteneri.
+ * Fără newsletter, fără coloane egale de linkuri. Text pe --surface, navy pe titluri. Linkul „Setări cookie-uri” e buton (funcțional în Faza 5).
+ */
+import Container from './Container.astro';
+import LangSwitch from './LangSwitch.astro';
+import { t, localePath, type Locale, type RouteKey } from '../i18n';
+import { site } from '../lib/site';
+
+interface Props { lang: Locale; altHref: string }
+const { lang, altHref } = Astro.props;
+const dict = t(lang);
+const f = dict.footer;
+---
+<footer class="footer">
+  <Container>
+    <div class="footer__grid">
+      <div class="footer__brand">
+        <img class="footer__logo" src="/logo-bitup.png" alt="BitUp" width="132" height="36" loading="lazy" decoding="async" />
+        <address class="footer__address">
+          <strong class="footer__name">{f.company.name}</strong><br />
+          {f.company.city}<br />
+          <span class="mono footer__ids">{f.company.ids}</span><br />
+          <a href={site.emailHref}>{site.email}</a> · <a href={site.phone.href} class="mono" data-event="tel_click">{site.phone.display}</a><br />
+          {f.company.linkedinLabel}<a href={site.linkedin} target="_blank" rel="noopener">{f.company.linkedinCompany}</a>
+        </address>
+      </div>
+
+      <nav class="footer__col" aria-label={dict.nav.footerAriaLabel}>
+        <ul class="footer__list">
+          {f.services.map((l) => <li><a href={localePath(l.route as RouteKey, lang)}>{l.label}</a></li>)}
+        </ul>
+        <ul class="footer__list footer__list--company">
+          {f.companyLinks.map((l) => <li><a href={localePath(l.route as RouteKey, lang)}>{l.label}</a></li>)}
+        </ul>
+      </nav>
+
+      <div class="footer__col footer__partners">
+        <ul class="footer__list footer__list--partners">
+          {f.partners.map((p) => <li class="footer__partner">{p}<span class="footer__level muted small">[[LOGO_PARTENERI]]</span></li>)}
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer__bottom">
+      <p class="footer__copy small muted">{f.bottom.copyright}</p>
+      <ul class="footer__legal small">
+        <li><a href={localePath('terms', lang)}>{f.bottom.terms}</a></li>
+        <li><a href={localePath('privacy', lang)}>{f.bottom.privacy}</a></li>
+        <li><a href={localePath('cookies', lang)}>{f.bottom.cookies}</a></li>
+        <li><button type="button" class="footer__cookie-btn" data-consent-open>{f.bottom.cookieSettings}</button></li>
+      </ul>
+      <LangSwitch lang={lang} altHref={altHref} />
+    </div>
+  </Container>
+</footer>
+
+<style>
+  .footer { background: var(--surface); border-top: 1px solid var(--line); padding-block: var(--s-8) var(--s-6); font-size: var(--fs-small); }
+  .footer__grid { display: grid; gap: var(--s-6); grid-template-columns: 1fr; }
+  @media (min-width: 768px) { .footer__grid { grid-template-columns: 1.6fr 1fr 1fr; gap: var(--s-7); } }
+  @media (min-width: 1024px) { .footer__grid { grid-template-columns: 2fr 1.2fr 1fr; } }
+  .footer__brand { display: grid; gap: var(--s-4); align-content: start; }
+  .footer__logo { width: 132px; height: auto; }
+  :root[data-theme="dark"] .footer__logo { filter: brightness(0) invert(1); } /* PLACEHOLDER până la [[LOGO_BITUP_SVG]] varianta dark */
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .footer__logo { filter: brightness(0) invert(1); } }
+  .footer__address { font-style: normal; line-height: 1.7; color: var(--text); }
+  .footer__name { font-family: var(--font-display); font-weight: 600; color: var(--navy); font-size: var(--fs-body); }
+  .footer__ids { font-size: var(--fs-eyebrow); color: var(--muted); }
+  .footer__address a { color: var(--teal); }
+  .footer__col { display: grid; gap: var(--s-5); align-content: start; }
+  .footer__list { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--s-2); }
+  .footer__list a { color: var(--text); text-decoration: none; }
+  .footer__list a:hover { color: var(--teal); text-decoration: underline; text-underline-offset: 3px; }
+  .footer__list--company { padding-top: var(--s-4); border-top: 1px solid var(--line); }
+  @media (min-width: 1024px) { .footer__col { grid-template-columns: 1fr 1fr; } .footer__list--company { padding-top: 0; border-top: 0; } }
+  .footer__list--partners { gap: var(--s-3); }
+  .footer__partner { display: grid; gap: 2px; font-family: var(--font-display); font-weight: 600; color: var(--muted); }
+  .footer__level { font-family: var(--font-mono); font-weight: 400; font-size: var(--fs-eyebrow); }
+  .footer__bottom { margin-top: var(--s-7); padding-top: var(--s-5); border-top: 1px solid var(--line); display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-3) var(--s-5); }
+  .footer__copy { margin: 0; }
+  .footer__legal { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: var(--s-2) var(--s-4); }
+  .footer__legal a { color: var(--muted); }
+  .footer__legal a:hover { color: var(--teal); }
+  .footer__cookie-btn { background: none; border: 0; padding: 0; color: var(--muted); font-size: inherit; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+  .footer__cookie-btn:hover { color: var(--teal); }
+  .footer__bottom :global(.lang) { margin-left: auto; }
+</style>

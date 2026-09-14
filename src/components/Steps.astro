@@ -1,0 +1,24 @@
+---
+/** Pași (DESIGN § Steps): doar pentru secvențe reale. Cerc teal cu numărul, h3, text. Pe desktop în rând, pe mobil în coloană. */
+interface Props { steps: { title: string; text: string }[]; class?: string }
+const { steps, class: className } = Astro.props;
+---
+<ol class:list={['steps', className]}>
+  {steps.map((s, i) => (
+    <li class="step">
+      <span class="step__num" aria-hidden="true">{i + 1}</span>
+      <h3 class="step__title">{s.title}</h3>
+      <p class="step__text">{s.text}</p>
+    </li>
+  ))}
+</ol>
+
+<style>
+  .steps { list-style: none; padding: 0; margin: 0; display: grid; gap: var(--s-6) var(--s-5); grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); counter-reset: step; }
+  .step { display: grid; grid-template-columns: auto 1fr; grid-template-rows: auto auto; column-gap: var(--s-3); row-gap: var(--s-2); align-items: start; }
+  .step__num { grid-row: 1 / span 2; width: var(--s-6); height: var(--s-6); display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; background: var(--teal); color: #FFFFFF; font-family: var(--font-mono); font-weight: 500; font-size: var(--fs-small); font-variant-numeric: tabular-nums; }
+  :root[data-theme="dark"] .step__num { color: #00202E; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .step__num { color: #00202E; } }
+  .step__title { font-size: var(--fs-h3); align-self: center; }
+  .step__text { grid-column: 2; }
+</style>

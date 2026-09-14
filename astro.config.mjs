@@ -30,7 +30,10 @@ export default defineConfig({
   integrations: [
     // Alternativele de limbă (hreflang) se generează din src/i18n/routes.ts prin `serialize`, în Faza 5;
     // opțiunea `i18n` a integrării presupune același slug în ambele limbi, ceea ce nu e cazul aici.
-    sitemap(),
+    sitemap({
+      // Excluse: 404, pagina de mulțumire (noindex) și pagina de QA (doar dev/staging).
+      filter: (page) => !/\/(404|multumesc|en\/thank-you|qa)(\/|$)/.test(page),
+    }),
     // Doar setul `lucide`, maximum 12 iconițe în tot site-ul (DESIGN.md § Imagini și grafică). Lista crește pe măsură ce sunt folosite.
     icon({ include: { lucide: ['sun', 'moon'] } }),
   ],

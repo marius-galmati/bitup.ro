@@ -602,6 +602,56 @@ Nu se aplică încă unei pagini reale; pagina de test e temporară și nu intr�
 ### Placeholder-e rămase
 Neschimbate față de `spec/PLACEHOLDERS.md` § Rămase: nicio pagină reală încă.
 
+## Faza 1 — Layout, componente de bază, header bilingv, temă, 404 (14 septembrie 2026)
+
+### Ce s-a făcut
+- `BaseLayout.astro`: `<html lang>`, title/description din props, canonical absolut, `hreflang` ro/en/x-default (din `routes.ts`; `noAlternates` pentru 404 și QA), Open Graph de bază (imaginea vine în Faza 5), `theme-color` pe temă, scriptul de temă inline (7 rânduri, înainte de CSS), preload pentru Bricolage (latin + latin-ext), JSON-LD Organization + ProfessionalService din `src/lib/schema.ts` (plus ce dă pagina), skip-link, `Header`, `<main id="continut">`, `Footer`, `ConsentBanner` (ascuns; doar vizual, logica în Faza 5).
+- `Header.astro`: logo 132 px (placeholder: `logo-bitup.png` luat din bundle-ul site-ului actual, `/assets/logo-bitup-Db_m5i5h.png`, 790×213; pe dark, `filter: brightness(0) invert(1)` strict ca placeholder până la `[[LOGO_BITUP_SVG]]`), „Servicii ▾” ca buton real (`aria-expanded`, `aria-controls`; click deschide/închide, Esc închide și readuce focusul, click în afară închide, focusul care iese închide), Cum lucrăm, Rezultate, Despre, Blog, telefonul (mono, `--muted`, vizibil doar de la 1200 px), `RO · EN`, comutatorul de temă, butonul orange (mic). Sticky pe desktop cu linia de 1 px, fără umbră; nu e sticky pe mobil. Sub 1024 px: hamburger desenat din CSS (fără iconiță), panou full-height cu Radiografie sus, Servicii ca listă desfășurată, linkurile principale, apoi telefon, „Clienți: scrie-i lui Cipri pe WhatsApp” (→ /suport), limbă și temă jos; `aria-expanded`, Esc, focus trap, scroll blocat pe body.
+- `ThemeToggle.astro`: două stări, pornind de la sistem; `aria-pressed`, `aria-label` + `title` din i18n; iconițe `lucide:sun` / `lucide:moon` (2 din bugetul de 12); salvează în `localStorage['bitup-theme']`, fără tranziție de culoare.
+- `LangSwitch.astro`: mereu în ordinea `RO · EN`; limba curentă e text (`aria-current`), cealaltă e link cu `hreflang` și `lang`, `data-event="lang_switch"`. Pe 404 duce la `/` și `/en`.
+- `Footer.astro`: patru coloane inegale (2fr bloc de adresă, 1.2fr servicii + firma, 1fr parteneri la ≥ 1024; la 768 listele se așază una sub alta; pe mobil o coloană), fără newsletter; badge-urile partenerilor ca text cu `[[LOGO_PARTENERI]]` sub fiecare; rândul de jos cu © , Termeni, Confidențialitate, Cookies, „Setări cookie-uri” (buton, funcțional în Faza 5) și `RO · EN`. Doar LinkedIn-ul firmei (A2).
+- Componente: `Button` (primary orange, secondary, tertiary cu săgeată, teal plin pentru WhatsApp; `size="small"` pentru header; disabled), `Section` (tone bg/surface/surface-2, linie opțională), `Container` (1120 / 760), `Eyebrow`, `Card` (bordură sus 3 px teal, fără umbră, link jos), `Steps`, `FactStrip` (cu sau fără etichete), `NumberTiles`, `Quote`, `CtaBand` (text din i18n, variante default/blog, titlu/text înlocuibile), `Prose`, `Figure` (photo/screenshot/document; screenshot cu brightness .92 în dark), `LegalLayout` (hero pe surface-2 + data actualizării + Prose în coloana îngustă).
+- `404.astro`: o singură pagină, RO sus, EN sub o linie cu `lang="en"`, `noindex`, fără hreflang; textul din ambele 00-global.
+- `/qa/componente` (RO, toate componentele în toate stările, paleta, scara tipografică) și `/en/qa/components` (header, footer, butoane, FactStrip, banner, CtaBand cu microcopy EN): rute dinamice al căror `getStaticPaths` returnează `[]` când `CF_PAGES_BRANCH === 'main'` (`src/lib/env.ts`), `noindex`, excluse din sitemap prin `filter`. Textele de pe ele sunt din spec (01-acasa, proq, 09-despre), nu inventate.
+- `public/favicon.ico`: placeholder din favicon-ul site-ului actual, redus la 16/32/48 px; favicon-ul SVG cu variantă dark vine odată cu `[[LOGO_BITUP_SVG]]`.
+- Unelte QA noi: `qa/keyboard.mjs` (Tab prin toate elementele cu verificarea outline-ului, dropdown-ul cu Enter/Esc/click în afară, meniul mobil cu Enter/Esc/focus trap), `qa/contrast.py` extins cu stările de hover/activ/focus, `qa/capture.mjs` acceptă căi fără slash.
+
+### Ce s-a verificat
+- `npm run build`: 0 erori; avertismentele cunoscute pentru colecții, plus `[@astrojs/sitemap] No pages found!` (404 și QA sunt excluse; dispare în Faza 2, când apar paginile). `npm run check`: 0 erori, 0 avertismente, 0 sugestii.
+- Capturi în `qa/faza-1/`: 24 (404, /qa/componente, /en/qa/components × 375/768/1024/1440 × light/dark), privite. Corectate după prima rundă: „Cum lucrăm”, telefonul și butonul din header se rupeau pe două rânduri (nowrap), separatorul din `RO · EN` pierdea spațiul, ordinea RO · EN era inversată pe EN, footer-ul la 768 înghesuia listele (acum stivuite), imaginea din Figure nu se încărca în captură (lazy). La 1024 px telefonul e ascuns și totul încape pe un rând; la 1200+ apare telefonul.
+- Cereri de rețea: doar localhost pe toate paginile (fonturi latin + latin-ext, CSS, logo, favicon).
+- Status 404 real (`astro preview`): `/pagina-inexistenta` → 404, `/en/pagina-inexistenta` → 404. Pe Cloudflare Pages, `404.html` e servit cu 404 pentru orice rută inexistentă.
+- Tastatură (`node qa/keyboard.mjs pagina-inexistenta`): 37 de elemente atinse cu Tab pe desktop, toate cu focus vizibil, primul e skip-link-ul; Servicii: Enter deschide, Tab intră în submeniu, Esc închide și readuce focusul, click în afară închide; mobil (375): Enter deschide meniul, focusul intră în panou, `aria-label` devine „Închide meniul”, Tab rămâne în meniu, Esc închide și readuce focusul pe buton. Toate trec.
+- Contrast (`python qa/contrast.py`): 35/36 perechi trec (a 36-a e orange pe fundal deschis, listată intenționat ca „de ce nu e focus”). Includ hover-ul principal (#E9891F, #D97C17 cu text navy), teal plin și hover-ul lui (alb pe teal / navy-2; în dark navy pe teal deschis), secundar hover (teal pe teal-soft, ambele teme), nav, muted pe surface-2, cifra din Steps, focus în ambele teme.
+- Lighthouse mobil pe `404.html` (Lighthouse refuză paginile care răspund 404, așa că e rulat pe fișierul servit cu 200; două rulări): Performance 100 / 96, Accessibility 100, Best Practices 96 → 100 după favicon (singura eroare de consolă era favicon.ico lipsă), SEO 66 din cauza `noindex`, care e intenționat pe 404. LCP 1,7–2,4 s, CLS 0, TBT 0 ms; transfer 229 KiB (înainte de favicon; favicon-ul original de 152 KB a fost redus la 16/32/48 px). Rezumatul e în `qa/faza-1/lighthouse-404-mobile.summary.json`.
+- Testul de forme (capturi la 1440 privite la 50%, în `qa/faza-1/forme-50/`): pe 404, header-ul e o linie subțire, corpul e text în coloană îngustă, footer-ul e un bloc greu, asimetric (adresa lată, două liste, parteneri); nu sunt trei dungi egale. Pe /qa/componente, benzile alternează bg/surface cu înălțimi diferite, banda de CTA e un dreptunghi închis distinct. Nu am schimbat nimic după test; ce am schimbat înainte de el sunt cele cinci corecturi de mai sus.
+
+### Microcopy în plus față de 00-global (de confirmat)
+- `aria-label` pe bannerul de consimțământ în EN: „Cookies” (DESIGN dă doar RO, „Cookie-uri”).
+- `alt="BitUp"` pe logo și `aria-label="BitUp"` pe linkul logo-ului (numele firmei, nu text nou).
+- Nimic altceva: textele de pe paginile QA nu fac parte din site.
+
+### Lista de mirosuri (CLAUDE.md 1–16), pe header, footer, 404 și componente
+1. Hero cu badge, două butoane și mockup: **nu** (404 nu are hero; hero-ul homepage vine în Faza 2, tipografic).
+2. Gradient violet, glassmorphism, blob, glow: **nu**.
+3. Grid de trei carduri identice repetat: **nu** (Card există ca componentă; pe QA, grid asimetric 1.15/1.15/1).
+4. Iconițe generice în carduri: **nu** (Card nu are iconiță; singurele iconițe sunt soare/lună).
+5. Umbră pe carduri, rounded-2xl, hover:scale: **nu** (umbră doar pe meniul mobil, submeniu și banner; raza 4 px, 8 px doar pe CtaBand și banner; hover doar pe culoare, 150 ms).
+6. Fade-in la scroll, contoare, carusele: **nu** (singura animație e deschiderea meniului mobil, 200 ms, oprită la reduced-motion).
+7. Paleta Tailwind, Inter, max-w-7xl: **nu** (tokenii DESIGN, Bricolage/Source Sans/Plex Mono).
+8. „De ce noi”, testimoniale fără nume, „Trusted by”: **nu** (Quote cere nume și funcție).
+9. Title Case, emoji, „Află mai multe →”: **nu** (sentence case, fără emoji; linkurile spun ce urmează).
+10. Toate secțiunile cu același ritm: **nu** pe 404; se verifică pe fiecare pagină din Faza 2.
+11. Footer cu patru coloane egale și newsletter: **nu** (2fr / 1.2fr / 1fr, fără newsletter).
+12. Spațiu alb imens sau înghesuit, padding-uri diferite: **nu** (`--section-y` unic).
+13. Dark prin inversare, negru pur: **nu** (paleta DESIGN; navy cu tentă teal).
+14. Imagini de stoc sau generate: **nu**.
+15. Div-uri fără semantică: **nu** (`header`, `nav` cu `aria-label`, `main`, `section` cu heading, `footer`, `address`, `button` real, `dl` pentru FactStrip, `ol` pentru pași, `figure/figcaption`).
+16. Estetică de brand personal: **nu** (fără portret în hero sau header, fără avatar sub formulare, byline fără avatar).
+
+### Placeholder-e vizibile în pagini
+- `[[LOGO_PARTENERI]]` în footer (sub fiecare partener), pe toate paginile. `[[LOGO_BITUP_SVG]]`: logo-ul PNG și favicon-ul sunt placeholder (varianta dark e filtru CSS). `[[CITAT_COSMIN]]` doar pe pagina QA.
+
 ## Spike Astro (14 septembrie 2026, ramura `spike/astro-current`, ~60 de minute): GO
 
 Decizia lui Marius: „Astro 5” din spec era versiunea curentă la scriere, nu o decizie de arhitectură; site-ul pornește pe ultima versiune majoră stabilă. Spec corectat: `ARHITECTURA.md` § Stack și `PLAN.md` Faza 0 nu mai conțin un număr fix.

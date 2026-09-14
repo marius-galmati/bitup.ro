@@ -1,0 +1,36 @@
+---
+/**
+ * CtaBand (DESIGN § CtaBand): bloc navy, --radius-lg, titlu alb, text în --on-navy-muted, buton orange. O singură dată, la finalul paginii.
+ * Textul vine din i18n (00-global § Banda finală), cu varianta `default` sau `blog`; titlul/textul se pot înlocui pe pagină (props).
+ */
+import Button from './Button.astro';
+import Container from './Container.astro';
+import { t, localePath, type Locale } from '../i18n';
+interface Props { lang: Locale; variant?: 'default' | 'blog'; title?: string; text?: string; button?: string }
+const { lang, variant = 'default', title, text, button } = Astro.props;
+const dict = t(lang);
+const v = dict.ctaBand[variant];
+const contactLine = variant === 'default' ? dict.ctaBand.default.contactLine : undefined;
+---
+<section class="cta-wrap" aria-labelledby="cta-title">
+  <Container>
+    <div class="cta">
+      <h2 id="cta-title" class="cta__title">{title ?? v.title}</h2>
+      <p class="cta__text">{text ?? v.text}</p>
+      <div class="cta__actions">
+        <Button href={localePath('healthCheck', lang)} data-event="cta_radiografie_click">{button ?? v.button}</Button>
+        {contactLine && <p class="cta__contact mono">{contactLine}</p>}
+      </div>
+    </div>
+  </Container>
+</section>
+
+<style>
+  .cta-wrap { padding-block: var(--section-y); background: var(--bg); }
+  .cta { background: var(--navy-surface); border: 1px solid var(--line); border-radius: var(--radius-lg); padding: var(--s-7) var(--s-6); display: grid; gap: var(--s-4); max-width: 100%; }
+  @media (min-width: 768px) { .cta { padding: var(--s-8); } }
+  .cta__title { color: var(--on-navy); max-width: 24ch; }
+  .cta__text { color: var(--on-navy-muted); max-width: 60ch; font-size: var(--fs-lead); }
+  .cta__actions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-4) var(--s-5); margin-top: var(--s-2); }
+  .cta__contact { color: var(--on-navy-muted); font-size: var(--fs-small); }
+</style>

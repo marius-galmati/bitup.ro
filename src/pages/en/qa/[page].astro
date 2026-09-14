@@ -1,0 +1,51 @@
+---
+/**
+ * /en/qa/components — varianta engleză a paginii de QA: header, footer, CtaBand și butoanele cu microcopy-ul EN.
+ * Doar dev și staging (CF_PAGES_BRANCH !== 'main'), noindex, exclusă din sitemap.
+ */
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Container from '../../../components/Container.astro';
+import Section from '../../../components/Section.astro';
+import Eyebrow from '../../../components/Eyebrow.astro';
+import Button from '../../../components/Button.astro';
+import FactStrip from '../../../components/FactStrip.astro';
+import CtaBand from '../../../components/CtaBand.astro';
+import ConsentBanner from '../../../components/ConsentBanner.astro';
+import { isProduction } from '../../../lib/env';
+import { t } from '../../../i18n';
+
+export function getStaticPaths() {
+  return isProduction ? [] : [{ params: { page: 'components' } }];
+}
+const dict = t('en');
+const heroFacts = [{ v: dict.factStrip.since }, { v: dict.factStrip.city }, { v: dict.factStrip.response }, { v: dict.factStrip.partners.join(' · ') }];
+---
+<BaseLayout lang="en" title="QA · components · BitUp" description="QA page: header, footer and the shared components with the English microcopy. Dev and staging only." path="/en/qa/components" altPath="/qa/componente" noindex noAlternates>
+  <Section tone="surface-2">
+    <Container>
+      <Eyebrow>QA · dev and staging only</Eyebrow>
+      <h1 class="qa-h1">Header, footer and shared components, in English</h1>
+      <p class="lead">Checked in light and dark, at 375, 768, 1024 and 1440 px.</p>
+    </Container>
+  </Section>
+  <Section tone="bg">
+    <Container>
+      <div class="qa-row">
+        <Button href="#">{dict.nav.primary}</Button>
+        <Button href="#" variant="secondary">See how we work</Button>
+        <Button href="#" variant="tertiary">How a health check works</Button>
+        <Button href="#" variant="teal">{dict.misc.whatsappButton}</Button>
+      </div>
+      <FactStrip items={heroFacts} label="Facts" />
+      <div class="qa-banner"><ConsentBanner lang="en" visible current="accepted" /></div>
+    </Container>
+  </Section>
+  <CtaBand lang="en" />
+</BaseLayout>
+
+<style>
+  .qa-h1 { margin-top: var(--s-3); }
+  .qa-row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-4); margin-bottom: var(--s-6); }
+  .qa-banner { margin-top: var(--s-6); }
+  .qa-banner :global(.consent) { position: static; width: auto; max-width: 420px; }
+</style>

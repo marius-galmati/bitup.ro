@@ -1,0 +1,11 @@
+---
+/** Eyebrow: mono, uppercase, letter-spacing .08em, teal (teal-2 pe fundal navy). E o etichetă, nu o pilulă: fără fundal, fără bordură. */
+interface Props { onNavy?: boolean; as?: 'p' | 'span' | 'div'; class?: string }
+const { onNavy = false, as: Tag = 'p', class: className } = Astro.props as Props;
+---
+<Tag class:list={['eyebrow', { 'eyebrow--navy': onNavy }, className]}><slot /></Tag>
+
+<style>
+  .eyebrow { font-family: var(--font-mono); font-size: var(--fs-eyebrow); font-weight: 500; letter-spacing: .08em; text-transform: uppercase; color: var(--teal); margin: 0; }
+  .eyebrow--navy { color: var(--teal-2); }
+</style>

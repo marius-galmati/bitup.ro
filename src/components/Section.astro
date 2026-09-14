@@ -1,0 +1,19 @@
+---
+/**
+ * Secțiune: padding-block var(--section-y); linie de 1 px --line deasupra când fundalul e același ca al vecinei (DESIGN § Layout).
+ * `tone`: bg (implicit), surface, surface-2. `line`: adaugă bordura de sus.
+ */
+interface Props { tone?: 'bg' | 'surface' | 'surface-2'; line?: boolean; id?: string; class?: string; labelledby?: string }
+const { tone = 'bg', line = false, id, class: className, labelledby } = Astro.props;
+---
+<section id={id} class:list={['section', `section--${tone}`, { 'section--line': line }, className]} aria-labelledby={labelledby}>
+  <slot />
+</section>
+
+<style>
+  .section { padding-block: var(--section-y); }
+  .section--bg { background: var(--bg); }
+  .section--surface { background: var(--surface); }
+  .section--surface-2 { background: var(--surface-2); }
+  .section--line { border-top: 1px solid var(--line); }
+</style>
