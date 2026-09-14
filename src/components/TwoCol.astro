@@ -1,0 +1,27 @@
+---
+/**
+ * Modelul „două coloane” (DESIGN § Layout): eyebrow (+ h2) în stânga, 240 px, sticky pe desktop; conținut în dreapta, lățime 70ch.
+ * Folosit pentru text lung și pentru secțiuni care nu trebuie să arate ca un grid de carduri.
+ */
+import Eyebrow from './Eyebrow.astro';
+interface Props { eyebrow: string; title: string; id?: string; class?: string }
+const { eyebrow, title, id, class: className } = Astro.props;
+---
+<div class:list={['twocol', className]}>
+  <div class="twocol__aside">
+    <Eyebrow>{eyebrow}</Eyebrow>
+    <h2 id={id} class="twocol__title">{title}</h2>
+  </div>
+  <div class="twocol__body"><slot /></div>
+</div>
+
+<style>
+  .twocol { display: grid; gap: var(--s-5); }
+  .twocol__aside { display: grid; gap: var(--s-3); align-content: start; }
+  .twocol__title { max-width: 18ch; }
+  .twocol__body { max-width: 70ch; }
+  @media (min-width: 1024px) {
+    .twocol { grid-template-columns: 240px minmax(0, 1fr); gap: var(--s-8); }
+    .twocol__aside { position: sticky; top: calc(64px + var(--s-6)); }
+  }
+</style>

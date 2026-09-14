@@ -7,7 +7,7 @@
 import { chromium } from 'playwright';
 
 const [rawPath = '/', base = 'http://localhost:4321'] = process.argv.slice(2);
-const path = rawPath.startsWith('/') ? rawPath : `/${rawPath}`;
+const path = rawPath === 'index' ? '/' : rawPath.startsWith('/') && !/^[A-Za-z]:\//.test(rawPath) ? rawPath : `/${rawPath.replace(/^[A-Za-z]:\/[^/]+\/[^/]+\//, '')}`; // „index” = /; Git Bash rescrie „/x” în cale Windows
 const browser = await chromium.launch();
 let failures = 0;
 const check = (ok, msg) => { console.log(`${ok ? 'OK ' : 'NU '} ${msg}`); if (!ok) failures++; };

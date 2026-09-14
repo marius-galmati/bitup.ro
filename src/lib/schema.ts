@@ -59,7 +59,7 @@ export function professionalService(locale: Locale) {
     },
     founder: { '@type': 'Person', name: site.founder.name, jobTitle: site.founder.jobTitle[locale] },
     sameAs: [site.linkedin],
-    inLanguage: locale,
+    // `inLanguage` nu e o proprietate validă pe ProfessionalService (validator.schema.org: UNKNOWN_FIELD); rămâne pe Article/Service.
   };
 }
 

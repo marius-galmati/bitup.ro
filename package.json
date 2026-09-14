@@ -28,6 +28,7 @@
     "@astrojs/check": "^0.9.4",
     "lighthouse": "^13.4.1",
     "playwright": "^1.63.0",
+    "structured-data-testing-tool": "^4.5.0",
     "typescript": "^5.6.3"
   }
 }

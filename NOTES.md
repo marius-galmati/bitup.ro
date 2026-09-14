@@ -568,7 +568,7 @@ Limitele din `ARHITECTURA.md` § SEO: title ≤ 60, description ≤ 155. Se copi
 - 125 · 13-terms · Who runs bitup.ro, what you can and can't do with its content, what we guarantee and what we don't. Short, in plain language.
 - 121 · 15-cookies · Which cookies bitup.ro sets, what they do, how long they stay, and how to decline or delete them. The full list is short.
 
-Notă: descrierea de pe 11-contact („Scrie-i lui Marius Galmati direct… Răspuns personal”) e la persoana a III-a, nu la persoana I, deci nu s-a schimbat; dar H1-ul paginii e acum „Scrie-ne”. De decis dacă descrierea rămâne așa când o scurtezi (vezi § Întrebări deschise, punctul 9).
+Actualizare 14 septembrie, seara: descrierea de la Contact a fost înlocuită cu textul lui Marius (RO 134, EN 121 de caractere), deci nu mai e peste limită. Lista curentă a depășirilor: RO 3 title-uri (06, 02, 10) și 11 description-uri (05, 07, 04, 09, 03, 12, 06, 02, 10, 01, 08); EN 4 title-uri (06, 10, 02, 07) și 11 description-uri (07, 05, 04, 09, 02, 03, 12, 06, 10, 01, 08). Lungimile exacte sunt cele din listele de mai sus, cu excepția 03-it-support EN, acum 181 („one partner accountable”).
 
 ## Faza 0 — Schelet și unelte (14 septembrie 2026)
 
@@ -651,6 +651,63 @@ Neschimbate față de `spec/PLACEHOLDERS.md` § Rămase: nicio pagină reală î
 
 ### Placeholder-e vizibile în pagini
 - `[[LOGO_PARTENERI]]` în footer (sub fiecare partener), pe toate paginile. `[[LOGO_BITUP_SVG]]`: logo-ul PNG și favicon-ul sunt placeholder (varianta dark e filtru CSS). `[[CITAT_COSMIN]]` doar pe pagina QA.
+
+## Faza 2a — Homepage, RO și EN (14 septembrie 2026)
+
+### Note aplicate înainte
+- `aria-label` „Cookies” pe bannerul EN: în 00-global EN § Microcopy. CLAUDE.md § Cum verifici: paginile cu `noindex` exceptate de la scorul SEO; consola curată pe fiecare pagină.
+- Favicon: `favicon.svg` (marca din logo-ul placeholder, cu variantă pentru temă închisă prin `prefers-color-scheme` în SVG: navy → #E4ECEE, orange neschimbat), `favicon.ico` 16/32/48 (4,4 KB) și `apple-touch-icon.png` 180×180, toate derivate din marca logo-ului PNG. Sunt placeholder până la `[[LOGO_BITUP_SVG]]`. `qa/capture.mjs` raportează acum erorile de consolă și răspunsurile 4xx/5xx; homepage-ul are consola curată în toate cele 16 capturi.
+
+### Ce s-a făcut
+- `/` și `/en`: un singur șablon (`src/components/home/HomePage.astro`) cu textul în `src/copy/home.ro.ts` și `home.en.ts`, copiat exact din 01-acasa.md / 01-home.md. Componente noi: `Faq` (details/summary, prima deschisă, FAQPage JSON-LD opțional, dezactivat pe homepage), `SectionHead` (eyebrow + h2, aliniate stânga), `TwoCol` (modelul „două coloane”, eyebrow sticky în stânga).
+- Imagini prin `astro:assets` `<Picture>`: captura WhatsApp (AVIF + WebP, 360/720 px, lazy) și portretul pătrat 200 px (1×/2×, lazy). Fotografiile stau în `src/assets/`.
+- § 8 și § 10 citesc colecțiile `cases` și `blog` (filtrate pe limbă; draft-urile vizibile doar pe staging). Colecțiile sunt goale până la Faza 3, deci § 8 arată doar rândul „Următorul caz, în curând, cu acordul clientului.”, iar § 10 doar titlul. Decizie: cardul de caz folosește `client` ca „titlu scurt” (schema nu are alt câmp) și primele două propoziții din `summary`.
+- JSON-LD: Organization + ProfessionalService, fără altceva (cum cere 01-acasa). `inLanguage` scos de pe ProfessionalService: validator.schema.org îl marca UNKNOWN_FIELD (e proprietate de CreativeWork; rămâne pe Article și Service în Faza 2b/3). `availableLanguage` stă pe `contactPoint`, unde e valid.
+
+### Ritmul paginii, secțiune cu secțiune (testul de forme la 50%, `qa/faza-2a/forme-50/`)
+1. **Hero**: bloc de text aliniat stânga pe ~60% din lățime, pe `--bg`, fără imagine; sub el o bandă subțire albă (FactStrip, patru celule) care închide primul ecran. Forma: text greu stânga + linie orizontală jos.
+2. **Recunoști situația?** (`--surface-2`): trei dreptunghiuri egale, joase, cu linie teal sus; sub ele un rând de text. Prima bandă închisă la culoare.
+3. **Ce facem** (`--bg`): trei dreptunghiuri mai înalte, **inegale** (1.15 / 1.15 / 1): simetria e spartă aici, deliberat, ca § 2 și § 3 să nu arate ca același grid repetat.
+4. **Cum lucrăm** (`--surface`): coloană îngustă în stânga (eyebrow + titlu pe două rânduri) și un bloc 2×2 de pași în dreapta: forma se schimbă din „rând de carduri” în „aside + grilă”.
+5. **De ce un singur partener** (`--bg`): aside stânga + o coloană de text cu cinci liniuțe teal, fără casete. E cea mai „ușoară” secțiune din pagină, între două cu casete.
+6. **Suportul, pe scurt** (`--surface`): titlu lat, apoi text în stânga și un dreptunghi vertical (captura) în dreapta: singura formă înaltă din pagină.
+7. **Marius** (`--surface-2`, compact): bandă joasă, pătrat de 200 px în stânga, text în dreapta. Mai scundă decât orice altă secțiune.
+8. **Rezultate** (`--bg`): acum doar titlu + un rând; devine două carduri late în Faza 3.
+9. **Parteneri** (`--surface`): rând scurt de text, cea mai joasă bandă.
+10. **Din blog** (`--bg`): acum doar titlu; devine trei carduri în Faza 3.
+11. **Întrebări** (`--surface`): aside stânga + acordeon cu linii, fără casete.
+12. **CtaBand**: singurul dreptunghi navy, rotunjit la 8 px; apoi footer-ul, bloc greu.
+Concluzie: la 50% nu există două secțiuni consecutive cu aceeași formă. Alternanța e: text · bandă · 3 egale · 3 inegale · aside+grilă · aside+listă · text+imagine înaltă · bandă joasă cu foto · (2 carduri) · rând · (3 carduri) · aside+acordeon · bloc navy. Punctul slab, temporar: § 8, § 9 și § 10 sunt trei secțiuni joase la rând cât colecțiile sunt goale; se rezolvă la Faza 3, când § 8 și § 10 primesc carduri. Nu am schimbat nimic după test.
+
+### Ce s-a verificat
+- Build 0 erori. Avertismente: cele două pentru colecțiile goale, plus „[content] The collection … does not exist or is empty” la fiecare `getCollection` din homepage și „[@astrojs/sitemap] No pages found!” a dispărut (sitemap-ul are acum `/` și `/en`). Toate cele rămase au aceeași cauză, colecțiile goale, și dispar la Faza 3. `astro check`: 0 / 0 / 0.
+- Diff textual (`node qa/textdiff.mjs spec/continut/01-acasa.md dist/index.html`): 66 de fragmente, 66 găsite identic; EN la fel. Zero diferențe de text.
+- Ierarhia titlurilor (`node qa/headings.mjs`): un h1, 22 de titluri, fără sărituri, în ambele limbi.
+- 16 capturi (RO și EN × 4 lățimi × 2 teme), pagina întreagă, privite. Consolă curată în toate. Cereri externe: niciuna. Scriptul de capturi derulează acum pagina înainte de poză, ca imaginile lazy să apară (portretul din § 7 lipsea din prima captură din cauza asta, nu din pagină).
+- Tastatură pe `/`: 44 de elemente cu Tab, toate cu focus vizibil; dropdown-ul și meniul mobil trec.
+- JSON-LD validat cu validator.schema.org (API-ul public, graful din fiecare pagină): RO și EN, 0 erori, 0 avertismente. Răspunsurile sunt în `qa/faza-2a/schema-validator-*.json`. (Extensia Chrome nu era conectată, iar `sdtt` nu citește `@graph`; validatorul oficial e sursa.)
+- Lighthouse mobil complet (`qa/faza-2a/lighthouse-*-mobile.summary.json`): `/` Performance 97, Accessibility 100, Best Practices 100, SEO 100; LCP 2,3 s, CLS 0,016, TBT 0 ms, 235 KiB. `/en` 99 / 100 / 100 / 100; LCP 2,0 s, 176 KiB. Sub bugetul de 300 KB.
+
+### Lista de mirosuri (1–16) pe homepage
+1. **Nu.** Hero tipografic, fără badge, fără mockup; două butoane sunt cerute de conținut, dar eyebrow-ul e etichetă mono, nu pilulă.
+2. **Nu.**
+3. **Nu.** Trei grupuri de carduri există (§ 2, § 3, § 8 viitor, § 10 viitor), dar: § 2 are citatele ca titlu și stă pe `--surface-2`; § 3 are grid inegal 1.15/1.15/1 pe `--bg`; § 8 va avea două carduri late, § 10 trei carduri cu dată și timp de citit. Niciun card nu are iconiță; toate au bordura de 3 px teal, fără umbră.
+4. **Nu.** Zero iconițe în carduri; singurele iconițe din pagină sunt soare/lună din header.
+5. **Nu.** Fără umbre pe carduri, raza 4 px, hover doar pe culoare.
+6. **Nu.** Nimic la scroll, fără contoare, fără carusel.
+7. **Nu.**
+8. **Nu.** „De ce un singur partener” e o listă cu afirmații concrete, nu „De ce noi” cu iconițe; fără testimoniale fără nume.
+9. **Nu.** Sentence case; linkurile spun ce urmează („Vezi ce include abonamentul”, „Cum decurge”).
+10. **Nu.** Vezi § Ritmul: secțiunile alternează forma (bandă / carduri egale / carduri inegale / aside+grilă / aside+listă / text+imagine / bandă compactă / acordeon), fundalul (bg / surface / surface-2) și înălțimea; titlurile sunt toate aliniate stânga, niciodată centrate.
+11. **Nu.**
+12. **Nu.** Un singur `--section-y` pentru toate secțiunile; § 7 e deliberat mai compactă (`--s-7`). Lățimea textului curent 70ch în § 4, 5, 6, 11.
+13. **Nu.** Dark din tokeni; verificat în cele 8 capturi dark.
+14. **Nu.** Portretul real (430 px, 1× și 2×) și captura reală din WhatsApp cu legendă.
+15. **Nu.** `section` cu `aria-labelledby` pe fiecare secțiune, `h2` cu id, `ol` pentru pași, `ul` pentru listă, `figure`, `details/summary`.
+16. **Nu.** Portretul apare doar în § 7, pătrat, 200 px, în secțiune compactă; nu în hero, nu în header.
+
+### Placeholder-e vizibile pe homepage
+- `[[LOGO_PARTENERI]]` în § 9 (sub fiecare partener) și în footer. `[[LOGO_BITUP_SVG]]`: logo PNG și favicon placeholder. Nimic altceva pe `/` și `/en`.
 
 ## Spike Astro (14 septembrie 2026, ramura `spike/astro-current`, ~60 de minute): GO
 

@@ -25,6 +25,7 @@ await mkdir(outDir, { recursive: true });
 
 const browser = await chromium.launch();
 const external = new Map();
+const consoleIssues = [];
 let count = 0;
 
 for (const p of paths) {
@@ -39,7 +40,18 @@ for (const p of paths) {
           external.set(url.host, (external.get(url.host) ?? 0) + 1);
         }
       });
+      // Consola trebuie să fie curată: erori JS, avertismente și răspunsuri 4xx/5xx (favicon inclus)
+      page.on('console', (msg) => { if (msg.type() === 'error' || msg.type() === 'warning') consoleIssues.push(`${p} @${width}/${theme}: [${msg.type()}] ${msg.text().slice(0, 160)}`); });
+      page.on('pageerror', (err) => consoleIssues.push(`${p} @${width}/${theme}: [pageerror] ${String(err).slice(0, 160)}`));
+      page.on('response', (res) => { if (res.status() >= 400 && !(res.url().endsWith(p) && res.status() === 404)) consoleIssues.push(`${p} @${width}/${theme}: [${res.status()}] ${res.url()}`); });
       const response = await page.goto(`${BASE_URL}${p}`, { waitUntil: 'networkidle' });
+      // Derulăm pagina ca imaginile lazy să se încarce, apoi așteptăm toate imaginile și revenim sus.
+      await page.evaluate(async () => {
+        for (let y = 0; y < document.body.scrollHeight; y += 600) { window.scrollTo(0, y); await new Promise((r) => setTimeout(r, 40)); }
+        await Promise.all(Array.from(document.images).map((img) => img.complete ? null : new Promise((r) => { img.onload = img.onerror = r; })));
+        window.scrollTo(0, 0);
+      });
+      await page.waitForLoadState('networkidle');
       const name = p === '/' ? 'index' : p.replace(/^\//, '').replace(/[\/#?]/g, '_');
       const file = path.join(outDir, `${name}-${width}-${theme}.png`);
       await page.screenshot({ path: file, fullPage: true });
@@ -52,6 +64,8 @@ for (const p of paths) {
 await browser.close();
 
 console.log(`\n${count} capturi în ${outDir}/`);
+if (consoleIssues.length === 0) console.log('Consolă: curată (fără erori, avertismente sau răspunsuri 4xx/5xx).');
+else { console.log(`Consolă: ${consoleIssues.length} probleme:`); [...new Set(consoleIssues)].forEach((c) => console.log('  ' + c)); }
 if (external.size === 0) {
   console.log('Cereri externe: niciuna.');
 } else {

@@ -66,7 +66,8 @@ Persoana I singular rămâne doar acolo unde e o declarație semnată, nu vocea 
 - `npm run build` trece fără erori și fără warning-uri, cu o singură excepție cunoscută: cele două avertismente „No files found” pentru colecțiile `cases` și `blog`, goale până la Faza 3; ele trebuie să dispară la finalul Fazei 3.
 - Capturi Playwright la 375, 768, 1024 și 1440 px, în light și dark, RO și EN, salvate în `qa/<faza>/`. Le deschizi și te uiți la ele (cu Read), nu doar le generezi; ce vezi greșit, repari.
 - Diff textual între fișierul de conținut și textul extras din `dist/`: zero diferențe în afara formatării.
-- Lighthouse pe mobil: Performance ≥ 95, Accessibility ≥ 95, Best Practices ≥ 95, SEO 100.
+- Lighthouse pe mobil: Performance ≥ 95, Accessibility ≥ 95, Best Practices ≥ 95, SEO 100. Paginile cu `noindex` (404, `/multumesc`, `/qa/*`) sunt exceptate de la scorul SEO; restul criteriilor rămân.
+- Consola browserului e curată pe fiecare pagină: nicio eroare, niciun 404 (favicon inclus).
 - Tastatură: fiecare element interactiv se atinge cu Tab și are focus vizibil; meniul mobil se închide cu Esc.
 - Lista de mirosuri de mai sus, punct cu punct, în `NOTES.md`, cu „nu” la fiecare.
 - Raportul către mine: ce ai făcut, ce ai verificat, ce a ieșit, ce placeholder-e au rămas, ce întrebări ai. Fără adjective.

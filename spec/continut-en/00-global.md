@@ -138,3 +138,4 @@ This English block sits under a rule, below the Romanian version (from `continut
 - Menu (hamburger) button, `aria-label`: "Menu" when closed, "Close menu" when open.
 - `aria-label` on the header navigation: "Main navigation".
 - `aria-label` on the footer navigation: "Secondary navigation".
+- `aria-label` on the consent banner region: "Cookies".

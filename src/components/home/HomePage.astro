@@ -1,0 +1,240 @@
+---
+/**
+ * Homepage (spec/continut/01-acasa.md, continut-en/01-home.md), cele 11 secțiuni + CtaBand. Un singur șablon pentru RO și EN.
+ * Ritm: hero tipografic pe bg → FactStrip → §2 carduri-citat pe surface-2 → §3 carduri asimetrice pe bg → §4 pași în două coloane pe surface
+ * → §5 listă în două coloane pe bg → §6 text + captură pe surface → §7 secțiune compactă pe surface-2 → §8 cazuri pe bg → §9 parteneri pe surface
+ * → §10 blog pe bg → §11 FAQ în două coloane pe surface → CtaBand.
+ */
+import { Picture } from 'astro:assets';
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Container from '../Container.astro';
+import Section from '../Section.astro';
+import SectionHead from '../SectionHead.astro';
+import TwoCol from '../TwoCol.astro';
+import Eyebrow from '../Eyebrow.astro';
+import Button from '../Button.astro';
+import Card from '../Card.astro';
+import Steps from '../Steps.astro';
+import FactStrip from '../FactStrip.astro';
+import Figure from '../Figure.astro';
+import Faq from '../Faq.astro';
+import CtaBand from '../CtaBand.astro';
+import { t, localePath, dynamicPath, formatDate, type Locale } from '../../i18n';
+import { site } from '../../lib/site';
+import { isProduction } from '../../lib/env';
+import type { HomeCopy } from '../../copy/home.types';
+import whatsapp from '../../assets/blog/helpdesk/whatsapp-cipri.jpg';
+import portrait from '../../assets/foto-marius/marius-patrat-430x430.jpg';
+
+interface Props { lang: Locale; copy: HomeCopy }
+const { lang, copy } = Astro.props;
+const dict = t(lang);
+const heroFacts = [{ v: dict.factStrip.since }, { v: dict.factStrip.city }, { v: dict.factStrip.response }, { v: dict.factStrip.partners.join(' · ') }];
+
+// § 8: cazurile publicate în limba paginii (Cosmio rămâne draft până la acord). Colecția se populează în Faza 3.
+const cases = (await getCollection('cases', (e) => e.id.startsWith(`${lang}/`) && (!e.data.draft || !isProduction)))
+  .sort((a, b) => a.data.order - b.data.order);
+const hasDraftCase = (await getCollection('cases', (e) => e.id.startsWith(`${lang}/`) && e.data.draft)).length > 0 || cases.length < 2;
+
+// § 10: ultimele 3 articole în limba paginii.
+const posts = (await getCollection('blog', (e) => e.id.startsWith(`${lang}/`) && (!e.data.draft || !isProduction)))
+  .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime())
+  .slice(0, 3);
+const readMinutes = (body: string | undefined) => Math.max(1, Math.round((body ?? '').split(/\s+/).length / 200));
+const slugOf = (id: string) => id.replace(/^(ro|en)\//, '');
+---
+<BaseLayout lang={lang} routeKey="home" title={copy.title} description={copy.description}>
+  {/* 1. Hero: tipografic, o coloană, aliniat la stânga, pe --bg; FactStrip imediat sub el */}
+  <Section tone="bg" class="hero">
+    <Container>
+      <div class="hero__text">
+        <Eyebrow>{copy.hero.eyebrow}</Eyebrow>
+        <h1 class="hero__h1">{copy.hero.h1}</h1>
+        <p class="lead hero__lead">{copy.hero.lead}</p>
+        <div class="hero__actions">
+          <Button href={localePath('healthCheck', lang)} data-event="cta_radiografie_click">{copy.hero.primary}</Button>
+          <Button href={localePath('howWeWork', lang)} variant="secondary">{copy.hero.secondary}</Button>
+        </div>
+      </div>
+      <FactStrip items={heroFacts} class="hero__facts" />
+    </Container>
+  </Section>
+
+  {/* 2. Recunoști situația? — trei carduri-citat pe surface-2 */}
+  <Section tone="surface-2" labelledby="s2">
+    <Container>
+      <SectionHead id="s2" eyebrow={copy.situation.eyebrow} title={copy.situation.h2} />
+      <div class="grid-3">
+        {copy.situation.cards.map((c) => <Card title={c.quote}><p>{c.text}</p></Card>)}
+      </div>
+      <p class="closing">{copy.situation.closing} <a href={localePath('healthCheck', lang)}>{copy.situation.closingLink}</a></p>
+    </Container>
+  </Section>
+
+  {/* 3. Ce facem — trei carduri mari, primele două mai late */}
+  <Section tone="bg" labelledby="s3">
+    <Container>
+      <SectionHead id="s3" eyebrow={copy.services.eyebrow} title={copy.services.h2} />
+      <div class="grid-3 grid-3--wide">
+        {copy.services.cards.map((c) => <Card title={c.title} href={localePath(c.route, lang)} linkLabel={c.link}><p>{c.text}</p></Card>)}
+      </div>
+    </Container>
+  </Section>
+
+  {/* 4. Cum lucrăm — două coloane, pașii în dreapta */}
+  <Section tone="surface" labelledby="s4">
+    <Container>
+      <TwoCol id="s4" eyebrow={copy.how.eyebrow} title={copy.how.h2}>
+        <Steps steps={copy.how.steps} class="steps-2x2" />
+        <p class="after"><a href={localePath('howWeWork', lang)}>{copy.how.link}<span aria-hidden="true"> →</span></a></p>
+      </TwoCol>
+    </Container>
+  </Section>
+
+  {/* 5. De ce un singur partener — listă de 5 cu marcaj teal, nu carduri */}
+  <Section tone="bg" labelledby="s5">
+    <Container>
+      <TwoCol id="s5" eyebrow={copy.why.eyebrow} title={copy.why.h2}>
+        <ul class="why">
+          {copy.why.items.map((it) => <li class="why__item"><strong class="why__title">{it.title}</strong> <span>{it.text}</span></li>)}
+        </ul>
+      </TwoCol>
+    </Container>
+  </Section>
+
+  {/* 6. Suportul, pe scurt — text stânga, captura WhatsApp dreapta */}
+  <Section tone="surface" labelledby="s6">
+    <Container>
+      <SectionHead id="s6" eyebrow={copy.support.eyebrow} title={copy.support.h2} />
+      <div class="support">
+        <div class="support__text">
+          <p>{copy.support.text}</p>
+          <p>{copy.support.text2} <a href={copy.support.linkPath}>{copy.support.link}<span aria-hidden="true"> →</span></a></p>
+        </div>
+        <Figure kind="screenshot" class="support__figure">
+          <Picture src={whatsapp} alt={copy.support.imageAlt} widths={[360, 720]} sizes="(min-width: 1024px) 360px, 90vw" formats={['avif', 'webp']} loading="lazy" decoding="async" />
+        </Figure>
+      </div>
+    </Container>
+  </Section>
+
+  {/* 7. Marius — secțiune compactă pe surface-2, portret pătrat 200 px; textul rămâne la persoana I (declarație semnată) */}
+  <Section tone="surface-2" class="founder-section" labelledby="s7">
+    <Container>
+      <div class="founder">
+        <Picture src={portrait} alt={copy.founder.portraitAlt} width={200} height={200} densities={[1, 2]} formats={['avif', 'webp']} loading="lazy" decoding="async" class="founder__photo" />
+        <div class="founder__body">
+          <Eyebrow>{copy.founder.eyebrow}</Eyebrow>
+          <h2 id="s7" class="founder__h2">{copy.founder.h2}</h2>
+          <p>{copy.founder.text}</p>
+          <p class="founder__links">
+            <a href={localePath('about', lang)}>{copy.founder.storyLink}<span aria-hidden="true"> →</span></a>
+            <a href={site.founder.linkedin} target="_blank" rel="noopener">{copy.founder.linkedinLabel}<span aria-hidden="true"> →</span></a>
+          </p>
+        </div>
+      </div>
+    </Container>
+  </Section>
+
+  {/* 8. Rezultate — cardurile din colecția cases */}
+  <Section tone="bg" labelledby="s8">
+    <Container>
+      <SectionHead id="s8" eyebrow={copy.results.eyebrow} title={copy.results.h2} />
+      {cases.length > 0 && (
+        <div class="grid-2">
+          {cases.map((c) => (
+            <Card title={c.data.client} href={dynamicPath('caseStudy', lang, slugOf(c.id))} linkLabel={copy.results.readCase}>
+              <p class="eyebrow">{c.data.kicker}</p>
+              <p>{c.data.summary.split(/(?<=\.)\s+/).slice(0, 2).join(' ')}</p>
+              {c.data.draft && <p class="small muted">{dict.misc.draft}</p>}
+            </Card>
+          ))}
+        </div>
+      )}
+      {hasDraftCase && <p class:list={['closing', { 'closing--first': cases.length === 0 }]}>{copy.results.nextCase}</p>}
+    </Container>
+  </Section>
+
+  {/* 9. Parteneri și tehnologii — rând static, monocrom */}
+  <Section tone="surface" labelledby="s9">
+    <Container>
+      <SectionHead id="s9" eyebrow={copy.partners.eyebrow} title={copy.partners.h2} />
+      <ul class="partners">
+        {copy.partners.names.map((n) => <li class="partners__item"><span class="partners__name">{n}</span><span class="partners__level mono">[[LOGO_PARTENERI]]</span></li>)}
+      </ul>
+      <p class="small muted partners__tech">{copy.partners.tech}</p>
+    </Container>
+  </Section>
+
+  {/* 10. Din blog — ultimele 3 articole */}
+  <Section tone="bg" labelledby="s10">
+    <Container>
+      <SectionHead id="s10" eyebrow={copy.blog.eyebrow} title={copy.blog.h2} />
+      {posts.length > 0 && (
+        <div class="grid-3">
+          {posts.map((p) => (
+            <Card title={p.data.title} href={dynamicPath('post', lang, slugOf(p.id))} linkLabel={p.data.title}>
+              <p>{p.data.description}</p>
+              <p class="small muted mono">{formatDate(p.data.pubDate, lang)} · {dict.misc.readTime(readMinutes(p.body))}</p>
+            </Card>
+          ))}
+        </div>
+      )}
+    </Container>
+  </Section>
+
+  {/* 11. Întrebări practice — două coloane, FAQ în dreapta; fără FAQPage JSON-LD pe homepage */}
+  <Section tone="surface" labelledby="s11">
+    <Container>
+      <TwoCol id="s11" eyebrow={copy.faq.eyebrow} title={copy.faq.h2}>
+        <Faq items={copy.faq.items} jsonLd={false} lang={lang} />
+      </TwoCol>
+    </Container>
+  </Section>
+
+  {/* 12. Banda finală */}
+  <CtaBand lang={lang} />
+</BaseLayout>
+
+<style>
+  .hero__text { display: grid; gap: var(--s-4); justify-items: start; }
+  .hero__h1 { font-size: var(--fs-hero); max-width: 22ch; }
+  .hero__lead { max-width: 60ch; }
+  .hero__actions { display: flex; flex-wrap: wrap; gap: var(--s-3) var(--s-4); margin-top: var(--s-3); }
+  .hero :global(.hero__facts) { margin-top: var(--s-8); }
+
+  .grid-3 { display: grid; gap: var(--s-5); grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+  @media (min-width: 1024px) { .grid-3--wide { grid-template-columns: 1.15fr 1.15fr 1fr; } }
+  .grid-2 { display: grid; gap: var(--s-5); grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+  .closing { margin-top: var(--s-6); max-width: 70ch; }
+  .closing--first { margin-top: 0; }
+  .after { margin-top: var(--s-6); }
+  .after a, .closing a, .support__text a, .founder__links a { font-family: var(--font-display); font-weight: 600; }
+
+  .why { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--s-5); }
+  .why__item { position: relative; padding-left: var(--s-5); }
+  .why__item::before { content: ''; position: absolute; left: 0; top: .55em; width: var(--s-3); height: 3px; background: var(--teal); }
+  .why__title { font-family: var(--font-display); font-weight: 600; color: var(--navy); }
+
+  .support { display: grid; gap: var(--s-6); align-items: start; }
+  .support__text { display: grid; gap: var(--s-4); max-width: 70ch; }
+  .support :global(.support__figure) { max-width: 360px; }
+  @media (min-width: 1024px) { .support { grid-template-columns: minmax(0, 1fr) 360px; gap: var(--s-8); } }
+
+  .founder-section { padding-block: var(--s-7); }
+  .founder { display: grid; gap: var(--s-5); align-items: start; }
+  .founder :global(.founder__photo) { width: 200px; height: 200px; border-radius: var(--radius); }
+  .founder__body { display: grid; gap: var(--s-3); max-width: 70ch; }
+  .founder__h2 { font-size: var(--fs-h3); }
+  .founder__links { display: flex; flex-wrap: wrap; gap: var(--s-2) var(--s-5); }
+  @media (min-width: 768px) { .founder { grid-template-columns: 200px minmax(0, 1fr); gap: var(--s-6); } }
+
+  .partners { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: var(--s-5) var(--s-8); }
+  .partners__item { display: grid; gap: 2px; }
+  .partners__name { font-family: var(--font-display); font-weight: 600; color: var(--muted); }
+  .partners__level { font-size: var(--fs-eyebrow); color: var(--muted); }
+  .partners__tech { margin-top: var(--s-6); max-width: 70ch; }
+
+  :global(.steps-2x2) { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
+</style>
