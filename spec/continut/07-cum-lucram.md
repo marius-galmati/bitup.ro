@@ -34,7 +34,7 @@ Diagramă SVG inline (singura de pe site): patru noduri în linie, cu săgeți, 
 Eyebrow: `Pasul 1`
 **H2:** Radiografia: 30 de minute în care aflăm amândoi cu ce avem de-a face
 
-Text (70ch): Nu e o discuție de vânzare. Trecem prin zece puncte: backup, accese, parole, actualizări, antivirus, firewall, email, cine deține ce, ce se întâmplă dacă pleacă omul-cheie, ce obligații ai. Pleci cu o pagină cu semafor și trei recomandări. Dacă vrei să continuăm, îmi scrii. → Cum decurge (`/radiografie-it`)
+Text (70ch): Nu e o discuție de vânzare. Trecem prin zece puncte: backup, accese, parole, actualizări, antivirus, firewall, email, cine deține ce, ce se întâmplă dacă pleacă omul-cheie, ce obligații ai. Pleci cu o pagină cu semafor și trei recomandări. Dacă vrei să continuăm, ne scrii. → Cum decurge (`/radiografie-it`)
 
 ---
 
@@ -65,9 +65,9 @@ Listă de 6 (cu marcaj):
 ## 4. Lună de lună
 
 Eyebrow: `Pasul 4`
-**H2:** O lună obișnuită, în care nu mă suni
+**H2:** O lună obișnuită, în care nu ne suni
 
-Text (70ch): Verific zilnic backup-urile și alertele, instalez actualizările în ferestre anunțate. Răspund la cererile echipei tale și rezolv ce apare, mic sau mare. Îți spun proactiv când văd ceva ce ar trebui să știi (o licență care expiră, un laptop care dă semne, un cont ciudat). Și la sfârșitul lunii îți trimit raportul.
+Text (70ch): Verificăm zilnic backup-urile și alertele, instalăm actualizările în ferestre anunțate. Răspundem cererilor echipei tale și rezolvăm ce apare, mic sau mare. Îți spunem proactiv când vedem ceva ce ar trebui să știi (o licență care expiră, un laptop care dă semne, un cont ciudat). La sfârșitul lunii îți trimitem raportul.
 
 ---
 
@@ -80,7 +80,7 @@ Steps (4), cu captura WhatsApp lângă:
 
 **1.** Un angajat scrie pe WhatsApp, cu cuvintele lui. Fără cont, fără formular.
 **2.** Cipri, asistentul nostru, recunoaște firma după număr, pune întrebările potrivite, propune pași. Dacă se rezolvă, se închide acolo.
-**3.** Dacă nu, deschide singur tichetul în BitUp Helpdesk, cu tot contextul și atașamentele. Îl preiau eu.
+**3.** Dacă nu, deschide singur tichetul în BitUp Helpdesk, cu tot contextul și atașamentele. Îl preluăm.
 **4.** Statusul vine înapoi pe același canal. La sfârșitul lunii, raportul.
 
 Rând: Preferi email? Deschizi tichetul pe helpdesk.bitup.ro și primești statusurile pe email. Același sistem. → Cum l-am construit (`/blog/cum-ne-am-construit-propriul-helpdesk`)
@@ -94,16 +94,16 @@ Eyebrow: `Raportul`
 
 Text (două coloane, `[[CAPTURA_RAPORT_LUNAR]]` în dreapta):
 
-O pagină sau două, generate din tichete, nu scrise din memorie. Acolo scrie câte cereri au fost și de la cine, ce s-a rezolvat și cât a durat. Scrie și ce am făcut fără să mă cheme cineva (actualizări, verificări, curățenie), ce am observat și ce recomand pentru luna următoare. Când s-a făcut testul de restaurare a backup-ului, intră și rezultatul lui.
+O pagină sau două, generate din tichete, nu scrise din memorie. Acolo scrie câte cereri au fost și de la cine, ce s-a rezolvat și cât a durat. Scrie și ce am făcut fără să ne cheme cineva (actualizări, verificări, curățenie), ce am observat și ce recomandăm pentru luna următoare. Când s-a făcut testul de restaurare a backup-ului, intră și rezultatul lui.
 
 ---
 
 ## Când se întâmplă ceva
 
 Eyebrow: `Incidente`
-**H2:** Cum tratez o urgență
+**H2:** Cum tratăm o urgență
 
-Text (70ch): Incidentele care blochează munca (nu merge emailul la nimeni, a picat serverul, cineva a dat click unde nu trebuia) au prioritate peste orice altceva și un timp de răspuns scris în contract. În program răspund în mai puțin de două ore, prin contract; media reală din helpdesk e sub 30 de minute. În afara programului, ai un număr de urgență pentru situațiile care chiar sunt urgențe. Ce fac în primele 24 de ore de la un incident de securitate e descris pe pagina de securitate. → Primele 24 de ore (`/servicii/securitate#incidente`)
+Text (70ch): Incidentele care blochează munca (nu merge emailul la nimeni, a picat serverul, cineva a dat click unde nu trebuia) au prioritate peste orice altceva și un timp de răspuns scris în contract. În program răspundem în mai puțin de două ore, prin contract; media reală din helpdesk e sub 30 de minute. În afara programului, ai un număr de urgență pentru situațiile care chiar sunt urgențe. Ce facem în primele 24 de ore după un incident de securitate e pe pagina de securitate. → Primele 24 de ore (`/servicii/securitate#incidente`)
 
 ---
 
@@ -112,7 +112,7 @@ Text (70ch): Incidentele care blochează munca (nu merge emailul la nimeni, a pi
 Eyebrow: `Bani`
 **H2:** O sumă fixă pe lună. Proiectele, cu ofertă înainte.
 
-Text (70ch): Abonamentul e o sumă fixă lunară, stabilită după radiografie, în funcție de stații, servere și ce preiau. Nu facturez ore pentru suportul obișnuit, pentru că asta ar însemna că îmi convine să ai probleme. Proiectele separate (migrări, hardware nou, software) au ofertă înainte și se fac doar după acordul tău scris. Factura vine la începutul lunii, cu raportul lunii trecute.
+Text (70ch): Abonamentul e o sumă fixă lunară, stabilită după radiografie, în funcție de stații, servere și ce preluăm. Nu facturăm ore pentru suportul obișnuit, pentru că asta ar însemna că ne convine să ai probleme. Proiectele separate (migrări, hardware nou, software) au ofertă înainte și se fac doar după acordul tău scris. Factura vine la începutul lunii, cu raportul lunii trecute.
 
 ---
 
@@ -121,7 +121,7 @@ Text (70ch): Abonamentul e o sumă fixă lunară, stabilită după radiografie, 
 Eyebrow: `Ieșirea`
 **H2:** Dacă vrei să pleci, pleci cu tot
 
-Text (70ch): Contractul are preaviz de o lună, fără penalități. La încheiere primești toată documentația, inventarul, parolele și accesele într-un format pe care îl poate prelua oricine, și îmi închid accesul în ziua convenită. Nu țin nimic ostatic.
+Text (70ch): Contractul are preaviz de o lună, fără penalități. La încheiere primești toată documentația, inventarul, parolele și accesele într-un format pe care îl poate prelua oricine, și ne închidem accesul în ziua convenită. Nu ținem nimic ostatic.
 
 ---
 
@@ -136,7 +136,7 @@ La 30 de zile ai primul raport și backup-ul testat. Cele mai multe „roșuri�
 La radiografie și la plan, da, 30 de minute plus o ședință. După, doar la decizii (ce cumpărăm, ce schimbăm). Restul merge fără tine. Asta e ideea.
 
 **Lucrezi singur?**
-Da, și e deliberat: răspunde un om cu nume, nu un departament. Pentru intervențiile fizice în afara Clujului lucrez cu tehnicieni locali pe care îi coordonez eu. Pentru proiecte mari aduc colaboratori, dar responsabilitatea și raportul rămân la mine.
+Da, și e deliberat: răspunde un om cu nume, nu un departament. Pentru intervențiile fizice în afara Clujului lucrăm cu tehnicieni locali coordonați de noi. Pentru proiecte mari aducem colaboratori, dar responsabilitatea și raportul rămân la noi.
 
 ---
 

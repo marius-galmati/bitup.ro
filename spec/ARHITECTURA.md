@@ -206,9 +206,9 @@ Două formulare, aceeași componentă `Form.astro`, cu `kind: 'radiografie' | 'c
 - `fetch` POST JSON către `/api/lead` (aceeași origine), timeout 10 s.
 - Succes doar la răspuns 2xx cu `{ ok: true }`: redirect către `/multumesc?kind=radiografie` (sau `contact`; în EN `/en/thank-you?kind=…`).
 - Eroare (rețea, 4xx, 5xx): mesajul din `00-global.md` § Erori, textul rămâne în câmpuri, apar telefonul și emailul.
-- Fără JavaScript: `<form method="post" action="/api/lead">` cu câmp ascuns `redirect=/multumesc?kind=…`; funcția răspunde 303 către el. Turnstile nu poate rula fără JS, așa că trimiterile fără token trec doar de honeypot și de limita de rată; e fallback-ul, nu calea principală.
+- Fără JavaScript: formularul nu se trimite (Turnstile are nevoie de JS, iar o cale fără token ar fi un ocol complet al verificării anti-spam). În locul lui, un `<noscript>` în ambele formulare, cu textul din `00-global.md` § Mesaje de formular („Formularul are nevoie de JavaScript pentru verificarea anti-spam…”) și linkul Calendly. Nu există `<form method="post">` către `/api/lead` și nici răspuns 303.
 
-**Payload (JSON sau `application/x-www-form-urlencoded`):**
+**Payload (doar JSON):**
 ```json
 {
   "kind": "radiografie",
@@ -227,9 +227,9 @@ Două formulare, aceeași componentă `Form.astro`, cu `kind: 'radiografie' | 'c
 **Funcția `functions/api/lead.ts` (Cloudflare Pages Function), în ordinea asta:**
 1. Acceptă doar `POST`; altceva → 405.
 2. Verifică `Origin`/`Referer`: trebuie să fie `https://bitup.ro` (sau `*.pages.dev` pe staging); altfel 403.
-3. Parsează corpul (JSON sau form). Validare server-side: câmpurile obligatorii după `kind`, email cu format valid, telefon cu cel puțin 9 cifre, `message` ≤ 5.000 caractere, `consent === true`.
+3. Parsează corpul (doar JSON; alt `Content-Type` sau JSON invalid → `400 { ok: false, error: 'body' }`). Validare server-side: câmpurile obligatorii după `kind`, email cu format valid, telefon cu cel puțin 9 cifre, `message` ≤ 5.000 caractere, `consent === true`.
 4. Honeypot: dacă `website` nu e gol → răspunde `200 { ok: true }` fără să trimită nimic (spamerul nu trebuie să afle).
-5. Turnstile: `POST https://challenges.cloudflare.com/turnstile/v0/siteverify` cu `secret = env.TURNSTILE_SECRET_KEY`, `response = turnstileToken`, `remoteip = CF-Connecting-IP`. Dacă `success !== true` → `400 { ok: false, error: 'turnstile' }`. Dacă lipsește tokenul și cererea vine ca form (fără JS), se acceptă doar dacă honeypot-ul e curat; se marchează `[fără verificare]` în subiectul emailului.
+5. Turnstile: `POST https://challenges.cloudflare.com/turnstile/v0/siteverify` cu `secret = env.TURNSTILE_SECRET_KEY`, `response = turnstileToken`, `remoteip = CF-Connecting-IP`. Dacă `success !== true` sau tokenul lipsește → `400 { ok: false, error: 'turnstile' }`. Nu există nicio cale fără token.
 6. Resend: `POST https://api.resend.com/emails` cu `Authorization: Bearer ${env.RESEND_API_KEY}`:
    - `from`: `BitUp site <site@bitup.ro>` (domeniul `bitup.ro` verificat în Resend: înregistrările DKIM, SPF și, recomandat, DMARC puse în DNS-ul Cloudflare, vezi § Deploy).
    - `to`: `env.LEAD_TO_EMAIL` (= `office@bitup.ro`).
@@ -238,8 +238,8 @@ Două formulare, aceeași componentă `Form.astro`, cu `kind: 'radiografie' | 'c
    - `text` (fără HTML): toate câmpurile, unul pe rând, plus `source`, `utm`, `referrer`, `ts`, IP-ul și țara din headerele Cloudflare. Textul din `message` se pune ca atare, într-un bloc separat, ca să nu poată fi confundat cu antetul.
    - Etichetă (`tags`): `kind`, `lang`.
 7. Opțional (recomandat, dar se decide cu Marius): un al doilea email, de confirmare, către persoana care a scris, din `Marius Galmati <office@bitup.ro>`, cu textul de pe `/multumesc`. Dacă se face, `from` trebuie să fie o adresă la care Marius chiar citește răspunsurile.
-8. Răspuns: `200 { ok: true }` (sau `303` către `redirect` la cererile form). La eșec Resend → `502 { ok: false, error: 'mail' }`, și funcția scrie eroarea în log (`console.error`), vizibil în Cloudflare → Pages → Functions → Logs.
-9. Limitare de rată: o regulă **Cloudflare WAF Rate Limiting** pe `/api/lead` (de exemplu 5 cereri / 10 minute / IP), setată din dashboard, nu în cod. Fără ea, cineva poate consuma cota Resend cu un script.
+8. Răspuns: `200 { ok: true }`. La eșec Resend → `502 { ok: false, error: 'mail' }`, și funcția scrie eroarea în log (`console.error`), vizibil în Cloudflare → Pages → Functions → Logs.
+9. Limitare de rată: o regulă **Cloudflare WAF Rate Limiting** pe `/api/lead`, 5 cereri / 10 secunde / IP, setată din dashboard, nu în cod (planul Free permite doar ferestre de 10 secunde). Apărarea principală rămâne Turnstile + honeypot + validarea din funcție; regula doar taie rafalele. Dacă apare spam real, pasul următor e o limitare în funcție, pe Workers KV (cheie per IP, TTL 10 minute), nu un upgrade de plan.
 
 Secretele (`RESEND_API_KEY`, `TURNSTILE_SECRET_KEY`, `LEAD_TO_EMAIL`) se setează în Cloudflare Pages → Settings → Environment variables, separat pentru Production și Preview, și nu apar niciodată în repo sau într-o variabilă `PUBLIC_`. Local: `.dev.vars` (în `.gitignore`) și `npx wrangler pages dev dist`.
 
@@ -279,7 +279,7 @@ Secretele (`RESEND_API_KEY`, `TURNSTILE_SECRET_KEY`, `LEAD_TO_EMAIL`) se seteaz�
 
 ```
 /*
-  Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+  Strict-Transport-Security: max-age=31536000; includeSubDomains
   Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://challenges.cloudflare.com https://www.googletagmanager.com; frame-src https://challenges.cloudflare.com; connect-src 'self' https://challenges.cloudflare.com https://www.googletagmanager.com https://*.google-analytics.com https://*.analytics.google.com; img-src 'self' data: https://www.googletagmanager.com https://*.google-analytics.com https://pro-q.ro https://cosmio.ro; style-src 'self' 'unsafe-inline'; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests
   X-Content-Type-Options: nosniff
   X-Frame-Options: DENY
@@ -294,6 +294,7 @@ Secretele (`RESEND_API_KEY`, `TURNSTILE_SECRET_KEY`, `LEAD_TO_EMAIL`) se seteaz�
 ```
 
 Note:
+- HSTS fără `preload` la lansare: preload e greu de scos și ar obliga orice subdomeniu (inclusiv `helpdesk.bitup.ro` și subdomeniile de test) la HTTPS pentru totdeauna. Pe staging (`*.pages.dev`) `max-age=300`. Preload se discută după o lună de producție fără probleme.
 - `script-src 'unsafe-inline'` e nevoie pentru scriptul de temă din `<head>` și pentru inițializarea gtag. Preferat: Claude Code mută ambele în fișiere `.js` proprii sau folosește hash-uri (`'sha256-…'`) generate la build și scoate `'unsafe-inline'`. E o îmbunătățire, nu o condiție de lansare.
 - `style-src 'unsafe-inline'` e necesar pentru stilurile scoped ale Astro.
 - Logo-urile clienților se copiază local în `public/` la publicare, deci `pro-q.ro` și `cosmio.ro` din `img-src` se scot după; sunt acolo doar pentru perioada de draft.

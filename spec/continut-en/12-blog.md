@@ -11,7 +11,7 @@
 
 Eyebrow: `Blog`
 **H1:** Technology decisions, in plain language for owners
-Lead: I'm not teaching you IT. I show you how to make better decisions about it: what to ask, what to check, when to say no. Everything here comes from real companies and what we build ourselves.
+Lead: We're not teaching you IT. We show you how to make better decisions about it: what to ask, what to check, when to say no. Everything here comes from real companies and what we build.
 
 ---
 
@@ -25,7 +25,7 @@ If there's one article (at launch): the card takes full width, `heroImage` on th
 
 ## Three themes
 
-Eyebrow: `What I write about`
+Eyebrow: `What we write about`
 **H2:** Three themes, always from practice
 
 Three short cards (static; independent of the articles):
@@ -37,7 +37,7 @@ What to ask your IT provider before signing. How much IT should cost a 30-person
 What NIS2 is and whether it applies to you. Backup versus restore. How to check in five minutes whether your company's email can be spoofed.
 
 **Automation and AI, the pragmatic way**
-What I've automated and how much time it saved. What isn't worth automating. How to use AI in your company without leaking your data.
+What we've automated and how much time it saved. What isn't worth automating. How to use AI in your company without leaking your data.
 
 ---
 

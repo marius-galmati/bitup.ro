@@ -13,7 +13,7 @@ Mandatory anchors: `#backup`, `#audit`, `#nis2`, `#incidents`, `#faq`.
 
 Eyebrow: `Security and continuity`
 **H1:** Small companies aren't attacked because they're interesting. They're attacked because they're easy.
-Lead: Attacks are automated: a program scans the internet and gets in where it's easiest. I make sure you're not the easy spot, and that you recover fast if something happens anyway.
+Lead: Attacks are automated: a program scans the internet and gets in where it's easiest. We make sure you're not the easy spot, and that you recover fast if something happens anyway.
 Button: **Free IT Health Check** (`/en/it-health-check`)
 
 ---
@@ -25,9 +25,9 @@ Eyebrow: `Where we start`
 
 Text (70ch):
 
-I hear this at every second company, and I get why: in movies, the hacker picks a target. In reality, a program scans the internet, finds a server with a weak password or unprotected email, and gets in. Doesn't matter if you have 5 or 500 employees. What matters is whether the door's open.
+We hear this at every second company and get why: in movies, the hacker picks a target. In reality, a program scans the internet, finds a server with a weak password or unprotected email, and gets in. Doesn't matter if you have 5 or 500 employees. What matters is whether the door's open.
 
-What I see most in a new company: one password on several accounts, no two-step verification; ex-employees' accounts still active; one person with admin rights everywhere; updates months overdue; a backup that runs but nobody's ever restored from; and no plan for the morning nothing works.
+What we see most in a new company: one password on several accounts, no two-step verification; ex-employees' accounts still active; one person with admin rights everywhere; updates months overdue; a backup that runs but nobody's ever restored from; and no plan for the morning nothing works.
 
 None of this needs expensive technology. Just someone to do it and keep it done.
 
@@ -69,7 +69,7 @@ Text (70ch):
 
 Backup is only good if, the morning the server dies, the company is working again by noon. And you only know if someone tested the restore beforehand.
 
-What I do: two copies, in two places (local for speed, another data center for disasters), with retention that covers mistakes found weeks later. Regular restore tests, with report. And two numbers in the contract: how much data you can lose at worst (say, the last 4 hours) and how fast you're back (say, under a business day).
+What we do: two copies, in two places (local for speed, another data center for disasters), with retention that covers mistakes found weeks later. Regular restore tests, with report. And two numbers in the contract: how much data you can lose at worst (say, the last 4 hours) and how fast you're back (say, under a business day).
 
 The continuity plan answers questions you don't want to face on a bad morning: what starts first, who calls whom, where people work from, what we tell clients.
 
@@ -86,9 +86,9 @@ Text (70ch):
 
 The free IT Health Check shows the colors in 30 minutes: what's green, what's red. The security audit is the step after, for companies that want the full picture, with proof.
 
-I check everything: access, email, workstations, servers, network, backup. Short talks with the people who matter. A report the owner can understand, priorities in order: what I found, what risk it means, what fixing costs. Then we go through it together, in a meeting. It takes a few days to two weeks, depending on size. Paid separately, quoted first.
+We check everything: access, email, workstations, servers, network, backup. Short talks with the people who matter. A report the owner can understand, priorities in order: what we found, what risk it means, what fixing costs. Then we go through it together, in a meeting. It takes a few days to two weeks, depending on size. Paid separately, quoted first.
 
-What it isn't: a penetration test with "ethical hackers," or a certificate. If you need those, I'll tell you when and from whom.
+What it isn't: a penetration test with "ethical hackers," or a certificate. If you need them, we tell you when and from whom.
 
 ---
 
@@ -99,11 +99,11 @@ Eyebrow: `Compliance`
 
 Text (70ch):
 
-Two words I hear more and more from owners, usually worried. In short: NIS2 is the European law (in Romania, OUG 155/2024) requiring companies in some sectors, above a certain size, to have real security measures and report incidents. ISO 27001 is the international standard for organizing security, which you go for or a big client asks for.
+Two words we hear more and more from owners, usually worried. In short: NIS2 is the European law (in Romania, OUG 155/2024) requiring companies in some sectors, above a certain size, to have real security measures and report incidents. ISO 27001 is the international standard for organizing security, which you go for or a big client asks for.
 
-I tell you in plain words if it applies and how far off you are. I turn requirements into concrete things to do, not boxes to tick. I do the technical part and write documents that actually describe what you do. If needed, I prepare you for an external audit.
+We tell you in plain words if it applies and how far off you are. We turn requirements into concrete things to do, not boxes to tick. We do the technical part and write documents that actually describe what you do. If needed, we prepare you for an external audit.
 
-How I know: two and a half years of ISO 27001 audits, internal and external, in a Fortune 500 corporation. I've seen what auditors ask for and what doesn't matter. I bring only what matters to your scale.
+How we know: two and a half years of ISO 27001 audits, internal and external, in a Fortune 500 corporation. We've seen what auditors ask for and what doesn't matter. We bring only what matters to your scale.
 
 ---
 
@@ -122,7 +122,7 @@ Steps (4):
 
 **4. We close the door.** Fix what let them in, document, and if the law requires reporting (NIS2, GDPR), do it on time and right.
 
-Row under the steps: If you have an incident now and aren't a client, call. I'll answer, and nothing to sign first. +40 757 150 894
+Row under the steps: If you have an incident now and aren't a client, call. We answer, and nothing to sign first. +40 757 150 894
 
 ---
 
@@ -137,13 +137,13 @@ Antivirus is one part. Most break-ins today aren't infected files but stolen pas
 Less than you think if done as part of administration, much more if done after an incident. For support subscribers, basic measures are included. The audit and NIS2 or ISO preparation are quoted separately.
 
 **Does NIS2 apply to us?**
-Depends on sector and size. I'll answer in five minutes at the health check: yes, no, or "probably, because of X." I won't send you to read the law.
+Depends on sector and size. We answer in five minutes at the health check: yes, no, or "probably, because of X." We won't send you to read the law.
 
 **What do you do with our data?**
-I manage it, I don't collect it. My access is documented, passwords live in a password manager, and when we part ways, you get everything and my access closes. Details are in the contract, not a marketing page.
+We manage it, we don't collect it. Access is documented, passwords sit in a password manager, and when we part ways you get everything and access closes. Details are in the contract, not a marketing page.
 
 **Can you guarantee we won't be attacked?**
-No. Nobody can, and whoever says so is lying. What I guarantee: the obvious doors are closed, we notice fast if someone tries, and you can recover from a tested backup.
+No. Nobody can, and whoever says so is lying. What we guarantee: the obvious doors are closed, we notice fast if someone tries, and you can recover from a tested backup.
 
 ---
 

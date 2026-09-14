@@ -76,9 +76,9 @@ Eyebrow: `Dovada`
 
 Text (două coloane, captura WhatsApp în dreapta, `assets/blog/helpdesk/whatsapp-cipri.jpg`):
 
-Înainte să propun cuiva un asistent AI, am construit unul pentru noi. Cipri stă pe numărul de WhatsApp de suport al BitUp. Recunoaște firma după numărul de telefon, pune întrebările potrivite, propune pași, preia capturi de ecran. Când nu poate rezolva singur, deschide tichetul în BitUp Helpdesk și îl dă unui om. Îl folosesc clienții mei zilnic.
+Înainte să propunem cuiva un asistent AI, am construit unul pentru noi. Cipri stă pe numărul de WhatsApp de suport al BitUp. Recunoaște firma după numărul de telefon, pune întrebările potrivite, propune pași, preia capturi de ecran. Când nu poate rezolva singur, deschide tichetul în BitUp Helpdesk și îl dă unui om. Îl folosesc clienții noștri zilnic.
 
-Nu spun asta ca să vând AI. Spun ca să știi că, atunci când îți propun ceva, l-am rulat în producție înainte. → Cum l-am construit și ce am învățat (`/blog/cum-ne-am-construit-propriul-helpdesk`)
+Nu spunem asta ca să vindem AI, ci ca să știi că, când îți propunem ceva, l-am rulat în producție înainte. → Cum l-am construit și ce am învățat (`/blog/cum-ne-am-construit-propriul-helpdesk`)
 
 ---
 
@@ -91,23 +91,23 @@ Text (două coloane, logo ProQ pe fundal închis în dreapta):
 
 Cel mai mare lucru pe care l-am construit e ProQ, o platformă pentru furnizorii din industria auto care trebuie să dovedească clienților că procesul lor e sub control: planificare, analiză de riscuri, plan de control, dosar de omologare. 29 de module, folosite de furnizori din România, Mexic, India și China, găzduite de noi sau instalate pe serverele lor.
 
-Chiar dacă nu ești din auto, ProQ e dovada că pot duce un software de la o idee dintr-o fabrică la un produs pe care îl întrețin de ani de zile. Același mod de lucru îl aplic și la o aplicație internă de 5 utilizatori. → Citește cazul ProQ (`/rezultate/proq`)
+Chiar dacă nu ești din auto, ProQ e dovada că putem duce un software de la o idee dintr-o fabrică la un produs întreținut de ani de zile. La fel lucrăm și la o aplicație internă de 5 utilizatori. → Citește cazul ProQ (`/rezultate/proq`)
 
 Ce construim de obicei: aplicații interne (evidențe, aprobări, planificări) care înlocuiesc Excel-uri împărțite pe email; portaluri pentru clienți sau furnizori; integrări între sistemele pe care le ai. Web, cu bază de date PostgreSQL, găzduit de noi sau la tine, cu backup și actualizări incluse în mentenanță.
 
-Ce nu construim: aplicații mobile native, site-uri de prezentare, magazine online. Există oameni mai buni la asta și îți spun cine.
+Ce nu construim: aplicații mobile native, site-uri de prezentare, magazine online. Există oameni mai buni la asta și îți spunem cine.
 
 ---
 
-## Ce spun clar înainte să începem
+## Ce spunem clar înainte să începem
 
 Eyebrow: `Onest`
-**H2:** Trei lucruri pe care le spun la prima discuție
+**H2:** Trei lucruri pe care le spunem la prima discuție
 
 Listă:
-- **Nu orice proces are nevoie de AI.** De cele mai multe ori, o automatizare simplă face mai mult, mai ieftin și fără surprize. Îți spun când AI-ul e răspunsul și când e doar la modă.
-- **Nu promit economii pe care nu le-am măsurat.** Măsurăm împreună înainte și după. Dacă nu se vede, n-a meritat.
-- **Nu construiesc ce nu pot întreține.** Orice aplicație vine cu răspunsul la „și când se strică, cine o repară?”. Răspunsul e eu, în contract.
+- **Nu orice proces are nevoie de AI.** De cele mai multe ori, o automatizare simplă face mai mult, mai ieftin și fără surprize. Îți spunem când AI-ul e răspunsul și când e doar la modă.
+- **Nu promitem economii pe care nu le-am măsurat.** Măsurăm împreună înainte și după. Dacă nu se vede, n-a meritat.
+- **Nu construim ce nu putem întreține.** Orice aplicație vine cu răspunsul la «și când se strică, cine o repară?». Răspunsul e scris în contract.
 
 ---
 
@@ -116,22 +116,22 @@ Listă:
 Faq:
 
 **Cât costă o automatizare?**
-De la câteva ore de lucru, pentru o legătură între două aplicații care au API, până la săptămâni, pentru un flux complicat cu excepții multe. Îți spun după ce văd procesul, nu înainte. Prima discuție e gratuită și nu ai nevoie de nicio specificație.
+De la câteva ore de lucru, pentru o legătură între două aplicații care au API, până la săptămâni, pentru un flux complicat cu excepții multe. Îți spunem după ce vedem procesul, nu înainte. Prima discuție e gratuită și nu ai nevoie de nicio specificație.
 
 **Trebuie să schimbăm programele pe care le avem?**
 De obicei nu. Cele mai bune automatizări leagă ce ai deja. Schimbăm ceva doar când programul vechi e chiar piedica.
 
 **Datele noastre ajung la vreun AI din afară?**
-Depinde de ce construim și îți spun exact. Pentru asistenții AI folosim modele comerciale (cum e ChatGPT) prin API, cu date minime, sau modele rulate la noi, când datele sunt sensibile. Decidem împreună înainte, în scris.
+Depinde de ce construim și îți spunem exact. Pentru asistenții AI folosim modele comerciale (cum e ChatGPT) prin API, cu date minime, sau modele rulate la noi, când datele sunt sensibile. Decidem împreună înainte, în scris.
 
 **Cine întreține ce ați construit?**
-Eu, prin contract de mentenanță, cu același helpdesk ca pentru restul IT-ului. Codul e al vostru; documentația și accesul le primiți de la început.
+Noi, prin contract de mentenanță, cu același helpdesk ca pentru restul IT-ului. Codul e al vostru; documentația și accesul le primiți de la început.
 
 **Puteți prelua ceva construit de altcineva?**
-Uneori. Mă uit la cod și îți spun sincer dacă merită întreținut sau rescris. Nu preiau ce nu pot înțelege.
+Uneori. Ne uităm la cod și îți spunem sincer dacă merită întreținut sau rescris. Nu preluăm ce nu înțelegem.
 
 ---
 
 ## Banda finală
 
-CtaBand, varianta implicită, cu titlul înlocuit: **Ai un proces care trăiește în Excel și în emailuri?** / Spune-mi ce se repetă și unde se pierd lucrurile. În 30 de minute vedem dacă merită automatizat și cum. / Buton: **Programează Radiografia IT**
+CtaBand, varianta implicită, cu titlul înlocuit: **Ai un proces care trăiește în Excel și în emailuri?** / Spune-ne ce se repetă și unde se pierd lucrurile. În 30 de minute vedem dacă merită automatizat și cum. / Buton: **Programează Radiografia IT**

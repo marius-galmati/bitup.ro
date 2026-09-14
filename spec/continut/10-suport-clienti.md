@@ -45,11 +45,11 @@ Eyebrow: `Priorități`
 
 Tabel simplu (3 rânduri):
 
-| Cât de grav | Exemple | Ce fac |
+| Cât de grav | Exemple | Ce facem |
 |---|---|---|
-| **Critic** | Nu lucrează nimeni: a picat serverul, nu merge emailul la toți, suspiciune de atac, fișiere criptate | Răspund imediat, inclusiv în afara programului, la numărul de urgență. Prioritate peste orice. |
-| **Important** | O parte din firmă nu poate lucra: un departament fără acces, o aplicație critică jos, un laptop al unui om-cheie | Răspund în program, în mai puțin de două ore prin contract (media reală: sub 30 de minute), și rezolv în aceeași zi lucrătoare, de obicei. |
-| **Obișnuit** | O persoană, o problemă: parolă uitată, imprimantă, un program de instalat, o întrebare | Cipri răspunde pe loc; ce nu rezolvă el, rezolv eu în ordinea sosirii, în program. |
+| **Critic** | Nu lucrează nimeni: a picat serverul, nu merge emailul la toți, suspiciune de atac, fișiere criptate | Răspundem imediat, inclusiv în afara programului, la numărul de urgență. Prioritate peste orice. |
+| **Important** | O parte din firmă nu poate lucra: un departament fără acces, o aplicație critică jos, un laptop al unui om-cheie | Răspundem în program, în mai puțin de două ore prin contract (media reală: sub 30 de minute), și rezolvăm în aceeași zi lucrătoare, de obicei. |
+| **Obișnuit** | O persoană, o problemă: parolă uitată, imprimantă, un program de instalat, o întrebare | Cipri răspunde pe loc; ce nu rezolvă el, rezolvăm în ordinea sosirii, în program. |
 
 Rând sub tabel: Timpii exacți sunt în contractul tău. Ce scrie acolo bate ce scrie aici.
 
@@ -61,14 +61,14 @@ Steps (4), aceeași secvență ca pe Cum lucrăm, mai scurt:
 
 **1.** Scrii pe WhatsApp sau pe helpdesk.
 **2.** Cipri răspunde pe loc și încearcă să rezolve din pași.
-**3.** Dacă nu se rezolvă, tichetul e deschis automat și îl preiau eu. Primești confirmarea.
+**3.** Dacă nu se rezolvă, tichetul e deschis automat și îl preluăm. Primești confirmarea.
 **4.** Când e rezolvat, primești statusul pe același canal. La sfârșitul lunii, tot ce s-a întâmplat e în raport.
 
 ---
 
 ## Sfaturi care fac lucrurile mai rapide
 
-Eyebrow: `Ajută-mă să te ajut`
+Eyebrow: `Ajută-ne să te ajutăm`
 **H2:** Trei lucruri care scurtează orice tichet
 
 Listă:
@@ -89,4 +89,4 @@ Text (70ch): Cipri nu intră în calculatorul tău, nu-ți schimbă parole, nu e
 
 ## Pentru cine nu e încă client
 
-Rând simplu, la final, `--muted`: Nu ești client și ai o problemă acum? Sună la +40 757 150 894. Răspund, și nu trebuie să semnezi nimic înainte. Dacă vrei să vezi unde stă firma ta cu IT-ul, începe cu [Radiografia IT gratuită](/radiografie-it).
+Rând simplu, la final, `--muted`: Nu ești client și ai o problemă acum? Sună la +40 757 150 894. Răspundem, fără să semnezi nimic înainte. Dacă vrei să vezi unde stă firma ta cu IT-ul, începe cu [Radiografia IT gratuită](/radiografie-it).

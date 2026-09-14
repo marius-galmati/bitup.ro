@@ -51,8 +51,15 @@ Premium nu vine din efecte, vine din precizie. Un patron de firmă deschide pagi
 13. Dark mode făcut prin inversarea culorilor, cu negru pur sau gri neutru.
 14. Imagini de stoc sau generate: oameni zâmbind la laptop, servere albastre, lacăte 3D.
 15. `<div>` peste `<div>` fără semantică: fără `<header>`, `<nav>`, `<main>`, `<section>` cu heading, `<footer>`, `<button>` real.
+16. Estetică de brand personal pe un site de firmă: portretul fondatorului în hero sau în header, avatar rotund lângă butoane, semnătură de mână, citat mare al fondatorului pe primul ecran.
 
 Dacă găsești oricare dintre astea în ce ai construit, o repari înainte să-mi arăți. Dacă spec-ul pare să ceară una dintre ele, m-ai citit greșit; recitește `spec/DESIGN.md`.
+
+## Voce
+
+BitUp vorbește la persoana I plural: „noi”, „răspundem”, „clienții noștri”; în engleză „we”, „our”, „us”. Cititorul e „tu” / „you”, niciodată „dumneavoastră”. În spatele BitUp trebuie să se simtă o firmă cu proces, nu un singur om. „Noi” nu inventează oameni: fără „echipa noastră de specialiști”, fără departamente sau roluri care nu există, fără limbaj de broșură („vă stăm la dispoziție”, „soluții personalizate”, „dedicați”). Când pluralul sună forțat, fraza se restructurează impersonal („un server nu se administrează fără să fie securizat”), nu se forțează.
+
+Persoana I singular rămâne doar acolo unde e o declarație semnată, nu vocea firmei: hero-ul, § Povestea și § Traseul de pe Despre; secțiunile „Cine răspunde” de pe homepage și de pe /radiografie-it (au numele și portretul lui Marius); articolele de blog (semnate); citatele din studiile de caz. Paginile legale sunt la plural. Caseta de autor din articole e la persoana a III-a (e o bio, nu vocea firmei). Textul din `spec/continut/` și `spec/continut-en/` respectă deja regula; nu se „corectează” înapoi spre singular și nu se trece la plural ce e în excepții.
 
 ## Cum verifici (la fiecare pagină și la fiecare fază)
 

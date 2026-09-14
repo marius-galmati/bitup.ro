@@ -9,25 +9,27 @@
 
 ## 1. Hero
 
+Tipografic, o coloană, aliniat la stânga, pe `--bg`. Fără fotografie, fără rând de încredere.
+
 Eyebrow: `Suport și administrare IT · Cluj-Napoca și România`
 
-**H1:** IT-ul firmei tale, administrat de cineva care răspunde de el. Cu securitatea inclusă, nu opțională.
+**H1** (max-width 22ch)**:** IT-ul firmei tale, administrat de cineva care răspunde de el. Cu securitatea inclusă, nu opțională.
 
-Lead: Suport și administrare IT pentru firme de 10–100 de angajați: infrastructură, backup, Microsoft 365, protecție împotriva atacurilor. Un singur partener, un singur număr de telefon, un raport lunar cu tot ce s-a făcut.
+Lead (max-width 60ch): Suport și administrare IT pentru firme de 10–100 de angajați: infrastructură, backup, Microsoft 365, protecție împotriva atacurilor. Un singur partener, un singur număr de telefon, un raport lunar cu tot ce s-a făcut.
 
 Butoane: **Radiografie IT gratuită** (principal → `/radiografie-it`) · **Vezi cum lucrăm** (secundar → `/cum-lucram`)
 
-Rând de încredere: `Din 2020 · Cluj-Napoca · Răspuns sub 2 ore · Microsoft Partner · Fortinet Advocate · Veeam Partner`
+Imediat sub hero: FactStrip din `00-global.md` § FactStrip de sub hero (`Din 2020` · `Cluj-Napoca` · `Răspuns sub 2 ore în program` · badge-urile partenerilor). El e ancora vizuală a primului ecran.
 
-Imagine: portretul lui Marius (`assets/foto-marius/marius-portret-500x667.jpg`), alt: „Marius Galmati, fondatorul BitUp”. Dacă există `[[FOTO_CONTEXT]]` (o fotografie reală), se folosește aceea. Dacă Marius alege textura generată din `assets/FOTO-CONTEXT.md`, ea stă în spatele portretului, la opacitatea de acolo, nu în locul lui.
+Varianta de după lansare, când există `[[CAPTURA_RAPORT_LUNAR]]`: hero pe două coloane, în dreapta un Figure cu prima pagină a raportului lunar anonimizat, ca document pe hârtie (fundal `--surface`, bordură 1 px `--line`, `--radius`, fără umbră, fără perspectivă, fără ramă de laptop). Legendă și alt: „Raportul lunar pe care îl primește fiecare client. Anonimizat.” Obiectul din hero e livrabilul, nu fondatorul.
 
 ---
 
 ## 2. Recunoști situația?
 
-Eyebrow: `De unde pornesc de obicei`
+Eyebrow: `De unde pornim de obicei`
 
-**H2:** Trei propoziții pe care le aud în aproape fiecare firmă nouă
+**H2:** Trei propoziții pe care le auzim în aproape fiecare firmă nouă
 
 Trei carduri, fiecare cu citatul ca titlu și o propoziție dedesubt:
 
@@ -90,7 +92,7 @@ Link: Tot procesul, cu ce se întâmplă în fiecare etapă → `/cum-lucram`
 
 Eyebrow: `Ce e diferit`
 
-**H2:** Ce primești când răspunde un singur om de tot
+**H2:** Ce primești când răspunde un singur partener de tot
 
 Listă de 5, fiecare cu titlu scurt și o propoziție (nu carduri; listă cu marcaj teal):
 
@@ -102,7 +104,7 @@ Listă de 5, fiecare cu titlu scurt și o propoziție (nu carduri; listă cu mar
 
 **Raport lunar din fapte, nu din memorie.** La sfârșitul lunii primești ce s-a făcut, cât a durat, ce urmează. Nu ghicești pentru ce plătești.
 
-**Experiență de la scară mare, la scara ta.** Am lucrat în securitate într-o corporație din Fortune 500. Aduc de acolo ce contează pentru o firmă de 30 de oameni, fără complexitatea inutilă.
+**Experiență de la scară mare, la scara ta.** Aducem experiență de securitate dintr-o corporație din Fortune 500 într-o firmă de 30 de oameni, fără complexitatea inutilă.
 
 ---
 
@@ -126,7 +128,7 @@ Eyebrow: `Cine răspunde`
 
 **H2:** Marius Galmati, fondator BitUp
 
-Text (portret pătrat 430 px în stânga, text în dreapta):
+Secțiune compactă, pe `--surface-2`. Text (portret pătrat 200 px în stânga, text în dreapta; rămâne la persoana I, e declarația semnată a fondatorului):
 
 Lucrez în IT din 2017. Am început cu serverele și rețelele din firme mici. Ultimii doi ani și jumătate am lucrat în securitate informațională într-o corporație din Fortune 500: audituri ISO 27001, planuri de continuitate, protecție pe stații și servere. Am făcut BitUp pentru că văzusem prea multe firme cu tehnologie, dar fără cineva care să răspundă de ea.
 
@@ -173,18 +175,18 @@ Ultimele 3 articole din colecția `blog` (la lansare, unul). Card: titlu, descri
 
 Eyebrow: `Întrebări`
 
-**H2:** Ce mă întreabă un patron înainte să scrie
+**H2:** Ce ne întreabă un patron înainte să scrie
 
 Faq (4 întrebări, prima deschisă):
 
 **Putem externaliza doar o parte din IT?**
-Da. Sunt trei formule: alături de omul vostru intern (el rămâne pe zi cu zi, eu preiau securitatea, backup-ul și ce nu știe el), parțial (doar serverele și Microsoft 365, de exemplu) sau complet. Alegem la radiografie, după ce văd ce aveți.
+Da. Sunt trei formule: alături de omul vostru intern (el rămâne pe zi cu zi, noi preluăm securitatea, backup-ul și ce nu știe el), parțial (doar serverele și Microsoft 365, de exemplu) sau complet. Alegem la radiografie, după ce vedem ce aveți.
 
 **Trebuie să schimbăm tot ce avem?**
 Nu. Pornim de la ce funcționează. Schimbăm doar ce e riscant sau ce te costă mai mult decât face.
 
 **Cât costă?**
-Depinde de numărul de stații și servere și de ce preiau: doar administrare, sau și securitate, backup, licențe. Îți spun un preț concret la finalul radiografiei, fără obligații. Pe site nu pun cifre pentru că ar fi false pentru jumătate din firme.
+Depinde de numărul de stații și servere și de ce preluăm: doar administrare, sau și securitate, backup, licențe. Îți spunem un preț concret la finalul radiografiei, fără obligații. Pe site nu punem cifre pentru că ar fi false pentru jumătate din firme.
 
 **Putem începe cu o problemă punctuală?**
 Da. O intervenție sau un proiect delimitat (o migrare, un backup pus la punct, un audit) e o intrare bună. După aceea vedem dacă are sens un abonament.

@@ -48,30 +48,30 @@ Chronological list (mono for years):
 
 ---
 
-## How I work
+## How we work
 
 Eyebrow: `Principles`
-**H2:** Three things I believe in, and what they mean for you
+**H2:** Three things we believe in and what they mean for you
 
 Three cards:
 
 **Security before features**
-I don't install anything without the security part done. I don't sell security separately because it doesn't work separately. Sometimes that means I say "no" to something you'd like.
+We don't install anything without the security part done. We don't sell security separately because it doesn't work separately. Sometimes that means a "no" to something you'd like.
 
 **Clarity before speed**
-I tell you what I do, why, and what it costs, before I do it. The monthly report is written from tickets, not from memory. If you don't understand something I tell you, that's my problem, not yours.
+We tell you what we do, why, and what it costs, beforehand. The monthly report is written from tickets, not from memory. If you don't understand something we tell you, that's our problem, not yours.
 
 **Thinking long term**
-I pick things that still work in five years, not ones that look good this month. I don't sell you what you don't need, and I tell you when you can wait.
+We pick what still works in five years, not what looks good this month. We don't sell you what you don't need, and we tell you when you can wait.
 
 ---
 
-## Something else I'm building
+## Something else we're building
 
 Eyebrow: `On the side`
-**H2:** What else I do
+**H2:** What else we do
 
-Text (70ch): I'm building CyberXscore, a platform where owners can assess their own cyber risk, in business terms, not IT terms. And ProQ, a platform for automotive suppliers, used in four countries. → Read the ProQ case (`/en/results/proq`).
+Text (70ch): We're building CyberXscore, a platform where owners can assess their own cyber risk, in business terms, not IT terms. And ProQ, a platform for automotive suppliers, used in four countries. → Read the ProQ case (`/en/results/proq`).
 
 ---
 
@@ -92,4 +92,4 @@ Links: personal LinkedIn → https://www.linkedin.com/in/nicolae-marius-galmati 
 
 ## Final band
 
-CtaBand, default variant, with the title: **Want to see how I work, before you sign anything?** / 30 minutes, free, no obligation. I tell you exactly where you stand. / Button: **Book the IT Health Check**
+CtaBand, default variant, with the title: **Want to see how we work, before you sign anything?** / 30 minutes, free, no obligation. We tell you exactly where you stand. / Button: **Book the IT Health Check**

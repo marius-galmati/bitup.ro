@@ -21,7 +21,7 @@ On desktop, to the right of the hero: the form (§ Form). On mobile, the form co
 
 ## The 10 checks
 
-Eyebrow: `What I check`
+Eyebrow: `What we check`
 **H2:** Ten questions you should know the answer to
 
 Numbered list in two columns (icons allowed here, 20 px, teal):
@@ -33,7 +33,7 @@ Numbered list in two columns (icons allowed here, 20 px, teal):
 5. **Antivirus or EDR, and who looks at the alerts.** An antivirus nobody looks at is just an icon.
 6. **The firewall and remote access.** What's open to the internet and why.
 7. **Can your email be faked?** SPF, DKIM, DMARC: if they're missing, someone can send emails "from you".
-8. **Who owns the domain, the hosting, and the licenses?** On which account, with which card, with which email. I've seen companies lose their domain.
+8. **Who owns the domain, the hosting, and the licenses?** On which account, with which card, with which email. We've seen companies lose their domain.
 9. **What happens when the person who knows the passwords leaves?** If the answer is "I don't know", that's the most urgent item on the list.
 10. **What obligations the company has (NIS2, GDPR), and how far it is from them.** Yes, no, or "probably, because of X".
 
@@ -46,11 +46,11 @@ Eyebrow: `How it works`
 
 Steps (3):
 
-**1. You fill in the form.** Two minutes. I call you within one business day and we set a 30-minute slot. `[[CAPACITATE_RADIOGRAFII]]`
+**1. You fill in the form.** Two minutes. We call you within one business day and set a 30-minute slot. `[[CAPACITATE_RADIOGRAFII]]`
 
-**2. We talk for 30 minutes, on video.** You or your IT person. We go through the 10 points. You show me what you have, I ask, I take notes. I don't connect to anything, I don't install anything.
+**2. We talk for 30 minutes, on video.** You or your IT person. We go through the 10 points. You show us what you have, we ask, we take notes. We don't connect to anything or install anything.
 
-**3. You get the page the same day.** A traffic light on the 10 points, three recommendations in order of urgency, and a cost estimate, if you want to go further. With me or someone else.
+**3. You get the page the same day.** A traffic light on the 10 points, three recommendations in order of urgency, and a cost estimate, if you want to go further. With us or someone else.
 
 ---
 
@@ -61,16 +61,16 @@ Eyebrow: `What you get`
 
 Text (two columns, sample report on the right: `[[CAPTURA_RAPORT_RADIOGRAFIE]]`, Figure with the caption "Sample report. The colors are the sample company's, not yours."):
 
-One page you can read in two minutes and pass on to your IT person or business partner. On it: the 10 points in green, yellow, or red, one sentence each; the three things I'd do first, and why; and, if you ask, what it would cost for me to fix them, in the subscription or as a project.
+One page you can read in two minutes and pass on to your IT person or business partner. On it: the 10 points in green, yellow, or red, one sentence each; the three things we'd do first, and why; and, if you ask, what it would cost for us to fix them, in the subscription or as a project.
 
-What you don't get: a sales pitch, a follow-up call three days later, or a weekly email. If you want to continue, you write to me.
+What you don't get: a sales pitch, a follow-up call three days later, or a weekly email. If you want to continue, you write to us.
 
 ---
 
 ## Form {#form}
 
 Title above the form: **Book the health check**
-Short text: Two minutes. I'll call you.
+Short text: Two minutes. We'll call you.
 
 Fields (from `ARHITECTURA.md` § Formulare, kind=radiografie):
 - Your name *
@@ -80,7 +80,7 @@ Fields (from `ARHITECTURA.md` § Formulare, kind=radiografie):
 - Email *
 - What worries you most about your IT? (optional), placeholder: "For example: I don't know if the backup works"
 - Consent * (text from `00-global.md`)
-- Button: **Send and I'll call you**
+- Button: **Send and we'll call you**
 - Under the button: the signature from `00-global.md`.
 
 Success → `/en/thank-you?kind=radiografie`.
@@ -94,7 +94,7 @@ Eyebrow: `Who`
 
 Text (square portrait on the left):
 
-Marius Galmati, founder of BitUp. I've worked in IT since 2017, the last two and a half years in information security at a Fortune 500 corporation, on ISO 27001 audits and continuity plans. I do every health check myself, because in 30 minutes I see things an automated form doesn't. → About me (`/en/about`)
+Marius Galmati, founder of BitUp. I've worked in IT since 2017, the last two and a half years in information security at a Fortune 500 corporation, on ISO 27001 audits and continuity plans. The health check is done by me, not by an automated form: in 30 minutes I see things a form doesn't. → About me (`/en/about`)
 
 ---
 
@@ -103,16 +103,16 @@ Marius Galmati, founder of BitUp. I've worked in IT since 2017, the last two and
 Faq:
 
 **Is it actually free? What's the catch?**
-Yes, free. The catch, if you want to call it that: some companies that do the health check become clients, because they see how I work. The rest leave with a useful page. Both are fine with me.
+Yes, free. The catch, if you want to call it that: some companies that do the health check become clients, because they see how we work. The rest leave with a useful page. Both are fine with us.
 
 **Do I have to install anything or give you passwords?**
-No. I don't connect to anything, I don't install anything, you give me no passwords. You show me what you have on screen and answer questions.
+No. We don't connect to anything or install anything, you give us no passwords. You show us what you have on screen and answer questions.
 
 **What happens with what I tell you?**
-It stays between us. The notes sit in my system, I don't give them to anyone, and if we don't continue, I delete them on request. Details in the [Privacy policy](/en/privacy).
+It stays between us. The notes sit in our system, we don't give them to anyone; if we don't continue, we delete them on request. Details in the [Privacy policy](/en/privacy).
 
 **What if I don't want to continue afterwards?**
-Nothing happens. I don't call you, I don't send you offers. You have the page, do what you want with it.
+Nothing happens. We don't call you or send you offers. You have the page, do what you want with it.
 
 **Can our IT person join?**
-Yes, I'd recommend it. It's not a test for them; often they already know the problems and had no one to listen.
+Yes, we'd recommend it. It's not a test for them; often they already know the problems and had no one to listen.

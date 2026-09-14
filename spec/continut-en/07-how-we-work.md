@@ -34,7 +34,7 @@ Inline SVG diagram (the only one on the site): four nodes in a line, with arrows
 Eyebrow: `Step 1`
 **H2:** The health check: 30 minutes for both of us to see what we're dealing with
 
-Text (70ch): It's not a sales conversation. We go through ten points: backup, access, passwords, updates, antivirus, firewall, email, who owns what, what happens if the person everything depends on leaves, what obligations you have. You leave with a traffic-light page and three recommendations. If you want to continue, you write to me. → How it works (`/en/it-health-check`)
+Text (70ch): It's not a sales conversation. We go through ten points: backup, access, passwords, updates, antivirus, firewall, email, who owns what, what happens if the person everything depends on leaves, what obligations you have. You leave with a traffic-light page and three recommendations. If you want to continue, you write to us. → How it works (`/en/it-health-check`)
 
 ---
 
@@ -65,9 +65,9 @@ List of 6 (bulleted):
 ## 4. Month by month
 
 Eyebrow: `Step 4`
-**H2:** A normal month, in which you don't call me
+**H2:** A normal month, in which you don't call us
 
-Text (70ch): I check backups and alerts daily and install updates in announced windows. I answer your team's requests and fix what comes up, small or big. I tell you proactively when I see something you should know (a license about to expire, a laptop showing signs, an odd account). And at the end of the month, I send you the report.
+Text (70ch): We check backups and alerts daily and install updates in announced windows. We answer your team's requests and fix what comes up, small or big. We tell you proactively when we see something you should know (a license about to expire, a laptop showing signs, an odd account). At the end of the month, we send you the report.
 
 ---
 
@@ -80,7 +80,7 @@ Steps (4), with the WhatsApp screenshot next to them:
 
 **1.** An employee writes on WhatsApp, in their own words. No account, no form.
 **2.** Cipri, our assistant, recognizes the company by the number, asks the right questions, suggests steps. If that fixes it, it closes there.
-**3.** If not, it opens the ticket in BitUp Helpdesk on its own, with all the context and attachments. I take it from there.
+**3.** If not, it opens the ticket in BitUp Helpdesk on its own, with all the context and attachments. We take it from there.
 **4.** The status comes back on the same channel. At the end of the month, the report.
 
 Line: Prefer email? You open the ticket on helpdesk.bitup.ro and get the statuses over email. Same system. → How we built it (`/en/blog/how-we-built-our-own-helpdesk`)
@@ -94,16 +94,16 @@ Eyebrow: `The report`
 
 Text (two columns, `[[CAPTURA_RAPORT_LUNAR]]` on the right):
 
-A page or two, generated from the tickets, not written from memory. It lists how many requests there were and from whom, what got solved and how long it took. Also what I did without anyone asking (updates, checks, cleanup), what I noticed, and what I recommend for next month. When the backup restore test was done, its result goes in too.
+A page or two, generated from the tickets, not written from memory. It lists how many requests there were and from whom, what got solved and how long it took. Also what we did without anyone asking (updates, checks, cleanup), what we noticed, and what we recommend for next month. When the backup restore test was done, its result goes in too.
 
 ---
 
 ## When something happens
 
 Eyebrow: `Incidents`
-**H2:** How I handle an emergency
+**H2:** How we handle an emergency
 
-Text (70ch): Incidents that block work (email down for everyone, the server down, someone clicked where they shouldn't have) come before everything else and have a response time written in the contract. During business hours I respond in under two hours, by contract; the actual helpdesk average is under 30 minutes. Outside business hours there's an emergency number, for actual emergencies. What I do in the first 24 hours of a security incident is on the security page. → The first 24 hours (`/en/services/security#incidents`)
+Text (70ch): Incidents that block work (email down for everyone, the server down, someone clicked where they shouldn't have) come before everything else and have a response time written in the contract. During business hours we respond in under two hours, by contract; the actual helpdesk average is under 30 minutes. Outside business hours there's an emergency number, for actual emergencies. What we do in the first 24 hours of a security incident is on the security page. → The first 24 hours (`/en/services/security#incidents`)
 
 ---
 
@@ -112,7 +112,7 @@ Text (70ch): Incidents that block work (email down for everyone, the server down
 Eyebrow: `Money`
 **H2:** A fixed amount per month. Projects, quoted first.
 
-Text (70ch): The subscription is a fixed monthly amount, set after the health check, based on workstations, servers, and what I take over. I don't bill hours for regular support, because that would mean it suits me when you have problems. Separate projects (migrations, new hardware, software) get a quote first and only go ahead with your written approval. The invoice comes at the start of the month, with last month's report.
+Text (70ch): The subscription is a fixed monthly amount, set after the health check, based on workstations, servers, and what we take over. We don't bill hours for regular support, because that would mean it suits us when you have problems. Separate projects (migrations, new hardware, software) get a quote first and only go ahead with your written approval. The invoice comes at the start of the month, with last month's report.
 
 ---
 
@@ -121,7 +121,7 @@ Text (70ch): The subscription is a fixed monthly amount, set after the health ch
 Eyebrow: `Leaving`
 **H2:** If you want to leave, you leave with everything
 
-Text (70ch): The contract has one month's notice, no penalties. When it ends you get all the documentation, the inventory, the passwords, and the access in a format anyone can take over, and I close my own access on the agreed day. I don't hold anything hostage.
+Text (70ch): The contract has one month's notice, no penalties. When it ends you get all the documentation, the inventory, the passwords, and the access in a format anyone can take over, and we close our access on the agreed day. We hold nothing hostage.
 
 ---
 
@@ -136,7 +136,7 @@ At 30 days you have the first report and a tested backup. Most of the "reds" fro
 For the health check and the plan, yes, 30 minutes plus one meeting. After that, only for decisions (what we buy, what we change). The rest runs without you. That's the point.
 
 **Do you work alone?**
-Yes, and it's deliberate: a person with a name answers, not a department. For on-site work outside Cluj I use local technicians I coordinate myself. For big projects I bring in collaborators, but the accountability and the report stay with me.
+Yes, and it's deliberate: a person with a name answers, not a department. For on-site work outside Cluj we use local technicians we coordinate. For big projects we bring in collaborators, but the accountability and the report stay with us.
 
 ---
 

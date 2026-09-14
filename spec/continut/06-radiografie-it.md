@@ -21,7 +21,7 @@ Pe desktop, în dreapta hero-ului: formularul (§ Formular). Pe mobil, formularu
 
 ## Cele 10 verificări
 
-Eyebrow: `Ce verific`
+Eyebrow: `Ce verificăm`
 **H2:** Zece întrebări la care ar trebui să știi răspunsul
 
 Listă numerotată în două coloane (iconițe permise aici, 20 px, teal):
@@ -46,11 +46,11 @@ Eyebrow: `Cum decurge`
 
 Steps (3):
 
-**1. Completezi formularul.** Două minute. Te sun în maximum o zi lucrătoare și stabilim un slot de 30 de minute. `[[CAPACITATE_RADIOGRAFII]]`
+**1. Completezi formularul.** Două minute. Te sunăm în maximum o zi lucrătoare și stabilim un slot de 30 de minute. `[[CAPACITATE_RADIOGRAFII]]`
 
-**2. Vorbim 30 de minute, pe video.** Tu sau omul vostru de IT. Trecem prin cele 10 puncte. Îmi arăți ce ai, eu întreb, notez. Nu mă conectez la nimic, nu instalez nimic.
+**2. Vorbim 30 de minute, pe video.** Tu sau omul vostru de IT. Trecem prin cele 10 puncte. Ne arăți ce ai, întrebăm, notăm. Nu ne conectăm la nimic, nu instalăm nimic.
 
-**3. Primești pagina în aceeași zi.** Semafor pe cele 10 puncte, trei recomandări în ordinea urgenței și o estimare de cost, dacă vrei să mergi mai departe. Cu mine sau cu altcineva.
+**3. Primești pagina în aceeași zi.** Semafor pe cele 10 puncte, trei recomandări în ordinea urgenței și o estimare de cost, dacă vrei să mergi mai departe. Cu noi sau cu altcineva.
 
 ---
 
@@ -61,16 +61,16 @@ Eyebrow: `Ce primești`
 
 Text (două coloane, exemplul de raport în dreapta: `[[CAPTURA_RAPORT_RADIOGRAFIE]]`, Figure cu legenda „Exemplu de raport. Culorile sunt ale firmei din exemplu, nu ale tale.”):
 
-O singură pagină, pe care o poți citi în două minute și o poți da mai departe omului tău de IT sau asociatului. Pe ea: cele 10 puncte cu verde, galben sau roșu și o propoziție la fiecare; cele trei lucruri pe care le-aș face primele, cu motivul; și, dacă ceri, ce ar costa să le rezolv eu, în abonament sau ca proiect.
+O singură pagină, pe care o poți citi în două minute și o poți da mai departe omului tău de IT sau asociatului. Pe ea: cele 10 puncte cu verde, galben sau roșu și o propoziție la fiecare; cele trei lucruri pe care le-am face primele, cu motivul; și, dacă ceri, ce ar costa să le rezolvăm, în abonament sau ca proiect.
 
-Ce nu primești: o prezentare de vânzare, un telefon de urmărire la trei zile, sau un email săptămânal. Dacă vrei să continuăm, îmi scrii tu.
+Ce nu primești: o prezentare de vânzare, un telefon de urmărire la trei zile, sau un email săptămânal. Dacă vrei să continuăm, ne scrii tu.
 
 ---
 
 ## Formular {#formular}
 
 Titlu deasupra formularului: **Programează radiografia**
-Text scurt: Două minute. Te sun eu.
+Text scurt: Două minute. Te sunăm.
 
 Câmpuri (din `ARHITECTURA.md` § Formulare, kind=radiografie):
 - Numele tău *
@@ -80,7 +80,7 @@ Câmpuri (din `ARHITECTURA.md` § Formulare, kind=radiografie):
 - Email *
 - Ce te îngrijorează cel mai tare la IT-ul vostru? (opțional) — placeholder: „De exemplu: nu știu dacă backup-ul merge” 
 - Consimțământ * (textul din `00-global.md`)
-- Buton: **Trimite și te sun eu**
+- Buton: **Trimite și te sunăm**
 - Sub buton: semnătura din `00-global.md`.
 
 Succes → `/multumesc?kind=radiografie`.
@@ -94,7 +94,7 @@ Eyebrow: `Cine`
 
 Text (portret pătrat în stânga):
 
-Marius Galmati, fondator BitUp. Lucrez în IT din 2017, ultimii doi ani și jumătate în securitate informațională, într-o corporație din Fortune 500, la audituri ISO 27001 și planuri de continuitate. Fac eu fiecare radiografie, pentru că în 30 de minute văd lucruri pe care un formular automat nu le vede. → Despre mine (`/despre`)
+Marius Galmati, fondator BitUp. Lucrez în IT din 2017, ultimii doi ani și jumătate în securitate informațională, într-o corporație din Fortune 500, la audituri ISO 27001 și planuri de continuitate. Radiografia o fac eu, nu un formular automat: în 30 de minute văd lucruri pe care un formular nu le vede. → Despre mine (`/despre`)
 
 ---
 
@@ -103,16 +103,16 @@ Marius Galmati, fondator BitUp. Lucrez în IT din 2017, ultimii doi ani și jum�
 Faq:
 
 **Chiar e gratuit? Care e prinderea?**
-Da, gratuit. Prinderea, dacă vrei s-o numești așa: o parte din firmele care fac radiografia devin clienți, pentru că văd cum lucrez. Restul pleacă cu o pagină utilă. Amândouă variantele sunt în regulă pentru mine.
+Da, gratuit. Prinderea, dacă vrei s-o numești așa: o parte din firmele care fac radiografia devin clienți, pentru că văd cum lucrăm. Restul pleacă cu o pagină utilă. Amândouă variantele sunt în regulă pentru noi.
 
 **Trebuie să instalez ceva sau să-ți dau parole?**
-Nu. Nu mă conectez la nimic, nu instalez nimic, nu-mi dai nicio parolă. Îmi arăți pe ecran ce ai și răspunzi la întrebări.
+Nu. Nu ne conectăm la nimic, nu instalăm nimic, nu ne dai nicio parolă. Ne arăți pe ecran ce ai și răspunzi la întrebări.
 
-**Ce se întâmplă cu ce îmi spui?**
-Rămâne între noi. Notițele stau în sistemul meu, nu le dau nimănui, și dacă nu continuăm, le șterg la cerere. Detalii în [Politica de confidențialitate](/confidentialitate).
+**Ce se întâmplă cu ce ne spui?**
+Rămâne între noi. Notițele stau în sistemul nostru, nu le dăm nimănui; dacă nu continuăm, le ștergem la cerere. Detalii în [Politica de confidențialitate](/confidentialitate).
 
 **Dacă nu vreau să continui după?**
-Nu se întâmplă nimic. Nu te sun, nu-ți trimit oferte. Ai pagina, faci ce vrei cu ea.
+Nu se întâmplă nimic. Nu te sunăm, nu trimitem oferte. Ai pagina, faci ce vrei cu ea.
 
 **Poate participa omul nostru de IT?**
-Da, chiar recomand. Nu e un test pentru el; de multe ori el știe deja problemele și n-a avut cine să-l asculte.
+Da, chiar recomandăm. Nu e un test pentru el; de multe ori el știe deja problemele și n-a avut cine să-l asculte.

@@ -76,9 +76,9 @@ Eyebrow: `Proof`
 
 Text (two columns, WhatsApp screenshot right, `assets/blog/helpdesk/whatsapp-cipri.jpg`):
 
-Before proposing an AI assistant to anyone, I built ours. Cipri sits on BitUp's support WhatsApp number. He recognizes the company by phone number, asks the right questions, suggests steps, takes screenshots. When he can't solve it, he opens a ticket in BitUp Helpdesk and hands it to a person. My clients use him daily.
+Before proposing an AI assistant to anyone, we built ours. Cipri sits on BitUp's support WhatsApp number. He recognizes the company by phone number, asks the right questions, suggests steps, takes screenshots. When he can't solve it, he opens a ticket in BitUp Helpdesk and hands it to a person. Our clients use him daily.
 
-I'm not saying this to sell AI, but so you know what I propose, I've run in production first. → How we built it and what we learned (`/en/blog/how-we-built-our-own-helpdesk`)
+This isn't to sell AI, but so you know we've run what we propose in production first. → How we built it and what we learned (`/en/blog/how-we-built-our-own-helpdesk`)
 
 ---
 
@@ -89,25 +89,25 @@ Eyebrow: `Custom software`
 
 Text (two columns, ProQ logo on dark background, right):
 
-The biggest thing I've built is ProQ, a platform for automotive suppliers who must prove to clients their process is under control: planning, risk analysis, control plan, part approval file. 29 modules, used by suppliers in Romania, Mexico, India, and China, hosted by us or on their servers.
+The biggest thing we built is ProQ, a platform for automotive suppliers who must prove to clients their process is under control: planning, risk analysis, control plan, part approval file. 29 modules, used by suppliers in Romania, Mexico, India, and China, hosted by us or on their servers.
 
-Even outside automotive, ProQ is proof I can take software from an idea in a factory to a product I've maintained for years. I work the same way on a 5-user internal application. → Read the ProQ case (`/en/results/proq`)
+Even outside automotive, ProQ is proof we can take software from an idea in a factory to a product maintained for years. We work the same way on a 5-user internal application. → Read the ProQ case (`/en/results/proq`)
 
 What we usually build: internal applications (records, approvals, scheduling) that replace Excel files emailed around; client or supplier portals; integrations between your systems. Web-based, PostgreSQL database, hosted by us or on your side, backup and updates included in maintenance.
 
-What we don't build: native mobile apps, brochure websites, online stores. There are people better at those; I'll tell you who.
+What we don't build: native mobile apps, brochure websites, online stores. There are people better at those; we'll say who.
 
 ---
 
-## What I say before we start
+## What we say before we start
 
 Eyebrow: `Honest`
-**H2:** Three things I say in the first conversation
+**H2:** Three things we say in the first conversation
 
 List:
-- **Not every process needs AI.** Usually a simple automation does more, for less, with no surprises. I'll tell you when AI is the answer and when it's just fashion.
-- **I don't promise savings I haven't measured.** We measure together, before and after. If it doesn't show, it wasn't worth it.
-- **I don't build what I can't maintain.** Every application comes with the answer to "and when it breaks, who fixes it?" The answer: me, in the contract.
+- **Not every process needs AI.** Usually a simple automation does more, for less, with no surprises. We'll say when AI is the answer and when it's just fashion.
+- **We don't promise savings we haven't measured.** We measure together, before and after. If it doesn't show, it wasn't worth it.
+- **We don't build what we can't maintain.** Every application comes with the answer to "and when it breaks, who fixes it?" The answer is written in the contract.
 
 ---
 
@@ -116,22 +116,22 @@ List:
 Faq:
 
 **What does an automation cost?**
-From a few hours, for a link between two applications with an API, to weeks, for a complicated flow with many exceptions. I'll tell you after I see the process, not before. The first conversation is free and needs no specification.
+From a few hours, for a link between two applications with an API, to weeks, for a complicated flow with many exceptions. You'll know after we see the process, not before. The first conversation is free and needs no specification.
 
 **Do we have to change the programs we have?**
 Usually not. The best automations connect what you already have. We change something only when the old program is the real obstacle.
 
 **Does our data end up with some outside AI?**
-Depends on what we build; I'll tell you exactly. For AI assistants we use commercial models (like ChatGPT) via API, with minimal data, or models on our side when data is sensitive. We decide together beforehand, in writing.
+Depends on what we build; we'll tell you exactly. For AI assistants we use commercial models (like ChatGPT) via API, with minimal data, or models on our side when data is sensitive. We decide together beforehand, in writing.
 
 **Who maintains what you've built?**
-Me, under a maintenance contract, with the same helpdesk as the rest of your IT. The code is yours, with documentation and access from the start.
+We do, under a maintenance contract, with the same helpdesk as the rest of your IT. The code is yours, with documentation and access from the start.
 
 **Can you take over something built by someone else?**
-Sometimes. I look at the code and tell you straight if it's worth maintaining or rewriting. I don't take over what I can't understand.
+Sometimes. We look at the code and tell you straight if it's worth maintaining or rewriting. We don't take over what we can't understand.
 
 ---
 
 ## Final band
 
-CtaBand, default variant, title replaced: **Got a process that lives in Excel and emails?** / Tell me what repeats and where things get lost. In 30 minutes we'll see if it's worth automating, and how. / Buton: **Book the IT Health Check**
+CtaBand, default variant, title replaced: **Got a process that lives in Excel and emails?** / Tell us what repeats and where things get lost. In 30 minutes we'll see if it's worth automating, and how. / Buton: **Book the IT Health Check**

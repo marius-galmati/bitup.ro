@@ -11,7 +11,7 @@
 
 Eyebrow: `Blog`
 **H1:** Decizii de tehnologie, pe înțelesul patronului
-Lead: Nu te învăț IT. Îți arăt cum să iei decizii mai bune despre el: ce întrebi, ce verifici, când spui nu. Tot ce scriu aici vine din firme reale și din ce construim noi.
+Lead: Nu te învățăm IT. Îți arătăm cum să iei decizii mai bune despre el: ce întrebi, ce verifici, când spui nu. Tot ce scriem vine din firme reale și din ce construim.
 
 ---
 
@@ -25,7 +25,7 @@ Dacă există un singur articol (la lansare): cardul ocupă lățimea întreagă
 
 ## Trei teme
 
-Eyebrow: `Despre ce scriu`
+Eyebrow: `Despre ce scriem`
 **H2:** Trei teme, mereu din practică
 
 Trei carduri scurte (statice; nu depind de articole):

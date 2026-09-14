@@ -9,25 +9,27 @@
 
 ## 1. Hero
 
+Typographic, one column, left-aligned, on `--bg`. No photo, no trust row.
+
 Eyebrow: `IT support and administration · Cluj-Napoca and Romania`
 
-**H1:** Your company's IT, run by someone who answers for it. Security included, not optional.
+**H1** (max-width 22ch)**:** Your company's IT, run by someone who answers for it. Security included, not optional.
 
-Lead: IT support and administration for companies with 10–100 employees: infrastructure, backup, Microsoft 365, protection against attacks. One partner, one phone number, a monthly report of everything done.
+Lead (max-width 60ch): IT support and administration for companies with 10–100 employees: infrastructure, backup, Microsoft 365, protection against attacks. One partner, one phone number, a monthly report of everything done.
 
 Buttons: **Free IT Health Check** (primary → `/en/it-health-check`) · **See how we work** (secondary → `/en/how-we-work`)
 
-Trust row: `Since 2020 · Cluj-Napoca · Response under 2 hours · Microsoft Partner · Fortinet Advocate · Veeam Partner`
+Right under the hero: the FactStrip from `00-global.md` § FactStrip under the hero (`Since 2020` · `Cluj-Napoca` · `Response under 2 hours in business hours` · partner badges). It is the visual anchor of the first screen.
 
-Image: Marius's portrait (`assets/foto-marius/marius-portret-500x667.jpg`), alt: "Marius Galmati, BitUp founder". If `[[FOTO_CONTEXT]]` exists (a real photo), use it. If Marius picks the generated texture from `assets/FOTO-CONTEXT.md`, it goes behind the portrait, at the opacity set there, not in its place.
+Post-launch variant, once `[[CAPTURA_RAPORT_LUNAR]]` exists: two-column hero, on the right a Figure with the first page of the anonymized monthly report, as a paper document (background `--surface`, 1 px `--line` border, `--radius`, no shadow, no perspective, no laptop frame). Caption and alt: "The monthly report every client receives. Anonymized." The object in the hero is the deliverable, not the founder.
 
 ---
 
 ## 2. Sound familiar?
 
-Eyebrow: `Where I usually start`
+Eyebrow: `Where we usually start`
 
-**H2:** Three sentences I hear in almost every new company
+**H2:** Three sentences we hear in almost every new company
 
 Three cards, quote as title, one sentence underneath:
 
@@ -90,7 +92,7 @@ Link: The full process, with what happens at each stage → `/en/how-we-work`
 
 Eyebrow: `What's different`
 
-**H2:** What you get when one person answers for everything
+**H2:** What you get when one partner answers for everything
 
 List of 5, each a short title plus one sentence (not cards; list with teal markers):
 
@@ -102,7 +104,7 @@ List of 5, each a short title plus one sentence (not cards; list with teal marke
 
 **A monthly report from facts, not memory.** At the end of the month you get what was done, how long it took, what's next. You don't guess what you're paying for.
 
-**Large-scale experience, at your scale.** I worked in security at a Fortune 500 corporation. I bring from there what matters for a 30-person company, without the needless complexity.
+**Large-scale experience, at your scale.** We bring security experience from a Fortune 500 corporation into a 30-person company, without the needless complexity.
 
 ---
 
@@ -126,7 +128,7 @@ Eyebrow: `Who answers`
 
 **H2:** Marius Galmati, BitUp founder
 
-Text (430 px square portrait left, text right):
+Compact section, on `--surface-2`. Text (200 px square portrait left, text right; stays in first person, it's the founder's signed statement):
 
 I've worked in IT since 2017. I started with servers and networks in small companies. I spent the last two and a half years in information security at a Fortune 500 corporation: ISO 27001 audits, continuity plans, protection on workstations and servers. I started BitUp because I'd seen too many companies with technology but nobody to answer for it.
 
@@ -173,18 +175,18 @@ Latest 3 articles from the `blog` collection (one at launch). Card: title, descr
 
 Eyebrow: `Questions`
 
-**H2:** What an owner asks me before writing
+**H2:** What an owner asks us before writing
 
 Faq (4 questions, first open):
 
 **Can we outsource only part of our IT?**
-Yes. Three setups: alongside your in-house person (they keep the day-to-day, I take over security, backup, and what they don't know), partial (only servers and Microsoft 365, for example), or full. We pick at the health check, once I see what you have.
+Yes. Three setups: alongside your in-house person (they keep the day-to-day, we take over security, backup, and what they don't know), partial (only servers and Microsoft 365, for example), or full. We pick at the health check, once we see what you have.
 
 **Do we have to replace everything we have?**
 No. We start from what works. We replace only what's risky or costs you more than it's worth.
 
 **How much does it cost?**
-Depends on the number of workstations and servers and on what I take over: administration only, or security, backup, and licenses too. I'll give you a concrete price at the end of the health check, no obligations. I don't put numbers on the site because they'd be wrong for half the companies.
+Depends on the number of workstations and servers and on what we take over: administration only, or security, backup, and licenses too. We'll give you a concrete price at the end of the health check, no obligations. We don't put numbers on the site because they'd be wrong for half the companies.
 
 **Can we start with a one-off problem?**
 Yes. One intervention or a bounded project (a migration, a backup put in order, an audit) is a good way in. Then we see whether a subscription makes sense.

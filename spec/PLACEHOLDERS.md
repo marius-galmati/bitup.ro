@@ -15,9 +15,10 @@ Două liste. Prima e cu valorile finale, pe care Claude Code le pune în `src/li
 | Email de contact | office@bitup.ro | footer, contact, formulare (`LEAD_TO_EMAIL`), legal |
 | Email helpdesk | nu există; tichetele intră doar prin WhatsApp și helpdesk.bitup.ro | /suport (nu se afișează niciun email acolo) |
 | Program | luni–vineri, 08:00–18:00; în afara lui, doar urgențele, la telefon | /suport, contact, JSON-LD `openingHoursSpecification` |
-| Timp de răspuns | contractual: sub 2 ore în program; media reală din helpdesk: sub 30 de minute | rândul de încredere („Răspuns sub 2 ore”), /suport-it, /cum-lucram, /suport |
+| Timp de răspuns | contractual: sub 2 ore în program; media reală din helpdesk: sub 30 de minute | FactStrip-ul de sub hero („Răspuns sub 2 ore în program”), /suport-it, /cum-lucram, /suport |
 | LinkedIn firmă | https://www.linkedin.com/company/bitup-technology | footer, despre, blog, JSON-LD `sameAs` |
-| LinkedIn Marius | https://www.linkedin.com/in/nicolae-marius-galmati | footer, despre, casetă de autor |
+| LinkedIn Marius | https://www.linkedin.com/in/nicolae-marius-galmati | despre, contact, casetă de autor (nu în footer) |
+| Vocea firmei | persoana I plural („noi”, „răspundem”); cititorul e „tu”. Excepții la persoana I singular: hero, § Povestea și § Traseul de pe Despre; secțiunile „Cine răspunde” de pe homepage și /radiografie-it; articolele de blog; citatele; caseta de autor e la persoana a III-a | tot conținutul (decizie din 14 septembrie 2026; regula e în `CLAUDE.md` § Voce) |
 | Calendly | https://calendly.com/marius-galmati-bitup/30min | /multumesc, /contact, /en/thank-you, /en/contact |
 | Portal helpdesk | https://helpdesk.bitup.ro | /suport |
 | Formulare | Resend, prin funcția `/api/lead` | `ARHITECTURA.md` § Formulare |
@@ -37,8 +38,8 @@ Două liste. Prima e cu valorile finale, pe care Claude Code le pune în `src/li
 | `[[LOGO_PROQ_LOCAL]]` | `public/logos/proq.svg` | Logo-ul ProQ salvat local, varianta pentru fundal închis. |
 | `[[LOGO_BITUP_SVG]]` | header, footer, OG | Logo-ul BitUp ca SVG, în două variante: pentru fundal deschis și pentru fundal închis (text alb/teal deschis). Dacă există doar PNG, la 2×, ambele variante. |
 | `[[LOGO_PARTENERI]]` | homepage § Parteneri, footer | Badge-urile oficiale Microsoft Partner, Fortinet Advocate, Veeam Partner, cu nivelul exact așa cum apare în portalul fiecăruia, și confirmarea că ai voie să le afișezi. Până atunci, rândul e text. |
-| `[[FOTO_CONTEXT]]` | homepage hero (opțional) | O fotografie reală în context de lucru. Dacă nu există, rămâne portretul. Recomandarea și promptul pentru varianta cu textură generată sunt în `assets/FOTO-CONTEXT.md`. |
-| `[[CAPTURA_RAPORT_LUNAR]]` | /cum-lucram, /suport-it (ambele limbi) | O captură anonimizată cu un raport lunar din BitUp Helpdesk. |
+| `[[FOTO_CONTEXT]]` | Despre sau un articol (opțional; nu în hero-ul homepage-ului) | O fotografie reală în context de lucru. Dacă nu există, nu se pune nimic în locul ei. Recomandarea și promptul pentru varianta cu textură generată sunt în `assets/FOTO-CONTEXT.md`; textura se folosește doar în spatele portretului de pe Despre sau ca fundal al CtaBand. |
+| `[[CAPTURA_RAPORT_LUNAR]]` | /cum-lucram, /suport-it (ambele limbi) și hero-ul homepage-ului (Figure, „document pe hârtie”, ambele limbi) | O captură anonimizată cu prima pagină a unui raport lunar din BitUp Helpdesk. Până există, hero-ul homepage-ului e tipografic, fără imagine. |
 | `[[CAPTURA_RAPORT_RADIOGRAFIE]]` | /radiografie-it, /en/it-health-check | Un exemplu de raport de o pagină (semafor pe 10 puncte), anonimizat sau fictiv marcat „exemplu”. |
 | `[[CAPACITATE_RADIOGRAFII]]` | /radiografie-it (text), /en/it-health-check | Câte radiografii faci pe săptămână și în ce ferestre (ex. „marți și joi, 10:00–12:00, maximum trei pe săptămână”). Dacă nu vrei să apară, se șterge propoziția. |
 | `PUBLIC_TURNSTILE_SITE_KEY` | `.env` | Cheia publică Cloudflare Turnstile (widget „Managed / Invisible”, domeniile `bitup.ro` și `*.pages.dev`). |
@@ -47,7 +48,7 @@ Două liste. Prima e cu valorile finale, pe care Claude Code le pune în `src/li
 | `LEAD_TO_EMAIL` | Cloudflare Pages → Environment variables | `office@bitup.ro`. |
 | DNS Resend | Cloudflare DNS | Înregistrările DKIM/SPF/DMARC date de Resend la „Add domain” pentru `bitup.ro`; verificat în dashboard-ul Resend. |
 | `PUBLIC_GA4_ID` | `.env` | ID-ul de măsurare GA4 (`G-XXXXXXXXXX`) al proprietății pentru bitup.ro. În GA4: retenție 2 luni, Google Signals oprit. |
-| Rate limiting | Cloudflare WAF | O regulă pe `/api/lead`: 5 cereri / 10 minute / IP. |
+| Rate limiting | Cloudflare WAF | O regulă pe `/api/lead`: 5 cereri / 10 secunde / IP (planul Free permite doar ferestre de 10 secunde). Apărarea principală rămâne Turnstile + honeypot + validarea din funcție. |
 
 ## Ce trebuie confirmat de Marius (nu sunt placeholder-e, sunt afirmații din text)
 
@@ -58,4 +59,4 @@ Două liste. Prima e cu valorile finale, pe care Claude Code le pune în `src/li
 
 ## Decizii deja luate (nu sunt placeholder-e)
 
-Hero varianta A; oferta „Radiografie IT gratuită” / „Free IT Health Check”; fără prețuri pe site; orașul publicat e Cluj-Napoca, fără adresă de stradă; Concentrix cu numele pe Despre, fără titlul postului; lansare cu 2 studii de caz; parteneri: Microsoft Partner, Fortinet Advocate, Veeam Partner; helpdesk: BitUp Helpdesk, asistentul Cipri; formulare prin Resend; GA4 cu consimțământ; RO + EN; light + dark.
+Hero varianta A, tipografic, fără fotografie (portretul fondatorului nu apare pe primul ecran; decizie din 14 septembrie 2026); vocea firmei la persoana I plural; oferta „Radiografie IT gratuită” / „Free IT Health Check”; fără prețuri pe site; orașul publicat e Cluj-Napoca, fără adresă de stradă; Concentrix cu numele pe Despre, fără titlul postului; lansare cu 2 studii de caz; parteneri: Microsoft Partner, Fortinet Advocate, Veeam Partner; helpdesk: BitUp Helpdesk, asistentul Cipri; formulare prin Resend; GA4 cu consimțământ; RO + EN; light + dark.

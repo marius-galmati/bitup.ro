@@ -42,28 +42,28 @@ Pentru: firme care pierd ore pe săptămână cu aceleași lucruri făcute de m�
 ## Cum se combină
 
 Eyebrow: `Cum se combină`
-**H2:** De ce le țin împreună
+**H2:** De ce le ținem împreună
 
 Text (două coloane):
 
-Cele mai multe firme cu care lucrez încep cu abonamentul de suport. E lucrul de care au nevoie zilnic. Securitatea vine la pachet, pentru că nu știu să administrez un server fără să-l securizez și nu văd de ce ai plăti separat pentru asta. Backup-ul, la fel.
+Cele mai multe firme cu care lucrăm încep cu abonamentul de suport. E lucrul de care au nevoie zilnic. Securitatea vine la pachet: un server nu se administrează fără să fie securizat și nu vedem de ce ai plăti separat. Backup-ul, la fel.
 
-Automatizările și software-ul vin mai târziu, din relație. După câteva luni în care văd cum lucrează firma ta, îmi dau seama unde se pierd orele. Atunci are sens să vorbim despre ele, nu la prima întâlnire.
+Automatizările și software-ul vin mai târziu, din relație. După câteva luni în care vedem cum lucrează firma ta, ne dăm seama unde se pierd orele. Atunci are sens să vorbim despre ele, nu la prima întâlnire.
 
-Poți începe și invers: cu un audit de securitate sau cu o automatizare punctuală. Dacă merge bine, abonamentul vine natural. Nu împing pe nimeni spre el.
+Poți începe și invers: cu un audit de securitate sau cu o automatizare punctuală. Dacă merge bine, abonamentul vine natural. Nu împingem pe nimeni spre el.
 
 ---
 
-## Ce nu fac
+## Ce nu facem
 
 Eyebrow: `Ca să fie clar`
-**H2:** Ce nu fac
+**H2:** Ce nu facem
 
 Listă scurtă:
-- Nu vând echipamente fără să le și instalez și să răspund de ele după.
-- Nu iau proiecte de dezvoltare pentru care nu pot asigura și mentenanța.
-- Nu promit „securitate totală”. Reduc riscul și pregătesc revenirea. Cine promite altceva minte.
-- Nu lucrez cu firme care vor doar „să vină cineva când se strică”. Pentru asta există alții, mai ieftini, și e în regulă.
+- Nu vindem echipamente fără să le și instalăm și să răspundem de ele după.
+- Nu luăm proiecte de dezvoltare dacă nu putem asigura și mentenanța.
+- Nu promitem „securitate totală”. Reducem riscul și pregătim revenirea. Cine promite altceva minte.
+- Nu lucrăm cu firme care vor doar „să vină cineva când se strică”. Pentru asta există alții, mai ieftini, și e în regulă.
 
 ---
 

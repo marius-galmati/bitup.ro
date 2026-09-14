@@ -42,28 +42,28 @@ For: companies losing hours a week on the same things done by hand.
 ## How they combine
 
 Eyebrow: `How they combine`
-**H2:** Why I keep them together
+**H2:** Why we keep them together
 
 Text (two columns):
 
-Most companies I work with start with the support subscription. It's what they need daily. Security comes with it, because I don't know how to run a server without securing it and don't see why you'd pay separately for that. Same for backup.
+Most companies we work with start with the support subscription. It's what they need daily. Security comes with it: there's no running a server without securing it, and we don't see why you'd pay separately. Same for backup.
 
-Automation and software come later, from the relationship. After a few months of seeing how your company works, I figure out where the hours are lost. That's when it makes sense to talk about them, not at the first meeting.
+Automation and software come later, from the relationship. After a few months of seeing how your company works, we figure out where the hours are lost. That's when it makes sense to talk about them, not at the first meeting.
 
-You can also start the other way: with a security audit or a one-off automation. If it goes well, the subscription follows naturally. I don't push anyone toward it.
+You can also start the other way: with a security audit or a one-off automation. If it goes well, the subscription follows naturally. We don't push anyone toward it.
 
 ---
 
-## What I don't do
+## What we don't do
 
 Eyebrow: `To be clear`
-**H2:** What I don't do
+**H2:** What we don't do
 
 Short list:
-- I don't sell equipment without also installing it and answering for it afterward.
-- I don't take development projects I can't also maintain.
-- I don't promise "total security". I reduce the risk and prepare the recovery. Whoever promises otherwise is lying.
-- I don't work with companies that only want "someone to come when it breaks". There are others for that, cheaper, and that's fine.
+- We don't sell equipment without also installing it and answering for it afterward.
+- We don't take development projects we can't also maintain.
+- We don't promise "total security". We reduce the risk and prepare the recovery. Whoever promises otherwise is lying.
+- We don't work with companies that only want "someone to come when it breaks". There are others for that, cheaper, and that's fine.
 
 ---
 

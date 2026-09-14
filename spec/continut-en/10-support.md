@@ -45,11 +45,11 @@ Eyebrow: `Priorities`
 
 Simple table (3 rows):
 
-| How serious | Examples | What I do |
+| How serious | Examples | What we do |
 |---|---|---|
-| **Critical** | Nobody can work: the server is down, email is down for everyone, suspected attack, encrypted files | I respond immediately, including outside business hours, on the emergency number. Priority over everything. |
-| **Important** | Part of the company can't work: a department without access, a critical app down, the laptop of someone everything depends on | I respond during business hours, in under two hours by contract (actual average: under 30 minutes), and usually fix it that business day. |
-| **Normal** | One person, one problem: forgotten password, printer, a program to install, a question | Cipri answers right away; what it can't fix, I fix in order of arrival, during business hours. |
+| **Critical** | Nobody can work: the server is down, email is down for everyone, suspected attack, encrypted files | We respond immediately, including outside business hours, on the emergency number. Priority over everything. |
+| **Important** | Part of the company can't work: a department without access, a critical app down, the laptop of someone everything depends on | We respond during business hours, in under two hours by contract (actual average: under 30 minutes), and usually fix it that business day. |
+| **Normal** | One person, one problem: forgotten password, printer, a program to install, a question | Cipri answers right away; what it can't fix, we fix in order of arrival, during business hours. |
 
 Line under the table: The exact times are in your contract. What it says there beats what it says here.
 
@@ -61,14 +61,14 @@ Steps (4), the same sequence as on How we work, shorter:
 
 **1.** You write on WhatsApp or on the helpdesk.
 **2.** Cipri answers right away and tries to walk you through a fix.
-**3.** If that doesn't work, the ticket is opened automatically and I take it over. You get a confirmation.
+**3.** If that doesn't work, the ticket is opened automatically and we take it over. You get a confirmation.
 **4.** When it's solved, you get the status on the same channel. At the end of the month, everything that happened is in the report.
 
 ---
 
 ## Tips that make things faster
 
-Eyebrow: `Help me help you`
+Eyebrow: `Help us help you`
 **H2:** Three things that shorten any ticket
 
 List:
@@ -89,4 +89,4 @@ Text (70ch): Cipri doesn't go into your computer, change your passwords, run com
 
 ## For those who aren't clients yet
 
-Simple line, at the end, `--muted`: Not a client and have a problem right now? Call +40 757 150 894. I'll answer, and you don't need to sign anything first. If you want to see where your company stands with IT, start with the [free IT Health Check](/en/it-health-check).
+Simple line, at the end, `--muted`: Not a client and have a problem right now? Call +40 757 150 894. We'll answer, and there's nothing to sign first. If you want to see where your company stands with IT, start with the [free IT Health Check](/en/it-health-check).

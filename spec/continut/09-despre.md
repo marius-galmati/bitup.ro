@@ -48,30 +48,30 @@ Listă cronologică (mono pentru ani):
 
 ---
 
-## Cum lucrez
+## Cum lucrăm
 
 Eyebrow: `Principii`
-**H2:** Trei lucruri în care cred, cu ce înseamnă ele pentru tine
+**H2:** Trei lucruri în care credem, cu ce înseamnă ele pentru tine
 
 Trei carduri:
 
 **Securitatea înainte de funcționalități**
-Nu instalez nimic fără partea de securitate făcută. Nu vând securitatea separat pentru că nu funcționează separat. Uneori asta înseamnă că îți spun „nu” la ceva ce ai vrea.
+Nu instalăm nimic fără partea de securitate făcută. Nu vindem securitatea separat pentru că nu funcționează separat. Uneori asta înseamnă un „nu” la ceva ce ai vrea.
 
 **Claritatea înaintea vitezei**
-Îți spun ce fac, de ce, și cât costă, înainte să fac. Raportul lunar e scris din tichete, nu din memorie. Dacă nu înțelegi ceva din ce îți spun, e problema mea, nu a ta.
+Spunem ce facem, de ce și cât costă, înainte să facem. Raportul lunar e scris din tichete, nu din memorie. Dacă nu înțelegi ceva din ce spunem, e problema noastră, nu a ta.
 
 **Gândirea pe termen lung**
-Aleg lucruri care merg și peste cinci ani, nu care arată bine luna asta. Nu îți vând ce nu ai nevoie și îți spun când poți aștepta.
+Alegem ce merge și peste cinci ani, nu ce arată bine luna asta. Nu-ți vindem ce nu ai nevoie și îți spunem când poți aștepta.
 
 ---
 
-## Altceva ce construiesc
+## Altceva ce construim
 
 Eyebrow: `În paralel`
-**H2:** Ce mai fac
+**H2:** Ce mai facem
 
-Text (70ch): Construiesc CyberXscore, o platformă prin care patronii își pot evalua singuri riscul cibernetic, în termeni de business, nu de IT. Și ProQ, o platformă pentru furnizorii din industria auto, folosită în patru țări. → Citește cazul ProQ (`/rezultate/proq`).
+Text (70ch): Construim CyberXscore, o platformă prin care patronii își pot evalua singuri riscul cibernetic, în termeni de business, nu de IT. Și ProQ, o platformă pentru furnizorii din industria auto, folosită în patru țări. → Citește cazul ProQ (`/rezultate/proq`).
 
 ---
 
@@ -92,4 +92,4 @@ Linkuri: LinkedIn personal → https://www.linkedin.com/in/nicolae-marius-galmat
 
 ## Banda finală
 
-CtaBand, varianta implicită, cu titlul: **Vrei să vezi cum lucrez, înainte să semnezi ceva?** / 30 de minute, gratuit, fără obligații. Îți spun exact unde stai. / Buton: **Programează Radiografia IT**
+CtaBand, varianta implicită, cu titlul: **Vrei să vezi cum lucrăm, înainte să semnezi ceva?** / 30 de minute, gratuit, fără obligații. Îți spunem exact unde stai. / Buton: **Programează Radiografia IT**

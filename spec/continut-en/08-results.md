@@ -1,7 +1,7 @@
 # 08 — Results (`/en/results`)
 
 **Title:** Results: case studies with names · BitUp
-**Description:** What I did, for whom, and what changed. Case studies with the client's name, published with their consent, without details that could be used against them.
+**Description:** What we did, for whom, and what changed. Case studies with the client's name, published with their consent, without details that could be used against them.
 
 **JSON-LD:** global.
 
@@ -10,8 +10,8 @@
 ## Hero (internal)
 
 Eyebrow: `Results`
-**H1:** What I've done, with names
-Lead: Few, but real. Each case here is published with the client's written consent, without details on how their systems are set up. If you want to talk to one of them, ask and I'll put you in touch.
+**H1:** What we've done, with names
+Lead: Few, but real. Each case here is published with the client's written consent, without details on how their systems are set up. Want to talk to one of them? Ask and we'll put you in touch.
 
 ---
 
@@ -30,9 +30,9 @@ Eyebrow: `Rules`
 
 Text (70ch):
 
-First I write the case. Then I send it to the client, exactly as it would appear, with a one-page agreement saying what I can use (name, logo, a quote), where, and that they can withdraw at any time. It's published only after signature.
+First we write the case. Then we send it to the client, exactly as it would appear, with a one-page agreement saying what we can use (name, logo, a quote), where, and that they can withdraw at any time. It's published only after signature.
 
-What never appears: how the client's systems are set up, what vulnerabilities I found, what incidents they've had, what they pay, what internal apps they use. A security company's case study can't be a map for someone who wants to get in. If it seems details are missing, that's why.
+What never appears: how the client's systems are set up, what vulnerabilities we found, what incidents they've had, what they pay, what internal apps they use. A security company's case study can't be a map for someone who wants to get in. If it seems details are missing, that's why.
 
 Named references, by phone, for companies that want to ask a client directly: on request, with their consent.
 

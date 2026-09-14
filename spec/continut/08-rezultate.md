@@ -11,7 +11,7 @@
 
 Eyebrow: `Rezultate`
 **H1:** Ce am făcut, cu nume
-Lead: Puține, dar reale. Fiecare caz de aici e publicat cu acordul scris al clientului și fără detalii despre cum îi sunt configurate sistemele. Dacă vrei să vorbești cu unul dintre ei, cere-mi și fac legătura.
+Lead: Puține, dar reale. Fiecare caz de aici e publicat cu acordul scris al clientului și fără detalii despre cum îi sunt configurate sistemele. Vrei să vorbești cu unul dintre ei? Cere-ne. Facem legătura.
 
 ---
 
@@ -30,7 +30,7 @@ Eyebrow: `Reguli`
 
 Text (70ch):
 
-Întâi scriu cazul. Apoi îl trimit clientului, exact așa cum ar apărea, împreună cu un acord de o pagină care spune ce pot folosi (numele, logo-ul, un citat), unde, și că poate retrage acordul oricând. Se publică doar după semnătură.
+Întâi scriem cazul. Apoi îl trimitem clientului, exact așa cum ar apărea, împreună cu un acord de o pagină care spune ce putem folosi (numele, logo-ul, un citat), unde, și că poate retrage acordul oricând. Se publică doar după semnătură.
 
 Ce nu apare niciodată: cum sunt configurate sistemele clientului, ce vulnerabilități am găsit, ce incidente a avut, cât plătește, ce aplicații interne folosește. Un studiu de caz al unei firme de securitate nu poate fi o hartă pentru cine vrea să intre. Dacă ți se pare că lipsesc detalii, asta e de ce.
 
