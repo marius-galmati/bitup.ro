@@ -28,6 +28,7 @@ const a = anchors.healthCheck[lang];
 const capacityStep = copy.how.steps.map((s, i) => (i === 0 ? { ...s, text: `${s.text} ${copy.how.capacity}` } : s));
 ---
 <BaseLayout lang={lang} routeKey="healthCheck" title={copy.title} description={copy.description}>
+  <link slot="head" rel="preconnect" href="https://challenges.cloudflare.com" crossorigin />
   <section class="hc-hero">
     <Container>
       <div class="hc-hero__grid">

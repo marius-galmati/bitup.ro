@@ -112,7 +112,9 @@ const thankYou = localePath('thankYou', lang);
     });
     return loading;
   };
-  const widgets = new Map<HTMLFormElement, { id: string | null; token: string | null; waiting: ((t: string | null) => void)[] }>();
+  const widgets = new Map<HTMLFormElement, { id: string | null; token: string | null; executing: boolean; waiting: ((t: string | null) => void)[] }>();
+  // execute() o singură dată per rundă (Turnstile avertizează la un al doilea execute pe un widget care rulează deja)
+  const execute = (form: HTMLFormElement) => { const st = widgets.get(form)!; if (st.id && window.turnstile && !st.token && !st.executing) { st.executing = true; window.turnstile.execute(st.id); } };
 
   const renderWidgets = () => {
     for (const form of forms) {
@@ -124,22 +126,24 @@ const thankYou = localePath('thankYou', lang);
         sitekey: key,
         appearance: 'interaction-only',
         execution: 'execute',
-        callback: (token: string) => { state.token = token; state.waiting.splice(0).forEach((r) => r(token)); },
-        'error-callback': () => { state.token = null; state.waiting.splice(0).forEach((r) => r(null)); },
-        'expired-callback': () => { state.token = null; },
+        callback: (token: string) => { state.token = token; state.executing = false; state.waiting.splice(0).forEach((r) => r(token)); },
+        // tokenul rămâne în `state.token` și când nimeni nu-l mai așteaptă (a doua încercare îl folosește)
+        'error-callback': () => { state.token = null; state.executing = false; state.waiting.splice(0).forEach((r) => r(null)); },
+        'expired-callback': () => { state.token = null; state.executing = false; },
       });
     }
   };
 
-  const getToken = async (form: HTMLFormElement): Promise<string | null> => {
+  // Tokenul Turnstile, cu așteptare limitată (decizia din 4a→4b): dacă omul a completat repede și scriptul încă se încarcă, butonul stă în
+  // „Se trimite…” cel mult `maxWait` ms; dacă tokenul nu vine, trimitem oricum și lasă funcția să decidă (răspunde 400 turnstile → mesajul de anti-spam,
+  // textul rămâne, butonul se reactivează). Tokenul sosit după termen se păstrează pentru a doua încercare.
+  const getToken = (form: HTMLFormElement, maxWait: number): Promise<string | null> => {
     const state = widgets.get(form)!;
-    if (state.token) return state.token;
-    await loadTurnstile();
-    if (!state.id || !window.turnstile) return null;
+    if (state.token) return Promise.resolve(state.token);
     return new Promise((resolve) => {
-      const timer = setTimeout(() => resolve(null), 10000);
+      const timer = setTimeout(() => resolve(null), maxWait);
       state.waiting.push((t) => { clearTimeout(timer); resolve(t); });
-      window.turnstile!.execute(state.id!);
+      loadTurnstile().then(() => execute(form));
     });
   };
 
@@ -166,13 +170,13 @@ const thankYou = localePath('thankYou', lang);
   };
 
   for (const form of forms) {
-    widgets.set(form, { id: null, token: null, waiting: [] });
+    widgets.set(form, { id: null, token: null, executing: false, waiting: [] });
     const msgs = JSON.parse(form.dataset.messages ?? '{}') as Msgs;
     const submit = form.querySelector<HTMLButtonElement>('button[type="submit"]')!;
     const status = form.querySelector<HTMLElement>('.form__status')!;
     const label = submit.textContent ?? '';
     submit.disabled = false; // fără JavaScript rămâne dezactivat; <noscript> explică
-    form.addEventListener('focusin', () => { loadTurnstile(); }, { once: true });
+    form.addEventListener('focusin', () => { loadTurnstile().then(() => execute(form)); }, { once: true });
 
     // eroarea de sub câmp dispare când omul corectează
     form.addEventListener('input', (e) => { const el = e.target as HTMLElement; if (el.getAttribute('aria-invalid')) setError(el, null); });
@@ -187,8 +191,7 @@ const thankYou = localePath('thankYou', lang);
       submit.textContent = msgs.sending;
       const fail = (msg: string) => { status.textContent = msg; status.hidden = false; submit.disabled = false; submit.textContent = label; };
 
-      const token = await getToken(form);
-      if (!token) { fail(msgs.turnstileFailed); return; }
+      const token = (await getToken(form, 5000)) ?? '';
 
       const data = new FormData(form);
       const url = new URL(location.href);
@@ -210,8 +213,8 @@ const thankYou = localePath('thankYou', lang);
         const res = await fetch('/api/lead', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload), signal: ctrl.signal });
         const body = (await res.json().catch(() => ({}))) as { ok?: boolean; error?: string };
         if (res.ok && body.ok === true) { location.assign(`${form.dataset.thankYou}?kind=${form.dataset.form}`); return; }
-        widgets.get(form)!.token = null;
-        if (window.turnstile && widgets.get(form)!.id) window.turnstile.reset(widgets.get(form)!.id!);
+        const st = widgets.get(form)!; st.token = null; st.executing = false;
+        if (window.turnstile && st.id) window.turnstile.reset(st.id);
         fail(body.error === 'turnstile' ? msgs.turnstileFailed : msgs.sendError);
       } catch {
         fail(msgs.sendError);
