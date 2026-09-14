@@ -900,6 +900,14 @@ Cheia Resend și perechea Turnstile (site key + secret, pentru `bitup.ro` și `*
 - Cloudflare WAF → Rate limiting rule pe `/api/lead`: 5 cereri / 10 secunde / IP (planul Free permite doar ferestre de 10 s).
 - Resend → Domains → `bitup.ro`: înregistrările DNS date de Resend (DKIM `resend._domainkey`, SPF pe subdomeniul de trimitere, `_dmarc` TXT cu `p=none` o săptămână, apoi `p=quarantine`), puse în DNS-ul Cloudflare; expeditorul `site@bitup.ro`.
 
+## Schimbarea fontului: IBM Plex Sans pe tot site-ul (14 septembrie 2026, decizia lui Marius)
+
+Marius a cerut înlocuirea fontului („ceva generic folosit de AI”) cu un stil profesional, clar, curat, enterprise. Alegerea: **IBM Plex Sans** (variabil, 100–700) pentru display și body, IBM Plex Mono rămâne pentru mono. Motive: o singură familie, deci o singură voce tipografică; e desenată pentru interfețe de firmă, cu diacriticele românești corecte (ș, ț cu virgulă) în subsetul latin-ext; se potrivește nativ cu Plex Mono, deja în site; nu e Inter (mirosul 7 din CLAUDE.md) și nu e un grotesc „cu caracter” ca Bricolage. Titlurile au trecut de la 700 la 600 (Plex Sans Bold e prea greu la mărimile noastre), cu `letter-spacing: -0.015em` la h1 și `-0.01em` la h2; butoanele la 600.
+
+- Cod: `@fontsource-variable/ibm-plex-sans` în loc de `bricolage-grotesque` și `source-sans-3`; `BaseLayout` importă `wght.css` și preîncarcă subseturile latin (45 KB) și latin-ext (31 KB); tokenii `--font-display` și `--font-body`; `base.css` (greutăți și tracking); `Button.astro`; etichetele din pagina QA.
+- Spec actualizat la cererea lui Marius: DESIGN § Tokeni și § Tipografie, ARHITECTURA § Stack și § SEO (OG), PLAN § Faza 0.
+- Verificat: build 0 erori; 48 de capturi (6 pagini × 4 lățimi × 2 teme, `qa/fonturi/`, rezumat WebP în `qa/fonturi/rezumat/`), privite pe homepage, despre (dark), suport-it (375), articol; consolă curată, zero cereri externe; Lighthouse mobil `/` 98/100/100/100 (LCP 1,7 s, 164 KiB), `/despre` 99/100/100/100 (175 KiB): mai ușor decât înainte (o familie în loc de două).
+
 ## Spike Astro (14 septembrie 2026, ramura `spike/astro-current`, ~60 de minute): GO
 
 Decizia lui Marius: „Astro 5” din spec era versiunea curentă la scriere, nu o decizie de arhitectură; site-ul pornește pe ultima versiune majoră stabilă. Spec corectat: `ARHITECTURA.md` § Stack și `PLAN.md` Faza 0 nu mai conțin un număr fix.

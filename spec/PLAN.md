@@ -14,7 +14,7 @@ Ordinea limbilor: fiecare pagină se face întâi în română, apoi în englez�
 
 Sarcini:
 1. `npm create astro@latest` (template minimal, TypeScript strict; ultima versiune majoră stabilă la data începerii proiectului, fixată exact în `package.json`, versiunea reală notată în `NOTES.md`), apoi integrările din `ARHITECTURA.md` § Stack: `@astrojs/sitemap`, `@astrojs/rss`, `astro-og-canvas`, `astro-icon` (doar `lucide`).
-2. Fonturile self-hosted prin `@fontsource-variable/bricolage-grotesque`, `@fontsource-variable/source-sans-3`, `@fontsource/ibm-plex-mono` (doar 400 și 500).
+2. Fonturile self-hosted prin `@fontsource-variable/ibm-plex-sans`, `@fontsource/ibm-plex-mono` (doar 400 și 500).
 3. Tokenii din `DESIGN.md` § Tokeni și § Dark mode, în `src/styles/tokens.css`, importate global; scriptul de temă din `<head>` (`ARHITECTURA.md` § Dark mode).
 4. i18n: configurarea din `ARHITECTURA.md` § Limbi în `astro.config.mjs`; `src/i18n/ro.ts`, `en.ts` (microcopy din `00-global.md` și `continut-en/00-global.md`), `routes.ts` (harta din § Rute), `index.ts` (helpers).
 5. Structura de foldere din `ARHITECTURA.md` § Structura proiectului, creată (goală unde e cazul), inclusiv `functions/api/`.

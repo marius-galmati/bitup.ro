@@ -4,16 +4,15 @@
  * Primește limba și cheia rutei; setează <html lang>, title/description, canonical, hreflang (ro, en, x-default), Open Graph,
  * JSON-LD Organization + ProfessionalService (plus ce dă pagina), scriptul de temă, skip-link, header, <main>, footer, ConsentBanner.
  */
-import '@fontsource-variable/bricolage-grotesque/wght.css';
-import '@fontsource-variable/source-sans-3/wght.css';
+import '@fontsource-variable/ibm-plex-sans/wght.css';
 import '@fontsource/ibm-plex-mono/latin-400.css';
 import '@fontsource/ibm-plex-mono/latin-ext-400.css';
 import '@fontsource/ibm-plex-mono/latin-500.css';
 import '@fontsource/ibm-plex-mono/latin-ext-500.css';
 import '../styles/tokens.css';
 import '../styles/base.css';
-import bricolageLatin from '@fontsource-variable/bricolage-grotesque/files/bricolage-grotesque-latin-wght-normal.woff2?url';
-import bricolageLatinExt from '@fontsource-variable/bricolage-grotesque/files/bricolage-grotesque-latin-ext-wght-normal.woff2?url';
+import plexLatin from '@fontsource-variable/ibm-plex-sans/files/ibm-plex-sans-latin-wght-normal.woff2?url';
+import plexLatinExt from '@fontsource-variable/ibm-plex-sans/files/ibm-plex-sans-latin-ext-wght-normal.woff2?url';
 
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
@@ -89,8 +88,8 @@ const graph = baseGraph(lang, jsonLd);
         } catch (e) {}
       })();
     </script>
-    <link rel="preload" as="font" type="font/woff2" crossorigin href={bricolageLatin} />
-    <link rel="preload" as="font" type="font/woff2" crossorigin href={bricolageLatinExt} />
+    <link rel="preload" as="font" type="font/woff2" crossorigin href={plexLatin} />
+    <link rel="preload" as="font" type="font/woff2" crossorigin href={plexLatinExt} />
     <script type="application/ld+json" is:inline set:html={JSON.stringify(graph)} />
     <slot name="head" />
   </head>
