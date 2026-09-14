@@ -1,0 +1,50 @@
+---
+/**
+ * /multumesc, /en/thank-you (00-global § Pagina /multumesc): ambele variante randate, ascunse cu `hidden`, comutate după `?kind=` de un script inline
+ * care rulează înainte de paint; implicit radiografie. `noindex`, linkul Calendly în tab nou cu data-event, fără CtaBand (pagina e finalul fluxului).
+ */
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Container from '../Container.astro';
+import Section from '../Section.astro';
+import { t, localePath, type Locale } from '../../i18n';
+import { site } from '../../lib/site';
+
+interface Props { lang: Locale }
+const { lang } = Astro.props;
+const dict = t(lang);
+const ty = dict.thankYou;
+---
+<BaseLayout lang={lang} routeKey="thankYou" title={ty.title} description={ty.description} noindex>
+  <Section tone="surface-2" class="ty">
+    <Container narrow>
+      <div class="ty__variant" data-kind="radiografie">
+        <h1 class="ty__h1">{ty.radiografie.h1}</h1>
+        <p class="lead ty__text">{ty.radiografie.text}</p>
+        <p class="ty__row">{ty.radiografie.calendlyBefore}<a href={site.calendly} target="_blank" rel="noopener" data-event="calendly_click">{ty.radiografie.calendlyLabel}<span aria-hidden="true"> →</span></a></p>
+        <p class="ty__row muted">{ty.radiografie.meanwhile}{ty.radiografie.links.map((l, i) => <>{i > 0 && ' · '}<a href={localePath(l.route, lang, 'anchor' in l ? l.anchor : undefined)}>{l.label}</a></>)}</p>
+      </div>
+      <div class="ty__variant" data-kind="contact" hidden>
+        <h1 class="ty__h1">{ty.contact.h1}</h1>
+        <p class="lead ty__text">{ty.contact.text}</p>
+        <p class="ty__row">{ty.contact.calendlyBefore}<a href={site.calendly} target="_blank" rel="noopener" data-event="calendly_click">{ty.contact.calendlyLabel}<span aria-hidden="true"> →</span></a></p>
+      </div>
+    </Container>
+  </Section>
+  {/* comutarea variantei înainte de paint: scriptul stă imediat după marcaj și rulează sincron */}
+  <script is:inline>
+    (function () {
+      var kind = new URLSearchParams(location.search).get('kind') === 'contact' ? 'contact' : 'radiografie';
+      var all = document.querySelectorAll('.ty__variant');
+      for (var i = 0; i < all.length; i++) all[i].hidden = all[i].getAttribute('data-kind') !== kind;
+    })();
+  </script>
+</BaseLayout>
+
+<style>
+  .ty__variant { display: grid; gap: var(--s-4); }
+  .ty__variant[hidden] { display: none; }
+  .ty__h1 { max-width: 22ch; }
+  .ty__text { max-width: 60ch; }
+  .ty__row { max-width: 60ch; }
+  .ty__row a { font-family: var(--font-display); font-weight: 600; }
+</style>

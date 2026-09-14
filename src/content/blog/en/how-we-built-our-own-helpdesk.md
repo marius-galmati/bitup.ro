@@ -5,6 +5,8 @@ pubDate: 2026-09-10
 author: "Marius Galmati"
 tags: ["IT support", "automation", "AI", "from the inside"]
 heroImage: "../../../assets/blog/helpdesk/whatsapp-cipri.jpg"
+metaTitle: "How we built our own helpdesk · BitUp"
+metaDescription: "Why we didn't buy an off-the-shelf helpdesk, how we connected WhatsApp to the ticket platform, and what we learned running it with real clients."
 draft: false
 translationOf: "cum-ne-am-construit-propriul-helpdesk"
 ---

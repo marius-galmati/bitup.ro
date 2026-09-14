@@ -8,7 +8,7 @@ import { readFileSync, readdirSync, statSync } from 'node:fs';
 import { join } from 'node:path';
 
 const walk = (d) => readdirSync(d).flatMap((f) => { const p = join(d, f); return statSync(p).isDirectory() ? walk(p) : p.endsWith('.html') ? [p] : []; });
-const pages = walk('dist').map((p) => p.replace(/\\/g, '/')).filter((p) => !/\/qa\/|multumesc|thank-you/.test(p));
+const pages = walk('dist').map((p) => p.replace(/\\/g, '/')).filter((p) => !/\/qa\//.test(p));
 const decode = (s) => s.replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&amp;/g, '&');
 const ANCHORS = /^(backup|cloud|echipamente|equipment|software|incidente|incidents|audit|nis2|intrebari|faq|ce-include|whats-included|cum-decurge|how-it-works|formular|form)$/;
 
@@ -17,7 +17,9 @@ let problems = 0;
 for (const p of pages) {
   const html = readFileSync(p, 'utf8');
   const lang = (html.match(/<html[^>]*lang="(\w+)"/) || [])[1];
-  const hs = [...html.matchAll(/<h([1-6])\b/g)].map((m) => +m[1]);
+  // variantele ascunse cu `hidden` (pagina /multumesc randează ambele variante, una singură e vizibilă) nu intră în ierarhia titlurilor
+  const visible = html.replace(/<div class="ty__variant"[^>]*\bhidden[^>]*>[\s\S]*?<\/div>/g, '');
+  const hs = [...visible.matchAll(/<h([1-6])\b/g)].map((m) => +m[1]);
   const h1 = hs.filter((h) => h === 1).length;
   let jumps = 0; for (let i = 1; i < hs.length; i++) if (hs[i] > hs[i - 1] + 1) jumps++;
   const ld = [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)].map((m) => JSON.parse(decode(m[1])));

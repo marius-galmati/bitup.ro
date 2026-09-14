@@ -106,6 +106,7 @@ export const en = {
     before: "I agree that BitUp Technology SRL may use the details above to reply to this request. We don't use them for anything else and don't pass them on. Details in the ",
     linkLabel: 'Privacy policy',
     after: '.',
+    fieldName: 'Consent',
   },
 
   form: {

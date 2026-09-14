@@ -20,6 +20,8 @@ numbers:
 service: "securitate"
 order: 1
 footnote: "Studiu de caz publicat cu acordul Cosmio Fintech SRL. Nu conține detalii despre configurația internă a sistemelor clientului, date personale sau valori contractuale. Cosmio poate cere oricând retragerea lui."
+metaTitle: "Cosmio: cloud, backup și disaster recovery · BitUp"
+metaDescription: "Cum am mutat platforma Cosmio în cloud administrat, cu backup testat și replicare într-un al doilea datacenter. Date exclusiv în UE, firewall administrat."
 draft: true
 consent: "[[ACORD_COSMIO]]"
 ---

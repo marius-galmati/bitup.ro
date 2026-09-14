@@ -36,13 +36,13 @@ export function metaDescription(text: string, max = 155): string {
   return cut > 0 ? t.slice(0, cut + 1) : t; // fără propoziție întreagă care să încapă: textul rămâne întreg și e raportat ca peste limită
 }
 
-/** Meta unui studiu de caz. */
+/** Meta unui studiu de caz: `metaTitle` / `metaDescription` din frontmatter (scrise de Marius) sau, în lipsă, regula. */
 export function caseMeta(entry: CollectionEntry<'cases'>) {
-  return { title: `${entry.data.client} · ${entry.data.kicker} · BitUp`, description: metaDescription(entry.data.summary) };
+  return { title: entry.data.metaTitle ?? `${entry.data.client} · ${entry.data.kicker} · BitUp`, description: entry.data.metaDescription ?? metaDescription(entry.data.summary) };
 }
 /** Meta unui articol: titlul articolului cu sufixul de site, descrierea din frontmatter (tăiată la propoziție dacă depășește 155). */
 export function postMeta(entry: CollectionEntry<'blog'>) {
-  return { title: `${entry.data.title} · BitUp`, description: metaDescription(entry.data.description) };
+  return { title: entry.data.metaTitle ?? `${entry.data.title} · BitUp`, description: entry.data.metaDescription ?? metaDescription(entry.data.description) };
 }
 
 /** Primele două propoziții din summary (cardurile din 08 și homepage § 8). */

@@ -20,6 +20,8 @@ numbers:
 service: "automatizari"
 order: 2
 footnote: "ProQ is a BitUp Technology product. ProQ clients are not named in this case study; named references are available on request, with their consent."
+metaTitle: "ProQ: a platform for automotive suppliers · BitUp"
+metaDescription: "The platform we built for automotive suppliers: 29 modules, used in Romania, Mexico, India and China. Hosted by us or on their own servers."
 draft: false
 ---
 

@@ -5,6 +5,8 @@ pubDate: 2026-09-10
 author: "Marius Galmati"
 tags: ["suport IT", "automatizări", "AI", "din interior"]
 heroImage: "../../../assets/blog/helpdesk/whatsapp-cipri.jpg"
+metaTitle: "Cum ne-am construit propriul helpdesk · BitUp"
+metaDescription: "De ce n-am cumpărat un helpdesk gata făcut, cum am legat WhatsApp de platforma de tichete și ce am învățat rulându-l cu clienți reali."
 draft: false
 translationOf: "how-we-built-our-own-helpdesk"
 ---

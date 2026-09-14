@@ -20,6 +20,8 @@ numbers:
 service: "securitate"
 order: 1
 footnote: "Case study published with the consent of Cosmio Fintech SRL. It contains no details of the client's internal system configuration, no personal data, and no contract values. Cosmio can request its withdrawal at any time."
+metaTitle: "Cosmio: cloud, backup and disaster recovery · BitUp"
+metaDescription: "How we moved the Cosmio platform to managed cloud, with tested backup and replication to a second data center. Data in the EU only, managed firewall."
 draft: true
 consent: "[[ACORD_COSMIO]]"
 ---

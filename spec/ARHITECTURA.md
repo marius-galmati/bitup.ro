@@ -166,6 +166,8 @@ const cases = defineCollection({
     order: z.number(),
     draft: z.boolean().default(false),
     consent: z.string().optional(), // „acord semnat 2026-09-xx” — obligatoriu când draft=false și client ≠ BitUp
+    metaTitle: z.string().optional(),       // <title> din head, când regula implicită dă peste 60 de caractere; H1-ul rămâne `title`
+    metaDescription: z.string().optional(), // description din head, când `summary`/`description` nu încap în 155
   }),
 });
 
@@ -181,6 +183,8 @@ const blog = defineCollection({
     heroImage: image().optional(),
     draft: z.boolean().default(false),
     translationOf: z.string().optional(), // slug-ul perechii din cealaltă limbă, pentru comutatorul de limbă și hreflang
+    metaTitle: z.string().optional(),       // <title> din head, când regula implicită dă peste 60 de caractere; H1-ul rămâne `title`
+    metaDescription: z.string().optional(), // description din head, când `summary`/`description` nu încap în 155
   }),
 });
 

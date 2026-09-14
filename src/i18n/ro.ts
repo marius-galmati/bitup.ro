@@ -106,6 +106,7 @@ export const ro = {
     before: 'Sunt de acord ca BitUp Technology SRL să folosească datele de mai sus ca să-mi răspundă la această cerere. Nu le folosim pentru altceva și nu le dăm mai departe. Detalii în ',
     linkLabel: 'Politica de confidențialitate',
     after: '.',
+    fieldName: 'Consimțământ', // numele câmpului din lista de câmpuri (06, 11), pentru „Completează [numele câmpului]…”
   },
 
   form: {
