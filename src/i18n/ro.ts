@@ -158,6 +158,7 @@ export const ro = {
     readTime: (minutes: number) => `${minutes} minute de citit`,
     draft: 'Draft, nepublicat',
     legalUpdated: 'Ultima actualizare: 10 septembrie 2026',
+    legalToc: 'Cuprins',
     externalRel: 'noopener',
   },
 } as const;

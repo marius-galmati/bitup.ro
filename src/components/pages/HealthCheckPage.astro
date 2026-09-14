@@ -1,0 +1,140 @@
+---
+/**
+ * /radiografie-it, /en/it-health-check (06). Pagina de conversie: formularul e CTA-ul, fără CtaBand.
+ * Ritm: hero pe surface-2 cu formularul în dreapta (desktop) → cele 10 verificări, listă numerotată pe două coloane → trei pași în rând (surface)
+ * → Ce primești: text + Figure placeholder (bg) → [pe mobil, formularul vine aici] → Cine face radiografia: secțiune compactă cu portret (surface-2)
+ * → Întrebări (două coloane). JSON-LD: global + FAQPage.
+ * Formularul e o singură instanță: pe desktop stă în hero; sub 1024 px un script mic îl mută după „Ce primești” (fără JS rămâne în hero).
+ */
+import { Picture } from 'astro:assets';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Container from '../Container.astro';
+import Section from '../Section.astro';
+import SectionHead from '../SectionHead.astro';
+import TwoCol from '../TwoCol.astro';
+import Eyebrow from '../Eyebrow.astro';
+import Button from '../Button.astro';
+import Steps from '../Steps.astro';
+import Placeholder from '../Placeholder.astro';
+import Form from '../Form.astro';
+import Faq from '../Faq.astro';
+import { localePath, anchors, type Locale } from '../../i18n';
+import type { HealthCheckCopy } from '../../copy/healthcheck.ro';
+import portrait from '../../assets/foto-marius/marius-patrat-430x430.jpg';
+
+interface Props { lang: Locale; copy: HealthCheckCopy }
+const { lang, copy } = Astro.props;
+const a = anchors.healthCheck[lang];
+const capacityStep = copy.how.steps.map((s, i) => (i === 0 ? { ...s, text: `${s.text} ${copy.how.capacity}` } : s));
+---
+<BaseLayout lang={lang} routeKey="healthCheck" title={copy.title} description={copy.description}>
+  <section class="hc-hero">
+    <Container>
+      <div class="hc-hero__grid">
+        <div class="hc-hero__text">
+          <Eyebrow>{copy.hero.eyebrow}</Eyebrow>
+          <h1 class="hc-hero__h1">{copy.hero.h1}</h1>
+          <p class="lead">{copy.hero.lead}</p>
+          <Button href={`#${a.form}`} variant="secondary" class="hc-hero__jump">{copy.hero.jumpToForm}</Button>
+        </div>
+        <div class="hc-hero__form" data-form-desktop>
+          <Form kind="radiografie" lang={lang} labels={copy.form} id={a.form} />
+        </div>
+      </div>
+    </Container>
+  </section>
+
+  <Section tone="bg" labelledby="checks-title">
+    <Container>
+      <SectionHead id="checks-title" eyebrow={copy.checks.eyebrow} title={copy.checks.h2} />
+      <ol class="checks">
+        {copy.checks.items.map((it, i) => (
+          <li class="check">
+            <span class="check__num mono" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+            <div><strong class="check__title">{it.title}</strong> <span>{it.text}</span></div>
+          </li>
+        ))}
+      </ol>
+    </Container>
+  </Section>
+
+  <Section tone="surface" id={a.howItWorks} labelledby="how-title">
+    <Container>
+      <SectionHead id="how-title" eyebrow={copy.how.eyebrow} title={copy.how.h2} />
+      <Steps steps={capacityStep} />
+    </Container>
+  </Section>
+
+  <Section tone="bg" labelledby="get-title">
+    <Container>
+      <SectionHead id="get-title" eyebrow={copy.get.eyebrow} title={copy.get.h2} />
+      <div class="get">
+        <div class="stack">
+          <p>{copy.get.p1}</p>
+          <p>{copy.get.p2}</p>
+        </div>
+        <Placeholder name="[[CAPTURA_RAPORT_RADIOGRAFIE]]" caption={copy.get.figureCaption} ratio="3 / 4" class="get__figure" />
+      </div>
+      <div class="hc-form-mobile" data-form-mobile></div>
+    </Container>
+  </Section>
+
+  <Section tone="surface-2" class="who" labelledby="who-title">
+    <Container>
+      <div class="who__grid">
+        <Picture src={portrait} alt={copy.who.portraitAlt} width={200} height={200} densities={[1, 2]} formats={['avif', 'webp']} loading="lazy" decoding="async" class="who__photo" />
+        <div class="who__body">
+          <Eyebrow>{copy.who.eyebrow}</Eyebrow>
+          <h2 id="who-title" class="who__h2">{copy.who.h2}</h2>
+          <p>{copy.who.text} <a href={localePath('about', lang)}>{copy.who.link}<span aria-hidden="true"> →</span></a></p>
+        </div>
+      </div>
+    </Container>
+  </Section>
+
+  <Section tone="bg" id={a.faq} labelledby="faq-title">
+    <Container>
+      <TwoCol id="faq-title" eyebrow={copy.faq.h2} title={copy.faq.h2}>
+        <Faq items={copy.faq.items} lang={lang} />
+      </TwoCol>
+    </Container>
+  </Section>
+</BaseLayout>
+
+<style>
+  .hc-hero { background: var(--surface-2); padding-block: var(--section-y); }
+  .hc-hero__grid { display: grid; gap: var(--s-6); align-items: start; }
+  @media (min-width: 1024px) { .hc-hero__grid { grid-template-columns: minmax(0, 1fr) 440px; gap: var(--s-8); } }
+  .hc-hero__text { display: grid; gap: var(--s-4); justify-items: start; }
+  .hc-hero__h1 { max-width: 22ch; }
+  .hc-hero__text .lead { max-width: 60ch; }
+  .hc-hero :global(.hc-hero__jump) { margin-top: var(--s-2); }
+  @media (min-width: 1024px) { .hc-hero :global(.hc-hero__jump) { display: none; } }
+  .checks { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--s-4) var(--s-7); counter-reset: c; }
+  @media (min-width: 768px) { .checks { grid-template-columns: 1fr 1fr; } }
+  .check { display: grid; grid-template-columns: auto 1fr; gap: var(--s-3); align-items: start; padding-block: var(--s-3); border-top: 1px solid var(--line); }
+  .check__num { color: var(--teal); font-weight: 500; font-size: var(--fs-small); padding-top: 3px; font-variant-numeric: tabular-nums; }
+  .check__title { font-family: var(--font-display); font-weight: 600; color: var(--navy); }
+  .stack { display: grid; gap: var(--s-4); max-width: 70ch; }
+  .get { display: grid; gap: var(--s-6); align-items: start; }
+  @media (min-width: 1024px) { .get { grid-template-columns: minmax(0, 1fr) 320px; gap: var(--s-8); } }
+  .hc-form-mobile:not(:empty) { margin-top: var(--s-7); }
+  .who { padding-block: var(--s-7); }
+  .who__grid { display: grid; gap: var(--s-5); align-items: start; }
+  @media (min-width: 768px) { .who__grid { grid-template-columns: 200px minmax(0, 1fr); gap: var(--s-6); } }
+  .who :global(.who__photo) { width: 200px; height: 200px; border-radius: var(--radius); }
+  .who__body { display: grid; gap: var(--s-3); max-width: 70ch; }
+  .who__h2 { font-size: var(--fs-h3); }
+  .who__body a { font-family: var(--font-display); font-weight: 600; }
+</style>
+
+<script>
+  // Pe mobil, formularul stă după „Ce primești” (spec 06); pe desktop, în hero. Un singur nod, mutat după lățime.
+  const form = document.querySelector<HTMLElement>('[data-form-slot]');
+  const desktop = document.querySelector<HTMLElement>('[data-form-desktop]');
+  const mobile = document.querySelector<HTMLElement>('[data-form-mobile]');
+  const mq = window.matchMedia('(min-width: 1024px)');
+  const place = () => { if (!form || !desktop || !mobile) return; (mq.matches ? desktop : mobile).appendChild(form); };
+  place();
+  mq.addEventListener('change', place);
+</script>

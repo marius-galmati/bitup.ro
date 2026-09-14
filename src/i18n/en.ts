@@ -158,6 +158,7 @@ export const en = {
     readTime: (minutes: number) => `${minutes} min read`,
     draft: 'Draft, unpublished',
     legalUpdated: 'Last updated: September 10, 2026',
+    legalToc: 'Contents',
     externalRel: 'noopener',
   },
 } as const;

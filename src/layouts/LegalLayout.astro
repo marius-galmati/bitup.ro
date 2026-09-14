@@ -1,37 +1,49 @@
 ---
 /**
- * LegalLayout (ARHITECTURA § Structura, DESIGN § Prose): pagini legale. Hero intern pe --surface-2 (eyebrow, h1, lead),
- * data ultimei actualizări, apoi Prose în coloana îngustă. Fără CtaBand.
+ * LegalLayout (ARHITECTURA § Structura, DESIGN § Prose): pagini legale. Hero intern pe --surface-2 (h1 și, sub el, rândul --muted cu data
+ * ultimei actualizări), apoi Prose în coloana de text cu un cuprins scurt în dreapta, sticky, doar pe desktop (≥1024). Fără CtaBand.
  */
 import BaseLayout from './BaseLayout.astro';
 import Container from '../components/Container.astro';
 import Section from '../components/Section.astro';
-import Eyebrow from '../components/Eyebrow.astro';
 import Prose from '../components/Prose.astro';
 import { t, type Locale, type RouteKey } from '../i18n';
 
-interface Props { lang: Locale; routeKey: RouteKey; title: string; description: string; eyebrow: string; h1: string; lead?: string; jsonLd?: Record<string, unknown>[] }
-const { lang, routeKey, title, description, eyebrow, h1, lead, jsonLd } = Astro.props;
+interface Props { lang: Locale; routeKey: RouteKey; title: string; description: string; h1: string; toc?: { id: string; label: string }[]; jsonLd?: Record<string, unknown>[] }
+const { lang, routeKey, title, description, h1, toc = [], jsonLd } = Astro.props;
 const dict = t(lang);
 ---
 <BaseLayout lang={lang} routeKey={routeKey} title={title} description={description} jsonLd={jsonLd}>
   <Section tone="surface-2">
-    <Container narrow>
-      <Eyebrow>{eyebrow}</Eyebrow>
+    <Container>
       <h1 class="legal__h1">{h1}</h1>
-      {lead && <p class="lead legal__lead">{lead}</p>}
       <p class="mono small muted legal__updated">{dict.misc.legalUpdated}</p>
     </Container>
   </Section>
   <Section tone="bg">
-    <Container narrow>
-      <Prose lang={lang}><slot /></Prose>
+    <Container>
+      <div class="legal__grid">
+        <Prose lang={lang}><slot /></Prose>
+        {toc.length > 0 && (
+          <nav class="legal__toc" aria-label={dict.misc.legalToc}>
+            <ol class="legal__toc-list">{toc.map((it) => <li><a href={`#${it.id}`}>{it.label}</a></li>)}</ol>
+          </nav>
+        )}
+      </div>
     </Container>
   </Section>
 </BaseLayout>
 
 <style>
-  .legal__h1 { margin-top: var(--s-3); }
-  .legal__lead { margin-top: var(--s-4); }
-  .legal__updated { margin-top: var(--s-5); }
+  .legal__h1 { max-width: 22ch; }
+  .legal__updated { margin-top: var(--s-4); }
+  .legal__grid { display: grid; gap: var(--s-7); align-items: start; }
+  .legal__toc { display: none; }
+  @media (min-width: 1024px) {
+    .legal__grid { grid-template-columns: minmax(0, 1fr) 240px; gap: var(--s-8); }
+    .legal__toc { display: block; position: sticky; top: var(--s-6); padding-left: var(--s-5); border-left: 1px solid var(--line); }
+  }
+  .legal__toc-list { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--s-2); font-size: var(--fs-small); }
+  .legal__toc-list a { color: var(--muted); text-decoration: none; }
+  .legal__toc-list a:hover { color: var(--teal); text-decoration: underline; text-underline-offset: 3px; }
 </style>

@@ -3,7 +3,7 @@ import type { HomeCopy } from './home.types';
 
 export const homeRo: HomeCopy = {
   title: 'Suport IT și securitate pentru firme din Cluj · BitUp',
-  description: 'Suport și administrare IT pentru firme de 10–100 de angajați, cu securitatea inclusă. Un singur partener care răspunde de tot. Radiografie IT gratuită, 30 de minute.',
+  description: 'Suport și administrare IT pentru firme de 10–100 de angajați, cu securitatea inclusă. Un singur partener răspunde de tot. Radiografie IT gratuită.',
 
   hero: {
     eyebrow: 'Suport și administrare IT · Cluj-Napoca și România',

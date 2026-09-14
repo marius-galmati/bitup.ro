@@ -1,0 +1,105 @@
+---
+/**
+ * /despre, /en/about (09). Singura pagină internă cu portret în hero (3:4, dreapta), cum permite DESIGN.
+ * Ritm: hero cu portret (surface-2) → Povestea (două coloane, Prose) → Traseul: listă cronologică cu ani mono (surface) → Principii: trei carduri (bg)
+ * → Ce mai facem (două coloane, surface) → Datele firmei: FactStrip + linkuri (bg) → CtaBand cu titlu înlocuit. JSON-LD: global + Person.
+ */
+import { Picture } from 'astro:assets';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Container from '../Container.astro';
+import Section from '../Section.astro';
+import SectionHead from '../SectionHead.astro';
+import TwoCol from '../TwoCol.astro';
+import Eyebrow from '../Eyebrow.astro';
+import Card from '../Card.astro';
+import FactStrip from '../FactStrip.astro';
+import CtaBand from '../CtaBand.astro';
+import { dynamicPath, type Locale } from '../../i18n';
+import { person } from '../../lib/schema';
+import { site } from '../../lib/site';
+import type { AboutCopy } from '../../copy/about.ro';
+import portrait from '../../assets/foto-marius/marius-portret-500x667.jpg';
+
+interface Props { lang: Locale; copy: AboutCopy }
+const { lang, copy } = Astro.props;
+const jsonLd = [person(lang, `${site.url}/_astro/${portrait.src.split('/').pop()}`)];
+---
+<BaseLayout lang={lang} routeKey="about" title={copy.title} description={copy.description} jsonLd={jsonLd}>
+  <section class="about-hero">
+    <Container>
+      <div class="about-hero__grid">
+        <div class="about-hero__text">
+          <Eyebrow>{copy.hero.eyebrow}</Eyebrow>
+          <h1 class="about-hero__h1">{copy.hero.h1}</h1>
+          <p class="lead">{copy.hero.lead}</p>
+        </div>
+        <Picture src={portrait} alt={copy.hero.portraitAlt} widths={[360, 500, 720]} sizes="(min-width: 1024px) 360px, 60vw" formats={['avif', 'webp']} loading="eager" fetchpriority="high" decoding="async" class="about-hero__photo" />
+      </div>
+    </Container>
+  </section>
+
+  <Section tone="bg" labelledby="story-title">
+    <Container>
+      <TwoCol id="story-title" eyebrow={copy.story.eyebrow} title={copy.story.h2}>
+        <div class="stack">{copy.story.paragraphs.map((p) => <p>{p}</p>)}</div>
+      </TwoCol>
+    </Container>
+  </Section>
+
+  <Section tone="surface" labelledby="timeline-title">
+    <Container>
+      <TwoCol id="timeline-title" eyebrow={copy.timeline.eyebrow} title={copy.timeline.h2}>
+        <ol class="timeline">
+          {copy.timeline.items.map((it) => <li class="timeline__item"><span class="timeline__years mono">{it.years}</span><span class="timeline__text">{it.text}</span></li>)}
+        </ol>
+      </TwoCol>
+    </Container>
+  </Section>
+
+  <Section tone="bg" labelledby="principles-title">
+    <Container>
+      <SectionHead id="principles-title" eyebrow={copy.principles.eyebrow} title={copy.principles.h2} />
+      <div class="grid-3">{copy.principles.cards.map((c) => <Card title={c.title}><p>{c.text}</p></Card>)}</div>
+    </Container>
+  </Section>
+
+  <Section tone="surface" labelledby="else-title">
+    <Container>
+      <TwoCol id="else-title" eyebrow={copy.else.eyebrow} title={copy.else.h2}>
+        <p>{copy.else.text} <a href={dynamicPath('caseStudy', lang, 'proq')}>{copy.else.link}<span aria-hidden="true"> →</span></a></p>
+      </TwoCol>
+    </Container>
+  </Section>
+
+  <Section tone="bg" labelledby="company-title">
+    <Container>
+      <SectionHead id="company-title" eyebrow={copy.company.eyebrow} title={copy.company.h2} />
+      <FactStrip items={copy.company.facts} />
+      <p class="company-links">
+        <a href={site.founder.linkedin} target="_blank" rel="noopener">{copy.company.personal}<span aria-hidden="true"> →</span></a>
+        <a href={site.linkedin} target="_blank" rel="noopener">{copy.company.companyLink}<span aria-hidden="true"> →</span></a>
+      </p>
+    </Container>
+  </Section>
+
+  <CtaBand lang={lang} title={copy.cta.title} text={copy.cta.text} button={copy.cta.button} />
+</BaseLayout>
+
+<style>
+  .about-hero { background: var(--surface-2); padding-block: var(--section-y); }
+  .about-hero__grid { display: grid; gap: var(--s-6); align-items: center; }
+  @media (min-width: 768px) { .about-hero__grid { grid-template-columns: minmax(0, 1fr) 300px; gap: var(--s-8); } }
+  @media (min-width: 1024px) { .about-hero__grid { grid-template-columns: minmax(0, 1fr) 360px; } }
+  .about-hero__text { display: grid; gap: var(--s-4); }
+  .about-hero__h1 { max-width: 22ch; }
+  .about-hero__text .lead { max-width: 60ch; }
+  .about-hero :global(.about-hero__photo) { width: 100%; max-width: 360px; height: auto; aspect-ratio: 3 / 4; object-fit: cover; border-radius: var(--radius-lg); }
+  .stack { display: grid; gap: var(--s-4); }
+  p a, .company-links a { font-family: var(--font-display); font-weight: 600; }
+  .timeline { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--s-3); }
+  .timeline__item { display: grid; grid-template-columns: 110px 1fr; gap: var(--s-4); padding-block: var(--s-3); border-top: 1px solid var(--line); }
+  .timeline__item:last-child { border-bottom: 1px solid var(--line); }
+  .timeline__years { color: var(--teal); font-weight: 500; font-size: var(--fs-small); font-variant-numeric: tabular-nums; }
+  .grid-3 { display: grid; gap: var(--s-5); grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+  .company-links { margin-top: var(--s-5); display: flex; flex-wrap: wrap; gap: var(--s-2) var(--s-5); }
+</style>

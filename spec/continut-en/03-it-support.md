@@ -1,7 +1,7 @@
 # 03 — IT support and administration (`/en/services/it-support`)
 
 **Title:** IT support and administration on subscription, Cluj · BitUp
-**Description:** IT support for companies with 10–100 employees: server administration, Microsoft 365, cloud, equipment, security included. WhatsApp support, monthly report, one partner accountable.
+**Description:** Servers, workstations, network and Microsoft 365 administered on a monthly subscription, security included. WhatsApp support, monthly report.
 
 **JSON-LD:** Service (name: "IT support and administration", provider: BitUp, areaServed: Romania, description = Description) + FAQPage from § FAQ.
 

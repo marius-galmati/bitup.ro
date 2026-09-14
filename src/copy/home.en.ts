@@ -3,7 +3,7 @@ import type { HomeCopy } from './home.types';
 
 export const homeEn: HomeCopy = {
   title: 'IT support and security for companies in Cluj · BitUp',
-  description: 'IT support and administration for companies of 10–100 employees, security included. One partner who answers for everything. Free IT Health Check, 30 minutes.',
+  description: 'IT support and administration for companies of 10–100 employees, security included. One partner accountable for all of it. Free IT Health Check.',
 
   hero: {
     eyebrow: 'IT support and administration · Cluj-Napoca and Romania',

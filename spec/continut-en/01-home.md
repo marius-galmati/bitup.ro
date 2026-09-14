@@ -1,7 +1,7 @@
 # 01 — Home (`/en`)
 
 **Title:** IT support and security for companies in Cluj · BitUp
-**Description:** IT support and administration for companies of 10–100 employees, security included. One partner who answers for everything. Free IT Health Check, 30 minutes.
+**Description:** IT support and administration for companies of 10–100 employees, security included. One partner accountable for all of it. Free IT Health Check.
 
 **JSON-LD:** Organization + ProfessionalService (global). Nothing else.
 

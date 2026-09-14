@@ -1,7 +1,7 @@
 # 07 — How we work (`/en/how-we-work`)
 
-**Title:** How we work: from the health check to the monthly report · BitUp
-**Description:** What happens, concretely, when you work with BitUp: the health check, the plan, the first 30 days, a normal month, the monthly report, how you ask for help, what we do in an incident, how billing works, and how it ends.
+**Title:** How we work: health check to monthly report · BitUp
+**Description:** What happens, concretely: the health check, the plan, the first 30 days, a normal month, the monthly report, and what we do in an incident.
 
 **JSON-LD:** global + FAQPage (if § FAQ is kept).
 

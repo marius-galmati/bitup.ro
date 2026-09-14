@@ -1,7 +1,7 @@
 # 04 — Security and continuity (`/en/services/security`)
 
 **Title:** IT security, backup, and continuity for companies · BitUp
-**Description:** Protection against attacks, access under control, tested backup, continuity plan. Security audit and NIS2 / ISO 27001 preparation for small and mid-sized companies, in words owners understand.
+**Description:** Protection against attacks, access under control, tested backup, continuity plan. NIS2 and ISO 27001 turned into concrete steps.
 
 **JSON-LD:** Service (name: "Security and continuity") + FAQPage.
 

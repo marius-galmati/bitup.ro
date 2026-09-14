@@ -1,7 +1,7 @@
 # 02 — Servicii (`/servicii`)
 
-**Title:** Servicii IT pentru firme: suport, securitate, automatizări · BitUp
-**Description:** Trei grupuri de servicii care merg împreună: suport și administrare IT în abonament, securitate și continuitate, automatizări și software. Un singur partener răspunde de tot.
+**Title:** Servicii IT: suport, securitate, automatizări · BitUp
+**Description:** Trei grupuri de servicii care merg împreună: suport și administrare IT, securitate și continuitate, automatizări și software. Un singur responsabil.
 
 **JSON-LD:** global.
 

@@ -1,0 +1,104 @@
+---
+/**
+ * Form (ARHITECTURA § Formulare, DESIGN § Form). Faza 2: doar vizual; trimiterea, Turnstile și mesajele dinamice vin în Faza 4.
+ * Etichete deasupra câmpurilor, câmpuri obligatorii marcate cu *, honeypot `website` ascuns cu CSS, loc pentru Turnstile, consimțământ,
+ * buton orange full-width pe mobil, semnătura din 00-global sub buton, <noscript> cu textul din 00-global și linkul Calendly.
+ */
+import Button from './Button.astro';
+import { t, localePath, type Locale } from '../i18n';
+import { site } from '../lib/site';
+
+export interface FormLabels {
+  title: string; intro?: string;
+  name: string; company: string; employees?: string; employeesOptions?: string[]; phone: string; email: string;
+  message: string; messagePlaceholder?: string; button: string;
+}
+interface Props { kind: 'radiografie' | 'contact'; lang: Locale; labels: FormLabels; id?: string; class?: string }
+const { kind, lang, labels, id = 'formular', class: className } = Astro.props;
+const dict = t(lang);
+const f = (name: string) => `${kind}-${name}`;
+const phoneRequired = kind === 'radiografie';
+const messageRequired = kind === 'contact';
+---
+<div class:list={['form-wrap', className]} id={id} data-form-slot>
+  <h2 class="form__title">{labels.title}</h2>
+  {labels.intro && <p class="form__intro">{labels.intro}</p>}
+  <form class="form" method="post" action="/api/lead" data-form={kind} data-lang={lang} novalidate>
+    <input type="hidden" name="kind" value={kind} />
+    <input type="hidden" name="lang" value={lang} />
+
+    <div class="form__field">
+      <label for={f('name')}>{labels.name} <span class="form__req" aria-hidden="true">*</span></label>
+      <input id={f('name')} name="name" type="text" autocomplete="name" required />
+    </div>
+    <div class="form__field">
+      <label for={f('company')}>{labels.company} <span class="form__req" aria-hidden="true">*</span></label>
+      <input id={f('company')} name="company" type="text" autocomplete="organization" required />
+    </div>
+    {labels.employees && (
+      <div class="form__field">
+        <label for={f('employees')}>{labels.employees} <span class="form__req" aria-hidden="true">*</span></label>
+        <select id={f('employees')} name="employees" required>
+          <option value=""></option>
+          {(labels.employeesOptions ?? []).map((o) => <option value={o}>{o}</option>)}
+        </select>
+      </div>
+    )}
+    <div class="form__row">
+      <div class="form__field">
+        <label for={f('phone')}>{labels.phone} {phoneRequired && <span class="form__req" aria-hidden="true">*</span>}</label>
+        <input id={f('phone')} name="phone" type="tel" inputmode="tel" autocomplete="tel" required={phoneRequired} />
+      </div>
+      <div class="form__field">
+        <label for={f('email')}>{labels.email} <span class="form__req" aria-hidden="true">*</span></label>
+        <input id={f('email')} name="email" type="email" inputmode="email" autocomplete="email" required />
+      </div>
+    </div>
+    <div class="form__field">
+      <label for={f('message')}>{labels.message} {messageRequired && <span class="form__req" aria-hidden="true">*</span>}</label>
+      <textarea id={f('message')} name="message" rows="4" maxlength="5000" placeholder={labels.messagePlaceholder} required={messageRequired}></textarea>
+    </div>
+
+    {/* Honeypot: container scos din ecran, nu display:none pe input */}
+    <div class="form__hp" aria-hidden="true">
+      <label for={f('website')}>Website</label>
+      <input id={f('website')} name="website" type="text" tabindex="-1" autocomplete="off" />
+    </div>
+
+    <div class="form__field form__field--check">
+      <input id={f('consent')} name="consent" type="checkbox" value="true" required />
+      <label for={f('consent')}>{dict.consentCheckbox.before}<a href={localePath('privacy', lang)}>{dict.consentCheckbox.linkLabel}</a>{dict.consentCheckbox.after} <span class="form__req" aria-hidden="true">*</span></label>
+    </div>
+
+    <div class="form__turnstile" data-turnstile></div>
+
+    <Button type="submit" class="form__submit" data-event={`${kind}_submit`}>{labels.button}</Button>
+    <p class="form__signature small muted">{dict.formSignature}</p>
+    <noscript><p class="form__noscript small">{dict.form.noscript} <a href={site.calendly} target="_blank" rel="noopener">{dict.thankYou.radiografie.calendlyLabel}</a></p></noscript>
+  </form>
+</div>
+
+<style>
+  .form-wrap { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); padding: var(--s-5); display: grid; gap: var(--s-3); }
+  @media (min-width: 768px) { .form-wrap { padding: var(--s-6); } }
+  .form__title { font-size: var(--fs-h3); }
+  .form__intro { color: var(--muted); }
+  .form { display: grid; gap: var(--s-4); margin-top: var(--s-2); }
+  .form__row { display: grid; gap: var(--s-4); }
+  @media (min-width: 480px) { .form__row { grid-template-columns: 1fr 1fr; } }
+  .form__field { display: grid; gap: var(--s-2); }
+  .form__field label { font-family: var(--font-display); font-weight: 600; font-size: var(--fs-small); color: var(--navy); }
+  .form__req { color: var(--teal); }
+  .form input:not([type="checkbox"]), .form select, .form textarea { width: 100%; padding: var(--s-3); border: 1px solid var(--line); border-radius: var(--radius); background: var(--bg); color: var(--text); font-size: var(--fs-body); min-height: 44px; }
+  .form select { appearance: auto; }
+  .form textarea { resize: vertical; }
+  .form input:focus-visible, .form select:focus-visible, .form textarea:focus-visible { outline: 2px solid var(--teal); outline-offset: 0; border-color: var(--teal); }
+  .form input[aria-invalid="true"], .form textarea[aria-invalid="true"], .form select[aria-invalid="true"] { border-color: var(--crit); }
+  .form__hp { position: absolute; left: -9999px; top: auto; width: 1px; height: 1px; overflow: hidden; }
+  .form__field--check { grid-template-columns: auto 1fr; align-items: start; }
+  .form__field--check input { width: 20px; height: 20px; margin-top: 2px; accent-color: var(--teal); }
+  .form__field--check label { font-family: var(--font-body); font-weight: 400; font-size: var(--fs-small); color: var(--text); }
+  .form :global(.form__submit) { width: 100%; }
+  @media (min-width: 768px) { .form :global(.form__submit) { width: auto; justify-self: start; } }
+  .form__signature { margin-top: calc(var(--s-2) * -1); }
+</style>

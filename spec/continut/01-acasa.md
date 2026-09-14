@@ -1,7 +1,7 @@
 # 01 — Acasă (`/`)
 
 **Title:** Suport IT și securitate pentru firme din Cluj · BitUp
-**Description:** Suport și administrare IT pentru firme de 10–100 de angajați, cu securitatea inclusă. Un singur partener care răspunde de tot. Radiografie IT gratuită, 30 de minute.
+**Description:** Suport și administrare IT pentru firme de 10–100 de angajați, cu securitatea inclusă. Un singur partener răspunde de tot. Radiografie IT gratuită.
 
 **JSON-LD:** Organization + ProfessionalService (global). Fără altceva.
 

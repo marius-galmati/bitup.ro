@@ -1,0 +1,37 @@
+---
+/** Pagină legală (13, 14, 15): LegalLayout + blocurile din copy. Butonul „consent” redeschide bannerul (data-consent-open, ca linkul din footer). */
+import LegalLayout from '../../layouts/LegalLayout.astro';
+import Button from '../Button.astro';
+import { localePath, type Locale, type RouteKey } from '../../i18n';
+import type { LegalCopy, Inline } from '../../copy/legal.types';
+
+interface Props { lang: Locale; routeKey: RouteKey; copy: LegalCopy }
+const { lang, routeKey, copy } = Astro.props;
+const toc = copy.sections.map((s) => ({ id: s.id, label: s.h2 }));
+const isStr = (i: Inline): i is string => typeof i === 'string';
+---
+<LegalLayout lang={lang} routeKey={routeKey} title={copy.title} description={copy.description} h1={copy.h1} toc={toc}>
+  {copy.sections.map((s) => (
+    <>
+      <h2 id={s.id}>{s.h2}</h2>
+      {s.blocks.map((blk) => {
+        const inl = (items: Inline[]) => items.map((i) =>
+          isStr(i) ? i : 'b' in i ? <strong>{i.b}</strong> : 'a' in i ? <a href={localePath(i.to, lang)}>{i.a}</a> : <code>{i.code}</code>);
+        if ('p' in blk) return <p>{inl(blk.p)}</p>;
+        if ('ul' in blk) return <ul>{blk.ul.map((li) => <li>{inl(li)}</li>)}</ul>;
+        if ('table' in blk) return (
+          <div class="legal-table"><table>
+            <thead><tr>{blk.table.head.map((h) => <th scope="col">{h}</th>)}</tr></thead>
+            <tbody>{blk.table.rows.map((r) => <tr>{r.map((c) => <td>{inl(c)}</td>)}</tr>)}</tbody>
+          </table></div>
+        );
+        return <p><Button variant="secondary" type="button" data-consent-open>{blk.label}</Button></p>;
+      })}
+    </>
+  ))}
+</LegalLayout>
+
+<style>
+  .legal-table { overflow-x: auto; }
+  .legal-table table { min-width: 560px; }
+</style>

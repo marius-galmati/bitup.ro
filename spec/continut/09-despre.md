@@ -1,7 +1,7 @@
 # 09 — Despre (`/despre`)
 
 **Title:** Despre Marius Galmati și BitUp · BitUp
-**Description:** Cine răspunde de IT-ul tău când lucrezi cu BitUp: Marius Galmati, în IT din 2017, cu experiență de securitate într-o corporație din Fortune 500, și de ce a construit BitUp pentru firmele mici.
+**Description:** Cine răspunde de IT-ul tău: Marius Galmati, în IT din 2017, cu experiență de securitate într-o corporație din Fortune 500. De ce există BitUp.
 
 **JSON-LD:** global + Person (name: Marius Galmati, jobTitle: Fondator, worksFor: BitUp Technology SRL, sameAs: LinkedIn, image: portret).
 

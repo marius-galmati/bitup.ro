@@ -1,7 +1,7 @@
 # 10 — Client support (`/en/support`)
 
-**Title:** Support for BitUp clients: WhatsApp, helpdesk, emergencies · BitUp
-**Description:** BitUp client with a problem? Message Cipri on WhatsApp, open a ticket on helpdesk.bitup.ro, or call the emergency number. Everything you need to know is here.
+**Title:** Client support: WhatsApp, helpdesk, emergencies · BitUp
+**Description:** BitUp client with a problem? Message Cipri on WhatsApp, open a ticket on helpdesk.bitup.ro, or call the emergency number.
 
 **JSON-LD:** global. Discreet link in the header (not in the main menu; at the bottom of the mobile menu) and in the footer. The page has no sales CtaBand; it's for existing clients.
 

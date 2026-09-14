@@ -95,6 +95,7 @@ Acceptare:
 - `/blog` și `/en/blog` afișează articolul; ambele RSS-uri validează.
 - Imaginile din articol sunt servite optimizat (AVIF/WebP, dimensiuni declarate, `loading="lazy"` sub fold).
 - `npm run build` nu mai afișează avertismentele „No files found” pentru colecțiile `cases` și `blog` (excepția cunoscută din Fazele 0–2 dispare aici).
+- Testul de forme la 50% zoom pe homepage, refăcut după ce § 8 (Rezultate) și § 10 (Din blog) se umplu din colecții; în `NOTES.md` se scrie dacă ritmul s-a schimbat față de Faza 2a (când § 8, § 9 și § 10 erau trei benzi joase la rând).
 - Randarea Markdown a articolului și a studiilor de caz e comparată vizual cu textul sursă (procesorul Markdown implicit s-a schimbat în Astro 7): liste, titluri, citate, imagini cu legendă, linkuri.
 
 ---

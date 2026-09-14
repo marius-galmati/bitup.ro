@@ -59,7 +59,34 @@ export function professionalService(locale: Locale) {
     },
     founder: { '@type': 'Person', name: site.founder.name, jobTitle: site.founder.jobTitle[locale] },
     sameAs: [site.linkedin],
-    // `inLanguage` nu e o proprietate validă pe ProfessionalService (validator.schema.org: UNKNOWN_FIELD); rămâne pe Article/Service.
+    // `inLanguage` nu e o proprietate validă pe ProfessionalService (validator.schema.org: UNKNOWN_FIELD); rămâne doar pe Article (Faza 3).
+  };
+}
+
+/** Service, pe paginile de servicii (ARHITECTURA § SEO): name, provider, areaServed, description. */
+export function service(locale: Locale, name: string, description: string, url: string) {
+  return {
+    '@type': 'Service',
+    name,
+    description,
+    url,
+    // fără `inLanguage`: și pe Service e UNKNOWN_FIELD la validator.schema.org (Faza 2b); limba e dată de `url` și de `areaServed`
+    provider: { '@id': ORG_ID },
+    areaServed: locale === 'ro' ? 'România' : 'Romania',
+    serviceType: name,
+  };
+}
+
+/** Person (Marius), pe /despre. */
+export function person(locale: Locale, imageUrl?: string) {
+  return {
+    '@type': 'Person',
+    '@id': `${site.url}/#founder`,
+    name: site.founder.name,
+    jobTitle: site.founder.jobTitle[locale],
+    worksFor: { '@id': ORG_ID },
+    sameAs: site.founder.linkedin,
+    ...(imageUrl ? { image: imageUrl } : {}),
   };
 }
 

@@ -1,7 +1,7 @@
 # 03 — Suport și administrare IT (`/servicii/suport-it`)
 
 **Title:** Suport și administrare IT în abonament, Cluj · BitUp
-**Description:** Suport IT pentru firme de 10–100 de angajați: administrare servere, Microsoft 365, cloud, echipamente, cu securitatea inclusă. Suport pe WhatsApp, raport lunar, un singur responsabil.
+**Description:** Administrare servere, stații, rețea și Microsoft 365 în abonament, cu securitatea inclusă. Suport pe WhatsApp, raport lunar, un singur responsabil.
 
 **JSON-LD:** Service (name: „Suport și administrare IT”, provider: BitUp, areaServed: România, description = Description) + FAQPage din § Întrebări.
 

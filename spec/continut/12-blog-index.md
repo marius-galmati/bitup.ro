@@ -1,7 +1,7 @@
 # 12 — Blog (`/blog`)
 
 **Title:** Blog: decizii de tehnologie pentru patroni · BitUp
-**Description:** Articole scrise de Marius Galmati despre cum iei decizii mai bune despre IT-ul firmei tale: securitate pe înțelesul tău, backup, automatizări, ce merită și ce nu. Din proiecte reale.
+**Description:** Articole scrise de Marius Galmati: securitate pe înțelesul tău, backup, automatizări, ce merită și ce nu. Din proiecte reale, nu din teorie.
 
 **JSON-LD:** global. RSS la `/rss.xml`, link în `<head>`.
 

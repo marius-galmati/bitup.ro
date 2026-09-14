@@ -1,7 +1,7 @@
 # 06 — Radiografie IT gratuită (`/radiografie-it`)
 
-**Title:** Radiografie IT gratuită: afli în 30 de minute unde stă firma ta · BitUp
-**Description:** 30 de minute, remote, 10 verificări: backup, parole, accese, email, actualizări, securitate. La final primești o pagină cu ce e bine, ce e urgent și ce ar costa. Fără obligații.
+**Title:** Radiografie IT gratuită, 30 de minute · BitUp
+**Description:** 30 de minute, remote, 10 verificări. Pleci cu o pagină: ce e bine, ce e urgent, ce ar costa. Fără obligații.
 
 **JSON-LD:** global + FAQPage din § Întrebări. Fără CtaBand; formularul e CTA-ul.
 

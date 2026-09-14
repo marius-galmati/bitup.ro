@@ -1,7 +1,7 @@
 # 08 — Results (`/en/results`)
 
 **Title:** Results: case studies with names · BitUp
-**Description:** What we did, for whom, and what changed. Case studies with the client's name, published with their consent, without details that could be used against them.
+**Description:** What we did, for whom, and what changed. Case studies with the client's name, published with their consent.
 
 **JSON-LD:** global.
 

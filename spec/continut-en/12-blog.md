@@ -1,7 +1,7 @@
 # 12 — Blog (`/en/blog`)
 
 **Title:** Blog: technology decisions for business owners · BitUp
-**Description:** Articles by Marius Galmati on making better decisions about your company's IT: security in plain language, backup, automation, what's worth it and what isn't. From real projects.
+**Description:** Articles by Marius Galmati: security in plain language, backup, automation, what's worth it and what isn't. From real projects, not theory.
 
 **JSON-LD:** global. RSS at `/en/rss.xml`, link in `<head>`.
 

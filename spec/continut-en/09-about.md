@@ -1,7 +1,7 @@
 # 09 — About (`/en/about`)
 
 **Title:** About Marius Galmati and BitUp · BitUp
-**Description:** Who answers for your IT when you work with BitUp: Marius Galmati, in IT since 2017, with security experience at a Fortune 500 corporation, and why he built BitUp for small companies.
+**Description:** Who answers for your IT: Marius Galmati, in IT since 2017, with security experience at a Fortune 500 corporation. Why BitUp exists.
 
 **JSON-LD:** global + Person (name: Marius Galmati, jobTitle: Founder, worksFor: BitUp Technology SRL, sameAs: LinkedIn, image: portrait).
 

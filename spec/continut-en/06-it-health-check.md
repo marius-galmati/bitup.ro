@@ -1,7 +1,7 @@
 # 06 — Free IT Health Check (`/en/it-health-check`)
 
-**Title:** Free IT Health Check: where your company stands, in 30 minutes · BitUp
-**Description:** 30 minutes, remote, 10 checks: backup, passwords, access, email, updates, security. You get one page: what's fine, what's urgent, and what it would cost. No obligation.
+**Title:** Free IT Health Check: 30 minutes, 10 checks · BitUp
+**Description:** 30 minutes, remote, 10 checks. You get one page: what's fine, what's urgent, and what it would cost. No obligation.
 
 **JSON-LD:** global + FAQPage from § FAQ. No CtaBand; the form is the CTA.
 

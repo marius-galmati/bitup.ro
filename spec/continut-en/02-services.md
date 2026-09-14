@@ -1,7 +1,7 @@
 # 02 — Services (`/en/services`)
 
-**Title:** IT services for companies: support, security, automation · BitUp
-**Description:** Three service groups that go together: IT support and administration on a monthly subscription, security and continuity, automation and software. One partner answers for everything.
+**Title:** IT services: support, security, automation · BitUp
+**Description:** Three service groups that go together: IT support and administration, security and continuity, automation and software. One partner accountable.
 
 **JSON-LD:** global.
 

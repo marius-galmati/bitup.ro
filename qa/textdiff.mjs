@@ -23,16 +23,24 @@ const pageText = norm(decode(html
   .replace(/<[^>]+\bplaceholder="([^"]*)"[^>]*>/gi, ' $1 ')
   .replace(/<meta[^>]+content="([^"]*)"[^>]*>/gi, ' $1 ')
   .replace(/<title>([^<]*)<\/title>/gi, ' $1 ')
+  .replace(/<span aria-hidden="true"> →<\/span>/g, '') // săgeata decorativă a linkurilor
+  .replace(/<\/?(a|strong|em|b|i|code|abbr)(\s[^>]*)?>/gi, '') // tag-urile inline nu rup propoziția („…cu <a>link</a>.”)
   .replace(/<[^>]+>/g, ' ')));
 
-const SKIP = /^(Notă|Note for|Text \(|Trei carduri|Three cards|Three large|Steps:|Faq \(|Card:|Două carduri|Two cards|Ultimele|Latest|Rând static|Static row|Rând discret|Discreet|Imagine:|Image:|Varianta|Post-launch|Tipografic|Typographic|Imediat sub|Right under|Listă de|List of|Secțiune compactă|Compact section|CtaBand|JSON-LD|\*\*JSON-LD|Ancore|Required anchors|Butoane:|Buttons:|Linkuri:|Links:|Link:|---|#)/;
+const SKIP = /^(Notă|Note for|Text \([^)]*\):\s*$|Text:|Trei carduri|Three cards|Three large|Steps:|Steps \(|Faq \(|Faq:|Card:|Două carduri|Two cards|Două liste|Two lists|Două coloane|Two columns|Listă scurtă|Short list|Listă cronologică|Chronological list|Ultimele|Latest|Rând static|Static row|Rând discret|Discreet|Imagine:|Image:|Varianta|Post-launch|Tipografic|Typographic|Imediat sub|Right under|Listă de|List of|Secțiune compactă|Compact section|CtaBand|JSON-LD|\*\*JSON-LD|Ancore|Required anchors|Mandatory anchors|Butoane:|Buttons:|Buton:|Button:|Buton \(|Button \(|Dreapta:|Right:|Stânga:|Left:|Pagina nu are|The page has no|\|---|Linkuri:|Links:|Link:|FactStrip:|Tabel|Table|Simple table|Numbered list|Listă numerotată|Câmpuri|Fields|Pe desktop|On desktop|---|#)/;
 
 const fragments = [];
 for (let raw of md.split('\n')) {
-  let line = raw.trim();
-  if (!line || SKIP.test(line)) {
+  let line = raw.trim().replace(/^- /, '');
+  // linii de layout de formular și note scurte: „Sub buton: …”, „Succes → …”, „Consimțământ * (textul din …)”, „Șase carduri:”, „Listă:”
+  if (/^(Sub buton|Under the button|Succes|Success|Consimțământ \*|Consent \*|Șase carduri|Six cards|Listă|List|Trei formule|Three options|Diagramă|Inline SVG|Rând:|Line:)/.test(line) && !/^(Listă|List) (de|of) \d/.test(line)) {
+    if (/^(Rând|Line):/.test(line)) { line = line.replace(/^(Rând|Line):\s*/, ''); } else continue;
+  }
+  line = line.replace(/^(Text sub listă|Text under list) \([^)]*\):\s*/, '');
+  line = line.replace(/\[([^\]]+)\]\([^)]+\)/g, '$1'); // linkuri Markdown → eticheta
+  if (!line || SKIP.test(line.replace(/\*\*/g, ''))) {
     // butoanele și linkurile: extragem etichetele îngroșate / după săgeată
-    if (/^(Butoane|Buttons):/.test(line)) {
+    if (/^(Butoane|Buttons|Buton|Button)\b/.test(line)) {
       for (const m of line.matchAll(/\*\*([^*]+)\*\*/g)) fragments.push(m[1]);
     } else if (/^(Linkuri|Links|Link):/.test(line)) {
       for (const m of line.replace(/^(Linkuri|Links|Link):\s*/, '').split('·')) { const lbl = m.split('→')[0].trim(); if (lbl) fragments.push(lbl); }
@@ -43,18 +51,39 @@ for (let raw of md.split('\n')) {
   line = line.replace(/^\*\*H1\*\* \([^)]*\)\*\*:\*\*\s*/, '').replace(/^\*\*H[12]:\*\*\s*/, '');
   line = line.replace(/^Eyebrow:\s*`([^`]*)`/, '$1').replace(/^Lead(?: \([^)]*\))?:\s*/, '');
   line = line.replace(/^Rând de închidere \([^)]*\):\s*/, '').replace(/^Closing row \([^)]*\):\s*/, '');
+  // etichete de layout urmate de text de pagină: „Rând sub liste: …”, „Sub buton, `--muted`: …”, „Rând simplu, la final, `--muted`: …”, „Text (70ch): …”
+  line = line.replace(/^(Rând sub liste|Row under the lists|Sub buton, `--muted`|Under the button, `--muted`|Rând simplu, la final, `--muted`|Simple line, at the end, `--muted`|Rând sub pași|Row under the steps|Rând sub text|Row under text|Rând sub tabel|Line under the table|Titlu deasupra formularului|Title above the form|Sub H1, `--muted`|Under H1, `--muted`|Titlu|Title|Text scurt|Short text|Text \([^)]*\)):\s*/, '');
+  line = line.replace(/^- /, '');
+  // câmpuri de formular: „Etichetă * (select: …)”, „Etichetă (opțional) — placeholder: „…””: eticheta și placeholder-ul, separat
+  if (/\s\*(\s|$)|placeholder:/.test(line) && !/^\*\*/.test(line)) {
+    const parts = line.split(/\s·\s/);
+    for (const p of parts) {
+      const label = p.split(/\s\*|\s—\s|,?\s*placeholder:|\s\(select:|\s\(textarea/)[0].replace(/\)$/, '').trim();
+      if (label.length >= 3) fragments.push(label);
+      for (const m of p.matchAll(/placeholder:\s*[„"]([^”"]+)[”"]/g)) fragments.push(m[1]);
+    }
+    continue;
+  }
   // „→ Etichetă (`/cale`)” și „→ link „Etichetă” (`/cale`)”
-  line = line.replace(/→ link [„"]([^”"]+)[”"] \(`[^`]*`\)/g, '$1').replace(/→ ([^(`]+?) \(`[^`]*`\)/g, '$1');
-  line = line.replace(/\(`[^`]*`\)/g, '').replace(/`[^`]*`/g, '');
+  line = line.replace(/→ link [„"]([^”"]+)[”"] \(`[^`]*`\)\.?/g, '$1').replace(/→ ([^(`]+?) \(`[^`]*`\)\.?/g, '$1');
+  // note de layout între paranteze: „(Figure cu legenda: …)”, „(`/cale`, doar când `draft: false`)”
+  line = line.replace(/\((?:[^()]*(?:Figure|doar când|only when|draft:|link|tab nou|new tab|data-event)[^()]*)\)/g, '');
+  line = line.replace(/\s*→\s*`[#/][^`]*`/g, '').replace(/\s*\{#[^}]*\}/g, '');
+  line = line.replace(/\(`[^`]*`\)/g, '').replace(/`([^`]*)`/g, '$1');
   line = line.replace(/\*\*/g, '').replace(/^\d+\.\s+/, '').replace(/→/g, ' ').trim();
   if (line.length < 3) continue;
   fragments.push(line);
 }
 
 const missing = [];
+const found = (s) => pageText.includes(norm(s));
 for (const f of fragments) {
-  const n = norm(f);
-  if (!pageText.includes(n)) missing.push(n);
+  if (found(f)) continue;
+  // toleranță doar de formatare: un rând compus („Titlu · meta · text”, „Etichetă: valoare”, rând de tabel „| a | b |”) e ok
+  // dacă fiecare parte a lui apare identic în pagină (URL-urile brute nu sunt text de pagină)
+  const parts = f.replace(/https?:\/\/\S+/g, '').split(/\s*[|·]\s*|:\s+|(?=\[\[)|(?<=\]\])/).map((p) => p.trim()).filter((p) => p.length >= 3);
+  if (parts.length > 1 && parts.every(found)) continue;
+  missing.push(norm(f));
 }
 console.log(`${fragments.length} fragmente din ${mdPath}; ${fragments.length - missing.length} găsite identic în ${htmlPath}.`);
 if (missing.length) { console.log('Lipsă / diferite:'); missing.forEach((m) => console.log('  · ' + m)); process.exit(1); }

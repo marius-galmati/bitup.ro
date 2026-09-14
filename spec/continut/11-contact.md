@@ -30,7 +30,7 @@ Lead: Dacă vrei să vezi unde stă firma ta cu IT-ul, cel mai bun început e [R
 **Dreapta: formularul** (kind=contact):
 
 Titlu: **Trimite un mesaj**
-Câmpuri: Numele tău * · Firma * · Email * · Telefon (opțional) · Cu ce te pot ajuta? * (textarea, placeholder: „Scrie cu cuvintele tale. Nu ai nevoie de termeni tehnici.”) · Consimțământ *
+Câmpuri: Numele tău * · Firma * · Email * · Telefon (opțional) · Cu ce te putem ajuta? * (textarea, placeholder: „Scrie cu cuvintele tale. Nu ai nevoie de termeni tehnici.”) · Consimțământ *
 Buton: **Trimite mesajul**
 Sub buton: semnătura din `00-global.md`.
 Succes → `/multumesc?kind=contact`.

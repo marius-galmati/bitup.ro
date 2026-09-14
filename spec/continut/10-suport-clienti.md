@@ -1,7 +1,7 @@
 # 10 — Suport pentru clienți (`/suport`)
 
-**Title:** Suport pentru clienții BitUp: WhatsApp, helpdesk, urgențe · BitUp
-**Description:** Ești client BitUp și ai o problemă? Scrie-i lui Cipri pe WhatsApp, deschide un tichet pe helpdesk.bitup.ro sau sună la numărul de urgență. Aici e tot ce trebuie să știi.
+**Title:** Suport pentru clienți: WhatsApp, helpdesk, urgențe · BitUp
+**Description:** Ești client BitUp și ai o problemă? Scrie-i lui Cipri pe WhatsApp, deschide un tichet pe helpdesk.bitup.ro sau sună la numărul de urgență.
 
 **JSON-LD:** global. Link discret în header (nu în meniul principal; în meniul mobil jos) și în footer. Pagina nu are CtaBand de vânzare; e pentru clienți existenți.
 

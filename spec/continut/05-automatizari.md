@@ -1,7 +1,7 @@
 # 05 — Automatizări și software (`/servicii/automatizari`)
 
 **Title:** Automatizări, AI și software la comandă pentru firme · BitUp
-**Description:** Mutăm procesele care trăiesc în Excel și pe email într-un sistem: automatizări între aplicațiile pe care le ai, asistenți AI cu scop clar, aplicații făcute pentru firma ta. Pornim de la proces, nu de la tehnologie.
+**Description:** Automatizări între aplicațiile pe care le ai, asistenți AI cu scop clar, aplicații făcute pentru firma ta. Pornim de la proces, nu de la tehnologie.
 
 **JSON-LD:** Service (name: „Automatizări și software”) + FAQPage.
 

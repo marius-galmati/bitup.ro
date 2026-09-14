@@ -1,7 +1,7 @@
 # 07 — Cum lucrăm (`/cum-lucram`)
 
 **Title:** Cum lucrăm: de la radiografie la raportul lunar · BitUp
-**Description:** Ce se întâmplă concret când lucrezi cu BitUp: radiografia, planul, primele 30 de zile, o lună obișnuită, raportul lunar, cum ceri ajutor, ce facem la un incident, cum se facturează și cum se încheie.
+**Description:** Ce se întâmplă concret: radiografia, planul, primele 30 de zile, o lună obișnuită, raportul lunar și ce facem la un incident.
 
 **JSON-LD:** global + FAQPage (dacă se păstrează § Întrebări).
 

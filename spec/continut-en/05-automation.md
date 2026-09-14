@@ -1,7 +1,7 @@
 # 05 — Automation and software (`/en/services/automation`)
 
 **Title:** Automation, AI, and custom software for companies · BitUp
-**Description:** We move processes living in Excel and email into a system: automations between your applications, AI assistants with a clear purpose, applications built for your company. We start from the process, not the technology.
+**Description:** Automation between the apps you already have, AI assistants with a clear purpose, applications built for your company. We start from the process.
 
 **JSON-LD:** Service (name: "Automation and software") + FAQPage.
 

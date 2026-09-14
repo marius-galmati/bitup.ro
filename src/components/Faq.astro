@@ -3,7 +3,7 @@
  * Faq (DESIGN § Faq): details/summary native, stilizate; prima întrebare deschisă implicit.
  * Generează JSON-LD FAQPage (în limba paginii) când `jsonLd` e true; homepage-ul îl dezactivează (01-acasa: „Fără altceva”).
  */
-interface Props { items: { q: string; a: string }[]; jsonLd?: boolean; class?: string; lang?: string }
+interface Props { items: { q: string; a: string; link?: { label: string; href: string; after?: string } }[]; jsonLd?: boolean; class?: string; lang?: string }
 const { items, jsonLd = true, class: className, lang } = Astro.props;
 const graph = {
   '@context': 'https://schema.org',
@@ -16,7 +16,7 @@ const graph = {
   {items.map((it, i) => (
     <details class="faq__item" open={i === 0}>
       <summary class="faq__q">{it.q}</summary>
-      <p class="faq__a">{it.a}</p>
+      <p class="faq__a">{it.a}{it.link && <> <a href={it.link.href}>{it.link.label}</a>{it.link.after}</>}</p>
     </details>
   ))}
 </div>

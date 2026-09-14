@@ -1,7 +1,7 @@
 # 04 — Securitate și continuitate (`/servicii/securitate`)
 
 **Title:** Securitate IT, backup și continuitate pentru firme · BitUp
-**Description:** Protecție împotriva atacurilor, accese sub control, backup testat, plan de continuitate. Audit de securitate și pregătire NIS2 / ISO 27001 pentru firme mici și mijlocii, pe înțelesul patronului.
+**Description:** Protecție împotriva atacurilor, accese sub control, backup testat, plan de continuitate. NIS2 și ISO 27001 traduse în pași concreți.
 
 **JSON-LD:** Service (name: „Securitate și continuitate”) + FAQPage.
 

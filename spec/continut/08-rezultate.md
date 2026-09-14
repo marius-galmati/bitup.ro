@@ -1,7 +1,7 @@
 # 08 — Rezultate (`/rezultate`)
 
 **Title:** Rezultate: studii de caz cu nume · BitUp
-**Description:** Ce am făcut, pentru cine și ce s-a schimbat. Studii de caz cu numele clientului, publicate cu acordul lui, fără detalii care ar putea fi folosite împotriva lui.
+**Description:** Ce am făcut, pentru cine și ce s-a schimbat. Studii de caz cu numele clientului, publicate cu acordul lui.
 
 **JSON-LD:** global.
 

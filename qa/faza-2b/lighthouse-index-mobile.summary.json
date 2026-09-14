@@ -1,0 +1,19 @@
+{
+  "url": "http://localhost:4321/",
+  "performance": 98,
+  "accessibility": 100,
+  "bestPractices": 100,
+  "seo": 100,
+  "lcp": "2.1 s",
+  "cls": "0.016",
+  "tbt": "0 ms",
+  "transferKiB": 234,
+  "failed": [
+    "first-contentful-paint: First Contentful Paint",
+    "largest-contentful-paint: Largest Contentful Paint",
+    "interactive: Time to Interactive",
+    "image-delivery-insight: Improve image delivery",
+    "network-dependency-tree-insight: Network dependency tree",
+    "render-blocking-insight: Render-blocking requests"
+  ]
+}
