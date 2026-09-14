@@ -1,0 +1,5 @@
+# Secrete pentru functions/api/lead.ts, DOAR pe server. Copiază în .dev.vars (în .gitignore) pentru `npx wrangler pages dev dist`.
+# În producție: Cloudflare Pages → Settings → Environment variables, separat pentru Production și Preview.
+RESEND_API_KEY=
+TURNSTILE_SECRET_KEY=
+LEAD_TO_EMAIL=office@bitup.ro

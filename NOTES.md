@@ -570,6 +570,39 @@ Limitele din `ARHITECTURA.md` § SEO: title ≤ 60, description ≤ 155. Se copi
 
 Notă: descrierea de pe 11-contact („Scrie-i lui Marius Galmati direct… Răspuns personal”) e la persoana a III-a, nu la persoana I, deci nu s-a schimbat; dar H1-ul paginii e acum „Scrie-ne”. De decis dacă descrierea rămâne așa când o scurtezi (vezi § Întrebări deschise, punctul 9).
 
+## Faza 0 — Schelet și unelte (14 septembrie 2026)
+
+### Ce s-a făcut
+- Proiect Astro **5.18.2**, `output: 'static'`, TypeScript strict (`astro/tsconfigs/strict`), scris de mână, echivalent cu template-ul minimal; motivul e în § Propuneri (versiunea Astro). Integrări: `@astrojs/sitemap` 3.7.4, `@astrojs/rss` 4.0.19, `astro-og-canvas` 0.13.1, `astro-icon` 1.2.0 + `@iconify-json/lucide` (doar `sun`, `moon` incluse deocamdată).
+- Fonturi self-hosted din fontsource: Bricolage Grotesque (variabil, axa wght), Source Sans 3 (variabil, axa wght), IBM Plex Mono 400 și 500. Importate ca subseturi latin + latin-ext, `font-display: swap` (implicit în fontsource). Pentru fonturile variabile, CSS-ul fontsource declară și alte subseturi (vietnamese, cyrillic, greek) cu `unicode-range`; fișierele lor ajung în `dist/_astro/`, dar browserul nu le cere: pe pagina de test s-au descărcat exact 8 fișiere, latin și latin-ext pentru fiecare font (verificat cu Playwright, lista cererilor).
+- `src/styles/tokens.css` cu tokenii din DESIGN § Tokeni și § Dark mode (light în `:root`, dark în `:root[data-theme="dark"]` și în `@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) }`), `color-scheme` per temă. `src/styles/base.css`: reset minim, tipografie de bază, focus (outline 2 px teal, offset 2 px), reduced-motion, `.container`, `.eyebrow`, `.mono`.
+- Scriptul de temă (7 rânduri, inline în `<head>`, înainte de CSS): citește `localStorage['bitup-theme']` și pune `data-theme` pe `<html>`; fără valoare salvată, decide sistemul.
+- i18n: `astro.config.mjs` cu `defaultLocale: 'ro'`, `locales: ['ro','en']`, `prefixDefaultLocale: false`, `redirectToDefaultLocale: false`; `site: 'https://bitup.ro'`; `trailingSlash: 'never'`; `build.format: 'file'`. `src/i18n/ro.ts` și `en.ts` (microcopy copiat din 00-global), `routes.ts` (harta rutelor, ancorele, `noindexRoutes`), `index.ts` (`t`, `getLocale`, `localePath`, `dynamicPath`, `altUrl`, `absoluteUrl`, `alternates`, `formatDate`).
+- Structura de foldere din ARHITECTURA § Structura proiectului, cu `.gitkeep` unde e goală, inclusiv `functions/api/`.
+- `src/content.config.ts` cu schemele din ARHITECTURA § Colecții și subfolderele `ro/`, `en/` (goale până la Faza 3).
+- `src/lib/site.ts` cu valorile din PLACEHOLDERS § Completate (o singură dată). Sediul social e acolo, marcat „doar pe paginile legale”.
+- `.gitignore` (cu `.dev.vars`, `.env`, `dist/`, `.astro/`), `README.md`, `.nvmrc` (24), `.env.example`, `.dev.vars.example`. Cheile publice sunt declarate prin `astro:env` (`envField`, opționale), ca să nu apară nicăieri altundeva.
+- Unelte QA: `qa/capture.mjs` (Playwright: capturi la 375/768/1024/1440 în light și dark, plus lista gazdelor externe cerute), `qa/contrast.py` (raporturi WCAG pe perechile de tokeni). Playwright e devDependency; Chromium descărcat local.
+- Pagina temporară `src/pages/faza-0.astro` (`noindex`): cele trei fonturi cu diacritice, cele patru culori de brand, neutrele, un bloc navy cu butonul orange. Se șterge în Faza 1.
+
+### Ce s-a verificat
+- `npm run dev`: pornește, `/faza-0` răspunde 200, fără erori în log.
+- `npm run build`: 0 erori. **2 avertismente**, ambele „No files found matching **/*.md” pentru `src/content/cases` și `src/content/blog`: colecțiile sunt definite în Faza 0 (PLAN, sarcina 6) și se umplu abia în Faza 3. Un placeholder `_….md` nu e ignorat de loader-ul din Astro 5 (dă eroare de schemă), așa că avertismentele rămân până la Faza 3. Nu există alt avertisment.
+- `npm run check` (astro check, TypeScript strict): 0 erori, 0 avertismente, 0 sugestii.
+- Capturi în `qa/faza-0/`: 8 fișiere (4 lățimi × 2 teme), privite. Cele trei fonturi se văd corect (Bricolage la titluri, Source Sans 3 la text, Plex Mono la eyebrow și cifre), diacriticele ăâîșț și ghilimelele „…” «…» sunt corecte. În dark, fundalul e navy cu tentă teal (nu negru), titlurile devin text deschis, teal-ul devine #5FB0B4, blocul navy e ușor ridicat cu bordură, orange și butonul sunt identice cu light.
+- Cereri de rețea pe pagina de test: doar `localhost` (HTML, un CSS, 8 fișiere woff2). Zero cereri către fonts.googleapis.com sau orice CDN.
+- Contrast (`python qa/contrast.py`): toate perechile din DESIGN trec AA (text 4.5:1, focus 3:1); orange pe fundal deschis dă 2.02:1, motivul pentru care nu e culoare de focus.
+
+### Microcopy adăugat, neexistent în 00-global (de confirmat de Marius)
+- `skipLink`: „Sari la conținut” / „Skip to content” (DESIGN § Accesibilitate cere skip-link).
+- `nav.menuOpen` / `nav.menuClose`: „Meniu” / „Închide meniul”, „Menu” / „Close menu” (aria-label pentru butonul hamburger).
+
+### Lista de mirosuri (CLAUDE.md, 1–16)
+Nu se aplică încă unei pagini reale; pagina de test e temporară și nu intră în site. Se bifează de la Faza 1.
+
+### Placeholder-e rămase
+Neschimbate față de `spec/PLACEHOLDERS.md` § Rămase: nicio pagină reală încă.
+
 ## Propuneri (nu se fac fără acord)
 
 - **Versiunea Astro.** `ARHITECTURA.md` spune „Astro 5”, iar tot spec-ul (loader-ele `glob`, `content.config.ts`, opțiunile `i18n`) e scris pe API-ul lui 5. La 14 septembrie 2026, `npm view astro version` dă 7.3.2, iar ultimul 5 e 5.18.2. `npm create astro@latest` (PLAN, Faza 0, pasul 1) ar instala 7. Am urmat spec-ul: proiectul e fixat pe `astro@^5.18` (scheletul e scris de mână, echivalent cu template-ul minimal), iar integrările sunt la versiunile compatibile cu 5. Propunere: după Faza 1, o încercare de upgrade la 7 pe o ramură, cu build și capturi comparate; dacă trece fără schimbări de conținut, migrăm înainte de Faza 2, ca să nu lansăm pe o versiune în întreținere.

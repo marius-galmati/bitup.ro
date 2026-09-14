@@ -1,0 +1,72 @@
+/*
+  base.css — reset minim, tipografie de bază, focus, reduced-motion.
+  DESIGN.md § Tipografie, § Layout, § Mișcare, § Accesibilitate. Fără utilitare în afara celor de mai jos.
+*/
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  -webkit-text-size-adjust: 100%;
+  background: var(--bg);
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  font-weight: 400;
+  line-height: 1.6;
+  hyphens: auto;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3 {
+  margin: 0;
+  font-family: var(--font-display);
+  color: var(--navy);
+  line-height: 1.15;
+  text-wrap: balance;
+}
+h1 { font-size: var(--fs-h1); font-weight: 700; letter-spacing: -0.01em; }
+h2 { font-size: var(--fs-h2); font-weight: 700; letter-spacing: -0.01em; }
+h3 { font-size: var(--fs-h3); font-weight: 600; }
+
+p, ul, ol, figure { margin: 0; }
+p { text-wrap: pretty; }
+
+img, picture, svg, video { display: block; max-width: 100%; height: auto; }
+
+a { color: var(--teal); text-decoration: underline; text-underline-offset: 3px; transition: color 150ms; }
+a:hover { color: var(--navy); }
+
+button, input, select, textarea { font: inherit; color: inherit; }
+
+/* Focus vizibil peste tot: outline 2 px teal, offset 2 px. Pe butonul orange, outline navy (în componenta Button). */
+:focus-visible { outline: 2px solid var(--teal); outline-offset: 2px; }
+
+.mono { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: var(--fs-eyebrow);
+  font-weight: 500;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--teal);
+}
+.lead { font-size: var(--fs-lead); color: var(--muted); }
+.muted { color: var(--muted); }
+.small { font-size: var(--fs-small); }
+
+.container { max-width: var(--container); margin-inline: auto; padding-inline: 20px; }
+@media (min-width: 768px) { .container { padding-inline: 32px; } }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

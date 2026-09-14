@@ -1,0 +1,24 @@
+# bitup.ro — site nou
+
+Astro 5, static, două limbi (RO la rădăcină, EN sub `/en`), două teme, găzduit pe Cloudflare Pages.
+
+- Specificația: `spec/` (sursa de adevăr, neatinsă în afara deciziilor din `NOTES.md`).
+- Regulile de lucru: `CLAUDE.md`.
+- Deciziile, verificările pe faze, placeholder-ele rămase: `NOTES.md`.
+- Capturi și rapoarte de calitate, pe faze: `qa/`.
+
+## Comenzi
+
+```
+npm install          # Node 24 (vezi .nvmrc)
+npm run dev          # http://localhost:4321
+npm run build        # dist/
+npm run preview      # servește dist/ local
+npm run check        # astro check (TypeScript strict)
+node qa/capture.mjs <faza> <cale> [<cale>…]   # capturi Playwright la 375/768/1024/1440, light și dark
+```
+
+## Variabile
+
+- `.env` (local, neversionat): cheile publice `PUBLIC_TURNSTILE_SITE_KEY`, `PUBLIC_GA4_ID`. Exemplu în `.env.example`.
+- `.dev.vars` (local, neversionat): secretele funcției `/api/lead` pentru `wrangler pages dev`. Exemplu în `.dev.vars.example`. În producție stau în Cloudflare Pages → Environment variables.
