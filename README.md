@@ -1,6 +1,6 @@
 # bitup.ro — site nou
 
-Astro 5, static, două limbi (RO la rădăcină, EN sub `/en`), două teme, găzduit pe Cloudflare Pages.
+Astro (versiunea fixată în `package.json`, acum 7.3.2), static, două limbi (RO la rădăcină, EN sub `/en`), două teme, găzduit pe Cloudflare Pages.
 
 - Specificația: `spec/` (sursa de adevăr, neatinsă în afara deciziilor din `NOTES.md`).
 - Regulile de lucru: `CLAUDE.md`.
@@ -10,7 +10,7 @@ Astro 5, static, două limbi (RO la rădăcină, EN sub `/en`), două teme, găz
 ## Comenzi
 
 ```
-npm install          # Node 24 (vezi .nvmrc)
+npm install          # Node 24 (vezi .nvmrc); Astro 7 cere ≥ 22.12
 npm run dev          # http://localhost:4321
 npm run build        # dist/
 npm run preview      # servește dist/ local

@@ -1,7 +1,6 @@
 /**
  * Microcopy de interfață, română. Textul e copiat exact din spec/continut/00-global.md.
  * Textul paginilor NU stă aici: e în componentele fiecărei pagini, copiat din spec/continut/NN-….md.
- * Marcat „(adăugat)”: text care nu există în 00-global, necesar pentru accesibilitate; listat în NOTES.md, de confirmat.
  */
 
 export const ro = {
@@ -9,9 +8,11 @@ export const ro = {
   siteName: 'BitUp',
   titleSeparator: ' · ',
 
-  skipLink: 'Sari la conținut', // (adăugat) skip-link, DESIGN § Accesibilitate
+  skipLink: 'Sari la conținut',
 
   nav: {
+    ariaLabel: 'Navigare principală',
+    footerAriaLabel: 'Navigare secundară',
     services: 'Servicii',
     servicesItems: [
       { label: 'Suport și administrare IT', route: 'itSupport' },
@@ -24,8 +25,8 @@ export const ro = {
     about: 'Despre',
     blog: 'Blog',
     primary: 'Radiografie IT gratuită',
-    menuOpen: 'Meniu', // (adăugat) aria-label pentru butonul hamburger
-    menuClose: 'Închide meniul', // (adăugat)
+    menuOpen: 'Meniu',
+    menuClose: 'Închide meniul',
     mobile: {
       call: 'Sună: +40 757 150 894',
       clients: 'Clienți: scrie-i lui Cipri pe WhatsApp',

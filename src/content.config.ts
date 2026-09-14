@@ -1,5 +1,6 @@
 // ARHITECTURA.md § Colecții. Limba unei intrări se deduce din primul segment al id-ului (ro/…, en/…).
-import { defineCollection, z } from 'astro:content';
+import { defineCollection } from 'astro:content';
+import { z } from 'astro/zod'; // Zod 4; `z` din 'astro:content' e deprecat din Astro 7
 import { glob } from 'astro/loaders';
 
 const cases = defineCollection({

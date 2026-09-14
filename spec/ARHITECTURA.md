@@ -2,7 +2,7 @@
 
 ## Stack
 
-- **Astro 5**, output static (`output: 'static'`), TypeScript strict. HTML complet la build; JavaScript doar pentru: meniul mobil, comutatorul de temă, comutatorul de limbă (link simplu, fără JS), formulare, Turnstile, bannerul de consimțământ și încărcarea condiționată a Google Analytics.
+- **Astro**, ultima versiune majoră stabilă la data începerii proiectului, fixată exact în `package.json` (versiunea reală e scrisă în `NOTES.md`); output static (`output: 'static'`), TypeScript strict. HTML complet la build; JavaScript doar pentru: meniul mobil, comutatorul de temă, comutatorul de limbă (link simplu, fără JS), formulare, Turnstile, bannerul de consimțământ și încărcarea condiționată a Google Analytics.
 - **Două limbi:** română (implicită, la rădăcină) și engleză (sub `/en/`), prin i18n-ul nativ din Astro. Detalii la § Limbi.
 - **Două teme:** light și dark, prin tokeni CSS și `data-theme` pe `<html>`. Detalii în `DESIGN.md` § Dark mode.
 - **Stilizare:** CSS pur cu variabile (tokenii din `DESIGN.md`) în `src/styles/`, plus utilitare minime scrise de mână. Fără Tailwind: proiectul are ~20 de pagini pe limbă și un sistem de design mic; utilitarele ar aduce mai mult zgomot decât ajutor. Dacă Claude Code consideră că Tailwind v4 accelerează mult, poate propune în `NOTES.md`, dar nu îl instalează fără acord.

@@ -63,7 +63,7 @@ Persoana I singular rămâne doar acolo unde e o declarație semnată, nu vocea 
 
 ## Cum verifici (la fiecare pagină și la fiecare fază)
 
-- `npm run build` trece fără erori și fără warning-uri.
+- `npm run build` trece fără erori și fără warning-uri, cu o singură excepție cunoscută: cele două avertismente „No files found” pentru colecțiile `cases` și `blog`, goale până la Faza 3; ele trebuie să dispară la finalul Fazei 3.
 - Capturi Playwright la 375, 768, 1024 și 1440 px, în light și dark, RO și EN, salvate în `qa/<faza>/`. Le deschizi și te uiți la ele (cu Read), nu doar le generezi; ce vezi greșit, repari.
 - Diff textual între fișierul de conținut și textul extras din `dist/`: zero diferențe în afara formatării.
 - Lighthouse pe mobil: Performance ≥ 95, Accessibility ≥ 95, Best Practices ≥ 95, SEO 100.

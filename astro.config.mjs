@@ -3,11 +3,13 @@ import { defineConfig, envField } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 import icon from 'astro-icon';
 
-// ARHITECTURA.md § Stack, § Limbi, § Rute. Astro 5, static, fără adapter (Cloudflare Pages servește dist/).
+// ARHITECTURA.md § Stack, § Limbi, § Rute. Astro (versiunea din package.json), static, fără adapter (Cloudflare Pages servește dist/).
 export default defineConfig({
   site: 'https://bitup.ro',
   output: 'static',
   trailingSlash: 'never',
+  // Din Astro 7 implicitul e 'jsx' (păstrează spațiile); vrem HTML comprimat, ca înainte.
+  compressHTML: true,
   build: {
     // `/despre` → dist/despre.html, `/en` → dist/en.html: Cloudflare Pages le servește fără slash final.
     format: 'file',
@@ -15,7 +17,8 @@ export default defineConfig({
   i18n: {
     defaultLocale: 'ro',
     locales: ['ro', 'en'],
-    routing: { prefixDefaultLocale: false, redirectToDefaultLocale: false },
+    // Fără redirecționare automată după limbă (ARHITECTURA § Limbi). `redirectToDefaultLocale` nu se mai setează când prefixDefaultLocale e false.
+    routing: { prefixDefaultLocale: false },
   },
   env: {
     schema: {

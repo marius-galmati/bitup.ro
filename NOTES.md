@@ -573,7 +573,7 @@ Notă: descrierea de pe 11-contact („Scrie-i lui Marius Galmati direct… Răs
 ## Faza 0 — Schelet și unelte (14 septembrie 2026)
 
 ### Ce s-a făcut
-- Proiect Astro **5.18.2**, `output: 'static'`, TypeScript strict (`astro/tsconfigs/strict`), scris de mână, echivalent cu template-ul minimal; motivul e în § Propuneri (versiunea Astro). Integrări: `@astrojs/sitemap` 3.7.4, `@astrojs/rss` 4.0.19, `astro-og-canvas` 0.13.1, `astro-icon` 1.2.0 + `@iconify-json/lucide` (doar `sun`, `moon` incluse deocamdată).
+- Proiect Astro **7.3.2** (inițial 5.18.2, urcat în aceeași zi după spike-ul de mai jos), `output: 'static'`, TypeScript strict (`astro/tsconfigs/strict`), schelet scris de mână, echivalent cu template-ul minimal. Integrări: `@astrojs/sitemap` 3.7.4, `@astrojs/rss` 4.0.19, `astro-og-canvas` 0.13.1, `astro-icon` 1.2.0 + `@iconify-json/lucide` (doar `sun`, `moon` incluse deocamdată).
 - Fonturi self-hosted din fontsource: Bricolage Grotesque (variabil, axa wght), Source Sans 3 (variabil, axa wght), IBM Plex Mono 400 și 500. Importate ca subseturi latin + latin-ext, `font-display: swap` (implicit în fontsource). Pentru fonturile variabile, CSS-ul fontsource declară și alte subseturi (vietnamese, cyrillic, greek) cu `unicode-range`; fișierele lor ajung în `dist/_astro/`, dar browserul nu le cere: pe pagina de test s-au descărcat exact 8 fișiere, latin și latin-ext pentru fiecare font (verificat cu Playwright, lista cererilor).
 - `src/styles/tokens.css` cu tokenii din DESIGN § Tokeni și § Dark mode (light în `:root`, dark în `:root[data-theme="dark"]` și în `@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) }`), `color-scheme` per temă. `src/styles/base.css`: reset minim, tipografie de bază, focus (outline 2 px teal, offset 2 px), reduced-motion, `.container`, `.eyebrow`, `.mono`.
 - Scriptul de temă (7 rânduri, inline în `<head>`, înainte de CSS): citește `localStorage['bitup-theme']` și pune `data-theme` pe `<html>`; fără valoare salvată, decide sistemul.
@@ -593,9 +593,8 @@ Notă: descrierea de pe 11-contact („Scrie-i lui Marius Galmati direct… Răs
 - Cereri de rețea pe pagina de test: doar `localhost` (HTML, un CSS, 8 fișiere woff2). Zero cereri către fonts.googleapis.com sau orice CDN.
 - Contrast (`python qa/contrast.py`): toate perechile din DESIGN trec AA (text 4.5:1, focus 3:1); orange pe fundal deschis dă 2.02:1, motivul pentru care nu e culoare de focus.
 
-### Microcopy adăugat, neexistent în 00-global (de confirmat de Marius)
-- `skipLink`: „Sari la conținut” / „Skip to content” (DESIGN § Accesibilitate cere skip-link).
-- `nav.menuOpen` / `nav.menuClose`: „Meniu” / „Închide meniul”, „Menu” / „Close menu” (aria-label pentru butonul hamburger).
+### Microcopy adăugat (confirmat de Marius, acum și în 00-global § Microcopy, RO și EN)
+- skip-link: „Sari la conținut” / „Skip to content”; buton meniu: „Meniu” / „Închide meniul”, „Menu” / „Close menu”; `aria-label` navigație header: „Navigare principală” / „Main navigation”; footer: „Navigare secundară” / „Secondary navigation”. Regulă: orice text de interfață nou intră întâi în 00-global, apoi în cod.
 
 ### Lista de mirosuri (CLAUDE.md, 1–16)
 Nu se aplică încă unei pagini reale; pagina de test e temporară și nu intră în site. Se bifează de la Faza 1.
@@ -603,9 +602,17 @@ Nu se aplică încă unei pagini reale; pagina de test e temporară și nu intr�
 ### Placeholder-e rămase
 Neschimbate față de `spec/PLACEHOLDERS.md` § Rămase: nicio pagină reală încă.
 
+## Spike Astro (14 septembrie 2026, ramura `spike/astro-current`, ~60 de minute): GO
+
+Decizia lui Marius: „Astro 5” din spec era versiunea curentă la scriere, nu o decizie de arhitectură; site-ul pornește pe ultima versiune majoră stabilă. Spec corectat: `ARHITECTURA.md` § Stack și `PLAN.md` Faza 0 nu mai conțin un număr fix.
+
+- `npm create astro@latest` (14 septembrie 2026) dă **Astro 7.3.2**, Node ≥ 22.12, `tsconfig` extins din `astro/tsconfigs/strict`, `astro.config.mjs` gol. Fixat în `package.json`: `astro ^7.3.2` (instalat 7.3.2), `@astrojs/sitemap` 3.7.4, `@astrojs/rss` 4.0.19, `astro-og-canvas` 0.13.1 (peer `^5 || ^6 || ^7`), `astro-icon` 1.2.0.
+- Schimbări necesare față de scheletul pe 5: (1) `z` se importă din `astro/zod` (Zod 4), nu din `astro:content` (deprecat, dispare în 8); forma `schema: ({ image }) => z.object(…)` există în continuare în 7.3 (`SchemaContext`), iar `createSchema()` e o opțiune de loader, nu ceva ce folosim; (2) `redirectToDefaultLocale` scos din `i18n.routing` (nu are sens cu `prefixDefaultLocale: false`); (3) `compressHTML: true` setat explicit (implicitul e acum `'jsx'`); (4) niciun flag experimental de scos: nu foloseam. `OGImageRoute` din astro-og-canvas e asincron (`await`), cum spune README-ul.
+- Verificări: `npm run build` 0 erori (doar cele două avertismente cunoscute), `npm run check` 0 erori / 0 avertismente / 0 sugestii, capturile pe 7 sunt **identice pixel cu pixel** cu cele din Faza 0 (8/8, comparate cu PIL), cererile de rețea sunt aceleași 8 fișiere woff2 locale. Integrările testate real cu endpoint-uri temporare, șterse apoi: sitemap generat, `rss.xml` valid, imagine OG PNG 1200×630.
+- De ținut minte: `@astrojs/rss` pune slash final la linkuri (`/faza-0/`); la Faza 3 se dă `trailingSlash: false` în opțiunile `rss()`. `astro-og-canvas` a descărcat fontul implicit (Noto Sans) de pe api.fontsource.org **la build**, nu la runtime; la Faza 5 primește fontul local (Bricolage TTF) și nu mai cere nimic din rețea. Astro 7 schimbă procesorul Markdown implicit: la Faza 3 randarea articolului și a studiilor de caz se compară vizual cu sursa (adăugat la acceptarea Fazei 3 în PLAN).
+
 ## Propuneri (nu se fac fără acord)
 
-- **Versiunea Astro.** `ARHITECTURA.md` spune „Astro 5”, iar tot spec-ul (loader-ele `glob`, `content.config.ts`, opțiunile `i18n`) e scris pe API-ul lui 5. La 14 septembrie 2026, `npm view astro version` dă 7.3.2, iar ultimul 5 e 5.18.2. `npm create astro@latest` (PLAN, Faza 0, pasul 1) ar instala 7. Am urmat spec-ul: proiectul e fixat pe `astro@^5.18` (scheletul e scris de mână, echivalent cu template-ul minimal), iar integrările sunt la versiunile compatibile cu 5. Propunere: după Faza 1, o încercare de upgrade la 7 pe o ramură, cu build și capturi comparate; dacă trece fără schimbări de conținut, migrăm înainte de Faza 2, ca să nu lansăm pe o versiune în întreținere.
 - Faza 5: Astro are suport experimental pentru CSP cu hash-uri generate la build (`experimental.csp`), care ar scoate `'unsafe-inline'` din `script-src` și `style-src`. E îmbunătățirea menționată în `ARHITECTURA.md` § Headere ca „nu o condiție de lansare”. De evaluat când ajungem acolo.
 
 ## Placeholder-e rămase

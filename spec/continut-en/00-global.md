@@ -134,3 +134,7 @@ This English block sits under a rule, below the Romanian version (from `continut
 - Language switcher: `aria-label` "Change language"; the RO link has `hreflang="ro"` and `lang="ro"`.
 - External links (Calendly, LinkedIn, helpdesk.bitup.ro, wa.me): open in a new tab, with `rel="noopener"`; no "external link" icon.
 - Date on the legal pages: "Last updated: September 10, 2026".
+- Skip link (first focusable element on the page): "Skip to content".
+- Menu (hamburger) button, `aria-label`: "Menu" when closed, "Close menu" when open.
+- `aria-label` on the header navigation: "Main navigation".
+- `aria-label` on the footer navigation: "Secondary navigation".

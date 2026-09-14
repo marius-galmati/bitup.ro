@@ -1,7 +1,6 @@
 /**
  * Interface microcopy, English. Copied verbatim from spec/continut-en/00-global.md.
  * Page copy does NOT live here: it sits in each page's components, copied from spec/continut-en/NN-….md.
- * Marked “(added)”: text that isn't in 00-global, needed for accessibility; listed in NOTES.md, to confirm.
  */
 
 export const en = {
@@ -9,9 +8,11 @@ export const en = {
   siteName: 'BitUp',
   titleSeparator: ' · ',
 
-  skipLink: 'Skip to content', // (added) skip link, DESIGN § Accesibilitate
+  skipLink: 'Skip to content',
 
   nav: {
+    ariaLabel: 'Main navigation',
+    footerAriaLabel: 'Secondary navigation',
     services: 'Services',
     servicesItems: [
       { label: 'IT support and administration', route: 'itSupport' },
@@ -24,8 +25,8 @@ export const en = {
     about: 'About',
     blog: 'Blog',
     primary: 'Free IT Health Check',
-    menuOpen: 'Menu', // (added) aria-label for the hamburger button
-    menuClose: 'Close menu', // (added)
+    menuOpen: 'Menu',
+    menuClose: 'Close menu',
     mobile: {
       call: 'Call: +40 757 150 894',
       clients: 'Clients: message Cipri on WhatsApp',

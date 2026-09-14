@@ -13,7 +13,7 @@ Ordinea limbilor: fiecare pagină se face întâi în română, apoi în englez�
 **Scop:** un proiect Astro care rulează, cu fonturile, tokenii (light + dark), i18n-ul configurat și structura de foldere din `ARHITECTURA.md`, fără pagini încă.
 
 Sarcini:
-1. `npm create astro@latest` (template minimal, TypeScript strict), apoi integrările din `ARHITECTURA.md` § Stack: `@astrojs/sitemap`, `@astrojs/rss`, `astro-og-canvas`, `astro-icon` (doar `lucide`).
+1. `npm create astro@latest` (template minimal, TypeScript strict; ultima versiune majoră stabilă la data începerii proiectului, fixată exact în `package.json`, versiunea reală notată în `NOTES.md`), apoi integrările din `ARHITECTURA.md` § Stack: `@astrojs/sitemap`, `@astrojs/rss`, `astro-og-canvas`, `astro-icon` (doar `lucide`).
 2. Fonturile self-hosted prin `@fontsource-variable/bricolage-grotesque`, `@fontsource-variable/source-sans-3`, `@fontsource/ibm-plex-mono` (doar 400 și 500).
 3. Tokenii din `DESIGN.md` § Tokeni și § Dark mode, în `src/styles/tokens.css`, importate global; scriptul de temă din `<head>` (`ARHITECTURA.md` § Dark mode).
 4. i18n: configurarea din `ARHITECTURA.md` § Limbi în `astro.config.mjs`; `src/i18n/ro.ts`, `en.ts` (microcopy din `00-global.md` și `continut-en/00-global.md`), `routes.ts` (harta din § Rute), `index.ts` (helpers).
@@ -94,6 +94,8 @@ Acceptare:
 - `/rezultate` și `/en/results` afișează ProQ; Cosmio apare doar când `draft: false`.
 - `/blog` și `/en/blog` afișează articolul; ambele RSS-uri validează.
 - Imaginile din articol sunt servite optimizat (AVIF/WebP, dimensiuni declarate, `loading="lazy"` sub fold).
+- `npm run build` nu mai afișează avertismentele „No files found” pentru colecțiile `cases` și `blog` (excepția cunoscută din Fazele 0–2 dispare aici).
+- Randarea Markdown a articolului și a studiilor de caz e comparată vizual cu textul sursă (procesorul Markdown implicit s-a schimbat în Astro 7): liste, titluri, citate, imagini cu legendă, linkuri.
 
 ---
 

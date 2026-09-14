@@ -134,3 +134,7 @@ Sub o linie, varianta engleză (din `continut-en/00-global.md` § 404), pentru c
 - Comutatorul de limbă: `aria-label` „Schimbă limba”; linkul EN are `hreflang="en"` și `lang="en"`.
 - Linkuri externe (Calendly, LinkedIn, helpdesk.bitup.ro, wa.me): se deschid în tab nou, cu `rel="noopener"`; fără iconiță de „link extern”.
 - Data de pe paginile legale: „Ultima actualizare: 10 septembrie 2026”.
+- Skip-link (primul element focusabil din pagină): „Sari la conținut”.
+- Butonul de meniu (hamburger), `aria-label`: „Meniu” când e închis, „Închide meniul” când e deschis.
+- `aria-label` pe navigația din header: „Navigare principală”.
+- `aria-label` pe navigația din footer: „Navigare secundară”.
