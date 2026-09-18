@@ -17,6 +17,8 @@ export const routes = {
   howWeWork: { ro: '/cum-lucram', en: '/en/how-we-work' },
   results: { ro: '/rezultate', en: '/en/results' },
   about: { ro: '/despre', en: '/en/about' },
+  // Pagina nu e încă implementată (ARHITECTURA § Rute, `16-…`); ruta stă aici de la început ca linkul din /despre să aibă o singură sursă.
+  team: { ro: '/echipa', en: '/en/team' },
   blog: { ro: '/blog', en: '/en/blog' },
   support: { ro: '/suport', en: '/en/support' },
   contact: { ro: '/contact', en: '/en/contact' },

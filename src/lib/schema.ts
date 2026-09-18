@@ -7,6 +7,7 @@ import type { Locale } from '../i18n/routes';
 
 const ORG_ID = `${site.url}/#organization`;
 const SERVICE_ID = `${site.url}/#professionalservice`;
+const FOUNDER_ID = `${site.url}/#founder`;
 
 export function organization(locale: Locale) {
   return {
@@ -20,7 +21,7 @@ export function organization(locale: Locale) {
     email: site.email,
     sameAs: [site.linkedin],
     foundingDate: site.founded,
-    founder: { '@type': 'Person', name: site.founder.name, jobTitle: site.founder.jobTitle[locale], sameAs: site.founder.linkedin },
+    founder: { '@type': 'Person', '@id': FOUNDER_ID, name: site.founder.name, jobTitle: site.founder.jobTitle[locale], sameAs: site.founder.linkedin },
     // `availableLanguage` e proprietate validă pe ContactPoint, nu pe Organization (Schema.org); o punem unde e validă.
     contactPoint: {
       '@type': 'ContactPoint',
@@ -77,16 +78,31 @@ export function service(locale: Locale, name: string, description: string, url: 
   };
 }
 
-/** Person (Marius), pe /despre. */
+/** Person (Marius). A ieșit de pe /despre odată cu rescrierea paginii (18 septembrie 2026); intră pe /echipa. */
 export function person(locale: Locale, imageUrl?: string) {
   return {
     '@type': 'Person',
-    '@id': `${site.url}/#founder`,
+    '@id': FOUNDER_ID,
     name: site.founder.name,
     jobTitle: site.founder.jobTitle[locale],
     worksFor: { '@id': ORG_ID },
     sameAs: site.founder.linkedin,
     ...(imageUrl ? { image: imageUrl } : {}),
+  };
+}
+
+/**
+ * AboutPage (/despre, /en/about). `mainEntity` trimite la nodul Organization: pagina e despre firmă, nu despre o persoană.
+ * Fondatorul rămâne vizibil în graf prin `Organization.founder`; profilurile individuale vor sta pe /echipa.
+ */
+export function aboutPage(locale: Locale, a: { name: string; description: string; url: string }) {
+  return {
+    '@type': 'AboutPage',
+    name: a.name,
+    description: a.description,
+    url: a.url,
+    inLanguage: locale,
+    mainEntity: { '@id': ORG_ID },
   };
 }
 
@@ -104,7 +120,7 @@ export function article(
     inLanguage: locale,
     datePublished: a.datePublished.toISOString().slice(0, 10),
     ...(a.dateModified ? { dateModified: a.dateModified.toISOString().slice(0, 10) } : {}),
-    author: { '@id': `${site.url}/#founder` },
+    author: { '@id': FOUNDER_ID },
     publisher: { '@id': ORG_ID },
     ...(a.imageUrl ? { image: a.imageUrl } : {}),
     ...(a.about ? { about: { '@type': 'Organization', name: a.about.name, ...(a.about.url ? { url: a.about.url } : {}) } } : {}),

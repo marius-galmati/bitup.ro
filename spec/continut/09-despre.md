@@ -1,77 +1,120 @@
 # 09 — Despre (`/despre`)
 
-**Title:** Despre Marius Galmati și BitUp · BitUp
-**Description:** Cine răspunde de IT-ul tău: Marius Galmati, în IT din 2017, cu experiență de securitate într-o corporație din Fortune 500. De ce există BitUp.
+**Title:** Despre BitUp Technology · BitUp
+**Description:** BitUp Technology: o echipă de specialiști IT formată în companii internaționale, care aduce structură, tehnologie modernă și securitate proiectată de la început în companiile din România.
 
-**JSON-LD:** global + Person (name: Marius Galmati, jobTitle: Fondator, worksFor: BitUp Technology SRL, sameAs: LinkedIn, image: portret).
+**JSON-LD:** global + `AboutPage`, cu `mainEntity` către nodul `Organization` al firmei, iar în `Organization` câmpul `founder` → `Person` (name: Marius Galmati, jobTitle: Fondator, sameAs: LinkedIn personal). Fără nod `Person` separat pe pagina asta; profilurile individuale vor sta pe `/echipa`.
 
 ---
 
-## Hero (intern, cu portretul 500×667 în dreapta)
+## Hero (intern, tipografic, o singură coloană, fără imagine)
 
 Eyebrow: `Despre`
-**H1:** Am văzut prea multe firme cu tehnologie, dar fără cineva care să răspundă de ea.
-Lead: Sunt Marius Galmati. Am făcut BitUp ca să fiu eu acela, pentru firmele mici din Cluj și din România.
+**H1:** Standarde enterprise, aduse la scara companiei tale.
+Lead: BitUp Technology este o echipă de specialiști IT formată în companii internaționale. Pagina asta spune cine suntem și cum putem aduce plus valoare în business-ul tău.
 
 ---
 
-## Povestea
+## Originea
 
-Eyebrow: `Cine sunt`
-**H2:** Din 2017, în IT-ul firmelor mici. Apoi la scară mare. Apoi înapoi, cu ce am învățat.
+Eyebrow: `De ce existăm`
+**H2:** De ce am fondat BitUp
 
 Text (Prose, 70ch):
 
-Lucrez în IT din 2017. Am început ca administrator de sistem în firme mici din Cluj, unde făceam de toate: servere, rețea, backup, firewall, utilizatori, telefonul care sună când nu merge imprimanta. Acolo am înțeles că într-o firmă mică IT-ul nu e un departament, e un om. Și când omul acela nu e, nu e nimeni.
+Ne-am format în organizații mari, unde IT-ul funcționează pe proceduri scrise, standarde internaționale și responsabilități clare. În companiile din România am regăsit aceeași tehnologie, folosită fără niciuna dintre ele: sisteme cumpărate corect, administrate la întâmplare, cu securitatea tratată ca opțiune.
 
-Am trecut apoi printr-o companie de software în creștere, unde am proiectat infrastructura noului sediu și am ținut suportul la nivel de SLA, cu tichete, timpi de răspuns și rapoarte. Iar din 2024 până în 2026 am lucrat la Concentrix, o corporație din Fortune 500, în securitate informațională: audituri ISO 27001 interne și externe, politici și guvernanță, planuri de continuitate și recuperare, protecție pe stații și servere, Microsoft 365 și Active Directory. La scara aceea, o greșeală se vede imediat.
+BitUp Technology a fost fondată în 2020, pornind de la o observație simplă: diferența dintre o companie care controlează tehnologia și una controlată de ea nu vine din buget. Vine din structură — cine răspunde, ce se documentează, ce se verifică și la ce interval.
 
-BitUp l-am pornit în 2020, din ce vedeam la firmele mici: aveau tehnologie, dar nu aveau structură; aveau furnizori, dar nu aveau un partener; aveau inițiative de digitalizare, dar nimeni nu-și asuma imaginea de ansamblu. Iar securitatea era mereu „extra”, ceva ce se adaugă după, dacă mai rămân bani. Am construit BitUp ca să fie invers: un singur partener care răspunde de tot IT-ul, cu securitatea făcută de la început, nu vândută separat.
-
-Aduc la scara firmei tale ce am învățat la scară mare, fără complexitate inutilă și fără hype de furnizor.
+Aducem în companii de orice dimensiune modul de operare al organizațiilor mari: guvernanță, procese, documentație și securitate proiectată de la început, calibrate la realitatea și la bugetul fiecăreia.
 
 ---
 
-## Traseul
+## Echipa
 
-Eyebrow: `Traseul`
-**H2:** Pe scurt
+Eyebrow: `Echipa`
+**H2:** Specialiști pe zone diferite din IT, nu un singur om bun la toate
 
-Listă cronologică (mono pentru ani):
+Text (Prose, 70ch):
 
-- **2010–2014** · Calculatoare, Universitatea Tehnică din Cluj-Napoca
-- **2017–2021** · Administrator de sistem într-o firmă din Cluj: virtualizare, Active Directory, firewall Fortinet, backup și recuperare cu Veeam
-- **2020** · Pornesc BitUp Technology
-- **2021–2024** · Administrator de sistem senior într-o companie de software în creștere: infrastructura noului sediu, suport pe SLA
-- **2024–2026** · Concentrix (Fortune 500), securitate informațională: audituri ISO 27001, continuitate, EDR/XDR, patch management, Microsoft 365 și AD
-- **2026** · BitUp, full-time
+În spatele BitUp stă o echipă cu experiență acumulată în companii precum Bosch, NTT DATA, Marsh și Concentrix: infrastructură și securitate informațională, dezvoltare software, inteligență artificială și automatizări, livrare de proiecte în echipe internaționale. Fiecare zonă are omul ei, iar problemele tale ajung la cineva care le-a mai întâlnit la scară mare.
+
+Standardele după care operăm vin din locurile unde ne-am format: audituri ISO 27001, management al riscului, control al schimbărilor, documentație care rămâne la client.
+
+Notă pentru Claude Code: linkul stă ca link textual, sub paragrafe.
+
+Link: Vezi echipa → `/echipa`
 
 ---
 
-## Cum lucrăm
+## Cui ne adresăm
 
-Eyebrow: `Principii`
-**H2:** Trei lucruri în care credem, cu ce înseamnă ele pentru tine
+Eyebrow: `Cui ne adresăm`
+**H2:** Cu cine ne potrivim
+
+Listă (fără iconițe, cu bulină simplă):
+
+- Companii care depind de sistemele lor și nu au pe cineva care să răspundă de ansamblu.
+- Companii cu mai mulți furnizori, unde nimeni nu are imaginea completă și responsabilitatea finală.
+- Companii care au deja o echipă IT internă și au nevoie de expertiză pe zone punctuale: securitate, cloud, automatizări, dezvoltare software.
+- Companii cu cerințe de conformitate — NIS2, ISO 27001, cerințe venite de la clienți sau din audituri — care trebuie traduse în măsuri concrete.
+- Companii care vor să digitalizeze procese și să folosească automatizări și AI fără să-și crească riscul.
+
+Propoziție de închidere, sub listă, pe `--muted`:
+
+Nu suntem potriviți pentru cine caută cel mai mic preț. Prioritatea noastră este rezultatul în timp, nu cea mai mică poziție din ofertă.
+
+---
+
+## Ce rezolvăm
+
+Eyebrow: `Ce rezolvăm`
+**H2:** Patru probleme care se repetă
+
+Patru carduri, 2×2:
+
+**Responsabilitate difuză**
+Tehnologia există, dar nu răspunde nimeni de ea în ansamblu. Preluăm rolul ăsta, cu un punct unic de contact și cu raport lunar scris din tichete.
+
+**Securitate adăugată la final**
+Sistemele se construiesc întâi și se protejează după, dacă mai rămâne buget. Noi proiectăm securitatea în fiecare etapă, nu o vindem separat.
+
+**Procese care trăiesc în Excel și în memoria unui om**
+Informația nu circulă, se pierde la fiecare plecare. Le mutăm în sisteme, cu automatizări și integrări între aplicațiile existente.
+
+**Tehnologie cumpărată, nu integrată**
+Licențe și echipamente care nu comunică între ele. Facem inventarul, eliminăm suprapunerile și construim o arhitectură coerentă.
+
+---
+
+## Tehnologia
+
+Eyebrow: `Tehnologia`
+**H2:** Tehnologie modernă, aplicată pragmatic
+
+Text (Prose, 70ch):
+
+Digitalizare, cloud, automatizări între aplicații, agenți AI cu scop definit: toate intră în discuție doar acolo unde rezolvă o problemă măsurabilă. Fiecare tehnologie nouă trece prin aceleași întrebări înainte să ajungă în producție — ce problemă rezolvă, cine o administrează, ce riscuri aduce și cum o oprim dacă nu dă rezultatul așteptat.
+
+Dezvoltăm și produse proprii: CyberXscore, prin care o companie își poate evalua singură riscul cibernetic în termeni de business, și ProQ, platformă pentru furnizorii din industria auto, folosită în patru țări. → Citește cazul ProQ (`/rezultate/proq`)
+
+---
+
+## Valorile
+
+Eyebrow: `Valorile`
+**H2:** Trei valori, cu ce înseamnă fiecare în practică
 
 Trei carduri:
 
-**Securitatea înainte de funcționalități**
-Nu instalăm nimic fără partea de securitate făcută. Nu vindem securitatea separat pentru că nu funcționează separat. Uneori asta înseamnă un „nu” la ceva ce ai vrea.
+**Integritate**
+Spunem ce am făcut, ce nu am reușit și unde am greșit. Raportul lunar se scrie din tichete, nu din memorie. Recomandăm și varianta care nu ne aduce venit, când e cea corectă pentru tine.
 
-**Claritatea înaintea vitezei**
-Spunem ce facem, de ce și cât costă, înainte să facem. Raportul lunar e scris din tichete, nu din memorie. Dacă nu înțelegi ceva din ce spunem, e problema noastră, nu a ta.
+**Inovație**
+Tehnologiile noi intră unde produc un rezultat măsurabil, nu unde sună bine. Se testează înainte, se documentează după, iar ce nu funcționează se retrage.
 
-**Gândirea pe termen lung**
-Alegem ce merge și peste cinci ani, nu ce arată bine luna asta. Nu-ți vindem ce nu ai nevoie și îți spunem când poți aștepta.
-
----
-
-## Altceva ce construim
-
-Eyebrow: `În paralel`
-**H2:** Ce mai facem
-
-Text (70ch): Construim CyberXscore, o platformă prin care patronii își pot evalua singuri riscul cibernetic, în termeni de business, nu de IT. Și ProQ, o platformă pentru furnizorii din industria auto, folosită în patru țări. → Citește cazul ProQ (`/rezultate/proq`).
+**Profesionalism**
+Proceduri scrise, control al schimbărilor, termene asumate și documentație care rămâne la client. Aceleași standarde ca într-o organizație mare, fără birocrația ei.
 
 ---
 
@@ -84,12 +127,12 @@ FactStrip:
 - Din: iunie 2020
 - Unde: Cluj-Napoca
 - CUI: RO42613248 · J12/1556/2020
-- Parteneriate: Microsoft Partner · Fortinet Advocate · Veeam Partner
+- Parteneriate: Microsoft Partner · Fortinet Advocate · Veeam Partner · Anthropic Partner
 
-Linkuri: LinkedIn personal → https://www.linkedin.com/in/nicolae-marius-galmati · LinkedIn BitUp → https://www.linkedin.com/company/bitup-technology
+Link: LinkedIn BitUp → https://www.linkedin.com/company/bitup-technology
 
 ---
 
 ## Banda finală
 
-CtaBand, varianta implicită, cu titlul: **Vrei să vezi cum lucrăm, înainte să semnezi ceva?** / 30 de minute, gratuit, fără obligații. Îți spunem exact unde stai. / Buton: **Programează Radiografia IT**
+CtaBand, varianta implicită, cu titlul: **Vrei să vezi unde stă compania ta, înainte de orice decizie?** / 30 de minute, gratuit, fără obligații. Îți spunem exact unde stai și ce ar însemna să preluăm noi grija asta. / Buton: **Programează Radiografia IT**

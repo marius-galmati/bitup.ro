@@ -134,6 +134,7 @@ bitup-site/
 | `/rezultate` | `/en/results` | `08-…` + colecția `cases` | |
 | `/rezultate/[slug]` | `/en/results/[slug]` | colecția `cases` | `cosmio`, `proq`; același slug în ambele limbi |
 | `/despre` | `/en/about` | `09-…` | |
+| `/echipa` | `/en/team` | `16-…` | profilurile individuale; pagina vine imediat după rescrierea lui `/despre` |
 | `/blog`, `/blog/[slug]`, `/rss.xml` | `/en/blog`, `/en/blog/[slug]`, `/en/rss.xml` | `12-…` + colecția `blog` | slug-ul articolului e tradus (e în frontmatter-ul EN) |
 | `/suport` | `/en/support` | `10-…` | clienți existenți |
 | `/contact` | `/en/contact` | `11-…` | |
@@ -330,7 +331,7 @@ https://www.bitup.ro/*                https://bitup.ro/:splat         301
 - Canonical absolut pe fiecare pagină, către propria limbă (nu către RO). `hreflang` `ro`, `en`, `x-default` (= RO) pe toate paginile care au pereche. `/multumesc` și `/en/thank-you` cu `noindex`.
 - JSON-LD (din `schema.ts`, cu textele în limba paginii):
   - Pe toate paginile: `Organization` (nume, url, logo, telefon, email, `sameAs` LinkedIn firmă, `availableLanguage`) și `ProfessionalService` (în loc de `LocalBusiness` generic) cu `address: { "@type": "PostalAddress", "addressLocality": "Cluj-Napoca", "addressRegion": "Cluj", "addressCountry": "RO" }` (fără stradă: nu există un birou public), `areaServed: ["Cluj-Napoca", "România"]`, `openingHoursSpecification` luni–vineri 08:00–18:00, `telephone`, `email`, `founder` → `Person`.
-  - `/despre`: `Person` (Marius Galmati, jobTitle „Fondator” / „Founder”, sameAs LinkedIn personal).
+  - `/despre`: `AboutPage` cu `mainEntity` → `Organization`, iar `founder` din `Organization` e `Person` (Marius Galmati, jobTitle „Fondator” / „Founder”, sameAs LinkedIn personal). Nodurile `Person` pentru fiecare membru vor sta pe `/echipa`.
   - Pagini de servicii: `Service` (name, provider, areaServed, description).
   - Unde există „Întrebări frecvente”: `FAQPage` generat din componenta `Faq`.
   - Articole: `Article` (headline, author, datePublished, inLanguage, image).

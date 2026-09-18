@@ -922,6 +922,362 @@ Decizia lui Marius: „Astro 5” din spec era versiunea curentă la scriere, nu
 - Verificări: `npm run build` 0 erori (doar cele două avertismente cunoscute), `npm run check` 0 erori / 0 avertismente / 0 sugestii, capturile pe 7 sunt **identice pixel cu pixel** cu cele din Faza 0 (8/8, comparate cu PIL), cererile de rețea sunt aceleași 8 fișiere woff2 locale. Integrările testate real cu endpoint-uri temporare, șterse apoi: sitemap generat, `rss.xml` valid, imagine OG PNG 1200×630.
 - De ținut minte: `@astrojs/rss` pune slash final la linkuri (`/faza-0/`); la Faza 3 se dă `trailingSlash: false` în opțiunile `rss()`. `astro-og-canvas` a descărcat fontul implicit (Noto Sans) de pe api.fontsource.org **la build**, nu la runtime; la Faza 5 primește fontul local (Bricolage TTF) și nu mai cere nimic din rețea. Astro 7 schimbă procesorul Markdown implicit: la Faza 3 randarea articolului și a studiilor de caz se compară vizual cu sursa (adăugat la acceptarea Fazei 3 în PLAN).
 
+## Parteneri: secțiune proprie cu logo-uri, plus Anthropic (17 septembrie 2026, cerut de Marius)
+
+Cerința: pe homepage, partea de parteneriate devine o secțiune separată cu logo-urile partenerilor, iar Anthropic intră în ea. Deciziile luate împreună: fișierele de logo nu există încă (se pregătește doar structura), textul pentru Anthropic e „Anthropic Partner”, iar tehnologiile se mută într-o secțiune distinctă.
+
+Ce s-a făcut:
+- `src/lib/partners.ts`: `partnerLogo(name)` caută `public/logos/parteneri/<slug>.svg`, cu slug-ul derivat din numele badge-ului („Microsoft Partner” → `microsoft-partner.svg`), ca în `spec/assets/logos/README.md`. Dacă fișierul există, apare logo-ul; dacă nu, rămâne `[[LOGO_PARTENERI]]` vizibil, ca până acum. Nu e nevoie de nicio modificare de cod când apar fișierele: se copiază în `public/logos/parteneri/` ca `microsoft-partner.svg`, `fortinet-advocate.svg`, `veeam-partner.svg`, `anthropic-partner.svg`.
+- Homepage § 9 se împarte în două secțiuni: „Parteneri / Cu ce lucrăm” (doar rândul de badge-uri) și „Tehnologii / Tehnologii cu care lucrăm zilnic” (`s9b`), pe același fundal `--surface`, despărțite de o linie de 1 px (`Section line`), ca să nu apară două fundaluri identice lipite fără separare.
+- Badge-ul respectă `DESIGN.md` § Imagini: monocrom `--muted` (mască peste SVG) și colorat la hover, 150 ms, dezactivat la `prefers-reduced-motion`. Nivelul e scris sub logo, cum cere `01-acasa.md` § 9.
+
+Verificat: `npm run build` fără erori și fără avertismente, `npx astro check` 0/0/0. Capturi pe secțiunile s9 și s9b, RO și EN, light și dark, 1440 și 375, în două stări: cu patru SVG-uri de probă (șterse imediat după) și fără fișiere, adică starea reală de acum. Hover verificat pe primul badge (monocrom → color). Consolă curată, zero răspunsuri 4xx.
+
+Divergențe față de spec, de aprobat și de trecut în `spec/` (eu nu modific `spec/`):
+1. `spec/continut/01-acasa.md` și `continut-en/01-home.md` § 9 descriu **o** secțiune „Parteneri și tehnologii”; acum sunt două.
+2. Numele „Anthropic Partner” nu e în spec (nici în § 9, nici în FactStrip, nici în footer). Apare deocamdată **doar** în secțiunea de pe homepage. FactStrip-ul de sub hero (`src/i18n/ro.ts`, `en.ts`) și coloana de parteneri din footer au rămas cu cei trei parteneri din spec — de decis dacă intră și acolo.
+3. Propoziția „Tehnologii cu care lucrăm zilnic: Microsoft 365, …” a fost tăiată în două: partea dinaintea două puncte a devenit H2-ul secțiunii noi, lista a rămas paragraf. Cuvintele sunt cele din spec, doar împărțite altfel. Eyebrow-urile „Tehnologii” / „Technologies” sunt text nou.
+4. `spec/PLACEHOLDERS.md` descrie `[[LOGO_PARTENERI]]` ca fiind cele trei badge-uri Microsoft / Fortinet / Veeam; acum acoperă și al patrulea.
+
+De verificat înainte de publicare: dreptul de a afișa logo-ul Anthropic și formularea exactă a relației (badge-urile de partener au de obicei reguli de brand proprii, iar `PLACEHOLDERS.md` cere explicit „confirmarea că ai voie să le afișezi”).
+
+## Probe de stil pornind de la fastforward.dev și cyberclar.ro — respinse (17 septembrie 2026)
+
+Marius a dat două site-uri ca referință de stil: `https://www.fastforward.dev/` („nu pare generat cu AI, e aerisit”) și `https://cyberclar.ro`. Am măsurat ambele în browser și am construit trei probe pe primele cinci secțiuni de homepage, sub `/qa/stil/{a,b,c}` și perechile EN.
+
+- **A / B** — doar ritm și tipografie, pe paleta noastră: scară mai mare (hero 76 px), `line-height` 1,04, tracking −0,03 em, `--section-y` până la 152 px, rază 2 px, zero umbre, o singură cerneală la 65%, cardurile de servicii transformate în rânduri cu linie de păr. A cu Public Sans, B cu Onest.
+- **C** — în plus registru cald: hârtie `#F2EEE6` în light, `#060B12` cu cerneală caldă în dark, titluri la 88 px, index de secțiune rotit în marginea din stânga (tiparul de la cyberclar). Brandul (navy, teal, orange) neatins.
+
+**Verdictul lui Marius: „nu îmi place deloc niciuna din variante.”** Toate trei au fost șterse: `src/pages/qa/stil/`, `src/pages/en/qa/stil/`, `src/components/qa/`, iar `@fontsource-variable/onest` a fost dezinstalat. `tokens.css`, `DESIGN.md` și paginile reale n-au fost atinse în niciun moment — tokenii probelor erau redefiniți local.
+
+Ce rămâne de ținut minte din exercițiu, ca să nu se repete:
+1. Ce au în comun cele două referințe e **temperatura culorii** (cerneală alb-caldă pe aproape-negru, hârtie caldă în secțiunile deschise, accent albastru), nu spațierea. Prima probă a schimbat doar scara și ritmul și Marius a spus, corect, că nu vede nicio diferență: ochiul prinde întâi culoarea.
+2. Nici registrul cald nu a fost răspunsul. Deci ce îi place la site-urile alea încă nu e identificat, iar întrebările mele (trei opțiuni de direcție) n-au ajuns la el. Următoarea încercare pornește de la ce respinge, uitându-ne împreună la ecran, nu de la variante construite pe ghicite.
+3. Măsurătorile brute, dacă mai sunt vreodată utile: fastforward.dev — Golos Text 500 / Inter 400, h1 98 px lh 1,04 ls −0,03 em, secțiuni 98–177 px, rază 0–2 px, zero umbre, linie 0,8 px la 9%, cerneală `#F7F5F0` la 100/92/58/38%, accent `#3D6BFF`, container 1280. cyberclar.ro — Inter Tight 600 / Inter, h1 100 px lh 0,98 ls −0,035 em, fundal `#02060F`, cerneală `#F4F0E7`, hârtie `#F3EEE5`, accent `#4D6DFF`, index de secțiune rotit în margine.
+
+## Meniul „Servicii”, după modelul din `meniu (2).png` (17 septembrie 2026, cerut de Marius)
+
+Cerința: „implementează modelul, nu schimba logo-ul și fontul textului”. Prima încercare a depășit cererea — înlocuisem logo-ul SVG cu un wordmark serif, adusesem Playfair Display și albastrul `#0047CD` din imagine, și scosesem headerul din container. Marius a corectat, totul a fost dat înapoi (`git checkout` pe `Header.astro`, `LangSwitch.astro`, `BaseLayout.astro`; `@fontsource-variable/playfair-display` dezinstalat). **Logo-ul, fontul, paleta, separatorul `RO · EN` și lățimea containerului au rămas exact cum erau.**
+
+Ce s-a păstrat din imagine e doar modelul de meniu: dropdown-ul mic de 280 px a devenit un panou pe toată lățimea, cu patru coloane — intro (eyebrow, titlu, lead, link către toate serviciile), două coloane de servicii cu titlu și descriere, o casetă de CTA despărțită de o linie verticală de 1 px — și o bandă de jos peste o linie de 1 px, cu telefonul, emailul și linkul de suport. Avem trei servicii, nu șase, deci coloanele de mijloc sunt 2 + 1.
+
+Textul e integral din spec, doar reașezat (`megaMenu` în `src/i18n/ro.ts` și `en.ts`): titlul și lead-ul din `02-servicii-index § Hero`, descrierile din § Cele trei grupuri, caseta din dreapta din `00-global § Banda finală de CTA`, banda de jos din datele de contact și „Suport pentru clienți”. Niciun cuvânt nou. Tipografia, culorile și spațierea vin din tokeni: `--fs-h2` pe titlul de coloană, `--fs-h3` pe titlurile de serviciu, `--fs-small` pe descrieri, teal pe linkuri, `--line` pe separatoare, scara `--s-*` pe distanțe.
+
+Verificat: `npm run build` 0 erori / 0 avertismente, `astro check` 0/0/0, `qa/keyboard.mjs` toate verificările trecute, `qa/pagecheck.mjs` 39 de pagini 0 cu probleme, capturi RO și EN × light și dark la 1440 și mobil la 375, consolă curată.
+
+Reparate după ce m-am uitat la capturi: `hyphens: auto` rupea titlurile de coloană; săgeata linkului rămânea orfană pe rândul următor (acum are spațiu insecabil înainte — atenție, escape-ul CSS `\00a0` se randează greșit, trebuie caracterul propriu-zis); `.nav__item` avea `position: relative`, ceea ce ancora panoul de `<li>` în loc de `<header>`.
+
+`qa/keyboard.mjs` a fost modificat: verificarea „click în afară închide” dădea clic la 720,600, punct care acum cade în interiorul panoului (mult mai mare decât vechiul dropdown). Acum calculează marginea panoului și dă clic sub el.
+
+Rămâne deschis: coloana a treia are un singur serviciu, iar în imagine coloanele de servicii au eyebrow de grup („INFRASTRUCTURĂ & CLOUD”). Nu am inventat astfel de etichete.
+
+## Hero-ul de pe homepage, text nou (17 septembrie 2026, dat de Marius)
+
+Înlocuit în `src/copy/home.ro.ts`:
+- **H1:** „Proiectăm, securizăm și administrăm întreaga infrastructură IT de care firma ta are nevoie.”
+- **Lead:** „Începem cu servere, rețea și cloud, ajungem la aplicații, automatizări și agenți AI. Securitatea se proiectează de la început și se integrează în fiecare etapă.”
+- **Eyebrow:** scos. Marius a trecut vechiul eyebrow în ce se înlocuiește și n-a dat altul în loc. `hero.eyebrow` a devenit opțional în `home.types.ts`, iar `HomePage.astro` îl randează doar dacă există. De confirmat că asta a vrut.
+
+Butoanele și FactStrip-ul n-au fost atinse.
+
+De adus la zi, de către Marius (eu nu modific `spec/`):
+1. `spec/continut/01-acasa.md` § 1 Hero — textul de acolo e acum altul decât cel din pagină, inclusiv nota despre eyebrow.
+2. **Engleza a rămas neschimbată.** `/en` are în continuare „Your company's IT, run by someone who answers for it…”. Nu traduc (CLAUDE.md regula 2); aștept varianta EN.
+3. `Description` din meta („Suport și administrare IT pentru firme de 10–100 de angajați…”) și FactStrip-ul încă spun povestea veche, de suport și administrare. Hero-ul nou vorbește de proiectare, aplicații și agenți AI. De decis dacă se aliniază și restul.
+
+Verificat: build 0/0, `astro check` 0/0/0, textul extras din `dist/index.html` e identic caracter cu caracter cu ce a trimis Marius (comparat programatic), capturi la 1440 light și dark și la 375.
+
+## Regula 12 și recuperarea a ce rămăsese pe jumătate (17 septembrie 2026)
+
+Marius: „orice modificare îți cer, trebuie să o faci pe toate limbile, + meta description, spec/continut, absolut tot”. Regula a intrat în `CLAUDE.md` ca **regula 12**, iar regulile 2 și 5 au fost rescrise ca să nu se mai contrazică: textul din spec rămâne sursa de adevăr și nu-l ating din proprie inițiativă, dar când schimbarea vine de la el o duc peste tot, inclusiv în `spec/`.
+
+Aplicat retroactiv la tot ce rămăsese neterminat în sesiunea asta:
+
+**Hero-ul de pe homepage.** EN tradus de mine (marcat în cod și în spec ca traducere de confirmat): „We design, secure, and run the entire IT infrastructure your company needs.” / „We start with servers, network, and cloud, and go on to applications, automation, and AI agents. Security is designed in from the start and built into every stage.” Meta description rescris pe ambele limbi (143 și 129 de caractere). Spec adus la zi în `01-acasa.md` și `01-home.md`, inclusiv scoaterea eyebrow-ului.
+
+**Anthropic Partner.** Adăugat peste tot unde exista lista: FactStrip și footer (`src/i18n/ro.ts`, `en.ts`), `src/lib/site.ts`, tabelul de pe Despre (`about.ro.ts`, `about.en.ts`), și în spec: `00-global.md` × 2 (footer, FactStrip), `01-acasa.md` / `01-home.md` § 9, `09-despre.md` / `09-about.md`, `DESIGN.md` § Imagini, `PLACEHOLDERS.md` (rândul `[[LOGO_PARTENERI]]` și linia de decizii).
+
+**Panoul de meniu.** Descris în `DESIGN.md` (secțiune nouă, § Panoul „Servicii”: grilă, coloane, bandă de jos, comportament la tastatură) și în `00-global.md` § Meniu pe ambele limbi, cu precizarea că textele din panou sunt reluate din alte pagini, nu rescrise.
+
+**Lăsat intenționat neschimbat, cu motiv:** propoziția despre furnizori din `03-suport-it.md` / `03-it-support.md` și copiile ei din `itsupport.ro.ts` / `itsupport.en.ts` („Statusurile de partener (Microsoft Partner, Fortinet Advocate, Veeam Partner) înseamnă acces la suportul lor direct”). Acolo lista înseamnă furnizori de firewall, NAS și licențe, de la care cumpărăm hardware; Anthropic n-are ce căuta în fraza aia. E singura potrivire rămasă la `grep "Veeam Partner" | grep -v Anthropic`, în ambele limbi și în spec, deci simetric.
+
+Verificat: `npm run build` 0/0, `astro check` 0/0/0, `qa/pagecheck.mjs` 39 de pagini 0 probleme, `qa/keyboard.mjs` tot trece, `qa/textdiff.mjs` pe `01-acasa.md`↔`index.html` și `01-home.md`↔`en.html` — **zero diferențe de text**, la fel pe Despre în ambele limbi. `grep` după textul vechi de hero în `src/`, `spec/` și `dist/`: zero potriviri.
+
+Reparat pe parcurs: notele mele din spec („Hero schimbat de Marius…”) fuseseră scrise ca blockquote și `qa/textdiff.mjs` le număra ca text de pagină lipsă; rescrise ca „Notă pentru Claude Code:” / „Note for Claude Code:”, forma pe care unealta o sare. Și celula de parteneri din FactStrip, cu al patrulea nume, rupea rândul înaintea punctului median; punctele au acum spațiu insecabil înainte.
+
+## FactStrip-ul scos de sub hero-ul homepage-ului (17 septembrie 2026, cerut de Marius)
+
+Banda cu `Din 2020` · `Cluj-Napoca` · `Răspuns sub 2 ore în program` · badge-urile partenerilor nu mai apare pe homepage. Primul ecran e acum doar titlu, lead și cele două butoane.
+
+(Marius a văzut fiecare celulă de două ori când a copiat textul: `FactStrip` pune valoarea și într-un `<dt class="sr-only">`, pentru cititoarele de ecran, pe lângă `<dd>`-ul vizibil. Nu era o dublare în pagină.)
+
+Aplicat, după regula 12:
+- `src/components/home/HomePage.astro`: scoase `<FactStrip>`, `heroFacts`, importul și regula CSS `.hero__facts`; comentariul de ritm din capul fișierului adus la zi. Schimbarea e într-o componentă comună, deci acoperă automat ambele limbi.
+- `spec/continut/01-acasa.md` și `spec/continut-en/01-home.md` § 1 Hero: rândul despre bandă șters.
+- `spec/continut/00-global.md` și `continut-en/00-global.md`: secțiunea „FactStrip de sub hero” retitrată și marcată ca scoasă; valorile rămân documentate acolo, pentru că le folosește pagina de QA a componentelor.
+- `spec/DESIGN.md` § Hero (homepage): propoziția despre bandă și despre „ancora vizuală a primului ecran” înlocuită.
+- `spec/assets/FOTO-CONTEXT.md`: referința la „cu FactStrip-ul sub el” adusă la zi.
+
+**Componenta `FactStrip` rămâne** — e folosită în continuare pe Despre, pe studiile de caz și pe Contact, iar textele din `src/i18n/*.ts` rămân pentru că le folosește `/qa/componente`.
+
+Verificat: build 0/0, `astro check` 0/0/0, `qa/pagecheck.mjs` 39 de pagini 0 probleme, `qa/textdiff.mjs` zero diferențe pe ambele limbi. În `dist/index.html` și `dist/en.html`: zero apariții de `class="facts` și zero „Din 2020” / „Since 2020”; pe `despre.html` și `en/about.html` banda e intactă (13 potriviri fiecare). Capturi la 1440 light, 1440 dark EN și 375.
+
+## Aranjamentul homepage-ului, după `example.png` (17 septembrie 2026, cerut de Marius)
+
+Cerința, cuvânt cu cuvânt: „doar aranjarea în pagină, păstrează culorile actuale, fontul, conținutul text și meniul așa cum sunt acum”, fără niciun text și fără nicio culoare preluate din mockup.
+
+Mockup-ul a fost măsurat, nu privit: benzile au fost decupate și mărite 2×, iar coloanele și riglele au fost găsite prin profil de pixeli. Proporțiile față de lățimea conținutului (786 px din 871): banda „ce facem” 41% / 7% / 52%; banda de proces 46% / 13% / 41%; banda „de ce” 29% + trei coloane de ~17% cu rigle între ele; banda de CTA titlu 49% și acțiune 28%, cu 22% gol la mijloc; banda de sub hero patru celule egale cu liniuță scurtă și rigle verticale.
+
+Ce s-a schimbat în pagină:
+- **§1 Hero** — ritm vertical gradat, ca în mockup (titlu → lead `--s-4`, lead → butoane `--s-6`), în loc de un `gap` uniform.
+- **§2 Recunoști situația?** — cele trei `Card` au dispărut. Trei coloane despărțite de rigle verticale de 1 px `--line`, fiecare cu o liniuță teal de 28 × 3 px deasupra citatului. Sub 768 px se stivuiesc, cu liniuța păstrată.
+- **§3 Ce facem** — din grilă de carduri în model „două coloane” cu riglă: ancora (eyebrow + H2) lipită în stânga, riglă verticală de 1 px pe toată înălțimea, iar în dreapta cele trei servicii ca rânduri despărțite de linii de păr. Fără numere de index: serviciile nu sunt o secvență, iar § 4 care urmează are numerotare reală.
+- **§4 Cum lucrăm** — a ieșit din „două coloane”; antetul urcă sus pe toată lățimea, iar `Steps` a primit varianta `rail`: de la 1200 px cei patru pași pe un rând, cercul deasupra titlului, noduri legate de o linie de 1 px cu vârf de săgeată teal între ele, iar după al patrulea cerc linia curge mai departe — potrivit cu „Al patrulea nu se termină.”
+- **§9 Parteneri** — patru celule egale pe toată lățimea, despărțite de rigle verticale scurte (2,8 em, centrate). 2 × 2 la 640–1023 px cu linie orizontală între rânduri, o coloană sub 640. Geometria vine din banda de sub hero a mockup-ului, dar **nu** se reintroduce banda de sub hero: aceea a fost scoasă tot azi, la cererea lui Marius.
+- **CtaBand** — de la 1024 px titlul și textul lipite de marginea stângă a casetei, butonul și linia de contact lipite de marginea dreaptă, aliniate pe centru vertical. Componenta e pe toate paginile, deci schimbarea e globală.
+- **Footer** — rândul de jos distribuit clar stânga/dreapta de la 768 px.
+
+Componente atinse: `TwoCol` a primit prop-ul `rule`, `Steps` a primit `variant="rail"`. Nicio componentă nouă, nicio valoare în afara tokenilor, niciun font și niciun cod de culoare nou.
+
+Ce **nu** s-a preluat, cu motiv: diagrama din dreapta hero-ului și graficul decorativ de pe banda de securitate (DESIGN.md § Imagini permite exact două diagrame în tot site-ul, iar mirosul #1 interzice ilustrația flotantă din hero); toate fundalurile pline ale mockup-ului (bandă închisă, bandă colorată) — acelea sunt culoare, nu aranjament, și cererea a fost explicită; antetul mockup-ului (meniul rămâne cum e); numerele mari 01–04 de pe banda „ce facem”; săgeata izolată din marginea rândului (linkurile noastre au deja săgeată la final); rândurile cu pictogramă din subsol (bugetul de 12 iconițe e consumat).
+
+Reparat după ce m-am uitat la capturi și am măsurat în browser:
+- Pașii din varianta `rail` își coborau titlul cu 10 px la trei din patru: rândurile `auto` se întindeau pe înălțimea celui mai înalt pas (`align-content` implicit se poartă ca `stretch`). Cu `align-content: start`, toate cele patru titluri și toate cele patru texte pornesc de la același `top` — verificat, 2235 și 2265 px pentru toate.
+- Linia dintre rândurile de parteneri nu apărea la 640–1023 px: Astro adaugă atributul de scope la fiecare clasă, deci `.a + .a` ajunge la specificitate (0,4,0) și bătea `.a:nth-child(n+3)` cu (0,3,0). Selectorul a primit și el combinatorul. Verificat la 375 / 768 / 1440.
+- `qa/textdiff.mjs` număra notele noi de layout din spec ca text de pagină lipsă; lista de prefixe sărite a primit noile formulări.
+
+Verificat: `npm run build` 0 erori / 0 avertismente, `astro check` 0/0/0, `qa/pagecheck.mjs` 39 de pagini 0 probleme, `qa/keyboard.mjs` tot trece, `qa/headings.mjs` pe cinci pagini (un singur h1, fără sărituri de nivel), `qa/contrast.py` 35/36 (a 36-a e verificarea intenționat negativă, orange pe fundal deschis), `qa/textdiff.mjs` zero diferențe de text pe ambele limbi. Capturi la 1440 light și dark, EN 1440, 768 și 375, plus decupaje pe §2, §3, §4, §9 și CtaBand, și CtaBand de pe /servicii ca să văd efectul pe altă pagină. Consolă curată.
+
+### Revizia aranjamentului: 31 de constatări confirmate, 24 respinse (18 septembrie 2026)
+
+Layout-ul nou a fost trecut printr-o revizie pe cinci dimensiuni (fidelitate față de mockup, spec și mirosuri, comportament la lățimi mici și accesibilitate, calitatea modificării, respectarea literală a constrângerii), iar fiecare constatare a fost dată unui sceptic independent care a încercat s-o infirme. Au trecut 31.
+
+**Cea mai importantă, și e vina mea:** textul curent din § 2 și § 3 trecuse din `--text` în `--muted`. Când am desfăcut cardurile am pierdut `.card__body { color: var(--text) }` și am scris `color: var(--muted)` în locul lui. Asta e schimbare de culoare, exact ce mi s-a interzis. Reparat: ambele reguli au dispărut, textul moștenește `--text` ca înainte (verificat: `rgb(20, 35, 42)` peste tot, identic cu `body`).
+
+**A doua:** rigla verticală pe care o pusesem între ancoră și conținut la § 3 **nu există în mockup**. Verificat pe pixeli: între x=367 și x=421, pe toată înălțimea benzii „ce facem”, nu e niciun pixel diferit de fundal — cele două coloane sunt despărțite doar de alb. Rigla a fost scoasă, iar prop-ul `rule` de pe `TwoCol` a fost șters cu totul, fiindcă nu-l mai folosea nimeni.
+
+**A treia:** cele trei citate din § 2 coborâseră din `<h3>` în `<p>` odată cu cardurile, deci homepage-ul pierduse trei titluri. Întoarse la `<h3>`; `qa/headings.mjs` numără acum 26 de titluri pe homepage, față de 23.
+
+Restul, pe scurt:
+- Celula 3 de parteneri se lipea de riglă la ≥1024 px: regula `nth-child(odd) { padding-left: 0 }` de la pragul 640 (unde „impar” înseamnă coloana stângă din 2×2) rămâne activă și mai sus și e mai specifică decât shorthand-ul. Resetată explicit. Verificat: 0 / 24 / 24 / 24 px la 1024 și 1440, 0 / 24 / 0 / 24 la 768, unde e corect.
+- Rândul de jos din footer nu se distribuia: `margin-left: auto` era scris înaintea lui `.footer__legal { margin: 0 }`, iar shorthand-ul îl anula. Mutat după și `.lang` a rămas fără `margin-left: auto`, altfel absorbea singur tot spațiul.
+- Linkurile din § 3 rămăseseră la greutatea 400: `.rows__link a` n-a fost adăugat în lista de selectori care dau stilul de link terțiar. Adăugat.
+- Pașii: linia pleacă acum din muchia cercului (era la 12 px), iar vârful de săgeată stă la 85% din interval (era lipit de nodul următor, deși comentariul și spec-ul spuneau 85%).
+- Pașii se rupeau 3 + 1 între 700 și 1022 px, pentru că `auto-fit` nu respectă 2 × 2. Varianta `rail` are acum coloane explicite: 1, apoi 2 de la 640, apoi 4 de la 1200. Verificat la patru lățimi.
+- `.step__title { align-self: center }` plus rânduri `auto` care se întind coborau titlurile în varianta implicită (deci și pe /cum-lucram): `align-content: start` pe `.step`.
+- Cele trei coloane din § 2 își porneau propozițiile de la cote diferite. Aliniate cu `subgrid`. Verificat: toate trei la același `top` la 768, 1024 și 1440.
+- CSS mort șters (`.grid-3--wide`, `:global(.steps-2x2)`), `role="list"` pe `<ol class="steps">`, cross-fade-ul badge-urilor făcut simetric, patru comentarii aduse la zi.
+- Spec-ul sincronizat: § 3 fără riglă, § 9 descrie acum și secțiunea de tehnologii cu eyebrow-ul și H2-ul ei (erau în pagină din decizia de ieri, dar spec-ul rămăsese la „rând discret, text”). `qa/textdiff.mjs` numără acum 68 de fragmente, toate găsite identic, pe ambele limbi.
+
+**Nereparate, pentru că sunt dinainte și în afara cererii** (le las aici ca să nu se piardă): gutiera meniului mobil e 20 px fixă, deși containerul trece la 32 px de la 768; zona de atingere a comutatorului de limbă e 16 px lățime, sub minimul de 44 px din DESIGN § Accesibilitate, și e singurul comutator de limbă sub 1024 px; CtaBand are două salturi de padding simultan exact la 768 px, deci lățimea utilă scade cu 87 px față de 767; linia de contact din CtaBand e text simplu, nu `tel:` și `mailto:`, deși e ultimul lucru dinaintea footer-ului pe telefon.
+
+## Cele patru reparații amânate + graficul de linii din hero (18 septembrie 2026, cerut de Marius)
+
+**Cele patru, reparate:**
+- Gutiera meniului mobil urmează acum containerul: 20 px sub 768, 32 px de la 768 în sus (panoul e vizibil până la 1023 px). Verificat la 375, 767, 768 și 900.
+- Comutatorul de limbă: zonă de atingere de 44 × 44 px sub 1024 px, unde meniul mobil e singurul comutator. Peste 1024 rămâne compact, cu 44 px doar pe înălțime, ca să nu se lățească bara. `DESIGN.md § Accesibilitate` cere 44 px „pe mobil”, deci pragul e fidel formulării.
+- CtaBand: padding continuu, `clamp(var(--s-6), 5vw, var(--s-8))`, în locul saltului 32 → 64 px de la 768 px. Lățimea utilă mai scade la 768 doar cu cei 23 px care vin din gutiera containerului (20 → 32 px), decizie de sistem din DESIGN § Layout; înainte pierdea 87 px dintr-odată.
+- Linia de contact din CtaBand: telefonul e `tel:`, emailul e `mailto:`. Textul randat e identic caracter cu caracter cu `contactLine` din i18n — verificat programatic pe ambele limbi, `'+40 757 150 894 · office@bitup.ro'`.
+
+**Graficul din hero** (`src/components/home/HeroLines.astro`). Tiparul din `example.png`: linii orizontale fragmentate, cu margine stângă inegală și câteva noduri pătrate, care se strâng spre dreapta într-un mănunchi de patru curbe ce urcă; cea mai de sus se termină cu vârf de săgeată, celelalte trei cu pătrate, în trepte; peste tot, fire verticale de reper. Citirea e de jos-stânga spre sus-dreapta.
+
+Geometria e măsurată din mockup, nu desenată din ochi: regiunea 470–860 × 70–380 din `example.png` a devenit `viewBox="0 0 390 310"`, iar fiecare linie, nod și curbă stă la coordonatele găsite prin profil de pixeli. Cele patru curbe pornesc din liniile 2, 4, 6 și 8 (măsurate la y = 137, 164, 191, 220), se îndoaie exact unde se termină rulajul orizontal în mockup (x = 312, 285, 252, 233) și urcă pe verticalele x = 356, 343, 331, 320, la înălțimile 20, 56, 71, 87 — aceleași cu centrele pătratelor detectate în imagine.
+
+Ce **nu** s-a preluat: cele trei etichete din colțuri (sunt text, iar textul din mockup e interzis) și culorile (mănunchiul e `--teal`, fragmentele `--line`, nodurile `--muted` — toate din tokeni). SVG inline, `aria-hidden`, fără cereri de rețea.
+
+Hero-ul devine două coloane (1,35fr / 1fr) **de la 1200 px**. Sub atât, graficul nu se afișează: la 1024 px coloana de text îngusta titlul la șase rânduri, față de patru acum. Verificat la 375, 768, 1024, 1199, 1200 și 1440.
+
+Reparat pe parcurs: prima dată graficul a căzut sub text, pentru că pusesem grila pe `.hero :global(.container)`, iar `.hero` e clasă dată lui `Section`, deci poartă scope-ul lui `Section`, nu al lui `HomePage` — aceeași capcană ca la `.hero__facts` și la `.services-two`. Grila stă acum pe un `div.hero__grid` randat chiar de `HomePage`.
+
+Spec adus la zi: `DESIGN.md` § Hero (homepage), § Imagini (a treia diagramă permisă, cu descrierea tiparului) și § Ce nu facem (excepția explicită la „fără rețea de puncte”: graficul e un traseu cu sens, nu o textură), plus § 1 Hero în `01-acasa.md` și `01-home.md`.
+
+Verificat: build 0/0, `astro check` 0/0/0, `pagecheck` 39 de pagini 0 probleme, `keyboard` tot trece, `headings` un singur h1 și 26 de titluri pe ambele limbi, `textdiff` zero diferențe pe ambele limbi (68 de fragmente), consolă curată la șase capturi (1440 light și dark, EN 1440, 1024, 768, 375).
+
+## Graficul din hero, după `hero.png` (18 septembrie 2026, cerut de Marius)
+
+Cerința: „implementezi pe site în secțiunea hero grafica din partea dreaptă, folosind culorile brandului BITUP”. Graficul de ieri, făcut după `example.png`, a fost înlocuit — `HeroLines.astro` s-a șters, a apărut `HeroDiagram.astro`.
+
+**Tiparul**, citit de la stânga la dreapta: un câmp de fragmente împrăștiate (liniuțe scurte și arce rupte, ca trasee de circuit tăiate) în cinci benzi, fiecare cu eticheta ei; la mijloc o spină verticală cu cinci noduri pătrate, unde fragmentele se adună; în dreapta șase trasee care pleacă din noduri, urcă în evantai și se termină cu pătrate, în trepte. Jos, două etichete de colț. De la fragmentare la progres.
+
+**Geometria e măsurată, nu desenată din ochi.** Regiunea 904–1724 × 68–783 din `hero.png` a devenit `viewBox="0 -14 838 742"`. Spina e la x=1335 → 431; cele cinci noduri de 22 px la y = 290, 380, 478, 575, 670 → 222, 312, 410, 507, 602; cele șase verticale ale evantaiului la x = 1622, 1646, 1671, 1685, 1696, 1717 → 718, 742, 767, 781, 792, 813, cu capetele la y = 194, 155, 116, 193, 75, 156 → 126, 87, 48, 125, 12, 88. Toate găsite prin profil de pixeli, nu aproximate.
+
+**Culorile sunt ale noastre**, cum a cerut: `--navy` pe etichete și pe jumătate din fragmente, `--teal` pe cealaltă jumătate, pe spină, pe noduri, pe trasee și pe capete. Niciun cod de culoare scris direct, niciun albastru din mockup. Orange rămâne doar pe butonul de Radiografie.
+
+**Câmpul de fragmente e generat determinist** (generator liniar cu sămânța 20260918), ca două build-uri succesive să dea același SVG. Fragmentele ocolesc casetele etichetelor: dacă unul ar cădea peste text, se mută în stânga sau în dreapta lui. Verificat că etichetele rămân libere de spină în ambele limbi: distanța minimă e 26 px la „Software development”, 82 px la „Cybersecurity”.
+
+**Textul.** Cele cinci etichete de bandă și cele două de colț sunt text nou, luat din mockup, pus în `heroDiagram` în `src/i18n/ro.ts` și `en.ts` și trecut în `spec/continut/01-acasa.md` și `continut-en/01-home.md` § 1. Engleza e traducerea mea, marcată ca atare. **Cele cinci nume nu se suprapun peste cele trei grupuri de servicii din `02-servicii-index.md`** — e o taxonomie nouă, de reconciliat cu Marius. Majusculele de pe etichetele de colț se fac din CSS, nu din conținut, ca să nu fie citite literă cu literă.
+
+Graficul are `role="img"` și `aria-label` (poartă informație, nu e decor) și se afișează de la 1200 px. Sub atât, coloana de text ar fi prea îngustă: la 1024 px titlul trecea la șase rânduri.
+
+Echilibrul celor două coloane: 1,3fr text / 1fr grafic, cu `gap: var(--s-7)`. La 1440 px titlul rămâne la patru rânduri, iar graficul are 438 px, ceea ce face etichetele de 26 px din `viewBox` să se randeze la ~14 px. În mockup pânza are 1774 px lățime și încap amândouă lat; la noi containerul are 1120 px, deci una din două trebuie să cedeze. Dacă vrei proporțiile din mockup, hero-ul trebuie să iasă din container pe toată lățimea — e o schimbare separată, nu am făcut-o.
+
+Verificat: build 0 erori / 0 avertismente, `astro check` 0/0/0, `pagecheck` 39 de pagini 0 probleme, `keyboard` tot trece, `headings` un h1 și 26 de titluri pe ambele limbi, `textdiff` zero diferențe (69 de fragmente, cu etichetele noi găsite în pagină), consolă curată la șase capturi.
+
+### Revizia graficului din hero: 13 constatări confirmate, 17 respinse (18 septembrie 2026)
+
+Prima versiune a graficului a fost trecută printr-o revizie pe patru dimensiuni (fidelitate geometrică, culori și reguli de brand, accesibilitate și lățimi mici, calitatea codului), cu câte un sceptic independent pe fiecare constatare. Trei erau blocante și toate trei atingeau caracterul desenului:
+
+1. **Numărul de trasee.** Mockup-ul are paisprezece, în mănunchiuri de 3/2/3/3/3 pe cele cinci noduri; eu desenasem șase, câte unul pe nod. Măsurat pe coloana imediat la dreapta nodurilor: mockup 14 linii la pas de 11–13 unități, eu 5. De acolo venea cea mai mare parte a diferenței — mockup-ul citea ca panglici de circuit, al meu ca fire răzlețe.
+2. **Forma cotului.** Orizontalele mele mergeau cu 82–163 de unități mai departe decât în mockup înainte să înceapă să urce, iar cotul era o cubică leneșă în loc de arc. Porțiunea strict verticală de sub pătrate ieșea de 2–4,5 ori mai scurtă: 17–99 de unități față de 76–282 în mockup.
+3. **Sensul mănunchiului.** În mockup traseele nodului de sus **coboară** vreo 47 de unități până la nivelul comun, merg un palier împreună cu celelalte, și abia apoi urcă toate laolaltă — evantaiul e convergent. La mine fiecare traseu urca monoton de la nodul lui direct la verticala lui, deci desenul se deschidea în loc să se adune: exact pe dos față de „de la fragmentare la progres”.
+
+Reparat: `trasee` se generează acum ca mănunchiuri de 3/2/3/3/3, cu traseele unui mănunchi paralele la 12 unități; fiecare traseu are patru bucăți — orizontală de la nod, cot spre palierul comun, palier, cot final spre verticala proprie — cu raza cotului ≈ 90 (K = 0,552 × r). Cele paisprezece trasee converg în cele șase verticale măsurate (x = 718, 742, 767, 781, 792, 813) cu capetele la y = 134, 95, 56, 132, 15, 95. Pătratele sunt opt, ca în mockup: șase capete plus două prinse pe verticala x=781, la y=210 și 321.
+
+Celelalte, reparate la fel:
+- Etichetele stăteau cu 21–35 de unități mai sus decât în mockup. Au coborât pe valorile măsurate: y = 169, 282, 383, 486, 586.
+- Garda anti-suprapunere testa doar punctul de plecare al fragmentului, dar formele curbe urcă sau coboară până la 19 unități, așa că șapte fragmente intrau peste text și cinci tăiau literele, în ambele limbi. Acum forma se alege **înainte** de test, iar testul se face pe toată anvelopa fragmentului.
+- Fragmentele erau prea groase (2,4 → 1,8), prea lungi și prea uniforme; formele erau S-uri în loc de colțuri de traseu. Sunt acum colțuri de sfert de cerc cu rază 8–9, iar distribuția pe lățime e uniformă, nu ciorchine.
+- Etichetele de colț stau pe două rânduri, ca în mockup.
+- `role="img"` face tot subarborele prezentațional, deci cele cinci etichete nu ajungeau la cititoarele de ecran. `aria-label` le enumeră acum.
+
+Ce **nu** am făcut, deși revizia a cerut: micșorarea etichetelor de bandă la corp 20 pentru fidelitate. Ar fi coborât textul efectiv la ~10 px, sub `--fs-small`. Accesibilitatea bate fidelitatea: corpul e 28 de unități (≈14,6 px redați), iar etichetele ies cu ~35% mai late decât în mockup. E o abatere conștientă, nu o scăpare.
+
+Verificat după reparații: build 0/0, `astro check` 0/0/0, `pagecheck` 39 de pagini 0 probleme, `keyboard` tot trece, `headings` 26 de titluri și un singur h1 pe ambele limbi, `textdiff` zero diferențe (69 de fragmente), consolă curată. Determinismul generatorului confirmat: două build-uri succesive dau același SVG (hash `9fa1aa20f71f4d8a`, 15,4 KB în pagină).
+
+### Graficul din hero, ajustările lui Marius (18 septembrie 2026, seara)
+
+Cinci cereri, toate făcute:
+1. **Săgeți în loc de pătrate** la capetele traseelor de la „progres”, în orange din brand. Șase săgeți, triunghiuri pline.
+2. **Logo-ul oficial BITUP** deasupra spinei, cu aceleași căi ca `Logo.astro` și aceiași tokeni de culoare, deci varianta pentru temă închisă vine automat.
+3. **Cele două pătrate fără linie** (le adăugasem după revizia de dimineață, care le văzuse în mockup pe verticala x=781) au fost scoase: pe traseul nostru chiar nu aveau linie sub ele.
+4. **Nodurile de pe spină** au trecut din teal în orange.
+5. **Mai mare și mai aerisit**: distanța dintre benzi a crescut de la 95 la 108 unități, fragmentele de la 20 la 15 pe bandă, iar graficul redat a crescut de la 438 la 490 px.
+
+Ca „mai mare” să nu mănânce din titlu, hero-ul a primit un **container lat**: `--container-wide: 1360px`, prop nou `wide` pe `Container`, activ de la 1360 px în sus. Am ales pragul 1360 pentru că exact acolo decalajul față de containerul normal devine o constantă — (1360 − 1120) / 2 = 120 px — deci alinierea se poate face dintr-o valoare fixă, fără calcule cu `vw` care s-ar clătina din cauza barei de derulare.
+
+Prima încercare a ieșit strâmbă: hero-ul începea cu 120 px mai la stânga decât toate celelalte secțiuni. Grila hero-ului are acum în față o gutieră de 72 px care, împreună cu gap-ul de 48 px, dă exact cei 120 px. Verificat programatic la 1200, 1359, 1360, 1440 și 1600 px: marginea stângă a titlului și marginea stângă a eyebrow-ului din secțiunea următoare cad la același x (72, 152, 152, 192, 272). Titlul rămâne la patru rânduri la toate lățimile.
+
+**Orange-ul, de spus pe față.** Regula de până acum — „orange doar pe butonul de Radiografie, maximum trei apariții pe pagină” — nu mai ține: pe primul ecran sunt cinci noduri, marca din logo și butonul. (Săgețile au fost și ele orange la prima încercare; Marius le-a vrut altfel — vezi mai jos.) Am actualizat regula în `CLAUDE.md` § premium și comentariul tokenului din `tokens.css`, altfel sesiunea următoare ar fi dat schimbarea înapoi „ca reparație”. Dacă Marius nu vrea regula modificată, se schimbă înapoi, dar atunci trebuie schimbată și culoarea din grafic.
+
+**Contrastul.** Orange pe fundalul deschis dă 2,02:1, cea mai slabă pereche din paletă — de asta `DESIGN.md` interzice orange pentru inelul de focus. Pe fundal închis dă 8,37:1. Nodurile și săgețile sunt elemente decorative într-un grafic care are etichetă proprie, deci nu cad sub cerința de 3:1 pentru componente de interfață, dar în temă deschisă se văd palid față de cum arată în dark. De spus lui Marius, nu de ascuns.
+
+Verificat: build 0/0, `astro check` 0/0/0, `pagecheck` 39 de pagini 0 probleme, `keyboard` tot trece, `headings` 26 de titluri și un h1 pe ambele limbi, `textdiff` zero diferențe (69 de fragmente), `contrast.py` 35/36 (a 36-a e verificarea intenționat negativă), consolă curată la șapte capturi: 1440 light și dark, EN 1440, 1280, 1200, 1024, 375.
+
+### Săgețile din grafic: V teal în loc de triunghi orange (18 septembrie 2026)
+
+Marius, după ce a văzut capturile: „nu îmi place portocaliul din capătul liniilor, adică săgețile, aș vrea să vie doar ca un V, nu ca un triunghi plin, și cred că până la urmă mai bine arată pe culoarea aceea verde”.
+
+Făcut: cele șase capete sunt acum V-uri deschise, trasate cu `--teal` la 2,6 px, cu vârful exact pe capătul liniei verticale (`M x−10 y+14 L x y L x+10 y+14`), nu triunghiuri pline. Nodurile de pe spină rămân orange — cererea a fost explicit despre săgeți, nu despre noduri.
+
+Aduse la zi odată cu schimbarea: comentariul tokenului `--orange` din `tokens.css`, regula de culoare din `CLAUDE.md` § premium (acum spune „cele cinci noduri”, nu „nodurile și săgețile”), descrierea din `DESIGN.md` § Imagini și notele din `01-acasa.md` și `01-home.md`.
+
+Verificat: build 0/0, `astro check` 0/0/0, `pagecheck` 39 de pagini 0 probleme, `keyboard` tot trece, `headings` 26 de titluri și un h1 pe ambele limbi, `textdiff` zero diferențe (69 de fragmente), consolă curată la cinci capturi. În HTML-ul livrat: 5 noduri orange, 6 săgeți teal.
+
+### Triunghiul portocaliu care „încă apărea”: serverul de dev, a treia oară (18 septembrie 2026)
+
+Marius, după schimbarea săgeților: „încă apare și triunghiul portocaliu în vârf”. Nu era în cod. Măsurat pe ambele servere, în același moment:
+
+| | `fill` | `stroke` |
+|---|---|---|
+| dev, portul 4321 | `rgb(254, 152, 42)` | `none` |
+| preview pe build, portul 4323 | `none` | `rgb(32, 104, 108)` |
+
+Markup-ul era deja cel nou (traseul în V, fără `Z`), dar serverul de dev livra regula CSS veche, `fill: var(--orange)`. Un `path` deschis în formă de V, umplut, arată exact ca un triunghi plin — deci pe ecranul lui era portocaliu, iar pe build-ul meu era V teal. Reparat cu `astro dev stop` + `npm run dev`; după repornire, dev-ul dă `fill: none`, `stroke: rgb(32, 104, 108)`, grosime 2,6 px.
+
+A treia oară într-o zi. Regula a intrat în `.claude/skills/design-loop/SKILL.md`: după orice schimbare de CSS, serverul de dev se repornește **înainte** de a-i spune lui Marius să dea reload.
+
+Verificat după aceea, cu numărătoare de pixeli pe captura din dev: singurul portocaliu rămas în grafic e la cele cinci noduri de pe spină (100–166 px fiecare) și în marca din logo-ul oficial (41 px). Zero portocaliu la capetele traseelor.
+
+### Butonul secundar din hero: „Explorează serviciile” (18 septembrie 2026)
+
+Cerut de Marius: în hero, în locul lui „Vezi cum lucrăm”, textul „Explorează serviciile” (l-a scris fără diacritice și cu o literă lipsă, `Exporeaza`; am folosit forma corectă, cea din `hero.png`).
+
+Odată cu eticheta s-a schimbat și **destinația**: butonul duce acum la `/servicii`, nu la `/cum-lucram`. Un buton care scrie „Explorează serviciile” și deschide „Cum lucrăm” ar fi fost o capcană; schimbarea e a mea, nu cerută, dar fără ea eticheta ar fi mințit.
+
+Aplicat peste tot, după regula 12: `home.ro.ts`, `home.en.ts` (engleza „Explore our services” e traducerea mea, de confirmat), destinația din `HomePage.astro`, `spec/continut/01-acasa.md` și `continut-en/01-home.md` § 1 (și eticheta, și ruta), plus exemplul de buton secundar din pagina de QA a componentelor, ca `grep` după textul vechi să iasă gol. Verificat: `grep "Vezi cum lucrăm\|See how we work"` în `src/` și `spec/` nu mai întoarce nimic.
+
+În HTML-ul livrat: `/servicii` → „Explorează serviciile” și `/en/services` → „Explore our services”.
+
+Verificat: build 0/0, `astro check` 0/0/0, `pagecheck` 39 de pagini 0 probleme, `keyboard` tot trece, `textdiff` zero diferențe pe ambele limbi. Capturile sunt luate de pe serverul de dev repornit, nu de pe build — conform regulii intrate azi în `design-loop`.
+
+## `/despre` rescrisă ca pagina firmei (18 septembrie 2026)
+
+Cerut de Marius: `/despre` nu mai e pagina fondatorului, ci a companiei. Fără portret, fără povestea lui Marius, fără § Traseul. Textul nou (RO) l-a scris el; engleza e traducerea mea, de confirmat.
+
+### Ce s-a schimbat
+
+- `spec/continut/09-despre.md` și `spec/continut-en/09-about.md`: rescrise integral. Opt secțiuni — Hero, Originea, Echipa, Cui ne adresăm, Ce rezolvăm, Tehnologia, Valorile, Firma — plus banda finală.
+- `src/copy/about.ro.ts` / `about.en.ts`: interfața `AboutCopy` e alta (hero / origin / team / audience / problems / tech / values / company / cta). Câmpurile vechi (`story`, `timeline`, `principles`, `else`, `portraitAlt`, `personal`) au dispărut.
+- `src/components/pages/AboutPage.astro`: reconstruită. Zero `<img>` și zero `<picture>` în HTML-ul livrat, pe ambele limbi (verificat).
+- `src/lib/schema.ts`: `aboutPage()` nou; `/despre` emite `AboutPage` cu `mainEntity` → `Organization`, fără nod `Person` separat.
+- `src/i18n/routes.ts`: cheia `team` (`/echipa` ↔ `/en/team`).
+- `CLAUDE.md`: § Voce nu mai trimite la „hero-ul, § Povestea și § Traseul de pe Despre” (secțiunile nu mai există); mirosul 16 spune acum unde apare Marius.
+
+### Ritmul paginii — de ce nu arată toate secțiunile la fel
+
+Marius a cerut explicit: „pagina are o listă, un 2×2 și trei carduri de valori — dacă toate trei arată la fel, ai greșit ritmul”. Măsurat la 1440 px, silueta fiecărei secțiuni (toate pornesc din aceeași margine, `x=192`):
+
+| Secțiune | Formă | Lățime utilă | Fundal |
+|---|---|---|---|
+| Hero | o coloană, tipografic | 609 px (H1) | `--surface-2` |
+| Originea | două coloane, eyebrow sticky în stânga | 728 px (text) | `--bg` |
+| Echipa | titlu lat, apoi două coloane de text, link sub linie | 2 × 496 px | `--surface` |
+| Cui ne adresăm | o singură coloană, buline simple | 728 px | `--bg` |
+| Ce rezolvăm | patru carduri, 2×2 | 4 × 516 px | `--surface-2` |
+| Tehnologia | o coloană, primul paragraf la `--fs-lead` | 728 px | `--bg` |
+| Valorile | trei carduri | 3 × 336 px | `--bg`, cu linie deasupra |
+| Firma | FactStrip pe toată lățimea | 1056 px | `--surface` |
+
+Lista, 2×2-ul și cele trei carduri sunt trei forme diferite: buline fără chenar, carduri de 516 px pe fundal `--surface-2`, carduri de 336 px pe `--bg`. Între 2×2 și cele trei valori stă o secțiune de text, ca să nu se citească drept „încă un grid”.
+
+### Abateri și lucruri de confirmat
+
+1. **Propoziția din `CLAUDE.md` punctul 16 nu exista.** Marius a cerut ca „Marius apare pe Despre, în secțiunile «Cine răspunde» (mic) și în caseta de autor.” să devină „Marius apare pe /echipa, …”. Punctul 16 nu conținea fraza asta; el spune doar ce e mirosul. Am adăugat fraza cerută (în forma pentru `/echipa`) la finalul punctului 16 și am corectat § Voce, care trimitea la secțiuni care nu mai există. Echivalentele reale ale frazei sunt în cinci locuri:
+
+   | Fișier | Linie | Ce spune | Autorizat? |
+   |---|---|---|---|
+   | `CLAUDE.md` | 61 (§ Mirosuri, 16) | acum spune corect | da, corectat |
+   | `CLAUDE.md` | 69 (§ Voce) | trimitea la „hero-ul, § Povestea și § Traseul de pe Despre” | da, corectat |
+   | `spec/DESIGN.md` | 170 | „Portretul lui Marius apare în exact trei locuri: hero-ul de pe Despre (mare, 3:4), …” | **nu** |
+   | `spec/assets/FOTO-CONTEXT.md` | 7 | aceeași afirmație | **nu** |
+   | `spec/PLACEHOLDERS.md` | 21 | aceeași afirmație | **nu** |
+
+   Ultimele trei sunt în afara listei de fișiere pe care am voie să le modific. Conform regulii lui Marius („orice altă modificare în spec/ o notezi în NOTES.md și mă întrebi”), le las neatinse. **Întrebare:** le corectez acum (portretul rămâne în două locuri, nu trei: „Cine răspunde” și caseta de autor — al treilea va fi `/echipa`), sau așteptăm pagina `/echipa`?
+
+2. **`spec/continut/00-global.md` linia 33** spune „profilul personal de LinkedIn al lui Marius … apare pe Despre, pe Contact și în caseta de autor”. Pe `/despre` nu mai apare: textul nou are un singur link, LinkedIn-ul firmei. Fișierul nu e pe lista autorizată. **Aceeași întrebare.**
+
+3. **„· Anthropic Partner” în FactStrip-ul de pe `/despre`.** Textul trimis de Marius listează trei parteneriate; l-am completat cu al patrulea, ca să fie același șir ca în footer, pe homepage și pe restul site-ului (`grep` după „Veeam Partner” dă peste tot patru). Dacă nu vrea, se scoate din patru locuri, nu din unul.
+
+4. **Registrul „compania ta”.** Pe `/despre` se spune „compania ta”, nu „firma ta”, cum a cerut Marius. Verificat pe HTML-ul livrat: „firma ta” / „firmei tale” — zero apariții; „compania ta” — o apariție (titlul benzii finale), plus „companiei tale” în H1. Restul site-ului rămâne pe „firma ta”: e o excepție de pagină, nu o schimbare de voce.
+
+5. **Linkul „Vezi echipa” duce către o pagină care nu există încă.** `/echipa` și `/en/team` sunt în `ARHITECTURA.md` § Rute și în `routes.ts`, dar pagina vine separat. Până atunci, linkul dă 404. `pagecheck` nu verifică țintele linkurilor interne, deci nu se prinde automat — rămâne punct deschis, asumat de Marius.
+
+6. **`person()` din `src/lib/schema.ts` nu mai e folosit de nicio pagină.** L-am păstrat pentru `/echipa`. Ca să nu rămână `@id` în aer, `Organization.founder` a primit `@id: https://bitup.ro/#founder` — acolo trimite `Article.author` de pe fiecare articol și studiu de caz. Verificat pe `/rezultate/proq`: referința se rezolvă în același graf.
+
+7. **`qa/textdiff.mjs`** a primit patru etichete de layout în lista de sărit: „Patru carduri” / „Four cards” și „Propoziție de închidere” / „Closing sentence”. Același tip de completare ca „Șase carduri” la /securitate. Tot pentru `textdiff`, linia de link din § Echipa s-a rescris în convenția fișierului (`Notă pentru Claude Code:` + `Link: Vezi echipa → /echipa`), ca eticheta să poată fi verificată; textul de pagină e neschimbat.
+
+8. **Portretul rămâne pe disc**, în `src/assets/foto-marius/marius-portret-500x667.jpg`, nereferit de nicio pagină. Nu l-am șters: e materialul pentru `/echipa`. Astro nu-l mai procesează (din 21 de imagini generate, variantele de portret au dispărut).
+
+### Verificări
+
+- `npm run build`: 0 erori, 0 avertismente, 41 de pagini.
+- `npx astro check`: 0 erori / 0 avertismente / 0 sugestii.
+- `qa/textdiff.mjs`: 52 din 52 de fragmente găsite identic, RO și EN. Zero diferențe de text.
+- `qa/pagecheck.mjs`: 39 de pagini, 0 cu probleme. `/despre` și `/en/about`: 1 `h1`, 0 salturi de nivel, 2 apariții de orange (sub maximul de 3), 0 imagini.
+- `qa/headings.mjs`: 1 `h1` și 16 titluri pe fiecare limbă, fără salturi.
+- `qa/keyboard.mjs`: trece pe `/despre` și pe `/en/about` (35 de elemente atinse cu Tab, focus vizibil pe toate, meniul se închide cu Esc).
+- `qa/contrast.py`: 35 din 36 de perechi trec; singura „NU” e intrarea documentată care explică de ce orange nu se folosește la focus. Niciun token de culoare nou.
+- 16 capturi în `qa/despre/` (375, 768, 1024, 1440 × light, dark × RO, EN), deschise și verificate una câte una. Consolă curată, zero cereri externe.
+
+### Lista de mirosuri (`CLAUDE.md`), pentru `/despre` și `/en/about`
+
+1. Hero centrat cu pilulă-badge, două butoane, ilustrație flotantă — **nu**. Hero tipografic, o coloană, aliniat la stânga, fără buton și fără imagine.
+2. Gradient, glassmorphism, blob-uri, glow — **nu**. Doar culori plate din `tokens.css`.
+3. Grid de trei carduri identice repetat pe fiecare pagină — **nu**. Pagina are un singur grid de trei (Valorile) și unul de patru (2×2), cu lățimi, fundaluri și numere de coloane diferite; între ele stau o listă, două secțiuni de text și un FactStrip. Tabelul de mai sus arată cele opt siluete.
+4. Iconițe generice în carduri — **nu**. Niciun card nu are iconiță.
+5. Umbre pe carduri, colțuri foarte rotunjite, `hover:scale` — **nu**. `--radius` 4 px, fără umbre, hover doar pe culoare.
+6. Animații la scroll, contoare, carusele — **nu**. Zero JavaScript propriu pe pagină.
+7. Paletă Tailwind, Inter, `max-w-7xl` — **nu**. Tokenii proiectului, Public Sans, containerul de 1120 px.
+8. „De ce noi”, „Ce spun clienții” fără nume, cifre inventate — **nu**. Singurele cifre sunt datele de registru și „patru țări” din textul lui Marius.
+9. Title Case, emoji, „Află mai multe →” — **nu**. Sentence case peste tot; etichetele de link sunt „Vezi echipa”, „Citește cazul ProQ”, „LinkedIn BitUp”.
+10. Toate secțiunile cu același ritm — **nu**. Punctul cel mai atent verificat: opt secțiuni, opt forme, măsurate în tabel.
+11. Footer cu patru coloane egale și newsletter — **nu**. Footer-ul global, neatins.
+12. Padding-uri diferite de la o secțiune la alta — **nu**. Toate secțiunile pe `--section-y`, toate distanțele din scara `--s-*`.
+13. Dark mode prin inversare — **nu**. Paleta dark din `tokens.css`; verificat în capturi la toate cele patru lățimi.
+14. Imagini de stoc sau generate — **nu**. Pagina nu are nicio imagine.
+15. `<div>` peste `<div>` fără semantică — **nu**. `<section aria-labelledby>` la fiecare secțiune, `<ul>` real la listă, `<dl>` la FactStrip, `<article>` la carduri.
+16. Estetică de brand personal pe un site de firmă — **nu**. Zero portrete, zero avatare, zero semnătură, zero citat al fondatorului. Marius apare o singură dată pe pagină, în JSON-LD, ca `Organization.founder`.
+
 ## Propuneri (nu se fac fără acord)
 
 - Faza 5: Astro are suport experimental pentru CSP cu hash-uri generate la build (`experimental.csp`), care ar scoate `'unsafe-inline'` din `script-src` și `style-src`. E îmbunătățirea menționată în `ARHITECTURA.md` § Headere ca „nu o condiție de lansare”. De evaluat când ajungem acolo.

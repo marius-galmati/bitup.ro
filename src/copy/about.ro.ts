@@ -1,61 +1,87 @@
-/** Textul paginii /despre, copiat exact din spec/continut/09-despre.md. Hero, § Povestea și § Traseul rămân la persoana I (declarație semnată). */
+/**
+ * Textul paginii /despre, copiat exact din spec/continut/09-despre.md.
+ * Pagina e integral la persoana I plural (CLAUDE.md § Voce): e vocea firmei, nu a fondatorului.
+ * Profilurile individuale — și singularul care le însoțește — trec pe /echipa.
+ */
 
 export interface AboutCopy {
   title: string; description: string;
-  hero: { eyebrow: string; h1: string; lead: string; portraitAlt: string };
-  story: { eyebrow: string; h2: string; paragraphs: string[] };
-  timeline: { eyebrow: string; h2: string; items: { years: string; text: string }[] };
-  principles: { eyebrow: string; h2: string; cards: { title: string; text: string }[] };
-  else: { eyebrow: string; h2: string; text: string; link: string };
-  company: { eyebrow: string; h2: string; facts: { k: string; v: string }[]; personal: string; companyLink: string };
+  hero: { eyebrow: string; h1: string; lead: string };
+  origin: { eyebrow: string; h2: string; paragraphs: string[] };
+  team: { eyebrow: string; h2: string; paragraphs: string[]; link: string };
+  audience: { eyebrow: string; h2: string; items: string[]; closing: string };
+  problems: { eyebrow: string; h2: string; cards: { title: string; text: string }[] };
+  tech: { eyebrow: string; h2: string; paragraphs: string[]; link: string };
+  values: { eyebrow: string; h2: string; cards: { title: string; text: string }[] };
+  company: { eyebrow: string; h2: string; facts: { k: string; v: string }[]; companyLink: string };
   cta: { title: string; text: string; button: string };
 }
 
 export const aboutRo: AboutCopy = {
-  title: 'Despre Marius Galmati și BitUp · BitUp',
-  description: 'Cine răspunde de IT-ul tău: Marius Galmati, în IT din 2017, cu experiență de securitate într-o corporație din Fortune 500. De ce există BitUp.',
+  title: 'Despre BitUp Technology · BitUp',
+  description: 'BitUp Technology: o echipă de specialiști IT formată în companii internaționale, care aduce structură, tehnologie modernă și securitate proiectată de la început în companiile din România.',
   hero: {
     eyebrow: 'Despre',
-    h1: 'Am văzut prea multe firme cu tehnologie, dar fără cineva care să răspundă de ea.',
-    lead: 'Sunt Marius Galmati. Am făcut BitUp ca să fiu eu acela, pentru firmele mici din Cluj și din România.',
-    portraitAlt: 'Marius Galmati, fondatorul BitUp',
+    h1: 'Standarde enterprise, aduse la scara companiei tale.',
+    lead: 'BitUp Technology este o echipă de specialiști IT formată în companii internaționale. Pagina asta spune cine suntem și cum putem aduce plus valoare în business-ul tău.',
   },
-  story: {
-    eyebrow: 'Cine sunt',
-    h2: 'Din 2017, în IT-ul firmelor mici. Apoi la scară mare. Apoi înapoi, cu ce am învățat.',
+  origin: {
+    eyebrow: 'De ce existăm',
+    h2: 'De ce am fondat BitUp',
     paragraphs: [
-      'Lucrez în IT din 2017. Am început ca administrator de sistem în firme mici din Cluj, unde făceam de toate: servere, rețea, backup, firewall, utilizatori, telefonul care sună când nu merge imprimanta. Acolo am înțeles că într-o firmă mică IT-ul nu e un departament, e un om. Și când omul acela nu e, nu e nimeni.',
-      'Am trecut apoi printr-o companie de software în creștere, unde am proiectat infrastructura noului sediu și am ținut suportul la nivel de SLA, cu tichete, timpi de răspuns și rapoarte. Iar din 2024 până în 2026 am lucrat la Concentrix, o corporație din Fortune 500, în securitate informațională: audituri ISO 27001 interne și externe, politici și guvernanță, planuri de continuitate și recuperare, protecție pe stații și servere, Microsoft 365 și Active Directory. La scara aceea, o greșeală se vede imediat.',
-      'BitUp l-am pornit în 2020, din ce vedeam la firmele mici: aveau tehnologie, dar nu aveau structură; aveau furnizori, dar nu aveau un partener; aveau inițiative de digitalizare, dar nimeni nu-și asuma imaginea de ansamblu. Iar securitatea era mereu „extra”, ceva ce se adaugă după, dacă mai rămân bani. Am construit BitUp ca să fie invers: un singur partener care răspunde de tot IT-ul, cu securitatea făcută de la început, nu vândută separat.',
-      'Aduc la scara firmei tale ce am învățat la scară mare, fără complexitate inutilă și fără hype de furnizor.',
+      'Ne-am format în organizații mari, unde IT-ul funcționează pe proceduri scrise, standarde internaționale și responsabilități clare. În companiile din România am regăsit aceeași tehnologie, folosită fără niciuna dintre ele: sisteme cumpărate corect, administrate la întâmplare, cu securitatea tratată ca opțiune.',
+      'BitUp Technology a fost fondată în 2020, pornind de la o observație simplă: diferența dintre o companie care controlează tehnologia și una controlată de ea nu vine din buget. Vine din structură — cine răspunde, ce se documentează, ce se verifică și la ce interval.',
+      'Aducem în companii de orice dimensiune modul de operare al organizațiilor mari: guvernanță, procese, documentație și securitate proiectată de la început, calibrate la realitatea și la bugetul fiecăreia.',
     ],
   },
-  timeline: {
-    eyebrow: 'Traseul',
-    h2: 'Pe scurt',
+  team: {
+    eyebrow: 'Echipa',
+    h2: 'Specialiști pe zone diferite din IT, nu un singur om bun la toate',
+    paragraphs: [
+      'În spatele BitUp stă o echipă cu experiență acumulată în companii precum Bosch, NTT DATA, Marsh și Concentrix: infrastructură și securitate informațională, dezvoltare software, inteligență artificială și automatizări, livrare de proiecte în echipe internaționale. Fiecare zonă are omul ei, iar problemele tale ajung la cineva care le-a mai întâlnit la scară mare.',
+      'Standardele după care operăm vin din locurile unde ne-am format: audituri ISO 27001, management al riscului, control al schimbărilor, documentație care rămâne la client.',
+    ],
+    link: 'Vezi echipa',
+  },
+  audience: {
+    eyebrow: 'Cui ne adresăm',
+    h2: 'Cu cine ne potrivim',
     items: [
-      { years: '2010–2014', text: 'Calculatoare, Universitatea Tehnică din Cluj-Napoca' },
-      { years: '2017–2021', text: 'Administrator de sistem într-o firmă din Cluj: virtualizare, Active Directory, firewall Fortinet, backup și recuperare cu Veeam' },
-      { years: '2020', text: 'Pornesc BitUp Technology' },
-      { years: '2021–2024', text: 'Administrator de sistem senior într-o companie de software în creștere: infrastructura noului sediu, suport pe SLA' },
-      { years: '2024–2026', text: 'Concentrix (Fortune 500), securitate informațională: audituri ISO 27001, continuitate, EDR/XDR, patch management, Microsoft 365 și AD' },
-      { years: '2026', text: 'BitUp, full-time' },
+      'Companii care depind de sistemele lor și nu au pe cineva care să răspundă de ansamblu.',
+      'Companii cu mai mulți furnizori, unde nimeni nu are imaginea completă și responsabilitatea finală.',
+      'Companii care au deja o echipă IT internă și au nevoie de expertiză pe zone punctuale: securitate, cloud, automatizări, dezvoltare software.',
+      'Companii cu cerințe de conformitate — NIS2, ISO 27001, cerințe venite de la clienți sau din audituri — care trebuie traduse în măsuri concrete.',
+      'Companii care vor să digitalizeze procese și să folosească automatizări și AI fără să-și crească riscul.',
     ],
+    closing: 'Nu suntem potriviți pentru cine caută cel mai mic preț. Prioritatea noastră este rezultatul în timp, nu cea mai mică poziție din ofertă.',
   },
-  principles: {
-    eyebrow: 'Principii',
-    h2: 'Trei lucruri în care credem, cu ce înseamnă ele pentru tine',
+  problems: {
+    eyebrow: 'Ce rezolvăm',
+    h2: 'Patru probleme care se repetă',
     cards: [
-      { title: 'Securitatea înainte de funcționalități', text: 'Nu instalăm nimic fără partea de securitate făcută. Nu vindem securitatea separat pentru că nu funcționează separat. Uneori asta înseamnă un „nu” la ceva ce ai vrea.' },
-      { title: 'Claritatea înaintea vitezei', text: 'Spunem ce facem, de ce și cât costă, înainte să facem. Raportul lunar e scris din tichete, nu din memorie. Dacă nu înțelegi ceva din ce spunem, e problema noastră, nu a ta.' },
-      { title: 'Gândirea pe termen lung', text: 'Alegem ce merge și peste cinci ani, nu ce arată bine luna asta. Nu-ți vindem ce nu ai nevoie și îți spunem când poți aștepta.' },
+      { title: 'Responsabilitate difuză', text: 'Tehnologia există, dar nu răspunde nimeni de ea în ansamblu. Preluăm rolul ăsta, cu un punct unic de contact și cu raport lunar scris din tichete.' },
+      { title: 'Securitate adăugată la final', text: 'Sistemele se construiesc întâi și se protejează după, dacă mai rămâne buget. Noi proiectăm securitatea în fiecare etapă, nu o vindem separat.' },
+      { title: 'Procese care trăiesc în Excel și în memoria unui om', text: 'Informația nu circulă, se pierde la fiecare plecare. Le mutăm în sisteme, cu automatizări și integrări între aplicațiile existente.' },
+      { title: 'Tehnologie cumpărată, nu integrată', text: 'Licențe și echipamente care nu comunică între ele. Facem inventarul, eliminăm suprapunerile și construim o arhitectură coerentă.' },
     ],
   },
-  else: {
-    eyebrow: 'În paralel',
-    h2: 'Ce mai facem',
-    text: 'Construim CyberXscore, o platformă prin care patronii își pot evalua singuri riscul cibernetic, în termeni de business, nu de IT. Și ProQ, o platformă pentru furnizorii din industria auto, folosită în patru țări.',
+  tech: {
+    eyebrow: 'Tehnologia',
+    h2: 'Tehnologie modernă, aplicată pragmatic',
+    paragraphs: [
+      'Digitalizare, cloud, automatizări între aplicații, agenți AI cu scop definit: toate intră în discuție doar acolo unde rezolvă o problemă măsurabilă. Fiecare tehnologie nouă trece prin aceleași întrebări înainte să ajungă în producție — ce problemă rezolvă, cine o administrează, ce riscuri aduce și cum o oprim dacă nu dă rezultatul așteptat.',
+      'Dezvoltăm și produse proprii: CyberXscore, prin care o companie își poate evalua singură riscul cibernetic în termeni de business, și ProQ, platformă pentru furnizorii din industria auto, folosită în patru țări.',
+    ],
     link: 'Citește cazul ProQ',
+  },
+  values: {
+    eyebrow: 'Valorile',
+    h2: 'Trei valori, cu ce înseamnă fiecare în practică',
+    cards: [
+      { title: 'Integritate', text: 'Spunem ce am făcut, ce nu am reușit și unde am greșit. Raportul lunar se scrie din tichete, nu din memorie. Recomandăm și varianta care nu ne aduce venit, când e cea corectă pentru tine.' },
+      { title: 'Inovație', text: 'Tehnologiile noi intră unde produc un rezultat măsurabil, nu unde sună bine. Se testează înainte, se documentează după, iar ce nu funcționează se retrage.' },
+      { title: 'Profesionalism', text: 'Proceduri scrise, control al schimbărilor, termene asumate și documentație care rămâne la client. Aceleași standarde ca într-o organizație mare, fără birocrația ei.' },
+    ],
   },
   company: {
     eyebrow: 'Datele firmei',
@@ -64,14 +90,13 @@ export const aboutRo: AboutCopy = {
       { k: 'Din', v: 'iunie 2020' },
       { k: 'Unde', v: 'Cluj-Napoca' },
       { k: 'CUI', v: 'RO42613248 · J12/1556/2020' },
-      { k: 'Parteneriate', v: 'Microsoft Partner · Fortinet Advocate · Veeam Partner' },
+      { k: 'Parteneriate', v: 'Microsoft Partner · Fortinet Advocate · Veeam Partner · Anthropic Partner' },
     ],
-    personal: 'LinkedIn personal',
     companyLink: 'LinkedIn BitUp',
   },
   cta: {
-    title: 'Vrei să vezi cum lucrăm, înainte să semnezi ceva?',
-    text: '30 de minute, gratuit, fără obligații. Îți spunem exact unde stai.',
+    title: 'Vrei să vezi unde stă compania ta, înainte de orice decizie?',
+    text: '30 de minute, gratuit, fără obligații. Îți spunem exact unde stai și ce ar însemna să preluăm noi grija asta.',
     button: 'Programează Radiografia IT',
   },
 };

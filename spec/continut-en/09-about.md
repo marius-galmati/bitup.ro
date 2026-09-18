@@ -1,77 +1,120 @@
 # 09 — About (`/en/about`)
 
-**Title:** About Marius Galmati and BitUp · BitUp
-**Description:** Who answers for your IT: Marius Galmati, in IT since 2017, with security experience at a Fortune 500 corporation. Why BitUp exists.
+**Title:** About BitUp Technology · BitUp
+**Description:** BitUp Technology: a team of IT specialists trained in international companies, bringing structure, technology, and security designed in from the start.
 
-**JSON-LD:** global + Person (name: Marius Galmati, jobTitle: Founder, worksFor: BitUp Technology SRL, sameAs: LinkedIn, image: portrait).
+**JSON-LD:** global + `AboutPage`, with `mainEntity` pointing to the company's `Organization` node, and `founder` inside `Organization` as a `Person` (name: Marius Galmati, jobTitle: Founder, sameAs: personal LinkedIn). No separate `Person` node on this page; individual profiles will live on `/en/team`.
 
 ---
 
-## Hero (internal, with the 500×667 portrait on the right)
+## Hero (internal, typographic, one column, no image)
 
 Eyebrow: `About`
-**H1:** I've seen too many companies with technology, but no one who answers for it.
-Lead: I'm Marius Galmati. I built BitUp to be that person, for small companies in Cluj and across Romania.
+**H1:** Enterprise standards, brought to the scale of your company.
+Lead: BitUp Technology is a team of IT specialists trained in international companies. This page says who we are and how we can add value to your business.
 
 ---
 
-## The story
+## The origin
 
-Eyebrow: `Who I am`
-**H2:** Since 2017, in small-company IT. Then at large scale. Then back, with what I learned.
+Eyebrow: `Why we exist`
+**H2:** Why we founded BitUp
 
 Text (Prose, 70ch):
 
-I've worked in IT since 2017. I started as a system administrator in small companies in Cluj, doing everything: servers, network, backup, firewall, users, the phone that rings when the printer won't print. That's where I understood that in a small company IT isn't a department, it's a person. And when that person isn't there, no one is.
+We were trained in large organizations, where IT runs on written procedures, international standards, and clear responsibilities. In companies in Romania we found the same technology, used without any of them: systems bought correctly, administered haphazardly, with security treated as an option.
 
-Then a growing software company, where I designed the new office's infrastructure and ran support to an SLA, with tickets, response times, and reports. And from 2024 to 2026 I worked at Concentrix, a Fortune 500 corporation, in information security: internal and external ISO 27001 audits, policies and governance, continuity and recovery plans, protection on workstations and servers, Microsoft 365 and Active Directory. At that scale, a mistake shows immediately.
+BitUp Technology was founded in 2020, starting from a simple observation: the difference between a company that controls its technology and one controlled by it does not come from budget. It comes from structure: who answers for what, what gets documented, what gets checked, and how often.
 
-I started BitUp in 2020, out of what I saw at small companies: they had technology but no structure; vendors but no partner; digitalization initiatives but nobody owning the big picture. And security was always "extra", something you add later if there's money left. I built BitUp to be the reverse: one partner who answers for all of IT, with security built in from the start, not sold separately.
-
-I bring what I learned at large scale down to your company's size, without needless complexity or vendor hype.
+We bring to companies of any size the way large organizations operate: governance, processes, documentation, and security designed in from the start, calibrated to the reality and the budget of each one.
 
 ---
 
-## Timeline
+## The team
 
-Eyebrow: `Timeline`
-**H2:** In short
+Eyebrow: `The team`
+**H2:** Specialists in different areas of IT, not one person good at everything
 
-Chronological list (mono for years):
+Text (Prose, 70ch):
 
-- **2010–2014** · Computer Science, Technical University of Cluj-Napoca
-- **2017–2021** · System administrator at a company in Cluj: virtualization, Active Directory, Fortinet firewall, backup and recovery with Veeam
-- **2020** · I start BitUp Technology
-- **2021–2024** · Senior system administrator at a growing software company: new office infrastructure, SLA-based support
-- **2024–2026** · Concentrix (Fortune 500), information security: ISO 27001 audits, continuity, EDR/XDR, patch management, Microsoft 365 and AD
-- **2026** · BitUp, full-time
+Behind BitUp there is a team with experience built at companies such as Bosch, NTT DATA, Marsh, and Concentrix: infrastructure and information security, software development, artificial intelligence and automation, project delivery in international teams. Each area has its own person, and your problems reach someone who has met them before at large scale.
+
+The standards we operate by come from the places where we were trained: ISO 27001 audits, risk management, change control, documentation that stays with the client.
+
+Note for Claude Code: the link sits as a text link, under the paragraphs.
+
+Link: Meet the team → `/en/team`
 
 ---
 
-## How we work
+## Who we work with
 
-Eyebrow: `Principles`
-**H2:** Three things we believe in and what they mean for you
+Eyebrow: `Who we work with`
+**H2:** Who we are a fit for
+
+List (no icons, plain bullets):
+
+- Companies that depend on their systems and have no one answering for the whole.
+- Companies with several vendors, where no one has the full picture and the final responsibility.
+- Companies that already have an in-house IT team and need expertise in specific areas: security, cloud, automation, software development.
+- Companies with compliance requirements (NIS2, ISO 27001, requirements coming from clients or from audits) that have to be turned into concrete measures.
+- Companies that want to digitize processes and use automation and AI without raising their risk.
+
+Closing sentence, under the list, on `--muted`:
+
+We are not a fit for anyone looking for the lowest price. Our priority is the result over time, not the lowest line in the quote.
+
+---
+
+## What we solve
+
+Eyebrow: `What we solve`
+**H2:** Four problems that keep coming back
+
+Four cards, 2×2:
+
+**Diffuse responsibility**
+The technology is there, but no one answers for it as a whole. We take that role, with a single point of contact and a monthly report written from tickets.
+
+**Security added at the end**
+Systems get built first and protected afterward, if there is budget left. We design security into every stage, we do not sell it separately.
+
+**Processes that live in Excel and in one person's memory**
+Information does not circulate, it gets lost with every departure. We move them into systems, with automation and integrations between the applications you already have.
+
+**Technology bought, not integrated**
+Licenses and equipment that do not talk to each other. We take inventory, remove the overlaps, and build a coherent architecture.
+
+---
+
+## Technology
+
+Eyebrow: `Technology`
+**H2:** Modern technology, applied pragmatically
+
+Text (Prose, 70ch):
+
+Digitization, cloud, automation between applications, AI agents with a defined purpose: all of them come into discussion only where they solve a measurable problem. Every new technology goes through the same questions before it reaches production: what problem it solves, who administers it, what risks it brings, and how we stop it if it does not deliver the expected result.
+
+We also build our own products: CyberXscore, through which a company can assess its own cyber risk in business terms, and ProQ, a platform for automotive suppliers, used in four countries. → Read the ProQ case (`/en/results/proq`)
+
+---
+
+## Values
+
+Eyebrow: `Values`
+**H2:** Three values, and what each one means in practice
 
 Three cards:
 
-**Security before features**
-We don't install anything without the security part done. We don't sell security separately because it doesn't work separately. Sometimes that means a "no" to something you'd like.
+**Integrity**
+We say what we did, what we did not manage, and where we got it wrong. The monthly report is written from tickets, not from memory. We also recommend the option that brings us no revenue, when it is the right one for you.
 
-**Clarity before speed**
-We tell you what we do, why, and what it costs, beforehand. The monthly report is written from tickets, not from memory. If you don't understand something we tell you, that's our problem, not yours.
+**Innovation**
+New technologies go in where they produce a measurable result, not where they sound good. They get tested before, documented after, and what does not work is withdrawn.
 
-**Thinking long term**
-We pick what still works in five years, not what looks good this month. We don't sell you what you don't need, and we tell you when you can wait.
-
----
-
-## Something else we're building
-
-Eyebrow: `On the side`
-**H2:** What else we do
-
-Text (70ch): We're building CyberXscore, a platform where owners can assess their own cyber risk, in business terms, not IT terms. And ProQ, a platform for automotive suppliers, used in four countries. → Read the ProQ case (`/en/results/proq`).
+**Professionalism**
+Written procedures, change control, deadlines we commit to, and documentation that stays with the client. The same standards as in a large organization, without its bureaucracy.
 
 ---
 
@@ -84,12 +127,12 @@ FactStrip:
 - Since: June 2020
 - Where: Cluj-Napoca
 - VAT no.: RO42613248 · Trade Register no. J12/1556/2020
-- Partnerships: Microsoft Partner · Fortinet Advocate · Veeam Partner
+- Partnerships: Microsoft Partner · Fortinet Advocate · Veeam Partner · Anthropic Partner
 
-Links: personal LinkedIn → https://www.linkedin.com/in/nicolae-marius-galmati · BitUp LinkedIn → https://www.linkedin.com/company/bitup-technology
+Link: BitUp LinkedIn → https://www.linkedin.com/company/bitup-technology
 
 ---
 
 ## Final band
 
-CtaBand, default variant, with the title: **Want to see how we work, before you sign anything?** / 30 minutes, free, no obligation. We tell you exactly where you stand. / Button: **Book the IT Health Check**
+CtaBand, default variant, with the title: **Want to see where your company stands, before any decision?** / 30 minutes, free, no obligation. We'll tell you exactly where you stand and what it would mean for us to take that worry off your hands. / Button: **Book the IT Health Check**
