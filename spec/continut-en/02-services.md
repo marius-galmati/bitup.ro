@@ -22,7 +22,7 @@ Three large cards, in this order, each with: title, one positioning sentence, sh
 ### IT support and administration
 Monthly subscription. We take over everything to do with computers, servers, network, cloud, and Microsoft 365, and answer for the result.
 Includes: employee support (WhatsApp, with Cipri and a person), server and workstation administration, Microsoft 365, updates, managed antivirus/EDR, cloud and hosting, choosing and installing equipment, monthly report.
-For: companies of 10–100 employees that want to stop thinking about IT.
+For: companies that want one partner accountable for everything IT.
 → See what the subscription includes (`/en/services/it-support`)
 
 ### Security and continuity

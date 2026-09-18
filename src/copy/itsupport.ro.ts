@@ -15,12 +15,12 @@ export interface ItSupportCopy {
 
 export const itSupportRo: ItSupportCopy = {
   title: 'Suport și administrare IT în abonament, Cluj · BitUp',
-  description: 'Administrare servere, stații, rețea și Microsoft 365 în abonament, cu securitatea inclusă. Suport pe WhatsApp, raport lunar, un singur responsabil.',
+  description: 'Suport IT pentru companii: administrare servere, Microsoft 365, cloud, echipamente, cu securitatea inclusă. Suport pe WhatsApp, raport lunar, un singur responsabil.',
   serviceName: 'Suport și administrare IT',
   hero: {
     eyebrow: 'Suport și administrare IT',
     h1: 'Suport și administrare IT, în abonament lunar',
-    lead: 'Tot ce ține de calculatoare, servere, rețea, Microsoft 365 și securitate, administrat de un singur partener care răspunde de rezultat. Pentru firme de 10–100 de angajați.',
+    lead: 'Tot ce ține de calculatoare, servere, rețea, Microsoft 365 și securitate, administrat de un singur partener care răspunde de rezultat.',
     button: 'Radiografie IT gratuită',
     note: 'Prețul depinde de numărul de stații, servere și de ce preluăm. Îl afli la finalul radiografiei, fără obligații.',
   },
@@ -98,7 +98,7 @@ export const itSupportRo: ItSupportCopy = {
     h2: 'Ca să nu pierdem timpul amândoi',
     yesTitle: 'E pentru tine dacă',
     yes: [
-      'ai între 10 și 100 de angajați și IT-ul a devenit o grijă, nu un avantaj;',
+      'IT-ul a devenit o grijă, nu un avantaj;',
       'vrei un singur responsabil, nu trei furnizori;',
       'accepți un abonament lunar în loc de facturi pe ore, când se strică;',
       'vrei să știi ce se întâmplă, lună de lună, fără să întrebi.',
@@ -106,7 +106,6 @@ export const itSupportRo: ItSupportCopy = {
     noTitle: 'Nu e pentru tine dacă',
     no: [
       'vrei doar „să vină cineva când se strică”;',
-      'ai deja o echipă internă de IT completă și vrei doar mâini în plus;',
       'cauți cel mai mic preț. Nu suntem cei mai ieftini și nu încercăm să fim.',
     ],
   },

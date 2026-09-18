@@ -1,7 +1,7 @@
 # 03 — Suport și administrare IT (`/servicii/suport-it`)
 
 **Title:** Suport și administrare IT în abonament, Cluj · BitUp
-**Description:** Administrare servere, stații, rețea și Microsoft 365 în abonament, cu securitatea inclusă. Suport pe WhatsApp, raport lunar, un singur responsabil.
+**Description:** Suport IT pentru companii: administrare servere, Microsoft 365, cloud, echipamente, cu securitatea inclusă. Suport pe WhatsApp, raport lunar, un singur responsabil.
 
 **JSON-LD:** Service (name: „Suport și administrare IT”, provider: BitUp, areaServed: România, description = Description) + FAQPage din § Întrebări.
 
@@ -13,7 +13,7 @@ Ancore obligatorii: `#ce-include`, `#cloud`, `#echipamente`, `#intrebari`.
 
 Eyebrow: `Suport și administrare IT`
 **H1:** Suport și administrare IT, în abonament lunar
-Lead: Tot ce ține de calculatoare, servere, rețea, Microsoft 365 și securitate, administrat de un singur partener care răspunde de rezultat. Pentru firme de 10–100 de angajați.
+Lead: Tot ce ține de calculatoare, servere, rețea, Microsoft 365 și securitate, administrat de un singur partener care răspunde de rezultat.
 Buton: **Radiografie IT gratuită** (`/radiografie-it`)
 Sub buton, `--muted`: Prețul depinde de numărul de stații, servere și de ce preluăm. Îl afli la finalul radiografiei, fără obligații.
 
@@ -129,14 +129,13 @@ Eyebrow: `Potrivire`
 Două coloane:
 
 **E pentru tine dacă**
-- ai între 10 și 100 de angajați și IT-ul a devenit o grijă, nu un avantaj;
+- IT-ul a devenit o grijă, nu un avantaj;
 - vrei un singur responsabil, nu trei furnizori;
 - accepți un abonament lunar în loc de facturi pe ore, când se strică;
 - vrei să știi ce se întâmplă, lună de lună, fără să întrebi.
 
 **Nu e pentru tine dacă**
 - vrei doar „să vină cineva când se strică”;
-- ai deja o echipă internă de IT completă și vrei doar mâini în plus;
 - cauți cel mai mic preț. Nu suntem cei mai ieftini și nu încercăm să fim.
 
 ---

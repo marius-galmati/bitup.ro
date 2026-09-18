@@ -22,7 +22,7 @@ Trei carduri mari, în ordinea de mai jos, fiecare cu: titlu, o propoziție de p
 ### Suport și administrare IT
 Abonament lunar. Preluăm tot ce ține de calculatoare, servere, rețea, cloud și Microsoft 365, și răspundem de rezultat.
 Include: suport pentru angajați (WhatsApp, cu Cipri și un om), administrare servere și stații, Microsoft 365, actualizări, antivirus/EDR administrat, cloud și hosting, alegerea și instalarea echipamentelor, raport lunar.
-Pentru: firme de 10–100 de angajați care vor să nu se mai gândească la IT.
+Pentru: companiile care vor un singur responsabil pentru tot ce ține de IT.
 → Vezi ce include abonamentul (`/servicii/suport-it`)
 
 ### Securitate și continuitate

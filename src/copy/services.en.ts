@@ -14,7 +14,7 @@ export const servicesEn: ServicesCopy = {
       title: 'IT support and administration',
       position: 'Monthly subscription. We take over everything to do with computers, servers, network, cloud, and Microsoft 365, and answer for the result.',
       includesLabel: 'Includes:', includes: 'employee support (WhatsApp, with Cipri and a person), server and workstation administration, Microsoft 365, updates, managed antivirus/EDR, cloud and hosting, choosing and installing equipment, monthly report.',
-      forLabel: 'For:', forWho: 'companies of 10–100 employees that want to stop thinking about IT.',
+      forLabel: 'For:', forWho: 'companies that want one partner accountable for everything IT.',
       link: 'See what the subscription includes', route: 'itSupport',
     },
     {

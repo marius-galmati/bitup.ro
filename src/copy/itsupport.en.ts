@@ -3,12 +3,12 @@ import type { ItSupportCopy } from './itsupport.ro';
 
 export const itSupportEn: ItSupportCopy = {
   title: 'IT support and administration on subscription, Cluj · BitUp',
-  description: 'Servers, workstations, network and Microsoft 365 administered on a monthly subscription, security included. WhatsApp support, monthly report.',
+  description: 'IT support for companies: servers, Microsoft 365, cloud, equipment, security included. WhatsApp support, monthly report, one partner accountable.',
   serviceName: 'IT support and administration',
   hero: {
     eyebrow: 'IT support and administration',
     h1: 'IT support and administration, by monthly subscription',
-    lead: 'Computers, servers, network, Microsoft 365, and security, run by one partner who answers for the result. For companies with 10–100 employees.',
+    lead: 'Computers, servers, network, Microsoft 365, and security, run by one partner who answers for the result.',
     button: 'Free IT Health Check',
     note: 'Price depends on workstations, servers, and what we take over. You get it after the health check, no obligation.',
   },
@@ -86,7 +86,7 @@ export const itSupportEn: ItSupportCopy = {
     h2: 'So neither of us wastes time',
     yesTitle: "It's for you if",
     yes: [
-      'you have 10–100 employees and IT has become a worry, not an advantage;',
+      'IT has become a worry, not an advantage;',
       'you want one partner accountable, not three vendors;',
       'you accept a monthly subscription instead of hourly invoices when things break;',
       "you want to know what's going on, every month, without asking.",
@@ -94,7 +94,6 @@ export const itSupportEn: ItSupportCopy = {
     noTitle: "It's not for you if",
     no: [
       'you just want "someone to come when it breaks";',
-      'you already have a full in-house IT team and just want extra hands;',
       "you want the lowest price. We're not the cheapest and don't try to be.",
     ],
   },

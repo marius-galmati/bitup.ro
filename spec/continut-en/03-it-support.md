@@ -1,7 +1,7 @@
 # 03 — IT support and administration (`/en/services/it-support`)
 
 **Title:** IT support and administration on subscription, Cluj · BitUp
-**Description:** Servers, workstations, network and Microsoft 365 administered on a monthly subscription, security included. WhatsApp support, monthly report.
+**Description:** IT support for companies: servers, Microsoft 365, cloud, equipment, security included. WhatsApp support, monthly report, one partner accountable.
 
 **JSON-LD:** Service (name: "IT support and administration", provider: BitUp, areaServed: Romania, description = Description) + FAQPage from § FAQ.
 
@@ -13,7 +13,7 @@ Mandatory anchors: `#whats-included`, `#cloud`, `#equipment`, `#faq`.
 
 Eyebrow: `IT support and administration`
 **H1:** IT support and administration, by monthly subscription
-Lead: Computers, servers, network, Microsoft 365, and security, run by one partner who answers for the result. For companies with 10–100 employees.
+Lead: Computers, servers, network, Microsoft 365, and security, run by one partner who answers for the result.
 Button: **Free IT Health Check** (`/en/it-health-check`)
 Under the button, `--muted`: Price depends on workstations, servers, and what we take over. You get it after the health check, no obligation.
 
@@ -129,14 +129,13 @@ Eyebrow: `Fit`
 Two columns:
 
 **It's for you if**
-- you have 10–100 employees and IT has become a worry, not an advantage;
+- IT has become a worry, not an advantage;
 - you want one partner accountable, not three vendors;
 - you accept a monthly subscription instead of hourly invoices when things break;
 - you want to know what's going on, every month, without asking.
 
 **It's not for you if**
 - you just want "someone to come when it breaks";
-- you already have a full in-house IT team and just want extra hands;
 - you want the lowest price. We're not the cheapest and don't try to be.
 
 ---

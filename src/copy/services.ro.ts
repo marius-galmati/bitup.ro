@@ -22,7 +22,7 @@ export const servicesRo: ServicesCopy = {
       title: 'Suport și administrare IT',
       position: 'Abonament lunar. Preluăm tot ce ține de calculatoare, servere, rețea, cloud și Microsoft 365, și răspundem de rezultat.',
       includesLabel: 'Include:', includes: 'suport pentru angajați (WhatsApp, cu Cipri și un om), administrare servere și stații, Microsoft 365, actualizări, antivirus/EDR administrat, cloud și hosting, alegerea și instalarea echipamentelor, raport lunar.',
-      forLabel: 'Pentru:', forWho: 'firme de 10–100 de angajați care vor să nu se mai gândească la IT.',
+      forLabel: 'Pentru:', forWho: 'companiile care vor un singur responsabil pentru tot ce ține de IT.',
       link: 'Vezi ce include abonamentul', route: 'itSupport',
     },
     {
