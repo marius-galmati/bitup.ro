@@ -19,7 +19,9 @@ export const teamEn: TeamCopy = {
   linkedinLabel: 'LinkedIn',
   people: [
     {
+      id: 'marius',
       name: 'Marius Galmati',
+      photoAlt: 'Marius Galmati, founder of BitUp',
       initials: 'MG',
       role: 'Founder',
       experience: 'Enterprise background: Concentrix (Fortune 500)',
@@ -33,7 +35,9 @@ export const teamEn: TeamCopy = {
       ],
     },
     {
+      id: 'petre',
       name: 'Petre Radu Cătălin',
+      photoAlt: 'Petre Radu Cătălin, Red Team and offensive security',
       initials: 'PR',
       role: 'Red Team & Offensive Security',
       experience: 'Enterprise background: NTT DATA',
@@ -47,7 +51,9 @@ export const teamEn: TeamCopy = {
       ],
     },
     {
+      id: 'samuel',
       name: 'Samuel Bota',
+      photoAlt: 'Samuel Bota, AI & Innovation Specialist',
       initials: 'SB',
       role: 'AI & Innovation Specialist',
       experience: 'Enterprise background: Marsh',
@@ -59,7 +65,9 @@ export const teamEn: TeamCopy = {
       ],
     },
     {
+      id: 'cristian',
       name: 'Cristian Boanca',
+      photoAlt: '',
       initials: 'CB',
       role: 'Full Stack Developer',
       experience: 'Enterprise background: Bosch',

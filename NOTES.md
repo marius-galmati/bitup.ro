@@ -1382,6 +1382,93 @@ Le corectez când îmi spui. Până atunci, sursa pentru amândouă e `continut/
 
 `[[ACORD_ECHIPA]]` (blochează indexarea), `[[RELATIE_ECHIPA]]` (vizibil în intro), `[[LINKEDIN_CRISTIAN]]` (vizibil în rândul lui Cristian), `[[FOTO_MARIUS]]`, `[[FOTO_PETRE]]`, `[[FOTO_SAMUEL]]`, `[[FOTO_CRISTIAN]]`. Cele patru de fotografie **nu** se randează ca text `[[…]]`, ci ca substituenți cu inițiale — excepție cerută de Marius de la regula 3 din `CLAUDE.md`, ca să nu arate ca patru casete rupte. Sunt listate în `spec/PLACEHOLDERS.md` § Rămase.
 
+## `/echipa`: fotografii, marca LinkedIn, meniu, spec adus la zi (19 septembrie 2026, după-amiaza)
+
+Marius a trimis `LinkedIn_Logo.svg` și trei fotografii, și a cerut corectarea celor două fișiere din `spec/` rămase în urmă plus `/echipa` în meniul principal. Trei întrebări puse înainte de a atinge componenta, cu răspunsurile lui:
+
+| Întrebare | Răspuns |
+|---|---|
+| Trei poze din patru; regula 5 spune „toate sau niciuna” | **Cele trei intră acum**; Cristian rămâne pe inițiale până trimite poza |
+| Marca LinkedIn: monocrom (cum ceruse) sau albastrul oficial | **Albastrul oficial, neschimbat**; hover prin opacitate |
+| Unde intră „Echipa” în meniu | **După „Despre”** |
+
+### Fotografii
+
+Sursele au rămas în rădăcină, unde le-a pus el. În repo au intrat decupajele pătrate, în `src/assets/foto-echipa/`:
+
+| Sursă | Decupaj | Observație |
+|---|---|---|
+| `Marius 2.png` 1122×1402 | `marius-galmati-960x960.jpg`, 131 KB | decupat din partea de sus, centrat pe orizontală |
+| `SAm_Bota.jpeg` 2991×3807 | `samuel-bota-960x960.jpg`, 94 KB | la fel |
+| `Petre_Radu.jpeg` 400×400 | `petre-radu-catalin-400x400.jpg`, 27 KB | **sub minimul de 480×480** din `PLACEHOLDERS.md`; la 2× pe ecran retina se face un upscale de la 400 la 480 |
+
+Toate trei, verificate vizual după decupaj: cap și umeri, fără tăieturi. Randate la 240 px (480 px la 2×), `object-fit: cover`, aceeași casetă pătrată cu bordură ca substituentul. Cristian vede în continuare pătratul cu „CB”, identic ca formă, mărime și poziție.
+
+**De cerut:** o variantă mai mare a pozei lui Petre (minimum 480×480) și poza lui Cristian.
+
+### Marca LinkedIn
+
+Marca „in” e decupată din `LinkedIn_Logo.svg` trimis de Marius și salvată în `public/icons/linkedin.svg`. Fișierul original conține logo-ul complet (cuvântul „Linked” plus marca); am păstrat doar grupul mărcii, cu **traseele copiate octet cu octet** — singura operație e `viewBox="63 0 21 21"`, adică fereastra restrânsă la caseta mărcii, fără să translatez sau să rescalez datele. Verificat programatic: ambele trasee din fișierul nou se regăsesc identic în original.
+
+Structura mărcii: un pătrat alb dedesubt și același pătrat în `#2867B3` deasupra, cu „in” decupat prin `fill-rule: evenodd`. Rezultatul e un pătrat albastru cu „in” alb, care se citește pe orice fundal, inclusiv în dark.
+
+Randare: 20 × 20 px, într-un link de 44 × 44 px (măsurat), fără cuvinte lângă ea, cu `margin-left: -12px` ca marginea stângă a mărcii să cadă exact pe marginea coloanei de text. Hover: `opacity: .75`. Focus: outline 2 px teal, ca peste tot. Linkul are `aria-label` cu numele persoanei pe ambele limbi, `rel="noopener"` și tab nou; `<img>` are `alt=""` și `aria-hidden="true"`.
+
+Contrast: „in” alb pe albastrul oficial, 5,70:1. Pătratul albastru față de `--surface` în light, 5,70:1; în dark, 2,83:1, sub pragul de 3:1 pentru elemente non-text — dar e un **logotip**, exceptat explicit de WCAG 1.4.11, iar glifa dinăuntru are contrast propriu. Intrarea e marcată ca atare în `qa/contrast.py`, ca să nu pară o scăpare. Dacă la un moment dat vrei contrast deplin și în dark, varianta curată e plăcuța albă în jurul mărcii (cum recomandă chiar LinkedIn pentru fundaluri închise), nu recolorarea.
+
+### Meniul principal: al șaselea link nu încăpea
+
+Adăugarea lui „Echipa” a rupt header-ul. Măsurat înainte de reparație:
+
+| Lățime | `scrollWidth` | `clientWidth` | Conținut header | Container |
+|---|---|---|---|---|
+| 1024 | 1035 | 1024 | — | depășire |
+| 1200 | 1209 | 1200 | 1169 | 1120 |
+| 1440 | 1440 | 1440 | 1169 | 1120 |
+
+Deci bară orizontală de derulare la 1024 și la 1200 px, iar de la 1200 px în sus conținutul header-ului ieșea din containerul de 1120 px și nu se mai alinia cu restul paginii.
+
+Reparat de la 1024 px: padding-ul orizontal al linkurilor scade de la 12 la 8 px (`--s-3` → `--s-2`) și distanța dintre uneltele din dreapta de la 12 la 8 px. Economie măsurată: 60 px. După reparație, `scrollWidth == clientWidth` și `innerScroll == inner` la 1024, 1100, 1199, 1200, 1280 și 1440 px. Zona de click a unui link rămâne 81 × 33 px.
+
+Verificat că n-am rupt altceva: **zero depășiri orizontale** pe 11 pagini × 5 lățimi (375, 768, 1024, 1200, 1440).
+
+Al șaptelea link nu mai încape. Dacă apare unul, fie telefonul iese din header, fie linkul intră în panoul „Servicii”. Notat și în `DESIGN.md` § Componente.
+
+### `spec/` adus la zi
+
+- **`ARHITECTURA.md`** § Rute: rândul `/echipa` nu mai spune „pagina vine imediat după rescrierea lui /despre”, ci menționează `noindex` și excluderea din sitemap. § SEO: lista paginilor cu `noindex` include acum `/echipa` și `/en/team`, `hreflang` se emite și pe paginile cu `noindex`, iar `ProfilePage` are punctul lui, cu regula despre `worksFor` și despre `description`. Rândul despre sitemap menționează filtrul din `astro.config.mjs`.
+- **`DESIGN.md`** § Componente: trei intrări noi — **Rând de persoană**, **Substituent de fotografie**, **Marca LinkedIn** — plus nota despre al șaselea link din header. § Imagini: portretul lui Marius apare acum în **patru** locuri, iar `/despre` e scos explicit din listă (pagina n-are nicio imagine din 18 septembrie); adăugată regula portretelor de echipă.
+- **`00-global.md`** (ambele limbi) § Meniu: „Echipa” / „Team” după „Despre”.
+- **`16-echipa.md`** / **`16-team.md`**: rândurile `Fotografie:` trimit acum la fișierele reale; nota despre marca „in” sub § Oamenii.
+- **`PLACEHOLDERS.md`** § Rămase: cele trei placeholder-e de fotografie sosite au ieșit; a rămas `[[FOTO_CRISTIAN]]`.
+
+### Verificări
+
+- `npm run build`: 0 erori, 0 avertismente, 43 de pagini. `npx astro check`: 0/0/0.
+- `qa/pagecheck.mjs`: 41 de pagini, 0 cu probleme. `/echipa` și `/en/team`: 1 `h1`, 0 salturi, 2 apariții de orange, **6 imagini, toate cu `width` și `height`**, placeholder-e `RELATIE_ECHIPA` și `LINKEDIN_CRISTIAN`.
+- `qa/headings.mjs`: 1 `h1`, 8 titluri, pe ambele limbi.
+- `qa/textdiff.mjs`: 27/27 pe `/echipa` și pe `/en/team`; homepage-ul rămâne 70/70 pe ambele limbi după adăugarea linkului.
+- `qa/keyboard.mjs`: trece pe ambele pagini, 37 de elemente atinse cu Tab (36 + linkul nou din meniu), focus vizibil pe toate.
+- Cele trei mărci de LinkedIn: link de 44 × 44 px, imagine de 20 × 20 px, `alt=""`, `aria-hidden="true"`, `rel="noopener"`, `target="_blank"`, `aria-label` corect pe ambele limbi, outline 2 px teal la focus.
+- `qa/contrast.py`: 42 din 44 de perechi trec; cele două „NU” sunt intrări documentate (orange-ul care nu se folosește la focus, și logotipul LinkedIn în dark, exceptat de WCAG).
+- 16 capturi noi în `qa/echipa/` și 16 în `qa/meniu/` (homepage și /despre, pentru header), deschise și verificate. Consolă curată, **zero cereri externe**; `/icons/linkedin.svg` se servește local, 200, `image/svg+xml`, 1293 de octeți.
+
+### Mirosuri: ce s-a schimbat față de dimineață
+
+Punctele 4 și 14 se reverifică, fiindcă pagina are acum imagini:
+
+4. Iconițe generice, avatar generic — **nu**. Singura iconiță e marca oficială LinkedIn, în culoarea ei; substituentul lui Cristian e un pătrat cu inițiale, nu o siluetă.
+14. Imagini de stoc sau generate — **nu**. Trei portrete reale, trimise de oamenii din poze, cu aceeași încadrare cap-și-umeri. Zero stoc, zero generat.
+5. Colțuri rotunjite, umbre — **nu**. Fotografiile sunt pătrate, colț de 4 px, bordură de 1 px, fără umbră. Nu sunt rotunde nicăieri.
+Restul listei, neschimbat față de secțiunea de dimineață.
+
+### Rămâne deschis
+
+- `[[ACORD_ECHIPA]]`: pagina stă pe `noindex` și în afara sitemap-ului până îl completezi. Pozele au intrat deja în repo, înaintea acordului scris — decizia ta, prin faptul că mi le-ai trimis; `PLACEHOLDERS.md` spunea „se pun în repo doar după `[[ACORD_ECHIPA]]`”.
+- `[[RELATIE_ECHIPA]]` și `[[LINKEDIN_CRISTIAN]]`, vizibile în pagină.
+- `[[FOTO_CRISTIAN]]`, plus o variantă mai mare a pozei lui Petre.
+- Fișierele originale (`LinkedIn_Logo.svg`, `Marius 2.png`, `Petre_Radu.jpeg`, `SAm_Bota.jpeg`) au rămas în rădăcina proiectului, unde le-ai pus. Nu le-am mutat și nu le-am comis. Spune dacă vrei să intre în `spec/assets/` ca surse, sau să le ștergem.
+
 ## Propuneri (nu se fac fără acord)
 
 - Faza 5: Astro are suport experimental pentru CSP cu hash-uri generate la build (`experimental.csp`), care ar scoate `'unsafe-inline'` din `script-src` și `style-src`. E îmbunătățirea menționată în `ARHITECTURA.md` § Headere ca „nu o condiție de lansare”. De evaluat când ajungem acolo.

@@ -134,7 +134,7 @@ bitup-site/
 | `/rezultate` | `/en/results` | `08-…` + colecția `cases` | |
 | `/rezultate/[slug]` | `/en/results/[slug]` | colecția `cases` | `cosmio`, `proq`; același slug în ambele limbi |
 | `/despre` | `/en/about` | `09-…` | |
-| `/echipa` | `/en/team` | `16-…` | profilurile individuale; pagina vine imediat după rescrierea lui `/despre` |
+| `/echipa` | `/en/team` | `16-…` | profilurile individuale; `noindex` și în afara sitemap-ului cât timp `[[ACORD_ECHIPA]]` e necompletat |
 | `/blog`, `/blog/[slug]`, `/rss.xml` | `/en/blog`, `/en/blog/[slug]`, `/en/rss.xml` | `12-…` + colecția `blog` | slug-ul articolului e tradus (e în frontmatter-ul EN) |
 | `/suport` | `/en/support` | `10-…` | clienți existenți |
 | `/contact` | `/en/contact` | `11-…` | |
@@ -328,15 +328,16 @@ https://www.bitup.ro/*                https://bitup.ro/:splat         301
 ## SEO
 
 - Un `<h1>` per pagină; title ≤ 60 caractere, description ≤ 155, din fișierul de conținut al limbii respective.
-- Canonical absolut pe fiecare pagină, către propria limbă (nu către RO). `hreflang` `ro`, `en`, `x-default` (= RO) pe toate paginile care au pereche. `/multumesc` și `/en/thank-you` cu `noindex`.
+- Canonical absolut pe fiecare pagină, către propria limbă (nu către RO). `hreflang` `ro`, `en`, `x-default` (= RO) pe toate paginile care au pereche, inclusiv pe cele cu `noindex`. Cu `noindex, nofollow`: `/multumesc` și `/en/thank-you`, plus `/echipa` și `/en/team` cât timp `[[ACORD_ECHIPA]]` e necompletat.
 - JSON-LD (din `schema.ts`, cu textele în limba paginii):
   - Pe toate paginile: `Organization` (nume, url, logo, telefon, email, `sameAs` LinkedIn firmă, `availableLanguage`) și `ProfessionalService` (în loc de `LocalBusiness` generic) cu `address: { "@type": "PostalAddress", "addressLocality": "Cluj-Napoca", "addressRegion": "Cluj", "addressCountry": "RO" }` (fără stradă: nu există un birou public), `areaServed: ["Cluj-Napoca", "România"]`, `openingHoursSpecification` luni–vineri 08:00–18:00, `telephone`, `email`, `founder` → `Person`.
-  - `/despre`: `AboutPage` cu `mainEntity` → `Organization`, iar `founder` din `Organization` e `Person` (Marius Galmati, jobTitle „Fondator” / „Founder”, sameAs LinkedIn personal). Nodurile `Person` pentru fiecare membru vor sta pe `/echipa`.
+  - `/despre`: `AboutPage` cu `mainEntity` → `Organization`, iar `founder` din `Organization` e `Person` (Marius Galmati, `@id` `…/#founder`, jobTitle „Fondator” / „Founder”, sameAs LinkedIn personal). Fără nod `Person` separat pe pagina asta.
+  - `/echipa`: `ProfilePage` (name, url, inLanguage; fără `description`, ca numele companiilor din rândurile de experiență să nu ajungă în graf) plus câte un nod `Person` pentru fiecare membru, cu `name`, `jobTitle` și `sameAs` (LinkedIn). Doar fondatorul primește `worksFor` → `Organization`; pentru ceilalți, fără `worksFor`, `memberOf` sau `affiliation` până se completează `[[RELATIE_ECHIPA]]`. Cine n-are încă link de LinkedIn nu primește `sameAs`.
   - Pagini de servicii: `Service` (name, provider, areaServed, description).
   - Unde există „Întrebări frecvente”: `FAQPage` generat din componenta `Faq`.
   - Articole: `Article` (headline, author, datePublished, inLanguage, image).
   - Studii de caz: `Article` cu `about: Organization` a clientului (doar când `draft: false`).
-- Sitemap automat cu alternativele de limbă, `robots.txt` cu `Sitemap:`; `/multumesc`, `/en/thank-you`, `/404`, `/api/*` excluse.
+- Sitemap automat cu alternativele de limbă, `robots.txt` cu `Sitemap:`; `/multumesc`, `/en/thank-you`, `/404`, `/api/*` excluse, plus `/echipa` și `/en/team` cât timp `[[ACORD_ECHIPA]]` e necompletat (filtrul e în `astro.config.mjs`).
 - Imagini OG: 1200×630, generate la build, fundal navy, titlul paginii cu Public Sans, logo jos-stânga; una per pagină per limbă.
 
 ## Domenii permise (singurele cereri de rețea admise de pe site)

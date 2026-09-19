@@ -115,26 +115,37 @@ Reguli:
 ## Layout
 
 - Container 1120 px, gutter 20 px pe mobil, 32 px pe desktop.
+- Excepție unică: hero-ul homepage-ului folosește `Container wide` (1360 px, de la 1360 px în sus), ca textul și graficul să încapă amândouă. Ca marginea stângă să rămână aliniată cu restul paginii, grila hero-ului are în față o gutieră de 72 px care, cu gap-ul de 48 px, dă exact cei 120 px de decalaj dintre cele două containere. Verificat la 1200, 1359, 1360, 1440 și 1600 px: titlul pornește de la același x ca eyebrow-ul secțiunii următoare.
 - Secțiuni cu `padding-block: var(--section-y)`; o linie de 1 px `--line` între secțiuni pe fundal alb, fără linie când fundalul se schimbă.
 - Grid-uri: carduri pe `repeat(auto-fit, minmax(280px, 1fr))`; pași pe `minmax(200px, 1fr)`; benzi de fapte pe `minmax(170px, 1fr)`. Pe telefon totul curge pe o coloană.
 - Secțiunile cu text lung folosesc modelul „două coloane”: eyebrow în stânga (240 px, sticky pe desktop), conținut în dreapta, lățime 70ch.
+- Rânduri despărțite de linii de păr de 1 px `--line`, fără linie deasupra primului rând și fără linie sub ultimul: tiparul din `example.png` pentru liste de elemente paralele (homepage § 3). Nu se combină cu numere de index decât dacă lista e chiar o secvență.
 - Nicio secțiune nu depinde de scroll pentru a fi vizibilă; nimic parcat la `opacity: 0`.
 
 ## Componente
 
-**Header.** Fundal `--surface`, 64 px, linie jos. Stânga: logo BitUp (SVG, 132 px lățime; tagline-ul „Build Innovative Technology” e parte din logo; varianta dark pe temă închisă). Centru-dreapta: Servicii ▾ (dropdown cu cele 3 grupuri + „Toate serviciile”), Cum lucrăm, Rezultate, Despre, Blog. Dreapta, în ordinea asta: telefonul ca link `tel:` (mono, `--muted`), comutatorul de limbă (`RO · EN`, mono 12.5 px, limba curentă în `--text` 600, cealaltă în `--muted`, link către pagina pereche), comutatorul de temă (buton 36×36 cu iconiță), butonul orange „Radiografie IT gratuită”. Sub 1024 px: buton hamburger; meniul mobil e un panou full-height cu aceleași linkuri, butonul de Radiografie sus, telefon, WhatsApp, limbă și temă jos. Header-ul nu e sticky pe mobil (ocupă spațiu); pe desktop e sticky, cu linia de jos de 1 px `--line` în ambele teme, fără umbră. Între 1024 și 1200 px telefonul se ascunde (rămâne în meniul mobil și în footer); dacă tot nu încape, comutatorul de limbă arată doar limba inactivă („EN”); butonul de Radiografie nu se reduce niciodată.
+**Header.** Fundal `--surface`, 64 px, linie jos. Stânga: logo BitUp (SVG, 132 px lățime; tagline-ul „Build Innovative Technology” e parte din logo; varianta dark pe temă închisă). Centru-dreapta: Servicii ▾ (panou pe toată lățimea, vezi mai jos), Cum lucrăm, Rezultate, Despre, Echipa, Blog. Dreapta, în ordinea asta: telefonul ca link `tel:` (mono, `--muted`), comutatorul de limbă (`RO · EN`, mono 12.5 px, limba curentă în `--text` 600, cealaltă în `--muted`, link către pagina pereche), comutatorul de temă (buton 36×36 cu iconiță), butonul orange „Radiografie IT gratuită”. Sub 1024 px: buton hamburger; meniul mobil e un panou full-height cu aceleași linkuri, butonul de Radiografie sus, telefon, WhatsApp, limbă și temă jos. Header-ul nu e sticky pe mobil (ocupă spațiu); pe desktop e sticky, cu linia de jos de 1 px `--line` în ambele teme, fără umbră. Între 1024 și 1200 px telefonul se ascunde (rămâne în meniul mobil și în footer); dacă tot nu încape, comutatorul de limbă arată doar limba inactivă („EN”); butonul de Radiografie nu se reduce niciodată.
+Cu al șaselea link în bară („Echipa”, 19 septembrie 2026), rândul nu mai încăpea în containerul de 1120 px: măsurat, 1169 px de conținut față de 1056 px utili, cu depășire pe orizontală la 1024 și la 1200 px. De la 1024 px, padding-ul orizontal al linkurilor scade de la 12 la 8 px și distanța dintre uneltele din dreapta de la 12 la 8 px; zona de click a unui link rămâne 81 × 33 px, iar conținutul intră în container la toate lățimile. Al șaptelea link nu mai încape: dacă apare unul, fie telefonul iese din header, fie linkul intră în panoul „Servicii”.
+
+**Panoul „Servicii”** (de la 1024 px; sub asta funcționează meniul mobil). Model preluat din `meniu (2).png`, cu tipografia și paleta noastră. Se deschide din butonul „Servicii”, e absolut pe toată lățimea header-ului, fundal `--surface`, linie de 1 px `--line` sus și jos, umbră `--shadow` (excepție justificată, ca la meniul mobil), conținutul aliniat în `Container`. Patru coloane egale, `column-gap: var(--s-6)`:
+1. Eyebrow „Servicii”, titlu `--fs-h2`, lead `--muted` la maximum 34ch, link „Toate serviciile”.
+2. și 3. Serviciile, cu titlu `--fs-h3` și o propoziție `--fs-small` `--muted` sub fiecare. Cu trei servicii, împărțirea e 2 + 1.
+4. Casetă de CTA, despărțită de o linie verticală de 1 px `--line`: eyebrow, întrebarea din § Banda finală de CTA, link către Radiografie.
+
+Sub grilă, peste o linie de 1 px, o bandă cu telefonul, emailul și linkul „Suport pentru clienți”. Esc și clicul în afară închid panoul; focusul revine pe buton; Tab intră în panou (panoul stă în DOM imediat după buton).
 
 **LangSwitch.** Două linkuri, `RO · EN`, cu `hreflang` și `lang` pe fiecare, `aria-label` „Schimbă limba” / „Change language”. Nu e dropdown, nu are steaguri (steagurile reprezintă țări, nu limbi). Duce la pagina pereche din `src/i18n/routes.ts`; dacă nu există pereche (articol netradus), duce la indexul secțiunii în cealaltă limbă.
 
 **ConsentBanner.** `position: fixed`, jos; pe mobil pe toată lățimea, pe desktop o casetă de 420 px în colțul dreapta-jos, la 24 px de margini. Fundal `--surface`, bordură `--line`, `--radius-lg`, umbră (light) / bordură (dark). Conținut: titlu scurt (display 600, 17 px), două rânduri de text (`--fs-small`), link către `/cookies`, apoi două butoane **identice ca mărime și greutate** (secundar, bordură teal, text teal): „Accept” și „Refuz”. Niciunul nu e orange: orange e doar pentru Radiografie. `role="region"`, `aria-label` „Cookie-uri”, focusabil, se închide și cu Esc (= Refuz). Nu acoperă butonul principal din hero pe mobil (se verifică la 375 px).
 
-**Hero (homepage).** Tipografic, o coloană, aliniat la stânga, pe `--bg`: eyebrow, h1 (`--fs-hero`, `max-width: 22ch`), lead (`--fs-lead`, `--muted`, `max-width: 60ch`), două butoane (orange principal, secundar cu bordură teal). Fără fotografie, fără rând de încredere, fără fundal închis. Imediat sub hero, un FactStrip pe toată lățimea containerului, pe `--surface`, cu patru celule: `Din 2020`, `Cluj-Napoca`, `Răspuns sub 2 ore în program`, badge-urile partenerilor (monocrom; text până există `[[LOGO_PARTENERI]]`). El e ancora vizuală a primului ecran, nu o imagine. După lansare, când există `[[CAPTURA_RAPORT_LUNAR]]`: hero pe două coloane, în dreapta un Figure cu prima pagină a raportului lunar anonimizat, ca document pe hârtie (fundal `--surface`, bordură 1 px `--line`, `--radius`, fără umbră, fără perspectivă, fără „plutire”, fără ramă de laptop), legenda „Raportul lunar pe care îl primește fiecare client. Anonimizat.” Obiectul din hero e livrabilul, nu fondatorul.
+**Hero (homepage).** Aliniat la stânga, pe `--bg`: h1 (`--fs-hero`, `max-width: 22ch`), lead (`--fs-lead`, `--muted`, `max-width: 60ch`), două butoane (orange principal, secundar cu bordură teal). Fără fotografie, fără rând de încredere, fără fundal închis, fără eyebrow. De la 1200 px, două coloane (1,35fr / 1fr, gap `--s-8`): textul în stânga, în dreapta graficul `HeroDiagram` (vezi § Imagini). Sub 1200 px graficul nu se afișează și hero-ul rămâne pe o coloană — pe o coloană mai îngustă titlul ar trece la șase rânduri. Banda de FactStrip de sub hero a fost scoasă pe 17 septembrie 2026, la cererea lui Marius: primul ecran e doar titlu, lead și cele două butoane. După lansare, când există `[[CAPTURA_RAPORT_LUNAR]]`: hero pe două coloane, în dreapta un Figure cu prima pagină a raportului lunar anonimizat, ca document pe hârtie (fundal `--surface`, bordură 1 px `--line`, `--radius`, fără umbră, fără perspectivă, fără „plutire”, fără ramă de laptop), legenda „Raportul lunar pe care îl primește fiecare client. Anonimizat.” Obiectul din hero e livrabilul, nu fondatorul.
 
 **Hero (pagini interne).** O coloană, pe `--surface-2`: eyebrow, h1, lead. Fără imagine, cu excepția Despre (portret) și studiilor de caz (fundal navy + caseta de logo).
 
 **Card.** Fundal alb, bordură `--line`, bordură superioară 3 px teal, padding 20–24 px, `h3` + text. Fără umbră, fără iconiță obligatorie. Cardurile dintr-un rând au aceeași înălțime (grid), textul nu se trunchiază.
 
 **Steps (pași).** Folosit doar pentru secvențe reale (Cum lucrăm, fluxul din Radiografie). Cerc teal cu numărul, `h3`, text. Pe desktop în rând, pe mobil în coloană.
+Varianta `rail` (homepage § 4, aranjamentul din `example.png`): de la 1200 px cei patru pași pe un singur rând, cercul deasupra titlului, nodurile legate de o linie de 1 px `--line` care pleacă din muchia cercului, cu un vârf de săgeată teal la 85% din interval; după ultimul cerc linia curge până la marginea conținutului, fără săgeată. Sub 1200 px: o coloană până la 640 px, apoi 2 × 2, fără linie.
 
 **FactStrip.** Bandă albă cu 4–5 celule separate de linii verticale: eticheta în mono uppercase teal, valoarea în 600.
 
@@ -142,11 +153,19 @@ Reguli:
 
 **Quote.** Fundal `--teal-soft`, bordură stânga 4 px teal, italic, sursă în `--muted`. Doar cu nume și funcție reale.
 
-**CtaBand.** Bloc navy, `--radius-lg`, titlu alb, text în `#C9D8DB`, buton orange. Apare o singură dată, la finalul fiecărei pagini (textul e în `00-global.md`, cu variante pe pagină).
+**CtaBand.** Bloc navy, `--radius-lg`, titlu alb, text în `#C9D8DB`, buton orange. Apare o singură dată, la finalul fiecărei pagini (textul e în `00-global.md`, cu variante pe pagină). De la 1024 px, pereche stânga/dreapta pe același ax (aranjamentul din `example.png`): titlul și textul lipite de marginea stângă a casetei, butonul și linia de contact lipite de marginea dreaptă, aliniate pe centru vertical. Sub 1024 px se stivuiește.
 
 **Faq.** `details`/`summary` native, stilizate; o singură întrebare deschisă implicit (prima). Generează JSON-LD `FAQPage`.
 
 **Form.** Etichete deasupra câmpurilor (display 600, 14.5 px), câmpuri cu bordură `--line`, focus teal 2 px, eroare `--crit` cu mesaj sub câmp, buton orange full-width pe mobil. Sub buton: semnătura din `00-global.md` § Semnătura de sub formulare („Îți răspunde un om, în maximum o zi lucrătoare.”), în `--muted`, fără avatar. Fără JavaScript, formularul afișează `<noscript>` cu textul din § Mesaje de formular și linkul Calendly.
+
+**Rând de persoană** (`/echipa`, singura pagină care îl folosește). Patru rânduri suprapuse, nu carduri: textele au lungimi foarte diferite (186, 189, 130 și 120 de cuvinte în română), iar într-o grilă de carduri egale diferența se vede. Fiecare rând: `border-top: 1px solid --line`, `padding-block: var(--s-7)` de la 768 px, fotografia pătrată de 240 px în stânga, aliniată sus, textul în dreapta, la maximum 70ch. Fără alternanță stânga/dreapta: alternanța e un efect de șablon. Sub 768 px, fotografia trece deasupra, la 160 px, aliniată la stânga, nu centrată.
+Ordinea din coloana de text: numele (`h3`), rolul (mono, `--fs-small`, `--teal`), rândul de experiență (mono, `--fs-small`, `--muted`), textul, marca de LinkedIn.
+Secțiunea nu are titlu vizibil (nu repetăm tiparul eyebrow + `h2` + carduri); are un `h2` citit doar de cititoarele de ecran, ca ierarhia să meargă `h1` → `h2` → `h3`.
+
+**Substituent de fotografie** (`/echipa`). Cine n-are încă poză primește aceeași casetă ca ceilalți: pătrat, `--radius`, bordură 1 px `--line`, fundal `--surface-2`, cu inițialele persoanei centrate în fontul de titlu, 600, `--fs-h1`, culoare `--navy`. Nu avatar generic, nu siluetă, nu cerc. Contrast: 14,62:1 în light, 11,82:1 în dark.
+
+**Marca LinkedIn** (`/echipa`). Marca „in”, din `public/icons/linkedin.svg`, decupată din fișierul oficial trimis de Marius; forma nu se modifică și nu se rotește. Rămâne în albastrul oficial `#2867B3` în toate stările, cum cer regulile de brand LinkedIn; hover-ul se marchează prin `opacity: .75`, nu prin culoare. 20 × 20 px, într-un link de minimum 44 × 44 px, fără cuvinte lângă ea. Linkul are `aria-label` cu numele persoanei, `rel="noopener"`, tab nou; imaginea are `alt=""` și `aria-hidden`. Fișier local, nicio cerere externă.
 
 **Figure.** Imagine cu legendă (`--fs-small`, `--muted`), bordură `--line`, padding 10 px. Capturile de ecran au colțuri `--radius`.
 
@@ -156,13 +175,17 @@ Reguli:
 
 ## Imagini și grafică
 
-- Fotografii reale: Marius (portretul livrat, 500×667, în `assets/foto-marius/`), o poză în context de lucru când există `[[FOTO_CONTEXT]]` (o fotografie reală, nu una generată; pe Despre sau într-un articol, nu în hero), capturi de ecran anonimizate din helpdesk.
-- Portretul lui Marius apare în exact trei locuri: hero-ul de pe Despre (mare, 3:4), secțiunile „Cine răspunde” de pe homepage și de pe /radiografie-it (pătrat, 200 px, secțiune compactă pe `--surface-2`) și caseta de autor din articole (96 px, rotund; singurul loc unde o poză e rotundă). Nicăieri altundeva: nu în hero-ul homepage-ului, nu în header, nu sub formulare, nu în byline.
+- Fotografii reale: Marius (portretul livrat, 500×667, în `assets/foto-marius/`), portretele de echipă (pătrate, în `src/assets/foto-echipa/`), o poză în context de lucru când există `[[FOTO_CONTEXT]]` (o fotografie reală, nu una generată; într-un articol, nu în hero), capturi de ecran anonimizate din helpdesk.
+- Portretul lui Marius apare în exact patru locuri: rândul lui de pe `/echipa` (pătrat, 240 px), secțiunile „Cine răspunde” de pe homepage și de pe /radiografie-it (pătrat, 200 px, secțiune compactă pe `--surface-2`) și caseta de autor din articole (96 px, rotund; singurul loc unde o poză e rotundă). Nicăieri altundeva: **nu pe `/despre`**, care din 18 septembrie 2026 e pagina firmei și nu are nicio imagine, nu în hero-ul homepage-ului, nu în header, nu sub formulare, nu în byline.
+- Portretele de echipă: pătrate, minimum 480×480 în sursă, aceeași încadrare cap-și-umeri, fundal simplu. Sunt randate la 240 px (480 px la 2×), `object-fit: cover`. Cine n-are poză primește substituentul cu inițiale descris la § Componente. Pozele intră în repo doar după `[[ACORD_ECHIPA]]`.
 - Fără fotografii de stoc cu oameni. Dacă lipsește o poză, secțiunea rămâne fără imagine; nu se pune un placeholder de stoc.
 - Iconițe: maximum 12 în tot site-ul, din `lucide`, 20–24 px, stroke 1.75, culoare teal, folosite doar în FactStrip, în lista de verificări din Radiografie și pentru comutatorul de temă (`sun`, `moon`). Nu în carduri de servicii.
 - Imaginea de context, dacă Marius alege una generată cu AI: se folosește doar ca textură abstractă în culorile brandului, la opacitate mică, într-un singur loc, ca fundal al CtaBand, niciodată în hero-ul homepage-ului, niciodată în spatele portretului și niciodată ca „fotografie” de om, birou sau server. Regulile și promptul sunt în `assets/FOTO-CONTEXT.md`.
-- Diagrame: doar cea din „Cum lucrăm” (fluxul Radiografie → Plan → Preluare → Lună de lună) și cea din articolul de helpdesk, ca SVG inline, linii 1.5 px, culori din tokeni.
-- Logo-uri de parteneri (Microsoft Partner, Fortinet Advocate, Veeam Partner): rând static, monocrom `--muted`, colorat la hover, cu nivelul scris sub logo. Fără carusel.
+- Diagrame: cea din „Cum lucrăm” (fluxul Radiografie → Plan → Preluare → Lună de lună), cea din articolul de helpdesk și `HeroDiagram`, graficul din hero-ul homepage-ului (aranjament cerut de Marius pe 18 septembrie 2026, luat din `hero.png`). Toate, ca SVG inline, culori din tokeni, fără cereri de rețea.
+- `HeroDiagram`: în stânga, un câmp de fragmente împrăștiate — liniuțe scurte și colțuri de traseu rupte, jumătate `--navy`, jumătate `--teal`, 1,8 px — grupate în cinci benzi, la 108 unități una de alta, fiecare cu eticheta ei; deasupra spinei, logo-ul oficial (aceleași căi ca `Logo.astro`); la mijloc, o spină verticală `--teal` de 3 px cu cinci noduri pătrate de 22 px **în `--orange`**; în dreapta, paisprezece trasee în mănunchiuri de 3/2/3/3/3 care pleacă din noduri, coboară sau urcă până la un palier comun, merg o bucată împreună și apoi se ridică unul în altul în șase verticale, fiecare terminată cu o **săgeată în V, `--teal`**, cu vârful pe capătul liniei, în trepte. Jos, două etichete de colț, pe câte două rânduri. Citirea e de la fragmentare (stânga) la progres (dreapta).
+  Geometria vine din mockup: spina la x=431, verticalele evantaiului la x=718…813 cu capetele la y=134…15. Distanța dintre benzi a fost crescută de la 95 la 108 de unități pe 18 septembrie 2026, la cererea lui Marius („mai mare și aerisit”); nodurile ajung astfel la y=222, 330, 438, 546, 654. Câmpul de fragmente e generat determinist (generator cu sămânță fixă), ca build-ul să fie reproductibil, iar fragmentele ocolesc casetele etichetelor.
+  Graficul are `role="img"` și `aria-label` (poartă informație, nu e decor) și se afișează doar de la 1200 px.
+- Logo-uri de parteneri (Microsoft Partner, Fortinet Advocate, Veeam Partner, Anthropic Partner): rând static, monocrom `--muted`, colorat la hover, cu nivelul scris sub logo. Fără carusel.
 
 ## Mișcare
 
@@ -174,7 +197,7 @@ Contrast AA pe toate combinațiile (orange pe navy trece; teal pe alb trece la 1
 
 ## Ce nu facem (lista de verificare pentru Claude Code)
 
-- Fără hero de 100vh, fără video de fundal, fără particule, fără rețea de puncte.
+- Fără hero de 100vh, fără video de fundal, fără particule, fără rețea de puncte. (Graficul din hero e o excepție cerută explicit: e un traseu cu sens — de la fragmentare la un singur drum — nu o textură decorativă.)
 - Fără gradient pe text, fără gradienturi violet/albastru, fără „glassmorphism”.
 - Fără carusele de orice fel. Fără contoare animate. Fără testimoniale fără nume.
 - Fără iconițe-scut, lacăt, nor, rotiță în cardurile de servicii.

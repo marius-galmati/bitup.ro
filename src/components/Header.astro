@@ -2,13 +2,16 @@
 /**
  * Header (DESIGN § Header, 00-global § Meniu).
  * Fundal --surface, 64 px, linie jos de 1 px; sticky pe desktop, fără umbră; nu e sticky pe mobil.
- * Stânga: logo 132 px. Centru-dreapta: Servicii ▾ (buton real, aria-expanded, Esc și click în afară închid), Cum lucrăm, Rezultate, Despre, Blog.
+ * Stânga: logo 132 px. Centru-dreapta: Servicii ▾ (buton real, aria-expanded, Esc și click în afară închid), Cum lucrăm, Rezultate, Despre, Echipa, Blog.
+ * „Servicii” deschide un panou pe toată lățimea, după modelul din `meniu (2).png`: patru coloane (intro, două de servicii,
+ * casetă de CTA despărțită de o linie verticală) și o bandă de jos peste o linie de 1 px. Tipografia, paleta și logo-ul rămân cele din DESIGN.md.
  * Dreapta: telefon (mono, --muted; ascuns între 1024 și 1200 px), RO · EN, comutatorul de temă, butonul orange.
  * Sub 1024 px: hamburger; panou full-height cu aceleași linkuri (Servicii ca listă desfășurată), butonul de Radiografie sus, telefon, WhatsApp (→ /suport), limbă și temă jos.
  */
 import Button from './Button.astro';
 import Container from './Container.astro';
 import Logo from './Logo.astro';
+import Eyebrow from './Eyebrow.astro';
 import ThemeToggle from './ThemeToggle.astro';
 import LangSwitch from './LangSwitch.astro';
 import { t, localePath, type Locale, type RouteKey } from '../i18n';
@@ -18,15 +21,19 @@ interface Props { lang: Locale; altHref: string; currentKey?: RouteKey | null }
 const { lang, altHref, currentKey = null } = Astro.props;
 const dict = t(lang);
 const nav = dict.nav;
+const mm = dict.megaMenu;
 const mainLinks: { label: string; route: RouteKey }[] = [
   { label: nav.howWeWork, route: 'howWeWork' },
   { label: nav.results, route: 'results' },
   { label: nav.about, route: 'about' },
+  { label: nav.team, route: 'team' },
   { label: nav.blog, route: 'blog' },
 ];
 const serviceKeys: RouteKey[] = ['itSupport', 'security', 'automation', 'services'];
 const servicesCurrent = currentKey !== null && serviceKeys.includes(currentKey);
 const isCurrent = (route: RouteKey) => (route === currentKey ? 'page' : undefined);
+// Modelul de meniu din `meniu (2).png`: patru coloane. Noi avem trei servicii (00-global § Meniu), deci 2 + 1.
+const groups = [mm.items.slice(0, 2), mm.items.slice(2)];
 ---
 <header class="header">
   <Container class="header__inner">
@@ -40,11 +47,42 @@ const isCurrent = (route: RouteKey) => (route === currentKey ? 'page' : undefine
           <button type="button" class="nav__link nav__button" data-services-toggle aria-expanded="false" aria-controls="services-menu" aria-current={servicesCurrent ? 'true' : undefined}>
             {nav.services}<span class="nav__caret" aria-hidden="true">▾</span>
           </button>
-          <ul id="services-menu" class="submenu" hidden>
-            {nav.servicesItems.map((it) => (
-              <li><a class="submenu__link" href={localePath(it.route as RouteKey, lang)} aria-current={isCurrent(it.route as RouteKey)}>{it.label}</a></li>
-            ))}
-          </ul>
+          <div id="services-menu" class="mega" hidden>
+            <Container class="mega__inner">
+              <div class="mega__grid">
+                <div class="mega__col">
+                  <Eyebrow>{mm.eyebrow}</Eyebrow>
+                  <p class="mega__title">{mm.title}</p>
+                  <p class="mega__lead">{mm.lead}</p>
+                  <a class="mega__link" href={localePath('services', lang)} aria-current={isCurrent('services')}>{mm.allLink}</a>
+                </div>
+
+                {groups.map((group) => (
+                  <div class="mega__col">
+                    {group.map((it) => (
+                      <a class="mega__item" href={localePath(it.route as RouteKey, lang)} aria-current={isCurrent(it.route as RouteKey)}>
+                        <span class="mega__itemTitle">{it.label}</span>
+                        <span class="mega__itemText">{it.text}</span>
+                      </a>
+                    ))}
+                  </div>
+                ))}
+
+                <div class="mega__col mega__col--aside">
+                  <Eyebrow>{mm.asideEyebrow}</Eyebrow>
+                  <p class="mega__title mega__title--aside">{mm.asideTitle}</p>
+                  <a class="mega__link" href={localePath('healthCheck', lang)} data-event="cta_radiografie_click">{mm.asideLink}</a>
+                </div>
+              </div>
+
+              <p class="mega__foot">
+                <a class="mega__contact mono" href={site.phone.href} data-event="tel_click">{site.phone.display}</a>
+                <span class="mega__sep mono" aria-hidden="true">·</span>
+                <a class="mega__contact mono" href={site.emailHref}>{site.email}</a>
+                <a class="mega__link mega__link--foot" href={localePath('support', lang)}>{mm.supportLink}</a>
+              </p>
+            </Container>
+          </div>
         </li>
         {mainLinks.map((l) => (
           <li class="nav__item"><a class="nav__link" href={localePath(l.route, lang)} aria-current={isCurrent(l.route)}>{l.label}</a></li>
@@ -105,11 +143,33 @@ const isCurrent = (route: RouteKey) => (route === currentKey ? 'page' : undefine
   .nav__link[aria-current] { color: var(--teal); text-decoration: underline; text-underline-offset: 6px; text-decoration-thickness: 2px; }
   .nav__caret { font-size: .8em; transition: transform 150ms; }
   .nav__button[aria-expanded="true"] .nav__caret { transform: rotate(180deg); }
-  .submenu { position: absolute; top: calc(100% + var(--s-2)); left: 0; min-width: 280px; margin: 0; padding: var(--s-2); list-style: none; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); z-index: 30; }
-  .submenu__link { display: block; padding: var(--s-2) var(--s-3); color: var(--text); text-decoration: none; font-size: var(--fs-small); font-family: var(--font-display); font-weight: 600; border-radius: var(--radius); }
-  .submenu__link:hover { background: var(--surface-2); color: var(--teal); }
-  .submenu__link[aria-current] { color: var(--teal); }
-  .submenu li:last-child { border-top: 1px solid var(--line); margin-top: var(--s-1); padding-top: var(--s-1); }
+  /* Panoul „Servicii” (modelul din meniu (2).png), cu tokenii noștri: patru coloane, linie verticală înainte de ultima, bandă de jos. */
+  .nav__item--services { position: static; }
+  .mega { display: none; }
+  .mega[hidden] { display: none; }
+  @media (min-width: 1024px) {
+    .mega { display: block; position: absolute; left: 0; right: 0; top: 100%; background: var(--surface); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); box-shadow: var(--shadow); z-index: 30; }
+    .mega[hidden] { display: none; }
+    .header :global(.mega__inner) { padding-block: var(--s-7) var(--s-6); }
+    .mega__grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); column-gap: var(--s-6); }
+    .mega__col { display: grid; align-content: start; }
+    .mega__col--aside { border-left: 1px solid var(--line); padding-left: var(--s-5); }
+    .mega__title { font-family: var(--font-display); font-weight: 600; font-size: var(--fs-h2); line-height: 1.15; letter-spacing: -0.01em; color: var(--navy); margin: var(--s-4) 0 0; text-wrap: balance; hyphens: manual; }
+    .mega__title--aside { font-size: var(--fs-lead); }
+    .mega__lead { color: var(--muted); margin: var(--s-3) 0 0; max-width: 34ch; }
+    .mega__link { justify-self: start; margin-top: var(--s-5); color: var(--teal); font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
+    .mega__link::after { content: ' →'; font-weight: 400; text-decoration: none; }
+    .mega__link:hover { color: var(--navy); }
+    .mega__item { display: grid; gap: var(--s-2); padding-bottom: var(--s-6); text-decoration: none; }
+    .mega__col > .mega__item:first-child { margin-top: var(--s-5); }
+    .mega__itemTitle { font-family: var(--font-display); font-weight: 600; font-size: var(--fs-h3); line-height: 1.25; color: var(--navy); hyphens: manual; transition: color 150ms; }
+    .mega__itemText { color: var(--muted); font-size: var(--fs-small); line-height: 1.5; }
+    .mega__item:hover .mega__itemTitle, .mega__item[aria-current] .mega__itemTitle { color: var(--teal); }
+    .mega__foot { display: flex; align-items: baseline; flex-wrap: wrap; gap: var(--s-2); margin-top: var(--s-6); padding-top: var(--s-4); border-top: 1px solid var(--line); font-size: var(--fs-small); color: var(--muted); }
+    .mega__contact { color: inherit; text-decoration: none; }
+    .mega__contact:hover { color: var(--teal); }
+    .mega__link--foot { margin-top: 0; margin-left: var(--s-4); font-size: var(--fs-small); }
+  }
 
   .header__tools { margin-left: auto; display: flex; align-items: center; gap: var(--s-3); }
   .header__phone { display: none; color: var(--muted); text-decoration: none; font-size: var(--fs-small); white-space: nowrap; }
@@ -127,6 +187,11 @@ const isCurrent = (route: RouteKey) => (route === currentKey ? 'page' : undefine
     .header__nav { display: block; }
     .header :global(.header__lang), .header :global(.header__theme), .header :global(.header__cta) { display: inline-flex; }
     .burger { display: none; }
+    /* Cu al șaselea link în bară (Echipa, 19 septembrie 2026), rândul nu mai încape în containerul de 1120 px
+       cu padding-ul vechi de 12 px. Măsurat: 1169 px conținut față de 1056 px utili. Strângem padding-ul
+       linkurilor la 8 px și distanța dintre unelte la 8 px; zona de click rămâne 33 × 35 px. */
+    .nav__link { padding-inline: var(--s-2); }
+    .header__tools { gap: var(--s-2); }
   }
   /* Telefonul se vede doar de la 1200 px; între 1024 și 1200 rămâne în meniul mobil și în footer. */
   @media (min-width: 1200px) { .header__phone { display: inline; } }
@@ -144,6 +209,8 @@ const isCurrent = (route: RouteKey) => (route === currentKey ? 'page' : undefine
   .mobile__contact { color: var(--text); text-decoration: none; padding: var(--s-2) 0; }
   .mobile__contact.mono { font-size: var(--fs-small); color: var(--muted); }
   .mobile__tools { display: flex; align-items: center; justify-content: space-between; gap: var(--s-4); }
+  /* Gutiera urmează containerul: 20 px sub 768, 32 px de la 768 (panoul e vizibil până la 1023 px). */
+  @media (min-width: 768px) { .mobile { padding-inline: 32px; } }
   @media (min-width: 1024px) { .mobile { display: none !important; } }
   @media (prefers-reduced-motion: no-preference) { .mobile { animation: menu-in 200ms ease-out; } }
   @keyframes menu-in { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: none; } }

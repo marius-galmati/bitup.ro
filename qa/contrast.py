@@ -44,6 +44,10 @@ PAIRS = [
     ('experiență, dark: muted #9FB3B8 pe surface #12232A', '#9FB3B8', '#12232A', 4.5),
     ('inițiale substituent: navy #00202E pe surface-2 #EAF0F0', '#00202E', '#EAF0F0', 4.5),
     ('inițiale substituent, dark: #E4ECEE pe surface-2 #182E36', '#E4ECEE', '#182E36', 4.5),
+    # marca LinkedIn: „in” alb pe albastrul oficial; pătratul albastru față de fundalul secțiunii e graniță non-text
+    ('marca LinkedIn: alb pe #2867B3', '#FFFFFF', '#2867B3', 4.5),
+    ('marca LinkedIn pe surface #FFFFFF (non-text)', '#2867B3', '#FFFFFF', 3),
+    ('marca LinkedIn, dark, pe surface #12232A (logotip: exceptat de WCAG 1.4.11)', '#2867B3', '#12232A', 3),
     ('Steps: alb pe teal #20686C (cifră)', '#FFFFFF', '#20686C', 4.5),
     ('Steps, dark: #00202E pe teal #5FB0B4', '#00202E', '#5FB0B4', 4.5),
     ('linie --line pe bg (non-text): #D6E0E1 pe #F5F8F8', '#D6E0E1', '#F5F8F8', 1),

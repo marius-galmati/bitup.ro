@@ -27,12 +27,12 @@ BitUp funcționează cu un nucleu permanent și cu specialiști dedicați pe zon
 
 ## Oamenii
 
-Patru rânduri, în ordinea de mai jos.
+Patru rânduri, în ordinea de mai jos. Sub textul fiecăruia stă marca „in” a LinkedIn (`public/icons/linkedin.svg`), fără cuvinte lângă ea; cine n-are încă link vede placeholder-ul.
 
 ### Marius Galmati
 Rol (mono): `Fondator`
 Experiență (mono, `--muted`): `Experiență enterprise: Concentrix (Fortune 500)`
-Fotografie: `[[FOTO_MARIUS]]`
+Fotografie: `src/assets/foto-echipa/marius-galmati-960x960.jpg` (primită 19 septembrie 2026)
 LinkedIn: https://www.linkedin.com/in/nicolae-marius-galmati
 
 Peste zece ani în IT, de la companii locale până la mediul enterprise, într-o corporație americană din Fortune 500. În toate a regăsit aceeași problemă: organizații cu tehnologie cumpărată corect, dar fără structură în spatele ei. Fără proceduri scrise, fără procese care să se repete identic, fără nimeni responsabil de imaginea de ansamblu, iar securitatea amânată pentru „după”.
@@ -44,7 +44,7 @@ A fondat BitUp în 2020, ca să aducă ordinea aceea la scara companiilor român
 ### Petre Radu Cătălin
 Rol (mono): `Red Team & Securitate ofensivă`
 Experiență (mono, `--muted`): `Experiență enterprise: NTT DATA`
-Fotografie: `[[FOTO_PETRE]]`
+Fotografie: `src/assets/foto-echipa/petre-radu-catalin-400x400.jpg` (primită 19 septembrie 2026; sursa e 400×400, sub minimul de 480×480)
 LinkedIn: https://www.linkedin.com/in/petreradu
 
 Petre este penetration tester în cadrul NTT DATA, cu activitate în zona de securitate ofensivă. Experiența lui acoperă testarea de penetrare a aplicațiilor web și a API-urilor, a infrastructurilor de rețea și a mediilor cloud, cu un focus deosebit pe abuzurile de tip IAM și pe căile de escaladare a privilegiilor, exact zonele unde atacatorii reali lovesc primii.
@@ -56,7 +56,7 @@ Ce îl recomandă în proiectele cu clienți este că acoperă integral ciclul u
 ### Samuel Bota
 Rol (mono): `AI & Innovation Specialist`
 Experiență (mono, `--muted`): `Experiență enterprise: Marsh`
-Fotografie: `[[FOTO_SAMUEL]]`
+Fotografie: `src/assets/foto-echipa/samuel-bota-960x960.jpg` (primită 19 septembrie 2026)
 LinkedIn: https://www.linkedin.com/in/samuel-bota-6b7aa31a9
 
 Samuel este AI & Innovation Specialist, pasionat de felul în care tehnologiile noi pot rezolva probleme reale. Activitatea lui acoperă cercetarea și dezvoltarea în AI, modelele lingvistice mari, sistemele agentice și soluțiile AI aplicate. Îi place să ducă ideile de la experiment la aplicații care funcționează în realitate, explorând continuu tehnologii și abordări noi. Îl interesează în mod special cum poate AI-ul să întărească securitatea cibernetică, automatizarea și modul în care operează o companie. Samuel aduce în echipă curiozitate, expertiză tehnică și pasiune pentru inovație, și contribuie la transformarea ideilor ambițioase în realitate.

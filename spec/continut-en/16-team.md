@@ -27,12 +27,12 @@ BitUp runs on a permanent core and on specialists dedicated to the areas where w
 
 ## The people
 
-Four rows, in the order below.
+Four rows, in the order below. Under each text sits the LinkedIn "in" mark (`public/icons/linkedin.svg`), with no words next to it; whoever has no link yet shows the placeholder.
 
 ### Marius Galmati
 Role (mono): `Founder`
 Experience (mono, `--muted`): `Enterprise background: Concentrix (Fortune 500)`
-Photo: `[[FOTO_MARIUS]]`
+Photo: `src/assets/foto-echipa/marius-galmati-960x960.jpg` (received 19 September 2026)
 LinkedIn: https://www.linkedin.com/in/nicolae-marius-galmati
 
 Over ten years in IT, from local companies to the enterprise world, at an American Fortune 500 corporation. In all of them he found the same problem: organizations with technology bought correctly, but with no structure behind it. No written procedures, no processes that run the same way twice, nobody answering for the whole picture, and security postponed until "later."
@@ -44,7 +44,7 @@ He founded BitUp in 2020, to bring that order to the scale of Romanian companies
 ### Petre Radu Cătălin
 Role (mono): `Red Team & Offensive Security`
 Experience (mono, `--muted`): `Enterprise background: NTT DATA`
-Photo: `[[FOTO_PETRE]]`
+Photo: `src/assets/foto-echipa/petre-radu-catalin-400x400.jpg` (received 19 September 2026; the source is 400×400, under the 480×480 minimum)
 LinkedIn: https://www.linkedin.com/in/petreradu
 
 Petre is a penetration tester at NTT DATA, working in offensive security. His experience covers penetration testing of web applications and APIs, of network infrastructure and cloud environments, with a particular focus on IAM abuse and privilege escalation paths, exactly the areas real attackers hit first.
@@ -56,7 +56,7 @@ What recommends him on client projects is that he covers the full cycle of an en
 ### Samuel Bota
 Role (mono): `AI & Innovation Specialist`
 Experience (mono, `--muted`): `Enterprise background: Marsh`
-Photo: `[[FOTO_SAMUEL]]`
+Photo: `src/assets/foto-echipa/samuel-bota-960x960.jpg` (received 19 September 2026)
 LinkedIn: https://www.linkedin.com/in/samuel-bota-6b7aa31a9
 
 Samuel is an AI & Innovation Specialist passionate about exploring how emerging technologies can solve real-world problems. His work focuses on AI R&D, LLMs, agentic systems, and building practical AI solutions. He enjoys taking ideas from experimentation to real-world applications while continuously exploring new technologies and approaches. He is particularly interested in how AI can enhance cybersecurity, automation, and the way businesses operate. Samuel brings curiosity, technical expertise, and a passion for innovation to the team, helping turn ambitious ideas into reality.

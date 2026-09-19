@@ -8,12 +8,15 @@
  * de 1 px, fiecare cu fotografia pătrată de 240 px în stânga, aliniată sus, și textul în dreapta. Fără alternanță
  * stânga/dreapta. Pe mobil fotografia trece deasupra, la 160 px, aliniată la stânga.
  *
- * Cât timp lipsește oricare dintre cele patru fotografii, toate patru se randează la fel: pătrat pe `--surface-2`,
- * bordură de 1 px, inițialele în fontul de titlu. Nu se amestecă o poză reală cu trei substituenți.
+ * Fotografii: trei din patru au sosit pe 19 septembrie 2026. Cine n-are încă poză primește substituentul —
+ * același pătrat, aceeași bordură, cu inițialele în fontul de titlu. Decizia lui Marius, la întrebare directă:
+ * cele trei poze intră acum, Cristian rămâne pe inițiale până trimite poza (abatere asumată de la regula lui de layout 5).
  *
- * Linkul de LinkedIn e textual, nu marca oficială: pe brand.linkedin.com marca se distribuie doar ca PNG
- * (`in-logo.zip` → LI-In-Bug.png, InBug-White.png, InBug-Black.png), nu ca SVG. Vezi NOTES.md.
+ * Marca „in” a LinkedIn: `public/icons/linkedin.svg`, decupată din `LinkedIn_Logo.svg` trimis de Marius.
+ * Rămâne în albastrul oficial #2867B3 în toate stările, cum cer regulile lor de brand; hover-ul se marchează
+ * prin opacitate, nu prin culoare (decizie a lui Marius, 19 septembrie 2026). Fișier local, zero cereri externe.
  */
+import { Picture } from 'astro:assets';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Container from '../Container.astro';
 import Section from '../Section.astro';
@@ -23,6 +26,12 @@ import CtaBand from '../CtaBand.astro';
 import { localePath, absoluteUrl, type Locale } from '../../i18n';
 import { profilePage, teamMember } from '../../lib/schema';
 import type { TeamCopy } from '../../copy/team.ro';
+import fotoMarius from '../../assets/foto-echipa/marius-galmati-960x960.jpg';
+import fotoPetre from '../../assets/foto-echipa/petre-radu-catalin-400x400.jpg';
+import fotoSamuel from '../../assets/foto-echipa/samuel-bota-960x960.jpg';
+
+/** Cine are fotografie. Când sosește poza lui Cristian, se adaugă aici și substituentul dispare de la sine. */
+const FOTO = { marius: fotoMarius, petre: fotoPetre, samuel: fotoSamuel } as const;
 
 interface Props { lang: Locale; copy: TeamCopy }
 const { lang, copy } = Astro.props;
@@ -46,7 +55,9 @@ const peopleHeading = lang === 'ro' ? 'Oamenii' : 'The people';
 
       {copy.people.map((p) => (
         <article class="person">
-          <div class="person__photo" aria-hidden="true"><span class="person__initials">{p.initials}</span></div>
+          {FOTO[p.id as keyof typeof FOTO]
+            ? <Picture src={FOTO[p.id as keyof typeof FOTO]} alt={p.photoAlt} width={240} height={240} densities={[1, 2]} formats={['avif', 'webp']} loading="lazy" decoding="async" class="person__photo" />
+            : <div class="person__photo person__photo--gol" aria-hidden="true"><span class="person__initials">{p.initials}</span></div>}
           <div class="person__body">
             <h3 class="person__name">{p.name}</h3>
             <p class="person__role mono">{p.role}</p>
@@ -54,7 +65,7 @@ const peopleHeading = lang === 'ro' ? 'Oamenii' : 'The people';
             <div class="person__text">{p.paragraphs.map((t) => <p>{t}</p>)}</div>
             <p class="person__link">
               {p.linkedin
-                ? <a href={p.linkedin} target="_blank" rel="noopener" aria-label={p.linkedinAriaLabel}>{copy.linkedinLabel}</a>
+                ? <a href={p.linkedin} target="_blank" rel="noopener" aria-label={p.linkedinAriaLabel}><img src="/icons/linkedin.svg" alt="" width="20" height="20" aria-hidden="true" /></a>
                 : <span class="mono muted">{p.linkedinPlaceholder}</span>}
             </p>
           </div>
@@ -86,9 +97,10 @@ const peopleHeading = lang === 'ro' ? 'Oamenii' : 'The people';
   }
   @media (min-width: 1024px) { .person { column-gap: var(--s-7); } }
 
-  /* Substituent identic pentru toți patru cât timp lipsește oricare fotografie. Pătrat, nu rotund. */
-  .person__photo { width: 160px; aspect-ratio: 1; display: grid; place-items: center; background: var(--surface-2); border: 1px solid var(--line); border-radius: var(--radius); }
-  @media (min-width: 768px) { .person__photo { width: 240px; } }
+  /* Fotografie și substituent, aceeași casetă: pătrat, colț de 4 px, bordură de 1 px. Nu rotund. */
+  .person :global(.person__photo) { width: 160px; height: auto; aspect-ratio: 1; object-fit: cover; border: 1px solid var(--line); border-radius: var(--radius); }
+  @media (min-width: 768px) { .person :global(.person__photo) { width: 240px; } }
+  .person__photo--gol { display: grid; place-items: center; background: var(--surface-2); }
   .person__initials { font-family: var(--font-display); font-weight: 600; font-size: var(--fs-h1); color: var(--navy); }
 
   .person__body { display: grid; gap: var(--s-2); max-width: 70ch; }
@@ -98,12 +110,12 @@ const peopleHeading = lang === 'ro' ? 'Oamenii' : 'The people';
   .person__text { display: grid; gap: var(--s-4); margin-top: var(--s-3); }
   .person__text p { text-wrap: pretty; }
 
-  /* Link textual, nu marca LinkedIn: zona de atingere rămâne de 44 px pe telefon. */
+  /* Marca „in”, 20 px, dar zona de atingere 44 × 44, ca să fie utilizabilă pe telefon. */
   .person__link { margin-top: var(--s-3); }
-  .person__link a, .person__link span { display: inline-flex; align-items: center; min-height: 44px; font-family: var(--font-display); font-weight: 600; }
-  .person__link a { color: var(--teal); text-decoration: underline; text-underline-offset: 3px; transition: color 150ms; }
-  .person__link a:hover { color: var(--navy); }
-  .person__link span { font-family: var(--font-mono); font-weight: 400; font-size: var(--fs-small); }
+  .person__link a { display: inline-flex; align-items: center; justify-content: center; min-width: 44px; min-height: 44px; margin-left: -12px; transition: opacity 150ms; }
+  .person__link a:hover { opacity: .75; }
+  .person__link :global(img) { display: block; width: 20px; height: 20px; }
+  .person__link span { display: inline-flex; align-items: center; min-height: 44px; font-family: var(--font-mono); font-size: var(--fs-small); }
 
   .closing { display: grid; gap: var(--s-4); max-width: 70ch; }
   .closing p { text-wrap: pretty; }

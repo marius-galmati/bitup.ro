@@ -23,6 +23,7 @@ export const en = {
     howWeWork: 'How we work',
     results: 'Results',
     about: 'About',
+    team: 'Team',
     blog: 'Blog',
     primary: 'Free IT Health Check',
     menuOpen: 'Menu',

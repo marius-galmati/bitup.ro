@@ -13,6 +13,7 @@ Text final. Se copiază identic. `[[…]]` = placeholder din `PLACEHOLDERS.md`.
 - Cum lucrăm → `/cum-lucram`
 - Rezultate → `/rezultate`
 - Despre → `/despre`
+- Echipa → `/echipa`
 - Blog → `/blog`
 - Telefon (link `tel:+40757150894`): `+40 757 150 894`
 - Comutator de limbă: `RO · EN` (`aria-label`: „Schimbă limba”)

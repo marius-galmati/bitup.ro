@@ -13,6 +13,7 @@ Final copy. Copy verbatim. `[[…]]` = placeholder from `PLACEHOLDERS.md`.
 - How we work → `/en/how-we-work`
 - Results → `/en/results`
 - About → `/en/about`
+- Team → `/en/team`
 - Blog → `/en/blog`
 - Phone (link `tel:+40757150894`): `+40 757 150 894`
 - Language switcher: `RO · EN` (`aria-label`: "Change language")

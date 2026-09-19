@@ -5,12 +5,16 @@
  */
 
 export interface TeamMember {
+  /** Cheia fotografiei din `TeamPage.astro`; fără intrare acolo, se randează substituentul cu inițiale. */
+  id: 'marius' | 'petre' | 'samuel' | 'cristian';
   name: string;
-  /** Inițialele din substituentul pătrat, cât timp lipsesc fotografiile. */
+  /** Inițialele din substituentul pătrat, cât timp lipsește fotografia. */
   initials: string;
   role: string;
   experience: string;
-  /** Numele placeholder-ului de fotografie, pentru listare și pentru ziua în care apar pozele. */
+  /** Textul alternativ al fotografiei; gol pentru cine n-are încă poză. */
+  photoAlt: string;
+  /** Numele placeholder-ului de fotografie, pentru listare; rămâne și după ce poza intră în repo. */
   photoPlaceholder: string;
   linkedin: string | null;
   /** Placeholder-ul vizibil în pagină când `linkedin` e null. */
@@ -43,7 +47,9 @@ export const teamRo: TeamCopy = {
   linkedinLabel: 'LinkedIn',
   people: [
     {
+      id: 'marius',
       name: 'Marius Galmati',
+      photoAlt: 'Marius Galmati, fondatorul BitUp',
       initials: 'MG',
       role: 'Fondator',
       experience: 'Experiență enterprise: Concentrix (Fortune 500)',
@@ -57,7 +63,9 @@ export const teamRo: TeamCopy = {
       ],
     },
     {
+      id: 'petre',
       name: 'Petre Radu Cătălin',
+      photoAlt: 'Petre Radu Cătălin, Red Team și securitate ofensivă',
       initials: 'PR',
       role: 'Red Team & Securitate ofensivă',
       experience: 'Experiență enterprise: NTT DATA',
@@ -71,7 +79,9 @@ export const teamRo: TeamCopy = {
       ],
     },
     {
+      id: 'samuel',
       name: 'Samuel Bota',
+      photoAlt: 'Samuel Bota, AI & Innovation Specialist',
       initials: 'SB',
       role: 'AI & Innovation Specialist',
       experience: 'Experiență enterprise: Marsh',
@@ -83,7 +93,9 @@ export const teamRo: TeamCopy = {
       ],
     },
     {
+      id: 'cristian',
       name: 'Cristian Boanca',
+      photoAlt: '',
       initials: 'CB',
       role: 'Full Stack Developer',
       experience: 'Experiență enterprise: Bosch',

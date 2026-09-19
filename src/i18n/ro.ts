@@ -23,6 +23,7 @@ export const ro = {
     howWeWork: 'Cum lucrăm',
     results: 'Rezultate',
     about: 'Despre',
+    team: 'Echipa',
     blog: 'Blog',
     primary: 'Radiografie IT gratuită',
     menuOpen: 'Meniu',
