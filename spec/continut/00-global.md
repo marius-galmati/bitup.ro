@@ -4,11 +4,12 @@ Text final. Se copiază identic. `[[…]]` = placeholder din `PLACEHOLDERS.md`.
 
 ## Meniu
 
-- Servicii ▾
+- Servicii ▾ (panou pe toată lățimea, DESIGN.md § Panoul „Servicii”)
   - Suport și administrare IT → `/servicii/suport-it`
   - Securitate și continuitate → `/servicii/securitate`
   - Automatizări și software → `/servicii/automatizari`
   - Toate serviciile → `/servicii`
+  - În panou, fiecare serviciu are sub titlu propoziția de poziționare din `02-servicii-index.md` § Cele trei grupuri; coloana din stânga reia H1-ul și lead-ul din § Hero al aceleiași pagini; caseta din dreapta reia întrebarea și butonul din § Banda finală de CTA; banda de jos are telefonul, emailul și „Suport pentru clienți” → `/suport`. Textele nu se rescriu, se reiau.
 - Cum lucrăm → `/cum-lucram`
 - Rezultate → `/rezultate`
 - Despre → `/despre`
@@ -35,10 +36,10 @@ Notă pentru Claude Code: profilul personal de LinkedIn al lui Marius nu apare �
 Suport și administrare IT · Securitate și continuitate · Automatizări și software · Radiografie IT gratuită
 
 **Coloana 3 — firma**
-Cum lucrăm · Rezultate · Despre · Blog · Contact · Suport pentru clienți
+Cum lucrăm · Rezultate · Despre · Echipa · Blog · Contact · Suport pentru clienți
 
 **Coloana 4 — parteneri**
-Microsoft Partner · Fortinet Advocate · Veeam Partner (badge-urile din [[LOGO_PARTENERI]], cu nivelul sub fiecare)
+Microsoft Partner · Fortinet Advocate · Veeam Partner · Anthropic Partner (badge-urile din [[LOGO_PARTENERI]], cu nivelul sub fiecare)
 
 **Rândul de jos**
 © 2026 BitUp Technology SRL · Termeni → `/termeni` · Confidențialitate → `/confidentialitate` · Cookies → `/cookies` · Setări cookie-uri (buton, redeschide bannerul) · `RO · EN`
@@ -70,9 +71,11 @@ Buton: **Programează Radiografia IT**
 
 Varianta pentru pagina Radiografie (nu are bandă; formularul e CTA-ul).
 
-## FactStrip de sub hero (homepage)
+## FactStrip (scos de sub hero-ul homepage-ului pe 17 septembrie 2026, la cererea lui Marius)
 
-Imediat sub hero, pe toată lățimea containerului, pe `--surface`, patru celule: `Din 2020` · `Cluj-Napoca` · `Răspuns sub 2 ore în program` · Microsoft Partner · Fortinet Advocate · Veeam Partner (badge-urile din [[LOGO_PARTENERI]], monocrom; text până există). Hero-ul nu are rând de încredere: informațiile nu apar de două ori pe același ecran.
+Notă pentru Claude Code: banda nu mai apare pe homepage. Valorile rămân aici pentru că le folosește pagina de QA a componentelor, iar componenta `FactStrip` e în continuare folosită pe Despre, pe studiile de caz și pe Contact.
+
+Cele patru celule erau, pe `--surface`, pe toată lățimea containerului: `Din 2020` · `Cluj-Napoca` · `Răspuns sub 2 ore în program` · Microsoft Partner · Fortinet Advocate · Veeam Partner · Anthropic Partner (badge-urile din [[LOGO_PARTENERI]], monocrom; text până există). Hero-ul nu are rând de încredere: informațiile nu apar de două ori pe același ecran.
 
 („Răspuns sub 2 ore” e timpul contractual în program; media reală din helpdesk, sub 30 de minute, apare în text pe /suport-it, /cum-lucram și /suport, nu în FactStrip.)
 

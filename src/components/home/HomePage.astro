@@ -1,7 +1,8 @@
 ---
 /**
  * Homepage (spec/continut/01-acasa.md, continut-en/01-home.md), cele 11 secțiuni + CtaBand. Un singur șablon pentru RO și EN.
- * Ritm: hero tipografic pe bg → FactStrip → §2 carduri-citat pe surface-2 → §3 carduri asimetrice pe bg → §4 pași în două coloane pe surface
+ * Ritm (aranjament după example.png, 17 septembrie 2026): hero tipografic pe bg → §2 trei coloane cu rigle pe surface-2 →
+ * §3 ancoră stângă + rânduri cu linii de păr pe bg → §4 antet sus + pași pe o șină pe surface
  * → §5 listă în două coloane pe bg → §6 text + captură pe surface → §7 secțiune compactă pe surface-2 → §8 cazuri pe bg → §9 parteneri pe surface
  * → §10 blog pe bg → §11 FAQ în două coloane pe surface → CtaBand.
  */
@@ -13,16 +14,17 @@ import Section from '../Section.astro';
 import SectionHead from '../SectionHead.astro';
 import TwoCol from '../TwoCol.astro';
 import Eyebrow from '../Eyebrow.astro';
+import HeroDiagram from './HeroDiagram.astro';
 import Button from '../Button.astro';
 import Card from '../Card.astro';
 import Steps from '../Steps.astro';
-import FactStrip from '../FactStrip.astro';
 import Figure from '../Figure.astro';
 import Faq from '../Faq.astro';
 import CtaBand from '../CtaBand.astro';
 import { t, localePath, dynamicPath, formatDate, type Locale } from '../../i18n';
 import { site } from '../../lib/site';
 import { isProduction } from '../../lib/env';
+import { partnerLogo } from '../../lib/partners';
 import type { HomeCopy } from '../../copy/home.types';
 import whatsapp from '../../assets/blog/helpdesk/whatsapp-cipri.jpg';
 import portrait from '../../assets/foto-marius/marius-patrat-430x430.jpg';
@@ -30,7 +32,6 @@ import portrait from '../../assets/foto-marius/marius-patrat-430x430.jpg';
 interface Props { lang: Locale; copy: HomeCopy }
 const { lang, copy } = Astro.props;
 const dict = t(lang);
-const heroFacts = [{ v: dict.factStrip.since }, { v: dict.factStrip.city }, { v: dict.factStrip.response }, { v: dict.factStrip.partners.join(' · ') }];
 
 // § 8: cazurile publicate în limba paginii (Cosmio rămâne draft până la acord). Colecția se populează în Faza 3.
 const cases = (await getCollection('cases', (e) => e.id.startsWith(`${lang}/`) && (!e.data.draft || !isProduction)))
@@ -43,52 +44,69 @@ const posts = (await getCollection('blog', (e) => e.id.startsWith(`${lang}/`) &&
   .slice(0, 3);
 const readMinutes = (body: string | undefined) => Math.max(1, Math.round((body ?? '').split(/\s+/).length / 200));
 const slugOf = (id: string) => id.replace(/^(ro|en)\//, '');
+
+// § 9: badge-urile de partener. Logo-ul apare doar dacă fișierul e salvat în public/logos/parteneri/;
+// până atunci rămâne placeholder-ul [[LOGO_PARTENERI]], vizibil (CLAUDE.md regula 3).
+const partners = copy.partners.names.map((name) => ({ name, logo: partnerLogo(name) }));
 ---
 <BaseLayout lang={lang} routeKey="home" title={copy.title} description={copy.description}>
-  {/* 1. Hero: tipografic, o coloană, aliniat la stânga, pe --bg; FactStrip imediat sub el */}
+  {/* 1. Hero: text la stânga, graficul din hero.png la dreapta de la 1200 px. Banda de FactStrip a fost scoasă pe 17 septembrie 2026. */}
   <Section tone="bg" class="hero">
-    <Container>
+    <Container wide>
+      <div class="hero__grid">
       <div class="hero__text">
-        <Eyebrow>{copy.hero.eyebrow}</Eyebrow>
+        {copy.hero.eyebrow && <Eyebrow>{copy.hero.eyebrow}</Eyebrow>}
         <h1 class="hero__h1">{copy.hero.h1}</h1>
         <p class="lead hero__lead">{copy.hero.lead}</p>
         <div class="hero__actions">
           <Button href={localePath('healthCheck', lang)} data-event="cta_radiografie_click">{copy.hero.primary}</Button>
-          <Button href={localePath('howWeWork', lang)} variant="secondary">{copy.hero.secondary}</Button>
+          <Button href={localePath('services', lang)} variant="secondary">{copy.hero.secondary}</Button>
         </div>
       </div>
-      <FactStrip items={heroFacts} class="hero__facts" />
+      <HeroDiagram lang={lang} class="hero__graphic" />
+      </div>
     </Container>
   </Section>
 
-  {/* 2. Recunoști situația? — trei carduri-citat pe surface-2 */}
+  {/* 2. Recunoști situația? — trei coloane despărțite de rigle verticale, cu liniuță de accent */}
   <Section tone="surface-2" labelledby="s2">
     <Container>
       <SectionHead id="s2" eyebrow={copy.situation.eyebrow} title={copy.situation.h2} />
-      <div class="grid-3">
-        {copy.situation.cards.map((c) => <Card title={c.quote}><p>{c.text}</p></Card>)}
-      </div>
+      <ul class="quotes">
+        {copy.situation.cards.map((c) => (
+          <li class="quotes__item">
+            <h3 class="quotes__q">{c.quote}</h3>
+            <p class="quotes__t">{c.text}</p>
+          </li>
+        ))}
+      </ul>
       <p class="closing">{copy.situation.closing} <a href={localePath('healthCheck', lang)}>{copy.situation.closingLink}</a></p>
     </Container>
   </Section>
 
-  {/* 3. Ce facem — trei carduri mari, primele două mai late */}
+  {/* 3. Ce facem — ancoră stângă, rânduri despărțite de linii de păr */}
   <Section tone="bg" labelledby="s3">
     <Container>
-      <SectionHead id="s3" eyebrow={copy.services.eyebrow} title={copy.services.h2} />
-      <div class="grid-3 grid-3--wide">
-        {copy.services.cards.map((c) => <Card title={c.title} href={localePath(c.route, lang)} linkLabel={c.link}><p>{c.text}</p></Card>)}
-      </div>
+      <TwoCol id="s3" eyebrow={copy.services.eyebrow} title={copy.services.h2}>
+        <ul class="rows">
+          {copy.services.cards.map((c) => (
+            <li class="rows__item">
+              <h3 class="rows__title">{c.title}</h3>
+              <p class="rows__text">{c.text}</p>
+              <p class="rows__link"><a href={localePath(c.route, lang)}>{c.link}<span aria-hidden="true"> →</span></a></p>
+            </li>
+          ))}
+        </ul>
+      </TwoCol>
     </Container>
   </Section>
 
-  {/* 4. Cum lucrăm — două coloane, pașii în dreapta */}
+  {/* 4. Cum lucrăm — antet sus pe toată lățimea, pașii pe o șină orizontală */}
   <Section tone="surface" labelledby="s4">
     <Container>
-      <TwoCol id="s4" eyebrow={copy.how.eyebrow} title={copy.how.h2}>
-        <Steps steps={copy.how.steps} class="steps-2x2" />
-        <p class="after"><a href={localePath('howWeWork', lang)}>{copy.how.link}<span aria-hidden="true"> →</span></a></p>
-      </TwoCol>
+      <SectionHead id="s4" eyebrow={copy.how.eyebrow} title={copy.how.h2} />
+      <Steps steps={copy.how.steps} variant="rail" />
+      <p class="after"><a href={localePath('howWeWork', lang)}>{copy.how.link}<span aria-hidden="true"> →</span></a></p>
     </Container>
   </Section>
 
@@ -130,6 +148,7 @@ const slugOf = (id: string) => id.replace(/^(ro|en)\//, '');
           <p>{copy.founder.text}</p>
           <p class="founder__links">
             <a href={localePath('about', lang)}>{copy.founder.storyLink}<span aria-hidden="true"> →</span></a>
+            <a href={localePath('team', lang)}>{copy.founder.teamLink}<span aria-hidden="true"> →</span></a>
             <a href={site.founder.linkedin} target="_blank" rel="noopener">{copy.founder.linkedinLabel}<span aria-hidden="true"> →</span></a>
           </p>
         </div>
@@ -156,14 +175,31 @@ const slugOf = (id: string) => id.replace(/^(ro|en)\//, '');
     </Container>
   </Section>
 
-  {/* 9. Parteneri și tehnologii — rând static, monocrom */}
+  {/* 9. Parteneri — rând static de badge-uri, monocrom --muted, colorat la hover (DESIGN § Imagini) */}
   <Section tone="surface" labelledby="s9">
     <Container>
       <SectionHead id="s9" eyebrow={copy.partners.eyebrow} title={copy.partners.h2} />
       <ul class="partners">
-        {copy.partners.names.map((n) => <li class="partners__item"><span class="partners__name">{n}</span><span class="partners__level mono">[[LOGO_PARTENERI]]</span></li>)}
+        {partners.map((p) => (
+          <li class="partners__item">
+            {p.logo
+              ? <span class="partners__badge" style={`--logo: url("${p.logo.src}")`}>
+                  <span class="partners__mono" aria-hidden="true"></span>
+                  <img class="partners__color" src={p.logo.src} alt="" height="36" loading="lazy" decoding="async" />
+                </span>
+              : <span class="partners__ph mono">[[LOGO_PARTENERI]]</span>}
+            <span class="partners__name">{p.name}</span>
+          </li>
+        ))}
       </ul>
-      <p class="small muted partners__tech">{copy.partners.tech}</p>
+    </Container>
+  </Section>
+
+  {/* 9b. Tehnologii — secțiune proprie, pe același fundal, despărțită de o linie de 1 px */}
+  <Section tone="surface" line labelledby="s9b">
+    <Container>
+      <SectionHead id="s9b" eyebrow={copy.tech.eyebrow} title={copy.tech.h2} />
+      <p class="tech__list">{copy.tech.list}</p>
     </Container>
   </Section>
 
@@ -198,19 +234,56 @@ const slugOf = (id: string) => id.replace(/^(ro|en)\//, '');
 </BaseLayout>
 
 <style>
-  .hero__text { display: grid; gap: var(--s-4); justify-items: start; }
+  /* Ritm gradat, ca in example.png: titlu → lead mai strans decat lead → actiuni. */
+  .hero__grid { display: grid; gap: var(--s-7); align-items: center; }
+  .hero__text { display: grid; gap: 0; justify-items: start; }
+  .hero__grid :global(.hero__graphic) { display: none; }
+  /* Text stânga / grafic dreapta de la 1200 px. Sub atât, titlul ar rămâne pe o coloană prea îngustă
+     (la 1024 px ajungea la șase rânduri), așa că graficul nu se arată. */
+  @media (min-width: 1200px) {
+    .hero__grid { grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: var(--s-7); }
+    .hero__grid :global(.hero__graphic) { display: block; justify-self: end; }
+  }
+  /* De la 1360 px hero-ul folosește containerul lat, ca graficul să aibă loc. Prima coloană e o gutieră
+     de 72 px, care cu gap-ul de 48 px dă exact cei 120 px de decalaj dintre containerul lat și cel normal, ca textul să rămână aliniat
+     cu marginea stângă a tuturor celorlalte secțiuni. */
+  @media (min-width: 1360px) {
+    .hero__grid { grid-template-columns: 72px minmax(0, 1.3fr) minmax(0, 1fr); }
+    .hero__text { grid-column: 2; }
+    .hero__grid :global(.hero__graphic) { grid-column: 3; }
+  }
+  .hero__lead { margin-top: var(--s-4); }
   .hero__h1 { font-size: var(--fs-hero); max-width: 22ch; }
   .hero__lead { max-width: 60ch; }
-  .hero__actions { display: flex; flex-wrap: wrap; gap: var(--s-3) var(--s-4); margin-top: var(--s-3); }
-  .hero :global(.hero__facts) { margin-top: var(--s-8); }
+  .hero__actions { display: flex; flex-wrap: wrap; gap: var(--s-3) var(--s-4); margin-top: var(--s-6); }
+
+  /* §2: trei coloane despărțite de rigle verticale, cu liniuță de accent deasupra fiecărui citat (example.png, banda „De ce”). */
+  .quotes { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--s-6); }
+  .quotes__item { display: grid; gap: var(--s-2); align-content: start; position: relative; }
+  .quotes__item::after { content: ''; display: block; order: -1; width: 28px; height: 3px; background: var(--teal); margin-bottom: var(--s-3); }
+  .quotes__q { line-height: 1.3; text-wrap: balance; }
+  @media (min-width: 768px) {
+    .quotes { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--s-6); grid-template-rows: auto auto auto; }
+    .quotes__item { grid-row: span 3; grid-template-rows: subgrid; }
+    .quotes__item + .quotes__item { padding-left: var(--s-6); }
+    .quotes__item + .quotes__item::before { content: ''; position: absolute; left: 0; top: 2px; bottom: 0; width: 1px; background: var(--line); }
+  }
+
+  /* §3: rânduri despărțite de linii de păr, fără carduri (example.png, banda „Ce facem”). */
+  .rows { list-style: none; margin: 0; padding: 0; display: grid; }
+  .rows__item { display: grid; gap: var(--s-2); padding-block: var(--s-5); }
+  .rows__item:first-child { padding-top: 0; }
+  .rows__item:last-child { padding-bottom: 0; }
+  .rows__item + .rows__item { border-top: 1px solid var(--line); }
+  .rows__title { font-size: var(--fs-h3); }
+  .rows__link { margin-top: var(--s-2); }
 
   .grid-3 { display: grid; gap: var(--s-5); grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
-  @media (min-width: 1024px) { .grid-3--wide { grid-template-columns: 1.15fr 1.15fr 1fr; } }
   .grid-2 { display: grid; gap: var(--s-5); grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
   .closing { margin-top: var(--s-6); max-width: 70ch; }
   .closing--first { margin-top: 0; }
   .after { margin-top: var(--s-6); }
-  .after a, .closing a, .support__text a, .founder__links a { font-family: var(--font-display); font-weight: 600; }
+  .after a, .closing a, .rows__link a, .support__text a, .founder__links a { font-family: var(--font-display); font-weight: 600; }
 
   .why { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--s-5); }
   .why__item { position: relative; padding-left: var(--s-5); }
@@ -230,11 +303,39 @@ const slugOf = (id: string) => id.replace(/^(ro|en)\//, '');
   .founder__links { display: flex; flex-wrap: wrap; gap: var(--s-2) var(--s-5); }
   @media (min-width: 768px) { .founder { grid-template-columns: 200px minmax(0, 1fr); gap: var(--s-6); } }
 
-  .partners { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: var(--s-5) var(--s-8); }
-  .partners__item { display: grid; gap: 2px; }
+  /* § 9: rând static, fără carusel. Logo-ul e monocrom --muted (mască peste SVG) și se colorează la hover. */
+  /* §9: patru celule pe toată lățimea, despărțite de rigle verticale scurte (aranjamentul din example.png, banda de sub hero). */
+  .partners { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; }
+  .partners__item { display: grid; gap: var(--s-2); justify-items: start; position: relative; padding: var(--s-4) 0; }
+  .partners__item + .partners__item { border-top: 1px solid var(--line); }
+  @media (min-width: 640px) {
+    .partners { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .partners__item { padding: var(--s-4) var(--s-5); }
+    .partners__item:nth-child(odd) { padding-left: 0; }
+    .partners__item + .partners__item { border-top: 0; }
+    .partners__item + .partners__item:nth-child(n + 3) { border-top: 1px solid var(--line); }
+    .partners__item:nth-child(even)::before { content: ''; position: absolute; left: 0; top: 50%; transform: translateY(-50%); width: 1px; height: 2.8em; background: var(--line); }
+  }
+  @media (min-width: 1024px) {
+    .partners { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .partners__item { padding: 0 var(--s-5); }
+    /* Regula pentru „impare” de la 640 px (unde 2×2 înseamnă coloana din stânga) rămâne activă și aici și are
+       specificitate mai mare decât shorthand-ul de mai sus, deci celula 3 se lipea de riglă. O resetăm explicit. */
+    .partners__item:nth-child(odd) { padding-left: var(--s-5); }
+    .partners__item:first-child { padding-left: 0; }
+    .partners__item:last-child { padding-right: 0; }
+    .partners__item + .partners__item:nth-child(n + 3) { border-top: 0; }
+    .partners__item + .partners__item::before { content: ''; position: absolute; left: 0; top: 50%; transform: translateY(-50%); width: 1px; height: 2.8em; background: var(--line); }
+  }
+  .partners__badge { position: relative; display: block; height: 36px; width: 180px; max-width: 100%; }
+  /* Stratul monocrom: masca SVG-ului umplută cu --muted. Cel colorat stă deasupra și apare la hover. */
+  .partners__mono { position: absolute; inset: 0; opacity: 1; transition: opacity 150ms; background: var(--muted); -webkit-mask: var(--logo) left center / contain no-repeat; mask: var(--logo) left center / contain no-repeat; }
+  .partners__color { position: absolute; inset: 0; height: 100%; width: 100%; object-fit: contain; object-position: left center; opacity: 0; transition: opacity 150ms; }
+  .partners__item:hover .partners__color { opacity: 1; }
+  .partners__item:hover .partners__mono { opacity: 0; }
   .partners__name { font-family: var(--font-display); font-weight: 600; color: var(--muted); }
-  .partners__level { font-size: var(--fs-eyebrow); color: var(--muted); }
-  .partners__tech { margin-top: var(--s-6); max-width: 70ch; }
+  .partners__ph { font-size: var(--fs-eyebrow); color: var(--muted); }
+  .tech__list { max-width: 70ch; color: var(--muted); }
+  @media (prefers-reduced-motion: reduce) { .partners__color, .partners__mono { transition: none; } }
 
-  :global(.steps-2x2) { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
 </style>

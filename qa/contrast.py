@@ -38,6 +38,12 @@ PAIRS = [
     ('muted, dark, pe bg: #9FB3B8 pe #0C181D', '#9FB3B8', '#0C181D', 4.5),
     ('muted pe surface-2: #55686F pe #EAF0F0', '#55686F', '#EAF0F0', 4.5),
     ('muted, dark, pe surface-2: #9FB3B8 pe #182E36', '#9FB3B8', '#182E36', 4.5),
+    # /echipa: rândurile de oameni stau pe --surface, iar substituentul de fotografie pe --surface-2
+    ('rol de echipă: teal #20686C pe surface #FFFFFF', '#20686C', '#FFFFFF', 4.5),
+    ('experiență: muted #55686F pe surface #FFFFFF', '#55686F', '#FFFFFF', 4.5),
+    ('experiență, dark: muted #9FB3B8 pe surface #12232A', '#9FB3B8', '#12232A', 4.5),
+    ('inițiale substituent: navy #00202E pe surface-2 #EAF0F0', '#00202E', '#EAF0F0', 4.5),
+    ('inițiale substituent, dark: #E4ECEE pe surface-2 #182E36', '#E4ECEE', '#182E36', 4.5),
     ('Steps: alb pe teal #20686C (cifră)', '#FFFFFF', '#20686C', 4.5),
     ('Steps, dark: #00202E pe teal #5FB0B4', '#00202E', '#5FB0B4', 4.5),
     ('linie --line pe bg (non-text): #D6E0E1 pe #F5F8F8', '#D6E0E1', '#F5F8F8', 1),

@@ -33,6 +33,34 @@ export const ro = {
     },
   },
 
+  // Meniul „Servicii”, desfășurat (design-ul din meniu (2).png). Textele sunt copiate din
+  // 00-global § Meniu, 02-servicii-index § Hero și § Cele trei grupuri, și § Banda finală de CTA.
+  // Meniul doar le reașază; niciun cuvânt nou.
+  megaMenu: {
+    eyebrow: 'Servicii',
+    title: 'Trei grupuri de servicii. Un singur responsabil.',
+    lead: 'Le poți lua separat. Merg cel mai bine împreună: securitatea și backup-ul țin de cum administrezi IT-ul, nu se adaugă după.',
+    allLink: 'Toate serviciile',
+    items: [
+      { label: 'Suport și administrare IT', text: 'Abonament lunar. Preluăm tot ce ține de calculatoare, servere, rețea, cloud și Microsoft 365, și răspundem de rezultat.', route: 'itSupport' },
+      { label: 'Securitate și continuitate', text: 'Protecția pe care o faci înainte, nu după. Și dovada că poți reveni când se întâmplă ceva.', route: 'security' },
+      { label: 'Automatizări și software', text: 'Când un proces trăiește în Excel, pe email și în capul unui om, îl mutăm într-un sistem.', route: 'automation' },
+    ],
+    asideEyebrow: 'Radiografie IT gratuită',
+    asideTitle: 'Cum ar fi o zi fără grija sistemelor, a backup-urilor și a securității datelor?',
+    asideLink: 'Programează Radiografia IT',
+    supportLink: 'Suport pentru clienți',
+  },
+
+  // Graficul din hero (hero.png, cerut de Marius pe 18 septembrie 2026). Etichetele sunt text nou,
+  // luat din mockup: nu sunt în spec și nu se suprapun peste cele trei grupuri de servicii.
+  heroDiagram: {
+    benzi: ['Securitate cibernetică', 'Automatizări', 'Agentic AI', 'Software development', 'Infrastructură IT'],
+    de: 'De la fragmentare',
+    la: 'La progres',
+    descriere: 'De la fragmentare la progres: cinci direcții împrăștiate se adună într-un singur traseu.',
+  },
+
   langSwitch: { ariaLabel: 'Schimbă limba', ro: 'RO', en: 'EN', separator: ' · ' },
   theme: { ariaLabel: 'Comută tema: luminos / întunecat' },
 
@@ -54,11 +82,12 @@ export const ro = {
       { label: 'Cum lucrăm', route: 'howWeWork' },
       { label: 'Rezultate', route: 'results' },
       { label: 'Despre', route: 'about' },
+      { label: 'Echipa', route: 'team' },
       { label: 'Blog', route: 'blog' },
       { label: 'Contact', route: 'contact' },
       { label: 'Suport pentru clienți', route: 'support' },
     ],
-    partners: ['Microsoft Partner', 'Fortinet Advocate', 'Veeam Partner'],
+    partners: ['Microsoft Partner', 'Fortinet Advocate', 'Veeam Partner', 'Anthropic Partner'],
     bottom: {
       copyright: '© 2026 BitUp Technology SRL',
       terms: 'Termeni',
@@ -97,7 +126,7 @@ export const ro = {
     since: 'Din 2020',
     city: 'Cluj-Napoca',
     response: 'Răspuns sub 2 ore în program',
-    partners: ['Microsoft Partner', 'Fortinet Advocate', 'Veeam Partner'],
+    partners: ['Microsoft Partner', 'Fortinet Advocate', 'Veeam Partner', 'Anthropic Partner'],
   },
 
   formSignature: 'Îți răspunde un om, în maximum o zi lucrătoare.',

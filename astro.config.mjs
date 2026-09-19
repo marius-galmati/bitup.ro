@@ -33,8 +33,9 @@ export default defineConfig({
     // Alternativele de limbă (hreflang) se generează din src/i18n/routes.ts prin `serialize`, în Faza 5;
     // opțiunea `i18n` a integrării presupune același slug în ambele limbi, ceea ce nu e cazul aici.
     sitemap({
-      // Excluse: 404, pagina de mulțumire (noindex) și pagina de QA (doar dev/staging).
-      filter: (page) => !/\/(404|multumesc|en\/thank-you|qa)(\/|$)/.test(page),
+      // Excluse: 404, pagina de mulțumire (noindex), pagina de QA (doar dev/staging) și /echipa,
+      // care stă în afara sitemap-ului cât timp `[[ACORD_ECHIPA]]` e necompletat (16-echipa.md § Indexare).
+      filter: (page) => !/\/(404|multumesc|en\/thank-you|qa|echipa|en\/team)(\/|$)/.test(page),
     }),
     // Doar setul `lucide`, maximum 12 iconițe în tot site-ul (DESIGN.md § Imagini și grafică). Lista crește pe măsură ce sunt folosite.
     icon({ include: { lucide: ['sun', 'moon'] } }),

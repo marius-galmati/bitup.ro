@@ -1,0 +1,112 @@
+---
+/**
+ * /echipa, /en/team (16). Singura pagină cu date personale ale altor oameni, deci `noindex, nofollow`
+ * și în afara sitemap-ului cât timp `[[ACORD_ECHIPA]]` e necompletat (spec/continut/16-echipa.md § Indexare).
+ *
+ * Layout cerut de Marius (18–19 septembrie 2026): NU un grid de patru carduri egale — textele au 186, 189, 130
+ * și 120 de cuvinte, iar într-o grilă egală diferența se vede. Patru rânduri suprapuse, despărțite de o linie
+ * de 1 px, fiecare cu fotografia pătrată de 240 px în stânga, aliniată sus, și textul în dreapta. Fără alternanță
+ * stânga/dreapta. Pe mobil fotografia trece deasupra, la 160 px, aliniată la stânga.
+ *
+ * Cât timp lipsește oricare dintre cele patru fotografii, toate patru se randează la fel: pătrat pe `--surface-2`,
+ * bordură de 1 px, inițialele în fontul de titlu. Nu se amestecă o poză reală cu trei substituenți.
+ *
+ * Linkul de LinkedIn e textual, nu marca oficială: pe brand.linkedin.com marca se distribuie doar ca PNG
+ * (`in-logo.zip` → LI-In-Bug.png, InBug-White.png, InBug-Black.png), nu ca SVG. Vezi NOTES.md.
+ */
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Container from '../Container.astro';
+import Section from '../Section.astro';
+import SectionHead from '../SectionHead.astro';
+import HeroInternal from '../HeroInternal.astro';
+import CtaBand from '../CtaBand.astro';
+import { localePath, absoluteUrl, type Locale } from '../../i18n';
+import { profilePage, teamMember } from '../../lib/schema';
+import type { TeamCopy } from '../../copy/team.ro';
+
+interface Props { lang: Locale; copy: TeamCopy }
+const { lang, copy } = Astro.props;
+
+const url = absoluteUrl(localePath('team', lang));
+const jsonLd = [
+  profilePage(lang, { name: copy.hero.h1, url }),
+  ...copy.people.map((p, i) => teamMember({ name: p.name, jobTitle: p.role, linkedin: p.linkedin, isFounder: i === 0 })),
+];
+const peopleHeading = lang === 'ro' ? 'Oamenii' : 'The people';
+---
+<BaseLayout lang={lang} routeKey="team" title={copy.title} description={copy.description} jsonLd={jsonLd} noindex>
+  <HeroInternal eyebrow={copy.hero.eyebrow} h1={copy.hero.h1} lead={copy.hero.lead} />
+
+  <Section tone="surface" labelledby="people-title">
+    <Container>
+      {/* Secțiunea nu are titlu vizibil (cerut: fără tiparul eyebrow + H2 + carduri).
+          Titlul există doar pentru cititoarele de ecran, ca ierarhia să meargă h1 → h2 → h3. */}
+      <h2 id="people-title" class="sr-only">{peopleHeading}</h2>
+      <p class="team-intro">{copy.intro.text}</p>
+
+      {copy.people.map((p) => (
+        <article class="person">
+          <div class="person__photo" aria-hidden="true"><span class="person__initials">{p.initials}</span></div>
+          <div class="person__body">
+            <h3 class="person__name">{p.name}</h3>
+            <p class="person__role mono">{p.role}</p>
+            <p class="person__exp mono muted">{p.experience}</p>
+            <div class="person__text">{p.paragraphs.map((t) => <p>{t}</p>)}</div>
+            <p class="person__link">
+              {p.linkedin
+                ? <a href={p.linkedin} target="_blank" rel="noopener" aria-label={p.linkedinAriaLabel}>{copy.linkedinLabel}</a>
+                : <span class="mono muted">{p.linkedinPlaceholder}</span>}
+            </p>
+          </div>
+        </article>
+      ))}
+    </Container>
+  </Section>
+
+  <Section tone="bg" labelledby="closing-title">
+    <Container>
+      <SectionHead id="closing-title" eyebrow={copy.closing.eyebrow} title={copy.closing.h2} />
+      <div class="closing">{copy.closing.paragraphs.map((t) => <p>{t}</p>)}</div>
+    </Container>
+  </Section>
+
+  <CtaBand lang={lang} title={copy.cta.title} text={copy.cta.text} button={copy.cta.button} />
+</BaseLayout>
+
+<style>
+  .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+
+  .team-intro { max-width: 70ch; text-wrap: pretty; }
+
+  /* Patru rânduri suprapuse, despărțite de o linie de păr. Fără alternanță stânga/dreapta. */
+  .person { display: grid; gap: var(--s-4); justify-items: start; padding-block: var(--s-6); border-top: 1px solid var(--line); }
+  .person:first-of-type { margin-top: var(--s-6); }
+  @media (min-width: 768px) {
+    .person { grid-template-columns: 240px minmax(0, 1fr); gap: var(--s-6); align-items: start; padding-block: var(--s-7); }
+  }
+  @media (min-width: 1024px) { .person { column-gap: var(--s-7); } }
+
+  /* Substituent identic pentru toți patru cât timp lipsește oricare fotografie. Pătrat, nu rotund. */
+  .person__photo { width: 160px; aspect-ratio: 1; display: grid; place-items: center; background: var(--surface-2); border: 1px solid var(--line); border-radius: var(--radius); }
+  @media (min-width: 768px) { .person__photo { width: 240px; } }
+  .person__initials { font-family: var(--font-display); font-weight: 600; font-size: var(--fs-h1); color: var(--navy); }
+
+  .person__body { display: grid; gap: var(--s-2); max-width: 70ch; }
+  .person__name { font-size: var(--fs-h3); }
+  .person__role { font-size: var(--fs-small); color: var(--teal); }
+  .person__exp { font-size: var(--fs-small); }
+  .person__text { display: grid; gap: var(--s-4); margin-top: var(--s-3); }
+  .person__text p { text-wrap: pretty; }
+
+  /* Link textual, nu marca LinkedIn: zona de atingere rămâne de 44 px pe telefon. */
+  .person__link { margin-top: var(--s-3); }
+  .person__link a, .person__link span { display: inline-flex; align-items: center; min-height: 44px; font-family: var(--font-display); font-weight: 600; }
+  .person__link a { color: var(--teal); text-decoration: underline; text-underline-offset: 3px; transition: color 150ms; }
+  .person__link a:hover { color: var(--navy); }
+  .person__link span { font-family: var(--font-mono); font-weight: 400; font-size: var(--fs-small); }
+
+  .closing { display: grid; gap: var(--s-4); max-width: 70ch; }
+  .closing p { text-wrap: pretty; }
+
+  @media (prefers-reduced-motion: reduce) { .person__link a { transition: none; } }
+</style>

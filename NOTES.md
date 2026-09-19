@@ -1278,6 +1278,110 @@ Lista, 2×2-ul și cele trei carduri sunt trei forme diferite: buline fără che
 15. `<div>` peste `<div>` fără semantică — **nu**. `<section aria-labelledby>` la fiecare secțiune, `<ul>` real la listă, `<dl>` la FactStrip, `<article>` la carduri.
 16. Estetică de brand personal pe un site de firmă — **nu**. Zero portrete, zero avatare, zero semnătură, zero citat al fondatorului. Marius apare o singură dată pe pagină, în JSON-LD, ca `Organization.founder`.
 
+## Pagina `/echipa` și `/en/team` (19 septembrie 2026)
+
+Prima pagină din site cu date personale ale altor oameni. Se construiește integral, dar rămâne `noindex, nofollow` și în afara sitemap-ului cât timp `[[ACORD_ECHIPA]]` e necompletat.
+
+### Layout
+
+Cerut explicit de Marius: **nu** un grid de patru carduri egale. Textele au 186, 189, 130 și 120 de cuvinte în română; într-o grilă egală diferența s-ar vedea și ar cădea direct în mirosul 3. Patru rânduri suprapuse, despărțite de o linie de 1 px `--line`, cu fotografia pătrată în stânga, aliniată sus, și textul în dreapta. Fără alternanță stânga/dreapta.
+
+Măsurat pe pagina construită, toate cele patru rânduri identic:
+
+| Lățime | Fotografie | Text | Aliniere |
+|---|---|---|---|
+| 375 px | `x=20`, 160 px, deasupra | `x=20`, 335 px, la 16 px sub fotografie | fotografia la stânga, nu centrată |
+| 768 px | `x=32`, 240 px | `x=304`, 432 px | pe același ax de sus cu textul |
+| 1024 px | `x=32`, 240 px | `x=320`, 672 px | la fel |
+| 1440 px | `x=192`, 240 px | `x=480`, 728 px (70ch) | la fel |
+
+Ordinea din coloana de text: nume (`h3`) → rol → rând de experiență → text → link de LinkedIn.
+
+### Trei decizii de detaliu, de confirmat
+
+1. **Culoarea rolului.** Regula de layout 3 spune „rolul (mono, pe `--muted`), rândul de experiență (mono, pe `--muted`)”, dar fișierul de conținut le scrie diferit: „Rol (mono):” fără culoare, „Experiență (mono, `--muted`)”. Dacă amândouă sunt `--muted`, se citesc ca un singur bloc. Am pus rolul pe `--teal` (culoarea etichetelor mono din tot site-ul: Eyebrow, cheile din FactStrip) și experiența pe `--muted`. Ierarhia iese în trei trepte: nume navy, rol teal, experiență muted. Dacă vrei amândouă muted, e o linie de CSS.
+2. **Inițialele din substituent.** Două litere pentru toți patru, din primele două cuvinte ale numelui: MG, PR, SB, CB. Pentru „Petre Radu Cătălin” asta dă „PR”; dacă numele de familie e Cătălin, se schimbă în „PC”.
+3. **Titlul invizibil al secțiunii.** § Oamenii nu are titlu vizibil (ai cerut să nu apară tiparul eyebrow + H2). Ca ierarhia să nu sară de la `h1` direct la `h3`, secțiunea are un `h2` „Oamenii” / „The people” citit doar de cititoarele de ecran (`sr-only`). Nu se vede pe ecran.
+
+### Iconița de LinkedIn: nu există ca SVG oficial
+
+Regula era: descarci marca oficială din resursele de brand LinkedIn, o salvezi în `public/icons/linkedin.svg`, nu o desenezi. Am verificat `brand.linkedin.com`: singurele fișiere oferite la descărcare sunt două arhive, iar amândouă conțin **doar PNG**:
+
+```
+in-logo.zip        → in-logo/LI-In-Bug.png, InBug-White.png, InBug-Black.png, LI-China-In-Bug.png
+linkedin-logo.zip  → linkedin-logo/LI-Logo.png, LI-China-Logo.png
+```
+
+Nu există niciun SVG pe brand.linkedin.com (`grep` după `.svg`, `.eps`, `.ai` pe pagina de descărcări și pe cea de politici: zero). Singurul SVG cu marca „in” pe care l-am găsit e foaia de iconițe de interfață a site-ului lor, livrată de pe un CDN Adobe AEM — nu e resursă de brand și nu o folosesc.
+
+În plus, chiar dacă aș fi avut SVG-ul, culorile cerute (`--muted` în repaus, `--teal` la hover) ar fi însemnat recolorarea mărcii, adică exact ce interzic regulile lor de utilizare, pe care mi-ai spus să le respect.
+
+Am aplicat regula ta de rezervă: **link textual „LinkedIn”, subliniat**, în teal, cu zona de atingere de 44 px înălțime, `aria-label` pe fiecare, `rel="noopener"`, tab nou. `public/icons/` nu există în repo. Dacă vrei totuși marca, varianta curată e PNG-ul oficial `LI-In-Bug.png`, în culoarea lui originală, fără recolorare — spune-mi și îl pun.
+
+### JSON-LD
+
+`ProfilePage` + patru noduri `Person`. Verificat pe HTML-ul construit, ambele limbi:
+
+- `worksFor` apare **doar** la Marius Galmati (`{'@id': 'https://bitup.ro/#organization'}`).
+- Zero `memberOf` și zero `affiliation`, la toți patru.
+- Cristian Boanca nu are `sameAs` (linkul e încă placeholder); niciun `[[…]]` nu ajunge în graf.
+- **Zero nume de companii** din rândurile de experiență în tot graful. Ca să iasă așa, nodul `ProfilePage` nu are `description`: descrierea paginii, scrisă de tine, numește Bosch, NTT DATA, Marsh și Concentrix, iar regula spunea „sub nicio formă”. Descrierea rămâne intactă în `<meta name="description">`, care nu e JSON-LD.
+
+### Indexare
+
+`noindex, nofollow` în `<head>` pe ambele pagini. `sitemap-0.xml` are 36 de URL-uri, niciunul `/echipa` sau `/en/team` (control: `/despre` e acolo). `hreflang` se emite normal: `ro` → `/echipa`, `en` → `/en/team`, `x-default` → `/echipa`, pe amândouă. Când completezi `[[ACORD_ECHIPA]]`, se scot `noindex` din `TeamPage.astro` și `echipa|en\/team` din filtrul de sitemap din `astro.config.mjs`.
+
+### Legături
+
+- Footer, coloana 3: `Echipa` / `Team`, între `Despre` și `Blog` (`spec/continut/00-global.md`, `src/i18n/ro.ts`, `src/i18n/en.ts`).
+- Homepage § 7: rândul de linkuri e acum `Povestea, pe scurt · Echipa · LinkedIn` (`Links: The story, in short · The team · LinkedIn`).
+- `/despre` § Echipa: linkul „Vezi echipa” nu mai dă 404.
+- În meniul principal nu s-a adăugat nimic.
+- URL-urile de LinkedIn: zero cu slash final, în tot repo-ul (`grep`: 10 × company, 12 × Marius, 4 × Petre, 4 × Samuel, niciunul cu `/` la sfârșit).
+
+### Verificări
+
+- `npm run build`: 0 erori, 0 avertismente, 43 de pagini (41 + 2).
+- `npx astro check`: 0 erori / 0 avertismente / 0 sugestii.
+- `qa/textdiff.mjs`: 27 din 27 de fragmente găsite identic, pe ambele limbi. Verificat separat, cuvânt cu cuvânt: cele trei paragrafe ale lui Petre (58/63/68 de cuvinte în RO, 46/63/67 în EN) și textul lui Samuel (93 de cuvinte în RO, 82 în EN, originalul lui în engleză, netradus și netăiat) apar identic în `dist/`. Homepage-ul rămâne la 70/70 după adăugarea linkului.
+- `qa/pagecheck.mjs`: 41 de pagini, 0 cu probleme. `/echipa` și `/en/team`: 1 `h1`, 0 salturi de nivel, 2 apariții de orange, 0 imagini, placeholder-e `RELATIE_ECHIPA` și `LINKEDIN_CRISTIAN`.
+- `qa/headings.mjs`: 1 `h1` și 8 titluri pe fiecare limbă (h1 → h2 invizibil → 4 × h3 → h2 închidere → h2 din banda de CTA).
+- `qa/keyboard.mjs`: trece, 36 de elemente atinse cu Tab, focus vizibil pe toate. Verificat separat pe cele trei linkuri de LinkedIn: se ating cu Tab în ordinea Marius → Petre → Samuel, au `aria-label` corect pe ambele limbi, `rel="noopener"`, `target="_blank"`, înălțime 44 px și outline de 2 px teal la focus.
+- `qa/contrast.py`: 40 din 41 de perechi trec (singura „NU” e intrarea documentată despre orange). Cinci perechi noi adăugate pentru pagina asta: rol teal pe `--surface` 6,45:1; experiență `--muted` pe `--surface` 5,84:1 (light) și 7,40:1 (dark); inițialele pe `--surface-2` 14,62:1 (light) și 11,82:1 (dark).
+- 16 capturi în `qa/echipa/` (375, 768, 1024, 1440 × light, dark × RO, EN), deschise și verificate una câte una. Consolă curată, **zero cereri externe** (niciun `src`/`href` către alt domeniu; singurele adrese externe din pagină sunt cele trei linkuri de profil, care nu sunt resurse încărcate).
+
+### Lista de mirosuri (`CLAUDE.md`), pentru `/echipa` și `/en/team`
+
+1. Hero centrat cu pilulă-badge, două butoane, ilustrație flotantă — **nu**. Hero tipografic, o coloană, stânga, fără buton și fără imagine.
+2. Gradient, glassmorphism, blob-uri, glow — **nu**. Doar culori plate din `tokens.css`.
+3. Grid de trei carduri identice, repetat — **nu**. Pagina nu are niciun card. Patru rânduri de înălțimi diferite (986, 678, 678 și 483 px la 1440 px), despărțite de linii de păr.
+4. Iconițe generice: scut, lacăt, rachetă, avatar generic — **nu**. Substituentul de fotografie e un pătrat cu inițialele persoanei, nu o siluetă de avatar. Zero iconițe pe pagină.
+5. Umbre pe carduri, colțuri foarte rotunjite, `hover:scale` — **nu**. Fotografiile sunt pătrate cu colț de 4 px (`--radius`) și bordură de 1 px, ca restul imaginilor din site; fără umbre; singura tranziție e pe culoarea linkului, 150 ms, oprită la `prefers-reduced-motion`.
+6. Animații la scroll, contoare, carusele — **nu**. Zero JavaScript propriu pe pagină.
+7. Paletă Tailwind, Inter, `max-w-7xl` — **nu**. Tokenii proiectului, Public Sans, containerul de 1120 px.
+8. „De ce noi”, testimoniale fără nume, cifre inventate — **nu**. Toate afirmațiile sunt ale oamenilor cu numele pe ele.
+9. Title Case, emoji, „Află mai multe →” — **nu**. Sentence case; eticheta de link e „LinkedIn”, fără săgeată.
+10. Toate secțiunile cu același ritm — **nu**. Hero tipografic, un paragraf de intro fără titlu, patru rânduri cu fotografie, o secțiune de text cu cap de secțiune, banda de CTA. Cinci forme, cinci înălțimi.
+11. Footer cu patru coloane egale și newsletter — **nu**. Footer-ul global, cu un link în plus în coloana 3.
+12. Padding-uri diferite de la o secțiune la alta — **nu**. Toate pe `--section-y`, toate distanțele din scara `--s-*`.
+13. Dark mode prin inversare — **nu**. Paleta dark din `tokens.css`; verificat în capturi la toate cele patru lățimi.
+14. Imagini de stoc sau generate — **nu**. Pagina nu are nicio imagine; substituenții sunt text.
+15. `<div>` peste `<div>` fără semantică — **nu**. `<section aria-labelledby>` la ambele secțiuni, `<article>` pentru fiecare persoană, `<h3>` pe nume, `<a>` real pe linkuri.
+16. Estetică de brand personal — **nu**. Pagina e despre patru oameni, nu despre fondator; Marius e primul rând, tratat identic cu ceilalți trei.
+
+### Două fișiere din `spec/` rămase în urmă, în afara listei autorizate
+
+Lista autorizată pentru operațiunea asta era: `continut/16-echipa.md`, `continut-en/16-team.md`, cele două `00-global.md`, `01-acasa.md` / `01-home.md` și `PLACEHOLDERS.md` § Rămase. Două locuri din `spec/` sunt acum în urma site-ului și **nu** le-am atins:
+
+1. **`spec/ARHITECTURA.md` § Rute, rândul `/echipa`** spune „profilurile individuale; pagina vine imediat după rescrierea lui `/despre`”. Pagina există de azi; nota descrie un viitor care s-a întâmplat. Tot acolo, § SEO/JSON-LD nu pomenește `ProfilePage`, iar lista paginilor cu `noindex` conține doar `/multumesc`, nu și `/echipa` și `/en/team`.
+2. **`spec/DESIGN.md`** nu are rândul de persoană (fotografie pătrată 240 px în stânga, text în dreapta, linie de păr între rânduri, substituent cu inițiale). E un tipar nou de componentă, folosit deocamdată pe o singură pagină.
+
+Le corectez când îmi spui. Până atunci, sursa pentru amândouă e `continut/16-echipa.md` § Indexare și fișierul `src/components/pages/TeamPage.astro`.
+
+### Placeholder-e rămase pe pagina asta
+
+`[[ACORD_ECHIPA]]` (blochează indexarea), `[[RELATIE_ECHIPA]]` (vizibil în intro), `[[LINKEDIN_CRISTIAN]]` (vizibil în rândul lui Cristian), `[[FOTO_MARIUS]]`, `[[FOTO_PETRE]]`, `[[FOTO_SAMUEL]]`, `[[FOTO_CRISTIAN]]`. Cele patru de fotografie **nu** se randează ca text `[[…]]`, ci ca substituenți cu inițiale — excepție cerută de Marius de la regula 3 din `CLAUDE.md`, ca să nu arate ca patru casete rupte. Sunt listate în `spec/PLACEHOLDERS.md` § Rămase.
+
 ## Propuneri (nu se fac fără acord)
 
 - Faza 5: Astro are suport experimental pentru CSP cu hash-uri generate la build (`experimental.csp`), care ar scoate `'unsafe-inline'` din `script-src` și `style-src`. E îmbunătățirea menționată în `ARHITECTURA.md` § Headere ca „nu o condiție de lansare”. De evaluat când ajungem acolo.

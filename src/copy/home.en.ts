@@ -3,14 +3,14 @@ import type { HomeCopy } from './home.types';
 
 export const homeEn: HomeCopy = {
   title: 'IT support and security for companies in Cluj · BitUp',
-  description: 'IT support and administration for companies of 10–100 employees, security included. One partner accountable for all of it. Free IT Health Check.',
+  description: 'We design, secure, and run your company’s IT infrastructure: servers, network, cloud, apps, and automation. Free IT Health Check.',
 
   hero: {
-    eyebrow: 'IT support and administration · Cluj-Napoca and Romania',
-    h1: "Your company's IT, run by someone who answers for it. Security included, not optional.",
-    lead: 'IT support and administration for companies with 10–100 employees: infrastructure, backup, Microsoft 365, protection against attacks. One partner, one phone number, a monthly report of everything done.',
+    // Traducerea mea a textului dat de Marius pe 17 septembrie 2026 (CLAUDE.md regula 12); de confirmat.
+    h1: 'We design, secure, and run the entire IT infrastructure your company needs.',
+    lead: 'We start with servers, network, and cloud, and go on to applications, automation, and AI agents. Security is designed in from the start and built into every stage.',
     primary: 'Free IT Health Check',
-    secondary: 'See how we work',
+    secondary: 'Explore our services',
   },
 
   situation: {
@@ -74,6 +74,7 @@ export const homeEn: HomeCopy = {
     h2: 'Marius Galmati, BitUp founder',
     text: "I've worked in IT since 2017. I started with servers and networks in small companies. I spent the last two and a half years in information security at a Fortune 500 corporation: ISO 27001 audits, continuity plans, protection on workstations and servers. I started BitUp because I'd seen too many companies with technology but nobody to answer for it.",
     storyLink: 'The story, in short',
+    teamLink: 'The team',
     linkedinLabel: 'LinkedIn',
     portraitAlt: 'Marius Galmati, BitUp founder',
   },
@@ -88,8 +89,13 @@ export const homeEn: HomeCopy = {
   partners: {
     eyebrow: 'Partners',
     h2: 'What we work with',
-    names: ['Microsoft Partner', 'Fortinet Advocate', 'Veeam Partner'],
-    tech: 'Technologies we work with daily: Microsoft 365, Fortinet, Veeam, CrowdStrike, Palo Alto Networks, WireGuard, Proxmox / VMware, Synology.',
+    names: ['Microsoft Partner', 'Fortinet Advocate', 'Veeam Partner', 'Anthropic Partner'],
+  },
+
+  tech: {
+    eyebrow: 'Technologies',
+    h2: 'Technologies we work with daily',
+    list: 'Microsoft 365, Fortinet, Veeam, CrowdStrike, Palo Alto Networks, WireGuard, Proxmox / VMware, Synology.',
   },
 
   blog: {

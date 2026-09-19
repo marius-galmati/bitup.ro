@@ -33,6 +33,33 @@ export const en = {
     },
   },
 
+  // The expanded “Services” menu (design from meniu (2).png). Wording copied from
+  // 00-global § Menu, 02-services § Hero and § The three groups, and § Final CTA band.
+  megaMenu: {
+    eyebrow: 'Services',
+    title: 'Three service groups. One partner accountable.',
+    lead: 'You can take them separately. They work best together: security and backup are part of how you run IT, not added afterward.',
+    allLink: 'All services',
+    items: [
+      { label: 'IT support and administration', text: 'Monthly subscription. We take over everything to do with computers, servers, network, cloud, and Microsoft 365, and answer for the result.', route: 'itSupport' },
+      { label: 'Security and continuity', text: 'Protection you put in place before, not after. And proof you can recover when something happens.', route: 'security' },
+      { label: 'Automation and software', text: 'When a process lives in Excel, over email, and in someone’s head, we move it into a system.', route: 'automation' },
+    ],
+    asideEyebrow: 'Free IT Health Check',
+    asideTitle: 'What would a day be like without worrying about systems, backups, and data security?',
+    asideLink: 'Book the IT Health Check',
+    supportLink: 'Client support',
+  },
+
+  // The hero diagram (hero.png, asked for by Marius on 18 September 2026). The labels are new copy,
+  // taken from the mockup; the English wording is Claude Code's translation, pending confirmation.
+  heroDiagram: {
+    benzi: ['Cybersecurity', 'Automation', 'Agentic AI', 'Software development', 'IT infrastructure'],
+    de: 'From fragmentation',
+    la: 'To progress',
+    descriere: 'From fragmentation to progress: five scattered directions gather into a single path.',
+  },
+
   langSwitch: { ariaLabel: 'Change language', ro: 'RO', en: 'EN', separator: ' · ' },
   theme: { ariaLabel: 'Switch theme: light / dark' },
 
@@ -54,11 +81,12 @@ export const en = {
       { label: 'How we work', route: 'howWeWork' },
       { label: 'Results', route: 'results' },
       { label: 'About', route: 'about' },
+      { label: 'Team', route: 'team' },
       { label: 'Blog', route: 'blog' },
       { label: 'Contact', route: 'contact' },
       { label: 'Client support', route: 'support' },
     ],
-    partners: ['Microsoft Partner', 'Fortinet Advocate', 'Veeam Partner'],
+    partners: ['Microsoft Partner', 'Fortinet Advocate', 'Veeam Partner', 'Anthropic Partner'],
     bottom: {
       copyright: '© 2026 BitUp Technology SRL',
       terms: 'Terms',
@@ -97,7 +125,7 @@ export const en = {
     since: 'Since 2020',
     city: 'Cluj-Napoca',
     response: 'Response under 2 hours during business hours',
-    partners: ['Microsoft Partner', 'Fortinet Advocate', 'Veeam Partner'],
+    partners: ['Microsoft Partner', 'Fortinet Advocate', 'Veeam Partner', 'Anthropic Partner'],
   },
 
   formSignature: 'A person replies, within one business day.',

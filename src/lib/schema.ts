@@ -106,6 +106,36 @@ export function aboutPage(locale: Locale, a: { name: string; description: string
   };
 }
 
+/**
+ * ProfilePage (/echipa, /en/team). Pagina e `noindex` cât timp `[[ACORD_ECHIPA]]` e necompletat,
+ * dar graful se emite corect de la început, ca să nu fie nevoie de o a doua trecere la publicare.
+ */
+export function profilePage(locale: Locale, p: { name: string; url: string }) {
+  return {
+    '@type': 'ProfilePage',
+    name: p.name,
+    url: p.url,
+    inLanguage: locale,
+  };
+}
+
+/**
+ * Un membru al echipei, pe /echipa (16-echipa.md § JSON-LD).
+ * `worksFor` se pune DOAR pentru fondator: relația celorlalți cu firma nu e stabilită în text
+ * (`[[RELATIE_ECHIPA]]`) și nu o declarăm în date structurate înaintea textului.
+ * Numele companiilor din rândul de experiență nu intră aici sub nicio formă.
+ */
+export function teamMember(m: { name: string; jobTitle: string; linkedin?: string | null; isFounder?: boolean }) {
+  return {
+    '@type': 'Person',
+    ...(m.isFounder ? { '@id': FOUNDER_ID } : {}),
+    name: m.name,
+    jobTitle: m.jobTitle,
+    ...(m.linkedin ? { sameAs: m.linkedin } : {}),
+    ...(m.isFounder ? { worksFor: { '@id': ORG_ID } } : {}),
+  };
+}
+
 /** Article (ARHITECTURA § SEO): articole de blog și studii de caz publicate. `about` = Organization a clientului, doar când cazul nu e draft. */
 export function article(
   locale: Locale,

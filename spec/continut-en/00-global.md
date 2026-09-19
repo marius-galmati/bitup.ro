@@ -4,11 +4,12 @@ Final copy. Copy verbatim. `[[…]]` = placeholder from `PLACEHOLDERS.md`.
 
 ## Menu
 
-- Services ▾
+- Services ▾ (full-width panel, DESIGN.md § Panoul „Servicii”)
   - IT support and administration → `/en/services/it-support`
   - Security and continuity → `/en/services/security`
   - Automation and software → `/en/services/automation`
   - All services → `/en/services`
+  - In the panel, each service carries the positioning sentence from `02-services.md` § The three groups under its title; the left column reuses the H1 and lead from § Hero of the same page; the box on the right reuses the question and button from § Final CTA band; the bottom strip has the phone, the email, and “Client support” → `/en/support`. The wording is reused, not rewritten.
 - How we work → `/en/how-we-work`
 - Results → `/en/results`
 - About → `/en/about`
@@ -35,10 +36,10 @@ Note for Claude Code: Marius's personal LinkedIn profile doesn't appear in the f
 IT support and administration · Security and continuity · Automation and software · Free IT Health Check
 
 **Column 3 — the company**
-How we work · Results · About · Blog · Contact · Client support
+How we work · Results · About · Team · Blog · Contact · Client support
 
 **Column 4 — partners**
-Microsoft Partner · Fortinet Advocate · Veeam Partner (badges from [[LOGO_PARTENERI]], level under each)
+Microsoft Partner · Fortinet Advocate · Veeam Partner · Anthropic Partner (badges from [[LOGO_PARTENERI]], level under each)
 
 **Bottom row**
 © 2026 BitUp Technology SRL · Terms → `/en/terms` · Privacy → `/en/privacy` · Cookies → `/en/cookies` · Cookie settings (button, reopens the banner) · `RO · EN`
@@ -70,9 +71,11 @@ Button: **Book the IT Health Check**
 
 Variant for the IT Health Check page (no band; the form is the CTA).
 
-## FactStrip under the hero (homepage)
+## FactStrip (removed from under the homepage hero on 17 September 2026, at Marius's request)
 
-Right under the hero, full container width, on `--surface`, four cells: `Since 2020` · `Cluj-Napoca` · `Response under 2 hours during business hours` · Microsoft Partner · Fortinet Advocate · Veeam Partner (badges from [[LOGO_PARTENERI]], monochrome; text until they exist). The hero has no trust row: the information doesn't appear twice on the same screen.
+Note for Claude Code: the strip no longer appears on the homepage. The values stay here because the component QA page uses them, and the `FactStrip` component is still used on About, on the case studies, and on Contact.
+
+The four cells were, on `--surface`, full container width: `Since 2020` · `Cluj-Napoca` · `Response under 2 hours during business hours` · Microsoft Partner · Fortinet Advocate · Veeam Partner · Anthropic Partner (badges from [[LOGO_PARTENERI]], monochrome; text until they exist). The hero has no trust row: the information doesn't appear twice on the same screen.
 
 ("Response under 2 hours" is the contractual time during business hours; the real helpdesk average, under 30 minutes, appears in the copy on /en/services/it-support, /en/how-we-work, and /en/support, not in the FactStrip.)
 

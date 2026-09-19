@@ -1,7 +1,7 @@
 # 01 — Acasă (`/`)
 
 **Title:** Suport IT și securitate pentru firme din Cluj · BitUp
-**Description:** Suport și administrare IT pentru firme de 10–100 de angajați, cu securitatea inclusă. Un singur partener răspunde de tot. Radiografie IT gratuită.
+**Description:** Proiectăm, securizăm și administrăm infrastructura IT a firmei tale: servere, rețea, cloud, aplicații și automatizări. Radiografie IT gratuită.
 
 **JSON-LD:** Organization + ProfessionalService (global). Fără altceva.
 
@@ -9,17 +9,25 @@
 
 ## 1. Hero
 
-Tipografic, o coloană, aliniat la stânga, pe `--bg`. Fără fotografie, fără rând de încredere.
+Aliniat la stânga, pe `--bg`. Fără fotografie, fără rând de încredere, fără eyebrow.
 
-Eyebrow: `Suport și administrare IT · Cluj-Napoca și România`
+Notă pentru Claude Code: de la 1200 px, două coloane — textul în stânga, graficul `HeroDiagram` în dreapta (DESIGN.md § Imagini); de la 1360 px, hero-ul trece pe containerul lat, cu marginea stângă păstrată aliniată. Sub 1200 px, o coloană, fără grafic. În grafic: logo-ul oficial deasupra spinei, nodurile de pe spină în orange și săgețile de la capete în V, teal (cerut de Marius pe 18 septembrie 2026).
 
-**H1** (max-width 22ch)**:** IT-ul firmei tale, administrat de cineva care răspunde de el. Cu securitatea inclusă, nu opțională.
+Notă pentru Claude Code: etichetele din grafic sunt text nou, luat din `hero.png` pe 18 septembrie 2026; nu se suprapun peste cele trei grupuri de servicii din `02-servicii-index.md` — de reconciliat.
 
-Lead (max-width 60ch): Suport și administrare IT pentru firme de 10–100 de angajați: infrastructură, backup, Microsoft 365, protecție împotriva atacurilor. Un singur partener, un singur număr de telefon, un raport lunar cu tot ce s-a făcut.
+`Securitate cibernetică` · `Automatizări` · `Agentic AI` · `Software development` · `Infrastructură IT`
 
-Butoane: **Radiografie IT gratuită** (principal → `/radiografie-it`) · **Vezi cum lucrăm** (secundar → `/cum-lucram`)
+Notă pentru Claude Code: cele două etichete de colț stau jos, `De la fragmentare` în stânga și `La progres` în dreapta.
 
-Imediat sub hero: FactStrip din `00-global.md` § FactStrip de sub hero (`Din 2020` · `Cluj-Napoca` · `Răspuns sub 2 ore în program` · badge-urile partenerilor). El e ancora vizuală a primului ecran.
+Notă pentru Claude Code: eticheta pentru cititoarele de ecran (`aria-label` pe SVG) e „De la fragmentare la progres: cinci direcții împrăștiate se adună într-un singur traseu.”, iar majusculele de pe etichetele de colț se fac din CSS, nu din text.
+
+Notă pentru Claude Code: hero schimbat de Marius pe 17 septembrie 2026. Eyebrow-ul a fost scos, textul nou n-are unul.
+
+**H1** (max-width 22ch)**:** Proiectăm, securizăm și administrăm întreaga infrastructură IT de care firma ta are nevoie.
+
+Lead (max-width 60ch): Începem cu servere, rețea și cloud, ajungem la aplicații, automatizări și agenți AI. Securitatea se proiectează de la început și se integrează în fiecare etapă.
+
+Butoane: **Radiografie IT gratuită** (principal → `/radiografie-it`) · **Explorează serviciile** (secundar → `/servicii`)
 
 Varianta de după lansare, când există `[[CAPTURA_RAPORT_LUNAR]]`: hero pe două coloane, în dreapta un Figure cu prima pagină a raportului lunar anonimizat, ca document pe hârtie (fundal `--surface`, bordură 1 px `--line`, `--radius`, fără umbră, fără perspectivă, fără ramă de laptop). Legendă și alt: „Raportul lunar pe care îl primește fiecare client. Anonimizat.” Obiectul din hero e livrabilul, nu fondatorul.
 
@@ -31,7 +39,9 @@ Eyebrow: `De unde pornim de obicei`
 
 **H2:** Trei propoziții pe care le auzim în aproape fiecare firmă nouă
 
-Trei carduri, fiecare cu citatul ca titlu și o propoziție dedesubt:
+Notă pentru Claude Code: aranjamentul paginii a fost schimbat pe 17 septembrie 2026, după `example.png` (doar dispunerea; culorile, fontul, textul și meniul au rămas).
+
+Trei coloane pe un rând, despărțite de rigle verticale de 1 px `--line`, fără carduri și fără chenare. Fiecare coloană are deasupra o liniuță de accent teal (28 × 3 px), apoi citatul ca titlu și o propoziție dedesubt. Sub 768 px coloanele se stivuiesc, liniuța rămâne deasupra fiecărui citat:
 
 **„Avem un băiat care se pricepe. Dar când e în concediu, nu știe nimeni parolele.”**
 Tot IT-ul stă într-un singur om. Când lipsește el, se oprește firma.
@@ -52,7 +62,7 @@ Eyebrow: `Servicii`
 
 **H2:** Trei lucruri, făcute până la capăt
 
-Trei carduri mari (primele două mai late, al treilea mai îngust dacă grid-ul permite; altfel egale):
+Modelul „două coloane”: eyebrow și H2 lipite în stânga (240 px, sticky pe desktop), gutieră goală (fără riglă verticală — mockup-ul desparte cele două coloane doar cu spațiu), iar în dreapta cele trei servicii ca rânduri despărțite de linii de păr de 1 px — titlu, paragraf, link terțiar cu săgeată. Fără carduri, fără numere de index (serviciile nu sunt o secvență):
 
 **Suport și administrare IT**
 Preluăm tot ce ține de calculatoare, servere, rețea, cloud și Microsoft 365, în abonament lunar. Echipa ta scrie pe WhatsApp, un om răspunde, iar la sfârșitul lunii primești raportul cu ce s-a făcut.
@@ -73,6 +83,8 @@ Când un proces trăiește în Excel și în emailuri, îl mutăm într-un siste
 Eyebrow: `Cum lucrăm`
 
 **H2:** Patru pași. Al patrulea nu se termină.
+
+Antetul secțiunii stă sus, pe toată lățimea. Dedesubt, Steps în varianta „rail”: de la 1200 px cei patru pași pe un singur rând, cercul cu cifra deasupra titlului, nodurile legate de o linie de 1 px `--line` cu o săgeată mică teal între ele; după al patrulea cerc linia curge mai departe, fără săgeată. Sub 1200 px rămâne grila de acum (2 × 2, apoi o coloană), fără linie.
 
 Steps:
 
@@ -132,7 +144,7 @@ Secțiune compactă, pe `--surface-2`. Text (portret pătrat 200 px în stânga,
 
 Lucrez în IT din 2017. Am început cu serverele și rețelele din firme mici. Ultimii doi ani și jumătate am lucrat în securitate informațională într-o corporație din Fortune 500: audituri ISO 27001, planuri de continuitate, protecție pe stații și servere. Am făcut BitUp pentru că văzusem prea multe firme cu tehnologie, dar fără cineva care să răspundă de ea.
 
-Linkuri: Povestea, pe scurt → `/despre` · LinkedIn → https://www.linkedin.com/in/nicolae-marius-galmati
+Linkuri: Povestea, pe scurt → `/despre` · Echipa → `/echipa` · LinkedIn → https://www.linkedin.com/in/nicolae-marius-galmati
 
 ---
 
@@ -154,8 +166,14 @@ Eyebrow: `Parteneri`
 
 **H2:** Cu ce lucrăm
 
-Rând static: Microsoft Partner · Fortinet Advocate · Veeam Partner (badge-uri din `[[LOGO_PARTENERI]]`, nivelul scris sub fiecare).
-Rând discret, text: Tehnologii cu care lucrăm zilnic: Microsoft 365, Fortinet, Veeam, CrowdStrike, Palo Alto Networks, WireGuard, Proxmox / VMware, Synology.
+Rând static, patru celule egale pe toată lățimea containerului, despărțite de rigle verticale scurte de 1 px `--line` (2,8 em, centrate pe verticală): Microsoft Partner · Fortinet Advocate · Veeam Partner · Anthropic Partner (badge-uri din `[[LOGO_PARTENERI]]`, nivelul scris sub fiecare). La 640–1023 px, 2 × 2, cu o linie orizontală între rânduri; sub 640 px, o coloană.
+Notă pentru Claude Code: dedesubt, secțiune proprie (decizie a lui Marius, 17 septembrie 2026), pe același fundal, despărțită de o linie de 1 px.
+
+Eyebrow: `Tehnologii`
+
+**H2:** Tehnologii cu care lucrăm zilnic
+
+Microsoft 365, Fortinet, Veeam, CrowdStrike, Palo Alto Networks, WireGuard, Proxmox / VMware, Synology.
 
 Notă pentru Claude Code: dacă `[[LOGO_PARTENERI]]` lipsește la lansare, rândul de badge-uri devine text (numele partenerului + nivelul), fără logo-uri improvizate.
 

@@ -3,14 +3,14 @@ import type { HomeCopy } from './home.types';
 
 export const homeRo: HomeCopy = {
   title: 'Suport IT și securitate pentru firme din Cluj · BitUp',
-  description: 'Suport și administrare IT pentru firme de 10–100 de angajați, cu securitatea inclusă. Un singur partener răspunde de tot. Radiografie IT gratuită.',
+  description: 'Proiectăm, securizăm și administrăm infrastructura IT a firmei tale: servere, rețea, cloud, aplicații și automatizări. Radiografie IT gratuită.',
 
   hero: {
-    eyebrow: 'Suport și administrare IT · Cluj-Napoca și România',
-    h1: 'IT-ul firmei tale, administrat de cineva care răspunde de el. Cu securitatea inclusă, nu opțională.',
-    lead: 'Suport și administrare IT pentru firme de 10–100 de angajați: infrastructură, backup, Microsoft 365, protecție împotriva atacurilor. Un singur partener, un singur număr de telefon, un raport lunar cu tot ce s-a făcut.',
+    // Text schimbat de Marius pe 17 septembrie 2026. Eyebrow-ul a fost scos: în textul nou n-are înlocuitor.
+    h1: 'Proiectăm, securizăm și administrăm întreaga infrastructură IT de care firma ta are nevoie.',
+    lead: 'Începem cu servere, rețea și cloud, ajungem la aplicații, automatizări și agenți AI. Securitatea se proiectează de la început și se integrează în fiecare etapă.',
     primary: 'Radiografie IT gratuită',
-    secondary: 'Vezi cum lucrăm',
+    secondary: 'Explorează serviciile',
   },
 
   situation: {
@@ -74,6 +74,7 @@ export const homeRo: HomeCopy = {
     h2: 'Marius Galmati, fondator BitUp',
     text: 'Lucrez în IT din 2017. Am început cu serverele și rețelele din firme mici. Ultimii doi ani și jumătate am lucrat în securitate informațională într-o corporație din Fortune 500: audituri ISO 27001, planuri de continuitate, protecție pe stații și servere. Am făcut BitUp pentru că văzusem prea multe firme cu tehnologie, dar fără cineva care să răspundă de ea.',
     storyLink: 'Povestea, pe scurt',
+    teamLink: 'Echipa',
     linkedinLabel: 'LinkedIn',
     portraitAlt: 'Marius Galmati, fondatorul BitUp',
   },
@@ -88,8 +89,13 @@ export const homeRo: HomeCopy = {
   partners: {
     eyebrow: 'Parteneri',
     h2: 'Cu ce lucrăm',
-    names: ['Microsoft Partner', 'Fortinet Advocate', 'Veeam Partner'],
-    tech: 'Tehnologii cu care lucrăm zilnic: Microsoft 365, Fortinet, Veeam, CrowdStrike, Palo Alto Networks, WireGuard, Proxmox / VMware, Synology.',
+    names: ['Microsoft Partner', 'Fortinet Advocate', 'Veeam Partner', 'Anthropic Partner'],
+  },
+
+  tech: {
+    eyebrow: 'Tehnologii',
+    h2: 'Tehnologii cu care lucrăm zilnic',
+    list: 'Microsoft 365, Fortinet, Veeam, CrowdStrike, Palo Alto Networks, WireGuard, Proxmox / VMware, Synology.',
   },
 
   blog: {

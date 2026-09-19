@@ -32,12 +32,17 @@ Două liste. Prima e cu valorile finale, pe care Claude Code le pune în `src/li
 
 | Placeholder | Unde apare | Ce trebuie |
 |---|---|---|
+| `[[ACORD_ECHIPA]]` | `continut/16-echipa.md`, `continut-en/16-team.md` | Data la care am acordul scris al fiecăruia dintre Petre, Samuel și Cristian pentru nume, fotografie, link de LinkedIn, numele fostului sau actualului angajator și textul exact publicat. Până atunci pagina e `noindex` și în afara sitemap-ului. |
+| `[[RELATIE_ECHIPA]]` | § Intro, ambele limbi | O propoziție scrisă de Marius despre relația celor trei cu BitUp (colaboratori pe proiecte, asociați sau angajați). Fără ea, un client calculează greșit capacitatea firmei. |
+| `[[LINKEDIN_CRISTIAN]]` | rândul lui Cristian Boanca, ambele limbi | URL-ul profilului de LinkedIn. Până atunci nu se randează iconița la el. |
+| `[[FOTO_PETRE]]`, `[[FOTO_SAMUEL]]`, `[[FOTO_CRISTIAN]]` | § Oamenii | Trei fotografii pătrate, minimum 480×480, tratate identic cu portretul existent al lui Marius: fundal simplu, aceeași încadrare, aceeași lumină. Se pun în repo doar după `[[ACORD_ECHIPA]]`. |
+| `[[FOTO_MARIUS]]` | § Oamenii | Portretul existent din `spec/assets/`, reîncadrat pătrat la 480×480. |
 | `[[ACORD_COSMIO]]` | `content/cases/ro/cosmio.md` și `en/cosmio.md` → `consent`, `draft` | Data acordului semnat. Până atunci, `draft: true` în ambele limbi. |
 | `[[CITAT_COSMIN]]` | `cosmio.md` (ambele limbi), opțional | Citatul lui Cosmin, doar dacă e bifat în acord. Altfel se șterge blocul. |
 | `[[LOGO_COSMIO_LOCAL]]` | `public/logos/cosmio.svg` | Logo-ul Cosmio salvat local (nu link către cosmio.ro) după acord. |
 | `[[LOGO_PROQ_LOCAL]]` | `public/logos/proq.svg` | Logo-ul ProQ salvat local, varianta pentru fundal închis. |
 | `[[LOGO_BITUP_SVG]]` | header, footer, OG | Logo-ul BitUp ca SVG, în două variante: pentru fundal deschis și pentru fundal închis (text alb/teal deschis). Dacă există doar PNG, la 2×, ambele variante. |
-| `[[LOGO_PARTENERI]]` | homepage § Parteneri, footer | Badge-urile oficiale Microsoft Partner, Fortinet Advocate, Veeam Partner, cu nivelul exact așa cum apare în portalul fiecăruia, și confirmarea că ai voie să le afișezi. Până atunci, rândul e text. |
+| `[[LOGO_PARTENERI]]` | homepage § Parteneri, FactStrip, footer, Despre | Badge-urile oficiale Microsoft Partner, Fortinet Advocate, Veeam Partner și Anthropic Partner, cu nivelul exact așa cum apare în portalul fiecăruia, și confirmarea că ai voie să le afișezi. Fișierele se pun în `public/logos/parteneri/` ca `microsoft-partner.svg`, `fortinet-advocate.svg`, `veeam-partner.svg`, `anthropic-partner.svg`; apar automat, fără modificări de cod. Până atunci, rândul e text. |
 | `[[FOTO_CONTEXT]]` | Despre sau un articol (opțional; nu în hero-ul homepage-ului) | O fotografie reală în context de lucru. Dacă nu există, nu se pune nimic în locul ei. Recomandarea și promptul pentru varianta cu textură generată sunt în `assets/FOTO-CONTEXT.md`; textura, dacă apare vreodată, se folosește într-un singur loc, ca fundal al CtaBand. |
 | `[[CAPTURA_RAPORT_LUNAR]]` | /cum-lucram, /suport-it (ambele limbi) și hero-ul homepage-ului (Figure, „document pe hârtie”, ambele limbi) | O captură anonimizată cu prima pagină a unui raport lunar din BitUp Helpdesk. Până există, hero-ul homepage-ului e tipografic, fără imagine. |
 | `[[CAPTURA_RAPORT_RADIOGRAFIE]]` | /radiografie-it, /en/it-health-check | Un exemplu de raport de o pagină (semafor pe 10 puncte), anonimizat sau fictiv marcat „exemplu”. |
@@ -59,4 +64,4 @@ Două liste. Prima e cu valorile finale, pe care Claude Code le pune în `src/li
 
 ## Decizii deja luate (nu sunt placeholder-e)
 
-Hero varianta A, tipografic, fără fotografie (portretul fondatorului nu apare pe primul ecran; decizie din 14 septembrie 2026); vocea firmei la persoana I plural; oferta „Radiografie IT gratuită” / „Free IT Health Check”; fără prețuri pe site; orașul publicat e Cluj-Napoca, fără adresă de stradă; Concentrix cu numele pe Despre, fără titlul postului; lansare cu 2 studii de caz; parteneri: Microsoft Partner, Fortinet Advocate, Veeam Partner; helpdesk: BitUp Helpdesk, asistentul Cipri; formulare prin Resend; GA4 cu consimțământ; RO + EN; light + dark.
+Hero varianta A, tipografic, fără fotografie (portretul fondatorului nu apare pe primul ecran; decizie din 14 septembrie 2026); vocea firmei la persoana I plural; oferta „Radiografie IT gratuită” / „Free IT Health Check”; fără prețuri pe site; orașul publicat e Cluj-Napoca, fără adresă de stradă; Concentrix cu numele pe Despre, fără titlul postului; lansare cu 2 studii de caz; parteneri: Microsoft Partner, Fortinet Advocate, Veeam Partner, Anthropic Partner; helpdesk: BitUp Helpdesk, asistentul Cipri; formulare prin Resend; GA4 cu consimțământ; RO + EN; light + dark.

@@ -1,7 +1,7 @@
 # 01 — Home (`/en`)
 
 **Title:** IT support and security for companies in Cluj · BitUp
-**Description:** IT support and administration for companies of 10–100 employees, security included. One partner accountable for all of it. Free IT Health Check.
+**Description:** We design, secure, and run your company’s IT infrastructure: servers, network, cloud, apps, and automation. Free IT Health Check.
 
 **JSON-LD:** Organization + ProfessionalService (global). Nothing else.
 
@@ -9,17 +9,25 @@
 
 ## 1. Hero
 
-Typographic, one column, left-aligned, on `--bg`. No photo, no trust row.
+Left-aligned, on `--bg`. No photo, no trust row, no eyebrow.
 
-Eyebrow: `IT support and administration · Cluj-Napoca and Romania`
+Note for Claude Code: from 1200 px, two columns — text on the left, the `HeroDiagram` graphic on the right (DESIGN.md § Imagini); from 1360 px the hero switches to the wide container, with its left edge kept aligned. Below 1200 px, one column, no graphic. Inside the graphic: the official logo above the spine, the spine nodes in orange, and the end arrows drawn as teal chevrons (asked for by Marius on 18 September 2026).
 
-**H1** (max-width 22ch)**:** Your company's IT, run by someone who answers for it. Security included, not optional.
+Note for Claude Code: the labels inside the graphic are new copy, taken from `hero.png` on 18 September 2026; the English wording is Claude Code's translation, pending confirmation.
 
-Lead (max-width 60ch): IT support and administration for companies with 10–100 employees: infrastructure, backup, Microsoft 365, protection against attacks. One partner, one phone number, a monthly report of everything done.
+`Cybersecurity` · `Automation` · `Agentic AI` · `Software development` · `IT infrastructure`
 
-Buttons: **Free IT Health Check** (primary → `/en/it-health-check`) · **See how we work** (secondary → `/en/how-we-work`)
+Note for Claude Code: the two corner labels sit at the bottom, `From fragmentation` on the left and `To progress` on the right.
 
-Right under the hero: the FactStrip from `00-global.md` § FactStrip under the hero (`Since 2020` · `Cluj-Napoca` · `Response under 2 hours during business hours` · partner badges). It is the visual anchor of the first screen.
+Note for Claude Code: the screen-reader label (`aria-label` on the SVG) is “From fragmentation to progress: five scattered directions gather into a single path.”, and the capitals on the corner labels come from CSS, not from the text.
+
+Note for Claude Code: hero changed by Marius on 17 September 2026. The eyebrow was dropped, the new text has none. The English wording is Claude Code's translation of the Romanian and is pending confirmation.
+
+**H1** (max-width 22ch)**:** We design, secure, and run the entire IT infrastructure your company needs.
+
+Lead (max-width 60ch): We start with servers, network, and cloud, and go on to applications, automation, and AI agents. Security is designed in from the start and built into every stage.
+
+Buttons: **Free IT Health Check** (primary → `/en/it-health-check`) · **Explore our services** (secondary → `/en/services`)
 
 Post-launch variant, once `[[CAPTURA_RAPORT_LUNAR]]` exists: two-column hero, on the right a Figure with the first page of the anonymized monthly report, as a paper document (background `--surface`, 1 px `--line` border, `--radius`, no shadow, no perspective, no laptop frame). Caption and alt: "The monthly report every client gets. Anonymized." The object in the hero is the deliverable, not the founder.
 
@@ -31,7 +39,9 @@ Eyebrow: `Where we usually start`
 
 **H2:** Three sentences we hear in almost every new company
 
-Three cards, quote as title, one sentence underneath:
+Note for Claude Code: the page arrangement was changed on 17 September 2026, following `example.png` (layout only; colors, font, copy and menu unchanged).
+
+Three columns in one row, separated by 1 px `--line` vertical rules, no cards and no boxes. Each column carries a short teal accent dash above it (28 × 3 px), then the quote as title and one sentence underneath. Below 768 px the columns stack and the dash stays above each quote:
 
 **"We have a guy who knows his stuff. But when he's on vacation, nobody knows the passwords."**
 All the IT rests on one person. When he's away, the company stops.
@@ -52,7 +62,7 @@ Eyebrow: `Services`
 
 **H2:** Three things, seen through to the end
 
-Three large cards (first two wider, third narrower if the grid allows; otherwise equal):
+The “two columns” model: eyebrow and H2 anchored left (240 px, sticky on desktop), an empty gutter (no vertical rule — the mockup separates the two columns with whitespace only), and on the right the three services as rows separated by 1 px hairlines — title, paragraph, tertiary link with arrow. No cards, no index numbers (the services are not a sequence):
 
 **IT support and administration**
 We take over everything to do with computers, servers, network, cloud, and Microsoft 365, on a monthly subscription. Your team writes on WhatsApp, a person answers, and at the end of the month you get the report of what was done.
@@ -73,6 +83,8 @@ When a process lives in Excel and emails, we move it into a system: automation, 
 Eyebrow: `How we work`
 
 **H2:** Four steps. The fourth never ends.
+
+The section head sits on top, full width. Below it, Steps in the “rail” variant: from 1200 px the four steps sit in one row, the numbered circle above the title, the nodes linked by a 1 px `--line` rule with a small teal arrow between them; after the fourth circle the line runs on, with no arrow. Below 1200 px the current grid stays (2 × 2, then one column), with no rule.
 
 Steps:
 
@@ -132,7 +144,7 @@ Compact section, on `--surface-2`. Text (200 px square portrait left, text right
 
 I've worked in IT since 2017. I started with servers and networks in small companies. I spent the last two and a half years in information security at a Fortune 500 corporation: ISO 27001 audits, continuity plans, protection on workstations and servers. I started BitUp because I'd seen too many companies with technology but nobody to answer for it.
 
-Links: The story, in short → `/en/about` · LinkedIn → https://www.linkedin.com/in/nicolae-marius-galmati
+Links: The story, in short → `/en/about` · The team → `/en/team` · LinkedIn → https://www.linkedin.com/in/nicolae-marius-galmati
 
 ---
 
@@ -154,8 +166,14 @@ Eyebrow: `Partners`
 
 **H2:** What we work with
 
-Static row: Microsoft Partner · Fortinet Advocate · Veeam Partner (badges from `[[LOGO_PARTENERI]]`, level written under each).
-Discreet text row: Technologies we work with daily: Microsoft 365, Fortinet, Veeam, CrowdStrike, Palo Alto Networks, WireGuard, Proxmox / VMware, Synology.
+Static row, four equal cells across the container width, separated by short 1 px `--line` vertical rules (2.8 em, vertically centred): Microsoft Partner · Fortinet Advocate · Veeam Partner · Anthropic Partner (badges from `[[LOGO_PARTENERI]]`, level written under each). At 640–1023 px, 2 × 2 with a horizontal rule between rows; below 640 px, one column.
+Note for Claude Code: below it, a section of its own (Marius's decision, 17 September 2026), on the same background, separated by a 1 px rule.
+
+Eyebrow: `Technologies`
+
+**H2:** Technologies we work with daily
+
+Microsoft 365, Fortinet, Veeam, CrowdStrike, Palo Alto Networks, WireGuard, Proxmox / VMware, Synology.
 
 Note for Claude Code: if `[[LOGO_PARTENERI]]` is missing at launch, the badge row becomes text (partner name + level), no improvised logos.
 
