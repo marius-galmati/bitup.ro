@@ -1555,6 +1555,78 @@ Restul listei, neatins de schimbarea asta.
 
 Etichetele benzilor („Securitate cibernetică”, „Automatizări”, …) ar putea deveni linkuri către paginile de servicii. Atunci evidențierea ar avea și rost funcțional, ar fi accesibilă la tastatură, și s-ar rezolva și nota din `01-acasa.md` despre reconcilierea etichetelor cu cele trei grupuri de servicii. Costul: cinci opriri de Tab în hero, înaintea butoanelor. Nu am făcut-o; spune dacă o vrei.
 
+## Benzile din grafic devin linkuri (20 septembrie 2026, după-amiaza)
+
+Cerut de Marius: „fiecare zonă din aceasta care se activează la hover să fie clickable și să ducă spre pagina în care e prezentat serviciul respectiv”. E fix propunerea din nota de dimineață, deci am făcut-o.
+
+### Destinații
+
+| Bandă | RO | EN |
+|---|---|---|
+| Securitate cibernetică | `/servicii/securitate` | `/en/services/security` |
+| Automatizări | `/servicii/automatizari` | `/en/services/automation` |
+| Agentic AI | `/servicii/automatizari` | `/en/services/automation` |
+| Software development | `/servicii/automatizari#software` | `/en/services/automation#software` |
+| Infrastructură IT | `/servicii/suport-it` | `/en/services/it-support` |
+
+Toate cele trei pagini răspund cu 200, iar ancora `#software` există în ambele limbi (verificat pe `dist/`).
+
+**Cinci etichete, trei pagini.** „Automatizări” și „Agentic AI” ajung amândouă pe aceeași pagină: asistenții AI sunt unul dintre cele trei carduri din § Ce construim de pe `/servicii/automatizari`, dar cardul n-are ancoră proprie. E exact nepotrivirea notată demult în `01-acasa.md` („etichetele din grafic nu se suprapun peste cele trei grupuri de servicii — de reconciliat”), care acum se vede. **Întrebare:** vrei o ancoră pe cardul „Asistenți AI cu scop clar”? Ar însemna un id pe cardul respectiv (componenta `Card` nu primește azi `id`), o intrare în `anchors` și un rând în `ARHITECTURA.md`. Sau schimbăm etichetele graficului.
+
+Rutele stau în `HeroDiagram.astro`, nu în dicționarul de microcopy: sunt structură, nu text, iar `textdiff` verifică mai departe doar etichetele.
+
+### Ce s-a schimbat la accesibilitate
+
+De când benzile sunt linkuri, SVG-ul nu mai poate fi `role="img"` — ar face tot subarborele prezentațional și ar ascunde linkurile. E acum `role="group"`, cu `aria-label` = propoziția de descriere, iar numele fiecărui link vine din `<text>`-ul benzii. Arborele de accesibilitate, citit cu `ariaSnapshot()`:
+
+```
+- group "De la fragmentare la progres: cinci direcții împrăștiate se adună într-un singur traseu."
+  - text: De la fragmentare
+  - link "Securitate cibernetică"  → /servicii/securitate
+  - link "Automatizări"            → /servicii/automatizari
+  - link "Agentic AI"              → /servicii/automatizari
+  - link "Software development"    → /servicii/automatizari#software
+  - link "Infrastructură IT"       → /servicii/suport-it
+  - text: La progres
+```
+
+Eticheta grupului nu mai repetă cele cinci nume (le spun linkurile), deci a rămas exact propoziția scrisă în `01-acasa.md` § 1. Logo-ul dinăuntru a primit `aria-hidden`, altfel apărea ca imagine fără nume.
+
+Cele cinci opriri de Tab vin **după** cele două butoane din hero, fiindcă graficul e după text în DOM. Verificat pe ambele limbi. Sub 1200 px graficul e `display: none`, deci pe telefon nu există nici linkuri, nici opriri în plus.
+
+Focusul de tastatură primește aceeași evidențiere ca hover-ul, plus un chenar teal de 2 px în jurul fâșiei.
+
+### Trei lucruri care nu au mers din prima
+
+1. **`:has()` nu se reinvalidează la `:focus-visible`, în Chromium.** Scrisesem `.herodiag:has(.herodiag__banda:is(:hover, :focus-visible))`. Măsurat cu focus pe o bandă: `element.matches()` pe exact acel selector întoarce `true`, dar opacitățile rămân toate 1 — stilul nu se recalculează. Cu `:hover` mergea. Reparat trecând partea de tastatură pe `:focus-within`, care e pseudo-clasă de sine stătătoare și se invalidează corect. Regulile de hover rămân pe `:has()` și stau după cele de focus, ca mouse-ul să decidă când sunt amândouă active.
+
+2. **Astro compilează `> *` în `> [data-astro-cid-…]`.** Scrisesem `.herodiag__banda > * { pointer-events: none }` și `.herodiag__zona { pointer-events: auto }`, crezând că a doua câștigă la egalitate. În CSS-ul construit ies `.herodiag__banda[cid]>[cid]`, adică (0,3,0), față de `.herodiag__zona[cid]`, (0,2,0). Zona rămânea fără pointer: hover-ul nu mai prindea nimic și clicul nu făcea nimic. Reparat enumerând pe nume părțile de desen. **E a treia formă a aceleiași capcane într-o zi** (după `:has()` și blocul `prefers-reduced-motion`), toate rezolvate prin a scrie specificitatea explicit. A intrat în skill-ul `design-loop`.
+
+3. **Fâșia de atingere cuprindea eticheta benzii de dedesubt.** Zona era `y = ny - PAS/2`, adică `ny - 54`, dar eticheta stă la `ny - 56` cu glifele urcând încă 28 de unități: fiecare fâșie conținea cuvintele benzii următoare. S-a văzut abia pe captura cu chenarul de focus — pe ecran, „Automatizări” cădea în afara chenarului ei, iar „Agentic AI” înăuntru. Reparat: fâșia începe la `ETICHETA_Y[i] - CORP_ETICHETA` (`ny - 84`) și are un pas înălțime, deci se termină exact unde începe următoarea. Verificat: toate cele cinci etichete cad în fâșia lor, iar spațiile dintre fâșii sunt 0 px.
+
+### `qa/keyboard.mjs` verifică acum focusul mai bine
+
+Scriptul se uita doar la `outline` pe elementul cu focus, deci raporta cele cinci benzi ca „fără focus vizibil” — chenarul lor e desenat pe fâșie, nu ca outline, pentru că outline-ul implicit ar fi încadrat și evantaiul din dreapta (cutia unei benzi ajunge aproape cât toată figura).
+
+Acum, pentru fiecare element fără outline propriu, scriptul compară amprenta stilurilor din subarbore cu focus și fără (`outline*`, `stroke*`, `background`, `border*`, `box-shadow`, `color`, `opacity`, `text-decoration`, `filter`). Dacă nimic nu se schimbă, chiar nu există indicator. E o verificare mai bună decât cea veche, nu o excepție pentru pagina asta. Output-ul spune explicit care elemente au focus desenat altfel decât prin outline.
+
+### Verificări
+
+- `npm run build`: 0 erori, 0 avertismente, 43 de pagini. `npx astro check`: 0/0/0.
+- `qa/pagecheck.mjs`: 41 de pagini, 0 cu probleme; homepage-ul rămâne la 3 apariții de orange și 2 imagini.
+- `qa/headings.mjs`: 1 `h1`, 26 de titluri, ambele limbi.
+- `qa/textdiff.mjs`: zero diferențe pe `01-acasa.md` și `01-home.md`.
+- `qa/keyboard.mjs`: trece pe homepage (57 de opriri, cu cele cinci noi), pe `/en`, `/despre`, `/echipa` și `/contact`.
+- `qa/contrast.py`: 42/44, neschimbat.
+- Hover pe fiecare din cele cinci fâșii: banda atinsă rămâne la 1, celelalte trec la 0,22, traseele ei la 2,6 px. Cursorul în evantai: desenul rămâne întreg (1 1 1 1 1). Click pe prima bandă: ajunge pe `/servicii/securitate`.
+- Focus de tastatură: `0.22 1 0.22 0.22 0.22`, chenar teal 2 px, în ambele teme; după `blur`, tot desenul revine la 1.
+- `prefers-reduced-motion: reduce`: 0 animații la 120 ms, desenul complet.
+- 16 capturi în `qa/hero/`, plus stările de hover și de focus în `qa/hero-anim/`. Consolă curată, zero cereri externe, zero JavaScript adăugat.
+
+### Mirosuri
+
+Neschimbate față de dimineață. Punctul 9 („Află mai multe →”) merită spus explicit: benzile n-au primit nici săgeți, nici cuvinte de tip „vezi mai mult” — eticheta serviciului e tot textul linkului.
+
 ## Propuneri (nu se fac fără acord)
 
 - Faza 5: Astro are suport experimental pentru CSP cu hash-uri generate la build (`experimental.csp`), care ar scoate `'unsafe-inline'` din `script-src` și `style-src`. E îmbunătățirea menționată în `ARHITECTURA.md` § Headere ca „nu o condiție de lansare”. De evaluat când ajungem acolo.

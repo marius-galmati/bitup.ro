@@ -34,8 +34,30 @@ const check = (ok, msg) => { console.log(`${ok ? 'OK ' : 'NU '} ${msg}`); if (!o
     seen.push(info);
   }
   console.log(`Desktop: ${seen.length} elemente atinse cu Tab`);
-  const noOutline = seen.filter((s) => s.visible && !s.outline);
-  check(noOutline.length === 0, `focus vizibil pe toate (${noOutline.map((s) => `${s.tag}:${s.label}`).join(', ') || 'niciunul fără'})`);
+  // Elementele fără `outline` propriu pot avea totuși focus vizibil, desenat altfel: de exemplu benzile
+  // din `HeroDiagram` sunt linkuri SVG a căror cutie ar încadra tot evantaiul, așa că inelul se desenează
+  // pe fâșia de atingere. Le verificăm comparând stilurile din subarbore cu focus și fără: dacă nimic nu se
+  // schimbă, chiar nu există indicator.
+  const fingerprint = (key) => {
+    const el = document.querySelectorAll('*')[key];
+    const props = ['outlineStyle', 'outlineWidth', 'outlineColor', 'stroke', 'strokeWidth', 'backgroundColor',
+                   'borderColor', 'borderWidth', 'boxShadow', 'color', 'opacity', 'textDecorationLine', 'filter'];
+    return [el, ...el.querySelectorAll('*')].map((n) => { const c = getComputedStyle(n); return props.map((p) => c[p]).join('|'); }).join('//');
+  };
+  const faraOutline = seen.filter((s) => s.visible && !s.outline);
+  const faraNimic = [];
+  for (const s of faraOutline) {
+    const diferit = await page.evaluate(({ key, src }) => {
+      const fp = eval(`(${src})`);
+      const el = document.querySelectorAll('*')[key];
+      el.blur(); const inainte = fp(key);
+      el.focus(); const dupa = fp(key);
+      return inainte !== dupa;
+    }, { key: s.key, src: fingerprint.toString() });
+    if (!diferit) faraNimic.push(s);
+    else console.log(`    (${s.tag}:${s.label} — focus vizibil desenat în subarbore, nu prin outline)`);
+  }
+  check(faraNimic.length === 0, `focus vizibil pe toate (${faraNimic.map((s) => `${s.tag}:${s.label}`).join(', ') || 'niciunul fără'})`);
   check(seen[0]?.label.toLowerCase().includes('sari') || seen[0]?.label.toLowerCase().includes('skip'), `primul element e skip-link (${seen[0]?.label})`);
 
   // Dropdown Servicii
@@ -50,7 +72,9 @@ const check = (ok, msg) => { console.log(`${ok ? 'OK ' : 'NU '} ${msg}`); if (!o
   check((await btn.getAttribute('aria-expanded')) === 'false', 'Servicii: Esc închide');
   check(await page.evaluate(() => document.activeElement?.hasAttribute('data-services-toggle')), 'Servicii: focusul revine pe buton');
   await btn.click();
-  await page.mouse.click(720, 600);
+  // Panoul „Servicii” e acum mare (design-ul de meniu): clic sub el, nu la mijlocul ecranului.
+  const box = await page.locator('#services-menu').boundingBox();
+  await page.mouse.click(720, Math.round(box.y + box.height + 40));
   check((await btn.getAttribute('aria-expanded')) === 'false', 'Servicii: click în afară închide');
   await page.close();
 }
