@@ -1469,6 +1469,92 @@ Restul listei, neschimbat față de secțiunea de dimineață.
 - `[[FOTO_CRISTIAN]]`, plus o variantă mai mare a pozei lui Petre.
 - Fișierele originale (`LinkedIn_Logo.svg`, `Marius 2.png`, `Petre_Radu.jpeg`, `SAm_Bota.jpeg`) au rămas în rădăcina proiectului, unde le-ai pus. Nu le-am mutat și nu le-am comis. Spune dacă vrei să intre în `spec/assets/` ca surse, sau să le ștergem.
 
+## Graficul din hero devine interactiv (20 septembrie 2026)
+
+Cerut de Marius: „poți să îl faci interactiv, un fel de animație, dar cu toate astea, cel mai important să rămână la un nivel enterprise, profesional”.
+
+### Ce am făcut și ce am refuzat
+
+Am ales două lucruri și am lăsat afară restul:
+
+| Făcut | Nu am făcut, și de ce |
+|---|---|
+| **O singură secvență la încărcare**, ~1,9 s, care desenează figura în ordinea în care se citește | Fade-in la scroll pe secțiuni — e mirosul 6 din `CLAUDE.md`, litera lui |
+| **Evidențiere la pointer**: cursorul pe o bandă, celelalte patru se retrag | Mișcare perpetuă pe trasee (linii punctate care curg) — e marchiză; într-un hero de firmă de IT, ceva ce se mișcă la nesfârșit citește ca banner, nu ca document |
+| | Paralax, urmărirea cursorului, particule — `DESIGN.md` § Ce nu facem |
+| | Contoare animate, numere care cresc — mirosul 8 |
+
+Argumentul pentru care astea două sunt „enterprise”: secvența are **un început și un sfârșit**. După 1,9 s desenul e o figură statică, ca într-un raport tipărit, și rămâne așa. Verificat cu `document.getAnimations()`: zero animații în curs la 2,5 s. Hover-ul nu adaugă decor, ci scoate zgomot — cele paisprezece trasee se suprapun, iar estomparea celorlalte benzi e singurul mod de a urmări unul singur de la fragment până la vârful săgeții.
+
+### Cum e făcută
+
+Totul din CSS, în componentă. **Zero JavaScript**, zero bibliotecă (`framer-motion`, `GSAP`, `AOS` rămân neinstalate), zero cereri de rețea. Graficul apare oricum doar de la 1200 px, deci pe telefon nu se execută nimic.
+
+Markup-ul e regrupat: fiecare bandă e acum un `<g class="herodiag__banda" style="--i: N">` care ține fragmentele ei, eticheta, nodul de pe spină, traseele care pleacă din nod și săgețile de la capete. Indicele `--i` dă întârzierile, iar gruparea face posibilă evidențierea benzii ca un tot.
+
+Secvența, cu timpii exacți:
+
+| Element | Pornire | Durată |
+|---|---|---|
+| Eticheta din colțul stâng | 0 | 400 ms |
+| Fragmentele, bandă cu bandă | 120 ms + 90 ms × bandă | 420 ms |
+| Etichetele benzilor | 260 ms + 90 ms × bandă | 380 ms |
+| Logo-ul | 380 ms | 420 ms |
+| Spina, care coboară | 420 ms | 560 ms |
+| Nodurile, de sus în jos | 620 ms + 80 ms × bandă | 260 ms |
+| Traseele, spre dreapta | 820 ms + 110 ms × bandă | 620 ms |
+| Săgețile | 1180 ms + 110 ms × bandă | 320 ms |
+| Eticheta din colțul drept | 1500 ms | 420 ms |
+
+Traseele, săgețile și spina au `pathLength="1"`, ca toate să se deseneze în același interval indiferent de lungimea reală; fără asta, traseul scurt al primei benzi s-ar termina cu mult înaintea celui lung din banda de jos.
+
+Starea finală stă în regula de bază (`opacity` implicit 1, `stroke-dashoffset: 0`), iar animația pornește din `from`. Consecința e că, dacă animația e scoasă, rămâne exact desenul terminat — nu o pagină goală.
+
+### Trei capcane, toate din familia specificității
+
+1. **`:has()` ia specificitatea argumentului.** `.herodiag:has(.herodiag__banda:hover) .herodiag__banda` cântărește (0,4,0), iar `.herodiag .herodiag__banda:hover` doar (0,3,0) — deci banda de sub cursor se estompa și ea. Măsurat: toate cinci benzile la 0,22. Reparat ridicând regula de evidențiere la (0,5,0). E aceeași capcană ca la `.partners__item + .partners__item` de pe homepage.
+2. **`prefers-reduced-motion` nu se aplica.** Blocul scria `.herodiag__frag { animation: none }`, (0,1,0), dar regula de secvență e `.herodiag__banda .herodiag__frag`, (0,2,0). Măsurat cu `reducedMotion: 'reduce'` la 120 ms: 115 animații în curs, fragmentele la opacitate 0. Reparat cu `animation: none !important; transition: none !important` pe `.herodiag, .herodiag *` — e comutator de oprire, nu regulă de stil. După reparație, la 120 ms: **0 animații**, tot desenul la starea finală.
+3. **`fill: none` nu primește pointerul.** Zonele de hover sunt `fill: transparent`.
+
+### Capturile se luau la mijlocul secvenței
+
+`qa/capture.mjs` făcea captura după `networkidle` plus derularea pentru imaginile lazy — undeva pe la 1–2,5 s, adică fix în timpul secvenței. Două rulări succesive dădeau imagini diferite. Am adăugat `animations: 'disabled'` la `page.screenshot()`: Playwright derulează animațiile finite până la capăt înainte de captură. Acum capturile sunt din nou deterministe, pe toate paginile.
+
+### Desenul e neschimbat
+
+Regruparea markup-ului nu trebuia să miște niciun pixel. Verificat în două feluri:
+
+- **Geometria**: am recalculat cele 85 de fragmente cu același generator determinist, într-un script separat, și le-am comparat cu cele din `dist/index.html`. **85 din 85 identice**, inclusiv culoarea fiecăruia. Cutia desenului e aceeași: `(30, 37, 505, 488)` înainte, `(29, 37, 505, 488)` după (o coloană de antialiasing).
+- **Vizual**: capturile de dinainte și de după, decupate pe aceeași zonă, arată identic. Rămâne o diferență de rasterizare de ~5% din pixeli, toată pe marginile antialiasate — SVG-ul e promovat pe un strat propriu de compoziție fiindcă are descendenți cu animație. Decalaj: zero (testat pe ±2 px în ambele axe). Nu e o schimbare de desen.
+
+### Accesibilitate
+
+- `prefers-reduced-motion: reduce` oprește și secvența, și tranzițiile. Desenul apare terminat.
+- Evidențierea la pointer **nu arată nicio informație nouă**: `aria-label` enumeră deja cele cinci direcții, iar SVG-ul e `role="img"`, deci tot subarborele e prezentațional. Prin urmare e o stare vizuală, nu un control: nu are echivalent la tastatură și nu adaugă opriri de Tab în hero, înaintea celor două butoane.
+- Etichetele estompate ajung la **1,59:1 în light** și **1,89:1 în dark**. Sub AA, dar e text dintr-o imagine, exceptat de WCAG 1.4.3, iar starea e trecătoare și doar la pointer. Nu există un nivel de estompare care să treacă AA și să mai și funcționeze: nici la 40% nu se ajunge la 4,5:1 (2,47:1 în light). Dacă preferi, alternativa e să nu se estompeze nimic și să se îngroașe doar banda atinsă — dar într-un evantai de paisprezece trasee suprapuse nu se mai distinge nimic.
+- LCP: elementul LCP rămâne `h1.hero__h1`, la 280 ms pe 1440 px și 204 ms pe 375 px. Graficul nu devine candidat, deci animația lui de opacitate nu întârzie nimic.
+
+### Verificări
+
+- `npm run build`: 0 erori, 0 avertismente, 43 de pagini. `npx astro check`: 0/0/0.
+- `qa/pagecheck.mjs`: 41 de pagini, 0 cu probleme. `qa/headings.mjs`: 1 `h1` și 26 de titluri pe ambele limbi.
+- `qa/textdiff.mjs`: zero diferențe pe `01-acasa.md` și `01-home.md`.
+- `qa/keyboard.mjs`: trece; numărul de opriri de Tab e neschimbat.
+- `qa/contrast.py`: 42/44, aceleași două intrări documentate ca înainte. Niciun token de culoare nou.
+- 16 capturi în `qa/hero/` (RO și EN × 375, 768, 1024, 1440 × light, dark), plus cadrele secvenței și stările de hover în `qa/hero-anim/`, inclusiv `secventa-hero.gif`. Consolă curată, zero cereri externe.
+- Verificat că nu s-a adăugat JavaScript: pagina are aceleași trei `<script>` ca înainte (tema inline, bannerul de consimțământ, meniul) plus JSON-LD.
+
+### Mirosuri, punctele atinse de schimbarea asta
+
+6. Fade-in la scroll, contoare animate, carusele, marquee — **nu**. Un singur moment, la încărcare, nedeclanșat de scroll, fără buclă; după 1,9 s nu se mai mișcă nimic pe pagină.
+5. `hover:scale`, `hover:-translate-y` — **nu**. La hover se schimbă opacitatea celorlalte benzi și grosimea a trei trasee. Nimic nu se mărește și nimic nu se mută.
+2. Glow, particule, aurora — **nu**. Aceleași culori din `tokens.css`, aceleași forme.
+Restul listei, neatins de schimbarea asta.
+
+### Întrebare
+
+Etichetele benzilor („Securitate cibernetică”, „Automatizări”, …) ar putea deveni linkuri către paginile de servicii. Atunci evidențierea ar avea și rost funcțional, ar fi accesibilă la tastatură, și s-ar rezolva și nota din `01-acasa.md` despre reconcilierea etichetelor cu cele trei grupuri de servicii. Costul: cinci opriri de Tab în hero, înaintea butoanelor. Nu am făcut-o; spune dacă o vrei.
+
 ## Propuneri (nu se fac fără acord)
 
 - Faza 5: Astro are suport experimental pentru CSP cu hash-uri generate la build (`experimental.csp`), care ar scoate `'unsafe-inline'` din `script-src` și `style-src`. E îmbunătățirea menționată în `ARHITECTURA.md` § Headere ca „nu o condiție de lansare”. De evaluat când ajungem acolo.

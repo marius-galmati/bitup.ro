@@ -13,6 +13,8 @@ Left-aligned, on `--bg`. No photo, no trust row, no eyebrow.
 
 Note for Claude Code: from 1200 px, two columns — text on the left, the `HeroDiagram` graphic on the right (DESIGN.md § Imagini); from 1360 px the hero switches to the wide container, with its left edge kept aligned. Below 1200 px, one column, no graphic. Inside the graphic: the official logo above the spine, the spine nodes in orange, and the end arrows drawn as teal chevrons (asked for by Marius on 18 September 2026).
 
+Note for Claude Code: the graphic draws itself once on page load, over ~1.9 s, and can be read with the mouse — when the cursor is on one band, the other four fade back (asked for by Marius on 20 September 2026; details in DESIGN.md § Mișcare and § Imagini). No page text depends on the motion: with `prefers-reduced-motion` the drawing appears already finished.
+
 Note for Claude Code: the labels inside the graphic are new copy, taken from `hero.png` on 18 September 2026; the English wording is Claude Code's translation, pending confirmation.
 
 `Cybersecurity` · `Automation` · `Agentic AI` · `Software development` · `IT infrastructure`

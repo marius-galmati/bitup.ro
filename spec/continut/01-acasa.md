@@ -13,6 +13,8 @@ Aliniat la stânga, pe `--bg`. Fără fotografie, fără rând de încredere, f�
 
 Notă pentru Claude Code: de la 1200 px, două coloane — textul în stânga, graficul `HeroDiagram` în dreapta (DESIGN.md § Imagini); de la 1360 px, hero-ul trece pe containerul lat, cu marginea stângă păstrată aliniată. Sub 1200 px, o coloană, fără grafic. În grafic: logo-ul oficial deasupra spinei, nodurile de pe spină în orange și săgețile de la capete în V, teal (cerut de Marius pe 18 septembrie 2026).
 
+Notă pentru Claude Code: graficul se desenează o singură dată la încărcarea paginii, în ~1,9 s, și se poate parcurge cu mouse-ul — când cursorul e pe o bandă, celelalte patru se estompează (cerut de Marius pe 20 septembrie 2026; detaliile în DESIGN.md § Mișcare și § Imagini). Textul paginii nu depinde de mișcare: cu `prefers-reduced-motion` desenul apare direct terminat.
+
 Notă pentru Claude Code: etichetele din grafic sunt text nou, luat din `hero.png` pe 18 septembrie 2026; nu se suprapun peste cele trei grupuri de servicii din `02-servicii-index.md` — de reconciliat.
 
 `Securitate cibernetică` · `Automatizări` · `Agentic AI` · `Software development` · `Infrastructură IT`

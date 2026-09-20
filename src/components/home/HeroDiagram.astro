@@ -1,0 +1,263 @@
+---
+/**
+ * Graficul din dreapta hero-ului de pe homepage. Aranjament din `hero.png` (cerut de Marius, 18 septembrie 2026),
+ * cu schimbările cerute pe 18 septembrie seara: săgeți în V (teal) în locul pătratelor de la capete,
+ * logo-ul oficial deasupra spinei, nodurile de pe spină în orange, și mai mult aer în tot desenul.
+ *
+ * Citirea e de la stânga la dreapta: un câmp de fragmente împrăștiate (liniuțe scurte și colțuri de traseu rupte,
+ * cinci benzi, fiecare cu eticheta ei) se adună pe o spină verticală cu cinci noduri, din care pleacă
+ * paisprezece trasee — mănunchiuri de 3/2/3/3/3, ca în mockup — care coboară sau urcă până la un palier comun,
+ * merg o bucată împreună, apoi se ridică unul în altul spre dreapta și se termină cu câte o săgeată în V.
+ *
+ * Geometria vine din mockup (regiunea 904–1724 × 68–783), cu distanța dintre benzi crescută de la 95 la 108
+ * de unități, ca desenul să respire. Spina la x=431; nodurile la y=222, 330, 438, 546, 654.
+ *
+ * Câmpul de fragmente e generat determinist (generator liniar cu sămânță fixă), ca build-ul să fie reproductibil.
+ * Fragmentele ocolesc casetele etichetelor: forma se alege înainte de test, iar testul se face pe toată
+ * anvelopa fragmentului, nu pe punctul de plecare.
+ *
+ * Mișcare (cerută de Marius pe 20 septembrie 2026), în două părți, amândouă din CSS, fără JavaScript
+ * și fără bibliotecă:
+ *   1. La încărcare, o singură secvență de ~1,9 s care desenează povestea în ordinea în care se citește:
+ *      eticheta din stânga, fragmentele bandă cu bandă, logo-ul, spina care coboară, nodurile, traseele
+ *      care se trag spre dreapta și, la final, săgețile și eticheta din dreapta. O singură dată, niciodată
+ *      la scroll, niciodată în buclă: nimic nu se mișcă după ce desenul s-a așezat.
+ *   2. La pointer, fiecare bandă are o zonă de hover în stânga (fragmentele plus eticheta ei). Când e atinsă,
+ *      celelalte patru benzi se retrag la 22% opacitate, iar traseele benzii atinse se îngroașă de la 2 la 2,6.
+ *      Nu apare nicio informație nouă — `aria-label` enumeră deja cele cinci direcții — deci e o evidențiere
+ *      vizuală, nu un control; nu are nevoie de echivalent la tastatură și nu adaugă opriri de Tab în hero.
+ * `prefers-reduced-motion: reduce` scoate și secvența, și tranzițiile: desenul apare direct în starea finală.
+ *
+ * SVG inline, fără cereri de rețea. `role="img"` face tot subarborele prezentațional, deci textele din el nu
+ * ajung la cititoarele de ecran; de aceea `aria-label` enumeră cele cinci direcții.
+ */
+import logo from '../logo-paths.json';
+import { t, type Locale } from '../../i18n';
+
+interface Props { lang: Locale; class?: string }
+const { lang, class: className } = Astro.props;
+const d = t(lang).heroDiagram;
+
+const SPINA = 431;
+const PAS = 108;                    // distanța dintre benzi (era 95: mai mult aer, cerut de Marius)
+const NODURI = [0, 1, 2, 3, 4].map((i) => 222 + i * PAS);
+const NOD = 22;
+const SPINA_SUS = 132;
+const SPINA_JOS = NODURI[NODURI.length - 1] + 66;
+const INALTIME = SPINA_JOS + 122;   // loc dedesubt pentru etichetele de colț
+
+// Câte trasee pleacă din fiecare nod, de sus în jos (măsurat în mockup: 3/2/3/3/3).
+const PE_NOD = [3, 2, 3, 3, 3];
+
+// Cele șase verticale de sosire și capetele lor, măsurate în mockup (x=1622…1717, y=194…75).
+// Traseele unui mănunchi converg în aceeași verticală: 14 trasee, 6 capete.
+const VERTICALE = [
+  { x: 718, top: 134 },
+  { x: 742, top: 95 },
+  { x: 767, top: 56 },
+  { x: 781, top: 132 },
+  { x: 792, top: 15 },
+  { x: 813, top: 95 },
+];
+
+const K = 50; // 0,552 × raza cotului (≈90): arc, nu curbă leneșă
+
+/** Traseele, grupate pe bandă, ca fiecare bandă să poată fi desenată și evidențiată ca un tot. */
+const traseeBanda: string[][] = [];
+/** Săgețile, tot pe bandă: banda de jos are două capete (verticalele 4 și 5), restul câte unul. */
+const sagetiBanda: number[][] = [[0], [1], [2], [3], [4, 5]];
+for (let n = 0; n < NODURI.length; n++) {
+  const grup: string[] = [];
+  for (let k = 0; k < PE_NOD[n]; k++) {
+    const v = VERTICALE[n === 4 && k === 2 ? 5 : n];
+    const ny = NODURI[n] + (k - (PE_NOD[n] - 1) / 2) * 12; // trasee paralele, la 12 unități, ca un mănunchi
+    const a = 494 + n * 20 + k * 6;                        // unde începe primul cot (măsurat: 490–580)
+    const palier = 268 + n * 34 + k * 11;                  // nivelul comun: cel de sus coboară, cele de jos urcă
+    const b = 628 + k * 5;                                 // unde se termină primul cot
+    const c = 656 + n * 6 + k * 3;                         // unde se termină palierul
+    grup.push(`M ${SPINA + NOD / 2} ${ny} H ${a} C ${a + K} ${ny} ${b - K} ${palier} ${b} ${palier} H ${c} C ${c + K} ${palier} ${v.x} ${Math.round(v.top + K * 1.7)} ${v.x} ${v.top}`);
+  }
+  traseeBanda.push(grup);
+}
+
+const ETICHETA_Y = NODURI.map((y) => y - 56);
+const ETICHETE_X = [100, 116, 96, 104, 92];
+const CORP_ETICHETA = 28; // unități de viewBox; la 540 px lățime redată ies ~18 px, peste --fs-small
+
+// Logo-ul oficial, deasupra spinei (aceleași căi ca `Logo.astro`, aceiași tokeni de culoare).
+const [, , LOGO_W, LOGO_H] = logo.viewBox.split(' ').map(Number);
+const LOGO_LAT = 176;
+const LOGO_INALT = Math.round((LOGO_LAT * LOGO_H) / LOGO_W);
+
+// Generator determinist: fără Math.random, ca două build-uri succesive să dea același SVG.
+let s = 20260918;
+const rnd = () => ((s = (s * 1103515245 + 12345) % 2147483648) / 2147483648);
+
+/** Colțuri de traseu rupte, ca în mockup: o bucată dreaptă care cotește și se termină scurt. */
+const FORME = [
+  { d: 'h 11 a 9 9 0 0 1 9 9 v 6', dy: 15, dx: 20 },
+  { d: 'h 10 a 9 9 0 0 0 9 -9 v -5', dy: -14, dx: 19 },
+  { d: 'v -6 a 8 8 0 0 1 8 -8 h 11', dy: -14, dx: 19 },
+  { d: 'h 9 a 9 9 0 0 1 9 9 h 8', dy: 9, dx: 26 },
+];
+
+// Casetele etichetelor, din cutia reală a textului plus aer, ca fragmentele să nu le taie.
+const casete = d.benzi.map((text, i) => ({
+  x1: ETICHETE_X[i] - 8,
+  x2: ETICHETE_X[i] + text.length * (CORP_ETICHETA * 0.55) + 12,
+  y1: ETICHETA_Y[i] - CORP_ETICHETA - 8,
+  y2: ETICHETA_Y[i] + 16,
+}));
+const seSuprapune = (x1: number, y1: number, x2: number, y2: number) =>
+  casete.some((c) => x2 > c.x1 && x1 < c.x2 && y2 > c.y1 && y1 < c.y2);
+
+/** Fragmentele, grupate pe bandă (ordinea generării e neschimbată, deci desenul iese identic). */
+const fragmenteBanda: { d: string; teal: boolean }[][] = [];
+for (const ny of NODURI) {
+  const grup: { d: string; teal: boolean }[] = [];
+  for (let i = 0; i < 15; i++) {
+    const y = Math.round(ny - 30 + rnd() * 54);
+    const curba = rnd() >= 0.62;
+    const forma = FORME[Math.floor(rnd() * FORME.length)];
+    const len = curba ? forma.dx : Math.round(8 + rnd() * 36);
+    const dy = curba ? forma.dy : 0;
+    let x = Math.round(20 + Math.floor(i / 2) * 48 + rnd() * 34);
+    const lovit = () => seSuprapune(x, Math.min(y, y + dy) - 2, x + len, Math.max(y, y + dy) + 2);
+    for (let t = 0; t < 8 && lovit(); t++) {
+      x = rnd() < 0.3 ? Math.round(12 + rnd() * 46) : Math.round(324 + rnd() * 70);
+    }
+    if (lovit()) continue;
+    grup.push({ d: curba ? `M ${x} ${y} ${forma.d}` : `M ${x} ${y} h ${len}`, teal: rnd() < 0.45 });
+  }
+  // Două fragmente scurte care ating nodul, ca traseele să pară că intră în el.
+  grup.push({ d: `M ${SPINA - 44} ${ny - 7} h 26`, teal: true });
+  grup.push({ d: `M ${SPINA - 38} ${ny + 8} h 20`, teal: false });
+  fragmenteBanda.push(grup);
+}
+
+/** Zona de hover a unei benzi: fâșia din stânga spinei, de la un nod la altul. Benzile se ating, nu se suprapun. */
+const ZONA_LAT = 418;
+
+const etichetaSR = `${d.descriere} ${d.benzi.join(', ')}.`;
+/** Etichetele de colț stau pe două rânduri, ca în mockup: ultimul cuvânt coboară. */
+const peDouaRanduri = (text: string) => {
+  const cuvinte = text.split(' ');
+  return [cuvinte.slice(0, -1).join(' '), cuvinte[cuvinte.length - 1]];
+};
+const coltStanga = peDouaRanduri(d.de);
+const coltDreapta = peDouaRanduri(d.la);
+---
+
+<svg
+  class:list={['herodiag', className]}
+  viewBox={`0 -14 838 ${INALTIME}`}
+  fill="none"
+  role="img"
+  aria-label={etichetaSR}
+  preserveAspectRatio="xMidYMid meet"
+>
+  <text x="75" y={SPINA_JOS + 32} class="herodiag__colt herodiag__colt--stanga">
+    <tspan x="75">{coltStanga[0]}</tspan>
+    <tspan x="75" dy="32">{coltStanga[1]}</tspan>
+  </text>
+
+  {/* Logo-ul oficial, deasupra spinei */}
+  <svg class="herodiag__logo" x={SPINA - LOGO_LAT / 2} y={SPINA_SUS - 26 - LOGO_INALT} width={LOGO_LAT} height={LOGO_INALT} viewBox={logo.viewBox}>
+    <path class="herodiag__logoInk" fill-rule="evenodd" d={logo.navy} />
+    <path class="herodiag__logoAccent" fill-rule="evenodd" d={logo.teal} />
+    <path class="herodiag__logoMarca" fill-rule="evenodd" d={logo.orange} />
+  </svg>
+
+  <line x1={SPINA} y1={SPINA_SUS} x2={SPINA} y2={SPINA_JOS} pathLength="1" class="herodiag__spina" />
+
+  {NODURI.map((ny, i) => (
+    <g class="herodiag__banda" style={`--i: ${i}`}>
+      {/* Suprafața de hover: nu se vede, dar primește pointerul pe toată fâșia benzii. */}
+      <rect class="herodiag__zona" x="0" y={ny - PAS / 2} width={ZONA_LAT} height={PAS} />
+      {fragmenteBanda[i].map((f) => (
+        <path d={f.d} class:list={['herodiag__frag', { 'herodiag__frag--teal': f.teal }]} />
+      ))}
+      <text x={ETICHETE_X[i]} y={ETICHETA_Y[i]} class="herodiag__eticheta">{d.benzi[i]}</text>
+      <rect x={SPINA - NOD / 2} y={ny - NOD / 2} width={NOD} height={NOD} class="herodiag__nod" />
+      {traseeBanda[i].map((path) => <path d={path} pathLength="1" class="herodiag__traseu" />)}
+      {/* Capetele: săgeți în V deschis, cu vârful exact pe capătul liniei. */}
+      {sagetiBanda[i].map((v) => (
+        <path
+          d={`M ${VERTICALE[v].x - 10} ${VERTICALE[v].top + 14} L ${VERTICALE[v].x} ${VERTICALE[v].top} L ${VERTICALE[v].x + 10} ${VERTICALE[v].top + 14}`}
+          pathLength="1"
+          class="herodiag__sageata"
+        />
+      ))}
+    </g>
+  ))}
+
+  <text x="836" y={SPINA_JOS + 32} class="herodiag__colt herodiag__colt--dreapta">
+    <tspan x="836">{coltDreapta[0]}</tspan>
+    <tspan x="836" dy="32">{coltDreapta[1]}</tspan>
+  </text>
+</svg>
+
+<style>
+  .herodiag { width: 100%; height: auto; max-width: 560px; }
+  .herodiag__frag { stroke: var(--navy); stroke-width: 1.8; stroke-linecap: round; fill: none; }
+  .herodiag__frag--teal { stroke: var(--teal); }
+  .herodiag__spina { stroke: var(--teal); stroke-width: 3; }
+  .herodiag__nod { fill: var(--orange); }
+  .herodiag__traseu { stroke: var(--teal); stroke-width: 2; stroke-linecap: round; fill: none; }
+  .herodiag__sageata { stroke: var(--teal); stroke-width: 2.6; stroke-linecap: round; stroke-linejoin: round; fill: none; }
+  .herodiag__logoInk { fill: var(--logo-ink); }
+  .herodiag__logoAccent { fill: var(--logo-accent); }
+  .herodiag__logoMarca { fill: #FE982A; }
+  .herodiag__eticheta { fill: var(--navy); font-family: var(--font-display); font-weight: 600; font-size: 28px; }
+  .herodiag__colt { fill: var(--teal); font-family: var(--font-mono); font-weight: 500; font-size: 24px; letter-spacing: .12em; text-transform: uppercase; }
+  .herodiag__colt--dreapta { text-anchor: end; }
+
+  /* Zona de hover: `transparent`, nu `none` — `fill: none` nu primește pointerul. */
+  .herodiag__zona { fill: transparent; }
+
+  /*
+    Secvența de la încărcare. Fiecare element are starea finală în regula lui de bază și pornește din
+    `from`-ul animației, cu `both`; așa, dacă animația e scoasă (reduced motion), rămâne exact starea finală.
+    `pathLength="1"` face ca toate traseele să se deseneze în același timp, oricât de lungi ar fi.
+    Întârzierile se calculează din `--i`, indicele benzii, pus pe grup în markup.
+  */
+  @keyframes herodiag-apare { from { opacity: 0; } }
+  @keyframes herodiag-deseneaza { from { stroke-dashoffset: 1; } }
+
+  .herodiag__colt--stanga { animation: herodiag-apare 400ms ease-out both; }
+  .herodiag__logo { animation: herodiag-apare 420ms 380ms ease-out both; }
+  .herodiag__spina { stroke-dasharray: 1; stroke-dashoffset: 0; animation: herodiag-deseneaza 560ms 420ms cubic-bezier(.22, .61, .36, 1) both; }
+
+  .herodiag__banda .herodiag__frag { animation: herodiag-apare 420ms calc(120ms + var(--i) * 90ms) ease-out both; }
+  .herodiag__banda .herodiag__eticheta { animation: herodiag-apare 380ms calc(260ms + var(--i) * 90ms) ease-out both; }
+  .herodiag__banda .herodiag__nod { animation: herodiag-apare 260ms calc(620ms + var(--i) * 80ms) ease-out both; }
+  .herodiag__banda .herodiag__traseu {
+    stroke-dasharray: 1; stroke-dashoffset: 0;
+    animation: herodiag-deseneaza 620ms calc(820ms + var(--i) * 110ms) cubic-bezier(.22, .61, .36, 1) both;
+  }
+  .herodiag__banda .herodiag__sageata {
+    stroke-dasharray: 1; stroke-dashoffset: 0;
+    animation: herodiag-deseneaza 320ms calc(1180ms + var(--i) * 110ms) ease-out both;
+  }
+  .herodiag__colt--dreapta { animation: herodiag-apare 420ms 1500ms ease-out both; }
+
+  /*
+    Evidențierea la pointer. Nu se schimbă decât opacitatea celorlalte benzi și grosimea traseelor benzii
+    atinse: fără mărire, fără umbră, fără culoare nouă. `:has()` face ca desenul să rămână întreg
+    când cursorul e pe jumătatea dreaptă, unde nu sunt zone de hover.
+  */
+  .herodiag__banda { transition: opacity 150ms; }
+  .herodiag__traseu { transition: stroke-width 150ms; }
+  /* `:has()` ia specificitatea argumentului, deci regula de estompare cântărește (0,4,0);
+     regula benzii atinse trebuie să treacă de ea, altfel se estompează și banda de sub cursor. */
+  .herodiag:has(.herodiag__banda:hover) .herodiag__banda { opacity: .22; }
+  .herodiag:has(.herodiag__banda:hover) .herodiag__banda:hover { opacity: 1; }
+  .herodiag:has(.herodiag__banda:hover) .herodiag__banda:hover .herodiag__traseu { stroke-width: 2.6; }
+
+  @media (prefers-reduced-motion: reduce) {
+    /* Regulile de secvență sunt mai specifice (`.herodiag__banda .herodiag__frag`), deci comutatorul de
+       oprire are nevoie de `!important`. Starea finală rămâne cea din regulile de bază: opacitate 1 și
+       `stroke-dashoffset: 0`, adică exact desenul terminat, fără niciun cadru de animație. */
+    .herodiag, .herodiag * { animation: none !important; transition: none !important; }
+  }
+</style>

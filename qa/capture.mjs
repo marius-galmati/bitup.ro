@@ -54,7 +54,10 @@ for (const p of paths) {
       await page.waitForLoadState('networkidle');
       const name = p === '/' ? 'index' : p.replace(/^\//, '').replace(/[\/#?]/g, '_');
       const file = path.join(outDir, `${name}-${width}-${theme}.png`);
-      await page.screenshot({ path: file, fullPage: true });
+      // `animations: 'disabled'` derulează animațiile finite până la capăt înainte de captură:
+      // altfel secvența de la încărcare a graficului din hero (~1,9 s) prinde captura la mijloc,
+      // iar două rulări succesive dau imagini diferite.
+      await page.screenshot({ path: file, fullPage: true, animations: 'disabled' });
       console.log(`${response?.status() ?? '???'}  ${file}`);
       count++;
       await context.close();
