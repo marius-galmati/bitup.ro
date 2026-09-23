@@ -1627,6 +1627,69 @@ Acum, pentru fiecare element fără outline propriu, scriptul compară amprenta 
 
 Neschimbate față de dimineață. Punctul 9 („Află mai multe →”) merită spus explicit: benzile n-au primit nici săgeți, nici cuvinte de tip „vezi mai mult” — eticheta serviciului e tot textul linkului.
 
+## Roboții, blocați pe serverul local (24 septembrie 2026)
+
+Cerut de Marius: vrea să expună public serverul local, printr-un tunel, ca să arate site-ul cuiva, fără ca adresa aceea să ajungă în vreun index. Doar local; producția rămâne neatinsă.
+
+### Ce am făcut
+
+O singură linie în `astro.config.mjs`:
+
+```js
+server: { headers: { 'X-Robots-Tag': ROBOTI_BLOCATI } },
+```
+
+unde `ROBOTI_BLOCATI` e `noindex, nofollow, noarchive, nosnippet, noimageindex, notranslate`.
+
+`server` din configul Astro descrie **exclusiv** serverul local de dezvoltare și de previzualizare. Nu scrie nimic în `dist/`. Verificat că antetul ajunge și pe `astro dev`, și pe `astro preview` — al doilea îl ia din `settings.config.server.headers`, în `static-preview-server.js`.
+
+### De ce un antet și nu `Disallow: /` în `robots.txt`
+
+Prima variantă pe care am scris-o avea și un `robots.txt` cu `Disallow: /`, servit din memorie de un plugin Vite. Am scos-o, pentru că e greșită pentru scopul ăsta:
+
+- `Disallow` oprește **citirea** paginii. `noindex` oprește **indexarea** ei.
+- Un robot care n-are voie să citească pagina nu apucă să vadă `noindex`. Dacă adresa e legată de undeva, poate ajunge totuși în rezultate, ca link gol. E chiar avertismentul din documentația Google: pentru ca `noindex` să funcționeze, pagina **nu** trebuie blocată din `robots.txt`.
+- Deci cele două lucrează una împotriva celeilalte. Aici, lipsa lui `robots.txt` (404 = „citește ce vrei”) e exact ce trebuie ca `noindex` să fie văzut și respectat.
+
+Asta a rezolvat și o problemă tehnică: serverul de previzualizare al lui Astro **aruncă plugin-urile Vite ale utilizatorului** (se vede în sursă: `const { plugins: _plugins, ...user`), deci `robots.txt` apărea pe `dev` și lipsea pe `preview`. Cu antetul, comportamentul e identic pe amândouă.
+
+Am lovit iar capcana pe care mi-am notat-o singur în `design-loop`: heredoc-ul din unealta Bash mănâncă backslash-urile, așa că `'\n'` a ajuns newline real în mijlocul unui string JS și a rupt configul. De două ori într-o sesiune. Pentru fișiere cu backslash-uri folosesc Write, nu heredoc.
+
+### Dovezi
+
+**Antetul, pe fiecare pagină construită:** 43 din 43, verificat cu un script care parcurge `dist/`, cere fiecare cale de la serverul de previzualizare și citește antetul. Zero pagini fără.
+
+**Se aplică și la ce nu e HTML** (acolo unde un `<meta>` n-ar avea efect):
+
+| Cale | X-Robots-Tag |
+|---|---|
+| `/` | noindex, nofollow, noarchive, nosnippet, noimageindex, notranslate |
+| `/en` | idem |
+| `/echipa` | idem |
+| `/servicii/securitate` | idem |
+| `/favicon.svg` | idem |
+| `/sitemap-0.xml` | idem |
+| `/sitemap-index.xml` | idem |
+
+**Ce vede un robot,** cerut cu user-agent de Googlebot:
+
+```
+HTTP/1.1 200 OK
+Content-Type: text/html
+X-Robots-Tag: noindex, nofollow, noarchive, nosnippet, noimageindex, notranslate
+```
+
+**Producția e neatinsă, bit cu bit.** Am construit de două ori, o dată cu `astro.config.mjs` pus deoparte (`git stash`) și o dată cu schimbarea, și am comparat `sha1sum` pentru toate fișierele din `dist/`: **112 fișiere, zero diferențe**. În plus, în `dist/` nu există `robots.txt`, nu apare `X-Robots-Tag` nicăieri, iar paginile cu `<meta name="robots">` sunt exact aceleași nouă ca înainte (404, /echipa, /en/team, /multumesc, /en/thank-you, cele două de QA și cele două cazuri draft).
+
+**Restul QA:** build 0/0 (43 de pagini), `astro check` 0/0/0, `pagecheck` 41 de pagini 0 probleme, `headings` 26 de titluri, `textdiff` zero diferențe pe ambele limbi, `keyboard` trece, capturi cu consolă curată și zero cereri externe.
+
+### De știut
+
+1. **Oprește indexarea, nu accesul.** Cine are adresa tunelului vede site-ul. Dacă vrea și acces restrâns, tunelul trebuie pus în spatele unei parole: Cloudflare Access, `cloudflared` cu Access în față, sau ngrok cu `--basic-auth`. Îi spun, nu presupun.
+2. **Capcană de QA:** de acum, serverul local răspunde cu `noindex` pe **toate** paginile. Dacă cineva verifică vreodată „are producția `noindex` unde trebuie?” cerând pagini de la `localhost`, primește un rezultat fals. Verificarea aceea se face pe fișierele din `dist/` (cum face `pagecheck.mjs`) sau pe site-ul publicat, niciodată pe antetul serverului local.
+3. **Nu e nevoie de niciun pas în plus** când expune tunelul: antetul e pornit din configurație, nu dintr-o variabilă de mediu pe care ar putea s-o uite.
+4. `ARHITECTURA.md` § Headere rămâne neschimbat: acolo sunt headerele de producție, servite de Cloudflare Pages, iar `/echipa` e oricum deja `noindex` acolo prin `<meta>`.
+
 ## Propuneri (nu se fac fără acord)
 
 - Faza 5: Astro are suport experimental pentru CSP cu hash-uri generate la build (`experimental.csp`), care ar scoate `'unsafe-inline'` din `script-src` și `style-src`. E îmbunătățirea menționată în `ARHITECTURA.md` § Headere ca „nu o condiție de lansare”. De evaluat când ajungem acolo.
