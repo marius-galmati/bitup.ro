@@ -34,10 +34,13 @@ const ROBOTI_BLOCATI = 'noindex, nofollow, noarchive, nosnippet, noimageindex, n
   protecție împotriva atacurilor de tip DNS rebinding. Un IP din rețea (10.10.101.7) trece din start;
   un nume de tunel (`ceva.trycloudflare.com`) e respins, iar tunelul pare picat fără niciun motiv vizibil.
 
-  Enumerăm domeniile de tunel, cu punct în față (Vite acceptă așa toate subdomeniile), în loc de `true`:
+  Enumerăm gazdele, cu punct în față (Vite acceptă așa toate subdomeniile), în loc de `true`:
   `true` ar dezactiva verificarea pentru orice nume. Dacă folosești alt furnizor de tunel, adaugă-l aici.
+
+  `.bitup.ro` acoperă subdomeniile proprii folosite pentru demo (`temp.bitup.ro` pe 24 septembrie 2026,
+  și oricare altul de mai târziu). E domeniul nostru, deci nu lărgim suprafața către nimeni din afară.
 */
-const TUNELURI = ['.trycloudflare.com', '.ngrok-free.app', '.ngrok.io', '.ngrok.app', '.loca.lt', '.serveo.net'];
+const TUNELURI = ['.bitup.ro', '.trycloudflare.com', '.ngrok-free.app', '.ngrok.io', '.ngrok.app', '.loca.lt', '.serveo.net'];
 
 export default defineConfig({
   // Markdown: fără smartypants (Astro 7 îl are pornit implicit și transforma "…" și ' din textul EN în “…” și ’, adică alt text decât cel din spec).

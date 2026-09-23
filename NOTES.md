@@ -1722,7 +1722,7 @@ Host: abc-123.ngrok-free.app  →  Blocked request. This host is not allowed.
 
 Adică tunelul ar fi pornit, ar fi dat o adresă, iar adresa ar fi întors o eroare seacă — fără nimic care să arate de ce.
 
-Reparat cu `server.allowedHosts`, cu domeniile de tunel enumerate, fiecare cu punct în față (Vite acceptă așa toate subdomeniile): `.trycloudflare.com`, `.ngrok-free.app`, `.ngrok.io`, `.ngrok.app`, `.loca.lt`, `.serveo.net`. **Nu** `true`, care ar fi dezactivat verificarea pentru orice nume și ar fi aruncat protecția. Dacă apare alt furnizor de tunel, se adaugă în listă.
+Reparat cu `server.allowedHosts`, cu gazdele enumerate, fiecare cu punct în față (Vite acceptă așa toate subdomeniile): `.bitup.ro`, `.trycloudflare.com`, `.ngrok-free.app`, `.ngrok.io`, `.ngrok.app`, `.loca.lt`, `.serveo.net`. `.bitup.ro` a intrat pe 24 septembrie 2026, când Marius a pus demo-ul pe `temp.bitup.ro` și a primit exact eroarea de mai sus; acoperă orice subdomeniu propriu folosit mai târziu, fără să lărgească accesul către altcineva. Mesajul lui Vite trimite la `preview.allowedHosts in vite.config.js`, dar aici configurarea corectă e `server.allowedHosts` din `astro.config.mjs`: Astro o transmite și serverului de previzualizare (verificat). **Nu** `true`, care ar fi dezactivat verificarea pentru orice nume și ar fi aruncat protecția. Dacă apare alt furnizor de tunel, se adaugă în listă.
 
 Verificat după reparație, pe amândouă serverele: tunelurile trec cu 200, iar un nume străin rămâne blocat cu 403.
 
