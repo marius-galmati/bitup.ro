@@ -10,6 +10,8 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
+    "share": "astro build && astro preview --host",
+    "dev:host": "astro dev --host",
     "check": "astro check",
     "astro": "astro"
   },

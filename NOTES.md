@@ -1690,6 +1690,60 @@ X-Robots-Tag: noindex, nofollow, noarchive, nosnippet, noimageindex, notranslate
 3. **Nu e nevoie de niciun pas în plus** când expune tunelul: antetul e pornit din configurație, nu dintr-o variabilă de mediu pe care ar putea s-o uite.
 4. `ARHITECTURA.md` § Headere rămâne neschimbat: acolo sunt headerele de producție, servite de Cloudflare Pages, iar `/echipa` e oricum deja `noindex` acolo prin `<meta>`.
 
+### Accesul din rețea: nu era firewall-ul (24 septembrie 2026)
+
+Marius: regula de inbound pe TCP 4321 era pusă, `http://localhost:4321/` mergea, `http://10.10.101.7:4321/` nu.
+
+Regula de firewall era corectă și n-avea ce repara. Serverul pur și simplu nu asculta pe o adresă din rețea:
+
+```
+TCP    [::1]:4321    [::]:0    LISTENING    3024
+```
+
+Doar `[::1]`, adică loopback-ul IPv6. Nimic din rețea nu putea ajunge acolo, oricâte reguli de firewall ar fi fost deschise: pachetele n-aveau unde să fie livrate. (E aceeași observație pe care o aveam deja notată în `design-loop` — „dev-ul ascultă pe `[::1]`, nu pe `127.0.0.1`” — doar că atunci conta pentru `curl`, nu pentru acces din rețea.)
+
+Cu `--host`, socket-ul se leagă de tot:
+
+```
+TCP    0.0.0.0:4321    LISTENING
+TCP    [::]:4321       LISTENING
+```
+
+și `http://10.10.101.7:4321/` răspunde 200.
+
+### A doua piedică, pe care ar fi întâlnit-o la tunel
+
+Vite 8 verifică antetul `Host` și răspunde `403 Blocked request` la orice nume care nu e localhost sau IP — protecție împotriva atacurilor de tip DNS rebinding. Un IP din rețea trece din start, dar un nume de tunel nu. Măsurat, înainte de reparație:
+
+```
+Host: demo.trycloudflare.com  →  Blocked request. This host is not allowed.
+Host: abc-123.ngrok-free.app  →  Blocked request. This host is not allowed.
+```
+
+Adică tunelul ar fi pornit, ar fi dat o adresă, iar adresa ar fi întors o eroare seacă — fără nimic care să arate de ce.
+
+Reparat cu `server.allowedHosts`, cu domeniile de tunel enumerate, fiecare cu punct în față (Vite acceptă așa toate subdomeniile): `.trycloudflare.com`, `.ngrok-free.app`, `.ngrok.io`, `.ngrok.app`, `.loca.lt`, `.serveo.net`. **Nu** `true`, care ar fi dezactivat verificarea pentru orice nume și ar fi aruncat protecția. Dacă apare alt furnizor de tunel, se adaugă în listă.
+
+Verificat după reparație, pe amândouă serverele: tunelurile trec cu 200, iar un nume străin rămâne blocat cu 403.
+
+| | dev:host | share (preview) |
+|---|---|---|
+| `10.10.101.7` | 200 | 200 |
+| `Host: demo.trycloudflare.com` | 200 | 200 |
+| `Host: abc.ngrok-free.app` | — | 200 |
+| `Host: rau.example.com` | 403 | 403 |
+
+### Două comenzi noi
+
+- `npm run share` — construiește și servește build-ul, vizibil în rețea. **Asta e cea pentru demo:** servește exact ce ar vedea în producție, e mai rapid, și nu are HMR, care pe un tunel încearcă să deschidă un websocket înapoi spre localhost și umple consola de erori.
+- `npm run dev:host` — serverul de dezvoltare, vizibil în rețea, când chiar trebuie reîncărcare la salvare.
+
+`npm run dev` și `npm run preview` rămân neschimbate, legate doar de loopback. Expunerea în rețea se cere explicit, nu e implicită.
+
+Antetul `X-Robots-Tag: noindex` merge și pe adresa din rețea (verificat), deci partea de indexare rămâne acoperită.
+
+Producția: `dist/` e în continuare bit cu bit identic — 112 fișiere, zero diferențe față de build-ul de referință. `allowedHosts` e, ca și `headers`, exclusiv configurație de server local.
+
 ## Propuneri (nu se fac fără acord)
 
 - Faza 5: Astro are suport experimental pentru CSP cu hash-uri generate la build (`experimental.csp`), care ar scoate `'unsafe-inline'` din `script-src` și `style-src`. E îmbunătățirea menționată în `ARHITECTURA.md` § Headere ca „nu o condiție de lansare”. De evaluat când ajungem acolo.

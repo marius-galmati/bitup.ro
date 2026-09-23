@@ -27,12 +27,25 @@ import icon from 'astro-icon';
   tunelul trebuie pus în spatele unei parole (Cloudflare Access, `cloudflared --basic-auth`, ngrok cu auth).
 */
 const ROBOTI_BLOCATI = 'noindex, nofollow, noarchive, nosnippet, noimageindex, notranslate';
+
+/*
+  Gazdele acceptate când serverul local e expus în afară (`npm run share`, `npm run dev:host`).
+  Vite 8 verifică antetul `Host` și răspunde „Blocked request” la orice nume care nu e localhost sau IP —
+  protecție împotriva atacurilor de tip DNS rebinding. Un IP din rețea (10.10.101.7) trece din start;
+  un nume de tunel (`ceva.trycloudflare.com`) e respins, iar tunelul pare picat fără niciun motiv vizibil.
+
+  Enumerăm domeniile de tunel, cu punct în față (Vite acceptă așa toate subdomeniile), în loc de `true`:
+  `true` ar dezactiva verificarea pentru orice nume. Dacă folosești alt furnizor de tunel, adaugă-l aici.
+*/
+const TUNELURI = ['.trycloudflare.com', '.ngrok-free.app', '.ngrok.io', '.ngrok.app', '.loca.lt', '.serveo.net'];
+
 export default defineConfig({
   // Markdown: fără smartypants (Astro 7 îl are pornit implicit și transforma "…" și ' din textul EN în “…” și ’, adică alt text decât cel din spec).
   markdown: { smartypants: false },
   site: 'https://bitup.ro',
-  // Doar serverul local; vezi comentariul de sus. Nu are efect asupra `dist/`.
-  server: { headers: { 'X-Robots-Tag': ROBOTI_BLOCATI } },
+  // Doar serverul local; vezi comentariile de sus. Nu are efect asupra `dist/`.
+  // `host` rămâne implicit (doar loopback): expunerea în rețea se cere explicit, cu `--host`.
+  server: { headers: { 'X-Robots-Tag': ROBOTI_BLOCATI }, allowedHosts: TUNELURI },
   output: 'static',
   trailingSlash: 'never',
   // Din Astro 7 implicitul e 'jsx' (păstrează spațiile); vrem HTML comprimat, ca înainte.
