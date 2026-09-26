@@ -1795,6 +1795,35 @@ Fiecare a fost corectă când a fost luată. Le las în fișier ca istoric, dar 
 `.claude/skills/design-loop/SKILL.md` e fișier de lucru, nu spec, și dădea două indicații care acum sunt greșite: „**Sentence case peste tot, inclusiv în titluri**” și, în lista de tipare care rămân, „**mono pentru etichete mici**”. Le-am adus la zi în același commit; capcanele tehnice din el rămân neatinse.
 
 
+### Scurtarea homepage-ului, și ce a arătat măsurătoarea (27 septembrie 2026)
+
+Marius: „go for it, pt homepage”. Am scurtat textul, RO și EN, în `src/copy/home.*.ts` și în `spec/continut/01-acasa.md` / `spec/continut-en/01-home.md`. Înțelesul fiecărei secțiuni a rămas; au ieșit reluările și precizările care se repetă oricum pe paginile de serviciu. H1-ul a scăzut de la 14 la 8 cuvinte: la `--fs-hero` (56–112 px) cel vechi ocupa cinci rânduri, adică jumătate de ecran.
+
+Rezultatul, măsurat: **1019 → 765 de cuvinte (−25 %)**, dar înălțimea paginii **10 704 → 10 238 px, doar −4 %**.
+
+Deci textul nu era pârghia. Defalcarea celor 10 238 px:
+
+| | px | din pagină |
+|---|---|---|
+| Padding de secțiune (13 × 288) | 3 744 | **37 %** |
+| Titluri | 2 882 | **28 %** |
+| Tot restul (text, imagini, carduri, butoane) | ~3 600 | 35 % |
+
+Titlurile cele mai înalte sunt cele strivite în coloana de 240 px a lui `TwoCol`: „Ce primești când răspunde un singur partener de tot” ocupă **547 px, opt rânduri**; hero-ul, 532 px pe cinci; FAQ-ul, 410 px pe șase.
+
+Am simulat reparația din R3/R4 (TwoCol pe `1fr 1fr`, fără coloana sticky de 240 px): titlurile scad la 3–4 rânduri, se vede mult mai bine, dar pagina scade tot cu **doar 3 %** (10 238 → 9 908 px). Conținutul se lățește cât se îngustează titlul.
+
+**Concluzia: homepage-ului nu-i prisosește textul, îi prisosesc secțiunile.** Are 13. Stilul cere „o idee pe ecran”, deci 13 secțiuni înseamnă 13 ecrane, oricât de scurt ar fi textul din ele. Fiecare secțiune costă 288 px de padding înainte să conțină ceva.
+
+Ca să ajungem la ~7 ecrane trebuie tăiate 3–4 secțiuni. Candidații, în ordinea în care mi se par de tăiat:
+
+1. **Parteneri + Tehnologii** (§9 și §10) — două secțiuni lipite, pe același fundal, cu același rol. Se contopesc într-una. *(−288 px și o idee în minus)*
+2. **De ce un singur partener** (§5) — cele cinci puncte spun, altfel, ce spun deja § Ce facem și FAQ-ul. *(−882 px)*
+3. **Din blog** (§11) — la lansare e un singur articol. *(−671 px)*
+4. **Recunoști situația?** (§2) sau **Întrebări** (§12) — amândouă tratează obiecții; una ajunge pe homepage, cealaltă își are locul pe pagina de serviciu. *(−746 px)*
+
+Cu primele trei: ~8 000 px, adică 8,9 ecrane. Cu toate patru: ~7 250 px, 8,1 ecrane, cu titluri de 3–4 rânduri în loc de 8. Decizia e a lui Marius: sunt secțiuni întregi de conținut, nu formatare.
+
 ### Contradicția dintre stilul nou și volumul de text (27 septembrie 2026)
 
 Marius, după R1: „e prea mult text pentru stilul ăsta, nu se potrivește deloc”. Are dreptate, și se măsoară.

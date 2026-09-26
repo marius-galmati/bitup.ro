@@ -27,9 +27,9 @@ Notă pentru Claude Code: eticheta pentru cititoarele de ecran (`aria-label` pe 
 
 Notă pentru Claude Code: hero schimbat de Marius pe 17 septembrie 2026. Eyebrow-ul a fost scos, textul nou n-are unul.
 
-**H1** (max-width 22ch)**:** Proiectăm, securizăm și administrăm întreaga infrastructură IT de care firma ta are nevoie.
+**H1** (max-width 22ch)**:** Proiectăm, securizăm și administrăm tot IT-ul firmei tale.
 
-Lead (max-width 60ch): Începem cu servere, rețea și cloud, ajungem la aplicații, automatizări și agenți AI. Securitatea se proiectează de la început și se integrează în fiecare etapă.
+Lead (max-width 60ch): De la servere și rețea până la aplicații, automatizări și agenți AI. Securitatea intră din prima zi, nu la final.
 
 Butoane: **Radiografie IT gratuită** (principal → `/radiografie-it`) · **Explorează serviciile** (secundar → `/servicii`)
 
@@ -48,15 +48,15 @@ Notă pentru Claude Code: aranjamentul paginii a fost schimbat pe 17 septembrie 
 Trei coloane pe un rând, despărțite de rigle verticale de 1 px `--line`, fără carduri și fără chenare. Fiecare coloană are deasupra o liniuță de accent teal (28 × 3 px), apoi citatul ca titlu și o propoziție dedesubt. Sub 768 px coloanele se stivuiesc, liniuța rămâne deasupra fiecărui citat:
 
 **„Avem un băiat care se pricepe. Dar când e în concediu, nu știe nimeni parolele.”**
-Tot IT-ul stă într-un singur om. Când lipsește el, se oprește firma.
+Tot IT-ul stă într-un singur om.
 
 **„Avem trei furnizori. Când pică ceva, fiecare zice că e la celălalt.”**
-Nimeni nu răspunde de tot. Ajungi să-i coordonezi tu, în loc să-ți vezi de treabă.
+Nimeni nu răspunde de ansamblu.
 
 **„Avem backup. Cred. Nu l-a testat nimeni.”**
-Dacă nu l-a restaurat nimeni, nu știi dacă ai backup.
+Un backup netestat nu e backup.
 
-Rând de închidere (text simplu, sub carduri): Dacă te-ai regăsit în cel puțin una, Radiografia IT de 30 de minute e pentru tine. → link „Cum decurge” (`/radiografie-it`)
+Rând de închidere (text simplu, sub carduri): Te-ai regăsit? Radiografia IT durează 30 de minute. → link „Cum decurge” (`/radiografie-it`)
 
 ---
 
@@ -69,15 +69,15 @@ Eyebrow: `Servicii`
 Modelul „două coloane”: eyebrow și H2 lipite în stânga (240 px, sticky pe desktop), gutieră goală (fără riglă verticală — mockup-ul desparte cele două coloane doar cu spațiu), iar în dreapta cele trei servicii ca rânduri despărțite de linii de păr de 1 px — titlu, paragraf, link terțiar cu săgeată. Fără carduri, fără numere de index (serviciile nu sunt o secvență):
 
 **Suport și administrare IT**
-Preluăm tot ce ține de calculatoare, servere, rețea, cloud și Microsoft 365, în abonament lunar. Echipa ta scrie pe WhatsApp, un om răspunde, iar la sfârșitul lunii primești raportul cu ce s-a făcut.
+Calculatoare, servere, rețea, cloud și Microsoft 365, în abonament lunar. Raport la sfârșitul fiecărei luni.
 → Vezi ce include abonamentul (`/servicii/suport-it`)
 
 **Securitate și continuitate**
-Protecție împotriva atacurilor, accese controlate, backup care chiar se restaurează, testat periodic. Când firma ta are obligații (NIS2, ISO 27001), le traducem în pași concreți, nu în hârtii.
+Protecție, accese controlate și backup testat. NIS2 și ISO 27001, traduse în pași concreți.
 → Vezi ce protejăm și cum (`/servicii/securitate`)
 
 **Automatizări și software**
-Când un proces trăiește în Excel și în emailuri, îl mutăm într-un sistem: automatizare, integrare sau o aplicație făcută pentru voi. Pornim de la proces, nu de la tehnologie.
+Mutăm procesele din Excel și emailuri într-un sistem. Pornim de la proces, nu de la tehnologie.
 → Vezi exemple reale (`/servicii/automatizari`)
 
 ---
@@ -92,15 +92,15 @@ Antetul secțiunii stă sus, pe toată lățimea. Dedesubt, Steps în varianta �
 
 Steps:
 
-**1. Radiografie.** 30 de minute, remote, gratuit. Zece verificări. Pleci cu o pagină: ce e bine, ce e urgent, ce ar costa.
+**1. Radiografie.** Treizeci de minute, gratuit. Zece verificări și o pagină de concluzii.
 
-**2. Plan.** Ce facem în prima lună, ce poate aștepta, ce nu merită făcut deloc. În cuvinte de business, cu prețul lângă.
+**2. Plan.** Ce facem în prima lună, ce poate aștepta, cu prețul lângă.
 
-**3. Preluare.** În primele 30 de zile documentăm tot, schimbăm parolele care trebuie schimbate, punem backup-ul la punct și îl testăm.
+**3. Preluare.** Documentăm tot, schimbăm parolele, punem backup-ul la punct și îl testăm.
 
-**4. Lună de lună.** Monitorizare, suport pe WhatsApp, actualizări, raport lunar. Tu știi ce se întâmplă fără să întrebi.
+**4. Lună de lună.** Monitorizare, suport pe WhatsApp, raport lunar. Știi ce se întâmplă fără să întrebi.
 
-Link: Tot procesul, cu ce se întâmplă în fiecare etapă → `/cum-lucram`
+Link: Tot procesul, etapă cu etapă → `/cum-lucram`
 
 ---
 
@@ -112,15 +112,15 @@ Eyebrow: `Ce e diferit`
 
 Listă de 5, fiecare cu titlu scurt și o propoziție (nu carduri; listă cu marcaj teal):
 
-**Un număr de telefon, nu trei furnizori.** Când pică ceva, nu mai cauți vinovatul. Suni și se rezolvă.
+**Un număr de telefon, nu trei furnizori.** Suni și se rezolvă.
 
-**Securitatea e făcută, nu vândută separat.** Fiecare lucru pe care îl instalăm are și partea de securitate făcută. Nu funcționează altfel.
+**Securitatea e făcută, nu vândută separat.** Nu funcționează altfel.
 
-**Vezi tot, fără să întrebi.** Cererile echipei tale intră într-un sistem de tichete construit de noi. Știi cine se ocupă, în ce stadiu e, când s-a rezolvat.
+**Vezi tot, fără să întrebi.** Fiecare cerere intră într-un tichet pe care îl vezi.
 
-**Raport lunar din fapte, nu din memorie.** La sfârșitul lunii primești ce s-a făcut, cât a durat, ce urmează. Nu ghicești pentru ce plătești.
+**Raport lunar din fapte, nu din memorie.** Știi exact pentru ce plătești.
 
-**Experiență de la scară mare, la scara ta.** Aducem experiență de securitate dintr-o corporație din Fortune 500 într-o firmă de 30 de oameni, fără complexitatea inutilă.
+**Experiență de la scară mare, la scara ta.** Fortune 500, fără complexitatea inutilă.
 
 ---
 
@@ -132,9 +132,9 @@ Eyebrow: `Suport`
 
 Text (două coloane: text stânga, captura WhatsApp dreapta, `assets/blog/helpdesk/whatsapp-cipri.jpg`):
 
-Echipa ta nu învață niciun portal nou: scrie pe WhatsApp, ca oricui. Cipri, asistentul nostru virtual, o recunoaște, preia problema și încearcă s-o rezolve pe loc, la orice oră. Ce nu poate rezolva el devine automat un tichet în BitUp Helpdesk și îl preia un om. Tu vezi fiecare tichet, de la deschidere la închidere.
+Echipa ta scrie pe WhatsApp, ca oricui. Cipri preia problema și o rezolvă pe loc, la orice oră. Ce nu poate el devine tichet și îl preia un om.
 
-Am construit tot sistemul noi, pentru firmele mici cu care lucrăm. → Cum l-am construit și de ce (`/blog/cum-ne-am-construit-propriul-helpdesk`)
+Sistemul e construit de noi. → Cum l-am construit (`/blog/cum-ne-am-construit-propriul-helpdesk`)
 
 ---
 
@@ -146,7 +146,7 @@ Eyebrow: `Cine răspunde`
 
 Secțiune compactă, pe `--surface-2`. Text (portret pătrat 200 px în stânga, text în dreapta; rămâne la persoana I, e declarația semnată a fondatorului):
 
-Lucrez în IT din 2017. Am început cu serverele și rețelele din firme mici. Ultimii doi ani și jumătate am lucrat în securitate informațională într-o corporație din Fortune 500: audituri ISO 27001, planuri de continuitate, protecție pe stații și servere. Am făcut BitUp pentru că văzusem prea multe firme cu tehnologie, dar fără cineva care să răspundă de ea.
+Lucrez în IT din 2017, ultimii doi ani și jumătate în securitate informațională, într-o corporație din Fortune 500. Am făcut BitUp pentru că văzusem prea multe firme cu tehnologie, dar fără cineva care să răspundă de ea.
 
 Linkuri: Povestea, pe scurt → `/despre` · Echipa → `/echipa` · LinkedIn → https://www.linkedin.com/in/nicolae-marius-galmati
 
@@ -202,16 +202,16 @@ Eyebrow: `Întrebări`
 Faq (4 întrebări, prima deschisă):
 
 **Putem externaliza doar o parte din IT?**
-Da. Sunt trei formule: alături de omul vostru intern (el rămâne pe zi cu zi, noi preluăm securitatea, backup-ul și ce nu știe el), parțial (doar serverele și Microsoft 365, de exemplu) sau complet. Alegem la radiografie, după ce vedem ce aveți.
+Da. Alături de omul vostru intern, parțial sau complet. Alegem la radiografie, după ce vedem ce aveți.
 
 **Trebuie să schimbăm tot ce avem?**
-Nu. Pornim de la ce funcționează. Schimbăm doar ce e riscant sau ce te costă mai mult decât face.
+Nu. Pornim de la ce funcționează. Schimbăm doar ce e riscant sau ce costă mai mult decât face.
 
 **Cât costă?**
-Depinde de numărul de stații și servere și de ce preluăm: doar administrare, sau și securitate, backup, licențe. Îți spunem un preț concret la finalul radiografiei, fără obligații. Pe site nu punem cifre pentru că ar fi false pentru jumătate din firme.
+Depinde de câte stații și servere aveți și de ce preluăm. Prețul îl afli la finalul radiografiei. Pe site ar fi fals pentru jumătate din firme.
 
 **Putem începe cu o problemă punctuală?**
-Da. O intervenție sau un proiect delimitat (o migrare, un backup pus la punct, un audit) e o intrare bună. După aceea vedem dacă are sens un abonament.
+Da. O migrare, un backup pus la punct, un audit — e o intrare bună. Vedem după dacă are sens un abonament.
 
 ---
 
