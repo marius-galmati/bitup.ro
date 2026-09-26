@@ -1795,6 +1795,32 @@ Fiecare a fost corectă când a fost luată. Le las în fișier ca istoric, dar 
 `.claude/skills/design-loop/SKILL.md` e fișier de lucru, nu spec, și dădea două indicații care acum sunt greșite: „**Sentence case peste tot, inclusiv în titluri**” și, în lista de tipare care rămân, „**mono pentru etichete mici**”. Le-am adus la zi în același commit; capcanele tehnice din el rămân neatinse.
 
 
+### Contradicția dintre stilul nou și volumul de text (27 septembrie 2026)
+
+Marius, după R1: „e prea mult text pentru stilul ăsta, nu se potrivește deloc”. Are dreptate, și se măsoară.
+
+`DESIGN.md` cere „o idee pe ecran, mult spațiu în jurul ei, un singur buton”, cu paragrafele la 60ch. Textul din `spec/continut/` a fost scris pentru stilul vechi, care era dens. Cifrele:
+
+| | |
+|---|---|
+| Homepage, stilul vechi (24 sept.) | 7 820 px — 8,7 ecrane |
+| Homepage, stilul nou, **același text** | 10 704 px — 11,9 ecrane (**+37 %**) |
+| Cuvinte pe secțiune, la noi | 78 (homepage) … 115 (securitate) |
+| Cuvinte pe secțiune, în referințele alese (bancatransilvania) | 29 … 55 |
+| Paragrafe de 5+ rânduri la 60ch | 53 din 259 |
+
+Deci secțiunile noastre au cam dublul textului față de referința după care s-a ales stilul. Titlurile mari și aerul cerut nu încap peste un text scris pentru altceva: fiecare secțiune devine un titlu uriaș urmat de un bloc compact de text, adică exact ce nu voia stilul.
+
+Trei ieșiri, niciuna nu se poate lua fără Marius:
+
+1. **Se scurtează textul** (schimbă `spec/continut/` și `spec/continut-en/`, deci e decizia lui). Țintă ~50 de cuvinte pe secțiune, ca în referințe. Homepage-ul ar coborî spre 7 ecrane.
+2. **Se îmblânzește stilul**: `h2` de la 44–72 px spre 32–44, `--section-y` mai mic, măsura peste 60ch. Textul rămâne, dar site-ul nu mai seamănă cu referințele alese.
+3. **Hibrid**: paginile de marketing (homepage, servicii, Despre) trec pe stilul rar, cu text scurtat; paginile dense prin natura lor (Suport, Radiografie, legale, FAQ) păstrează o variantă mai strânsă.
+
+Recomandarea mea e 1, pe motiv de cronologie: stilul e decizia nouă și vine din referințe alese anume, iar textul a fost scris pentru stilul vechi. Dar e textul lui și e de lucru, deci propun să începem cu o singură pagină — homepage — secțiune cu secțiune, și decide pe ea.
+
+**Faza R e oprită la R1 până la răspuns.** R2 (header) nu depinde de asta și se poate face între timp.
+
 ### R1 — tokeni, fonturi, bază (26 septembrie 2026)
 
 **Fonturi.** `@fontsource/barlow-condensed` instalat (300 și 700, `latin` și `latin-ext`), `@fontsource/ibm-plex-mono` dezinstalat. Importurile și preîncărcarea sunt în `BaseLayout`. Preîncărcarea e pe limbă: RO ia și `latin-ext` (are diacritice în titluri), EN ia doar `latin` — altfel ar descărca degeaba 32 KB pe care nu-i folosește deasupra pliului. Restul subseturilor rămân pe `unicode-range`, deci se iau doar la nevoie.
