@@ -2,7 +2,7 @@
 /**
  * ConsentBanner (DESIGN § ConsentBanner, 00-global § Banner). Faza 1: doar vizual, ascuns implicit (logica vine în Faza 5).
  * position: fixed, jos; pe mobil toată lățimea, pe desktop casetă de 420 px în colțul dreapta-jos, la 24 px de margini.
- * Fundal --surface, bordură --line, --radius-lg, umbră (light) / bordură (dark). Două butoane identice: Accept · Refuz.
+ * Fundal --surface, bordură --line, --r-media, umbră (light) / bordură (dark). Două butoane identice: Accept · Refuz.
  */
 import Button from './Button.astro';
 import { t, localePath, type Locale } from '../i18n';
@@ -23,7 +23,7 @@ const c = t(lang).consent;
 <style>
   .consent { position: fixed; left: 0; right: 0; bottom: 0; z-index: 40; padding: var(--s-5) 20px; background: var(--surface); border-top: 1px solid var(--line); box-shadow: var(--shadow); display: grid; gap: var(--s-3); }
   .consent[hidden] { display: none; }
-  @media (min-width: 768px) { .consent { left: auto; right: 24px; bottom: 24px; width: 420px; border: 1px solid var(--line); border-radius: var(--radius-lg); padding: var(--s-5); } }
+  @media (min-width: 768px) { .consent { left: auto; right: 24px; bottom: 24px; width: 420px; border: 1px solid var(--line); border-radius: var(--r-media); padding: var(--s-5); } }
   .consent__title { font-family: var(--font-display); font-weight: 600; font-size: var(--fs-body); color: var(--navy); }
   .consent__text { font-size: var(--fs-small); color: var(--text); }
   .consent__actions { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-3); margin-top: var(--s-1); }

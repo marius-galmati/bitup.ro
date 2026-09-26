@@ -42,7 +42,7 @@ const jsonLd = [article(lang, {
       <Eyebrow>{dict.misc.blogEyebrow}{d.tags[0] && <span> · {d.tags[0]}</span>}{d.draft && <span> · {dict.misc.draft}</span>}</Eyebrow>
       <h1 class="post-head__h1">{d.title}</h1>
       <p class="lead post-head__lead">{d.description}</p>
-      <p class="mono small muted post-head__byline">{d.author} · <time datetime={d.pubDate.toISOString().slice(0, 10)}>{formatDate(d.pubDate, lang)}</time> · {dict.misc.readTime(minutes)}</p>
+      <p class="small muted post-head__byline tnum">{d.author} · <time datetime={d.pubDate.toISOString().slice(0, 10)}>{formatDate(d.pubDate, lang)}</time> · {dict.misc.readTime(minutes)}</p>
     </Container>
   </Section>
 
@@ -61,8 +61,8 @@ const jsonLd = [article(lang, {
   .post-head__lead { margin-top: var(--s-4); max-width: 60ch; }
   .post-head__byline { margin-top: var(--s-5); }
   .prose .figure { margin: var(--s-6) 0; display: grid; gap: var(--s-2); }
-  .prose .figure__media { padding: 10px; background: var(--bg); border: 1px solid var(--line); border-radius: var(--radius); }
-  .prose .figure__media img { display: block; width: 100%; height: auto; border-radius: var(--radius); }
+  .prose .figure__media { padding: 10px; background: var(--bg); border: 1px solid var(--line); border-radius: var(--r-media); }
+  .prose .figure__media img { display: block; width: 100%; height: auto; border-radius: var(--r-media); }
   :root[data-theme="dark"] .prose .figure--screenshot img { filter: brightness(.92); }
   @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .prose .figure--screenshot img { filter: brightness(.92); } }
   .prose .figure__caption { font-size: var(--fs-small); color: var(--muted); }

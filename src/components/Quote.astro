@@ -9,7 +9,8 @@ const { name, role, class: className } = Astro.props;
 </figure>
 
 <style>
-  .quote { margin: 0; padding: var(--s-5) var(--s-6); background: var(--teal-soft); border-left: 4px solid var(--teal); border-radius: 0 var(--radius) var(--radius) 0; display: grid; gap: var(--s-3); }
+  /* DESIGN § Quote (26 sept. 2026): --teal-soft, --r-card, padding --s-8, fără bordură laterală. */
+  .quote { margin: 0; padding: var(--s-8); background: var(--teal-soft); border-radius: var(--r-card); display: grid; gap: var(--s-3); }
   .quote__text { margin: 0; font-style: italic; font-size: var(--fs-lead); line-height: 1.5; color: var(--text); }
   .quote__source { color: var(--muted); font-size: var(--fs-small); }
 </style>

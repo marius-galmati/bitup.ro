@@ -34,7 +34,7 @@ const rssPath = localePath('rss', lang);
             <p class="eyebrow">{single.data.tags[0]}{single.data.draft && <span class="muted"> · {dict.misc.draft}</span>}</p>
             <h2 class="post-wide__title"><a href={dynamicPath('post', lang, slugOf(single.id))}>{single.data.title}</a></h2>
             <p>{single.data.description}</p>
-            <p class="small muted mono">{formatDate(single.data.pubDate, lang)} · {dict.misc.readTime(readMinutes(single.body))}</p>
+            <p class="small muted tnum">{formatDate(single.data.pubDate, lang)} · {dict.misc.readTime(readMinutes(single.body))}</p>
           </div>
           {single.data.heroImage && (
             <Picture src={single.data.heroImage} alt="" widths={[360, 720]} sizes="(min-width: 1024px) 360px, 90vw" formats={['avif', 'webp']} loading="lazy" decoding="async" class="post-wide__image" />
@@ -46,7 +46,7 @@ const rssPath = localePath('rss', lang);
             <Card title={p.data.title} href={dynamicPath('post', lang, slugOf(p.id))} linkLabel={p.data.title}>
               <p class="eyebrow">{p.data.tags[0]}</p>
               <p>{p.data.description}</p>
-              <p class="small muted mono">{formatDate(p.data.pubDate, lang)} · {dict.misc.readTime(readMinutes(p.body))}</p>
+              <p class="small muted tnum">{formatDate(p.data.pubDate, lang)} · {dict.misc.readTime(readMinutes(p.body))}</p>
             </Card>
           ))}
         </div>
@@ -71,14 +71,14 @@ const rssPath = localePath('rss', lang);
 </BaseLayout>
 
 <style>
-  .post-wide { display: grid; gap: var(--s-5); padding: var(--s-6); background: var(--surface); border: 1px solid var(--line); border-top: 3px solid var(--teal); border-radius: var(--radius); align-items: center; }
+  .post-wide { display: grid; gap: var(--s-5); padding: var(--s-6); background: var(--surface); border: 1px solid var(--line); border-top: 3px solid var(--teal); border-radius: var(--r-media); align-items: center; }
   @media (min-width: 768px) { .post-wide { grid-template-columns: minmax(0, 1fr) 300px; gap: var(--s-7); } }
   @media (min-width: 1024px) { .post-wide { grid-template-columns: minmax(0, 1fr) 360px; } }
   .post-wide__text { display: grid; gap: var(--s-3); }
   .post-wide__title { font-size: var(--fs-h2); }
   .post-wide__title a { color: var(--navy); text-decoration: none; }
   .post-wide__title a:hover { color: var(--teal); text-decoration: underline; text-underline-offset: 4px; }
-  .post-wide :global(.post-wide__image) { width: 100%; height: auto; border: 1px solid var(--line); border-radius: var(--radius); }
+  .post-wide :global(.post-wide__image) { width: 100%; height: auto; border: 1px solid var(--line); border-radius: var(--r-media); }
   .grid-3 { display: grid; gap: var(--s-5); grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
   .subscribe { max-width: 70ch; }
   .subscribe a { color: var(--teal); text-decoration: underline; text-underline-offset: 3px; }

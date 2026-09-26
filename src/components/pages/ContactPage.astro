@@ -1,7 +1,7 @@
 ---
 /**
  * /contact, /en/contact (11). Fără CtaBand; formularul e acțiunea.
- * Ritm: hero → două coloane: stânga căile directe ca listă cu etichete mono, dreapta formularul (bg) → „Ce se întâmplă după” (două coloane, surface). JSON-LD: global.
+ * Ritm: hero → două coloane: stânga căile directe ca listă cu etichete, dreapta formularul (bg) → „Ce se întâmplă după” (două coloane, surface). JSON-LD: global.
  */
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import HeroInternal from '../HeroInternal.astro';
@@ -27,8 +27,8 @@ const w = copy.ways;
     <Container>
       <div class="contact">
         <dl class="ways">
-          <div class="way"><dt class="way__k">{w.phone.label}</dt><dd class="way__v"><a class="mono" href={site.phone.href} data-event="tel_click">{site.phone.display}</a><span class="way__note">{w.phone.hours}</span></dd></div>
-          <div class="way"><dt class="way__k">{w.email.label}</dt><dd class="way__v"><a class="mono" href={site.emailHref}>{site.email}</a><span class="way__note">{w.email.note}</span></dd></div>
+          <div class="way"><dt class="way__k">{w.phone.label}</dt><dd class="way__v"><a class="tnum" href={site.phone.href} data-event="tel_click">{site.phone.display}</a><span class="way__note">{w.phone.hours}</span></dd></div>
+          <div class="way"><dt class="way__k">{w.email.label}</dt><dd class="way__v"><a href={site.emailHref}>{site.email}</a><span class="way__note">{w.email.note}</span></dd></div>
           <div class="way"><dt class="way__k">{w.book.label}</dt><dd class="way__v"><a href={site.calendly} target="_blank" rel="noopener" data-event="calendly_click">{w.book.text}<span aria-hidden="true"> →</span></a></dd></div>
           <div class="way"><dt class="way__k">{w.clients.label}</dt><dd class="way__v"><a href={localePath('support', lang)}>{w.clients.text}<span aria-hidden="true"> →</span></a></dd></div>
           <div class="way"><dt class="way__k">{w.where.label}</dt><dd class="way__v">{w.where.value}</dd></div>
@@ -61,7 +61,7 @@ const w = copy.ways;
   .way { display: grid; gap: var(--s-1); padding-block: var(--s-4); border-top: 1px solid var(--line); }
   .way:last-child { border-bottom: 1px solid var(--line); }
   @media (min-width: 480px) { .way { grid-template-columns: 160px 1fr; gap: var(--s-4); } }
-  .way__k { font-family: var(--font-mono); font-size: var(--fs-eyebrow); font-weight: 500; letter-spacing: .08em; text-transform: uppercase; color: var(--teal); padding-top: 4px; }
+  .way__k { font-size: var(--fs-label); font-weight: 600; letter-spacing: .04em; text-transform: uppercase; color: var(--teal); padding-top: 4px; }
   .way__v { margin: 0; display: grid; gap: var(--s-1); }
   .way__v a { font-weight: 600; }
   .way__note { font-size: var(--fs-small); color: var(--muted); }

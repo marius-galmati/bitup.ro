@@ -226,7 +226,7 @@ const thankYou = localePath('thankYou', lang);
 </script>
 
 <style>
-  .form-wrap { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); padding: var(--s-5); display: grid; gap: var(--s-3); }
+  .form-wrap { background: var(--surface-2); border-radius: var(--r-card); padding: var(--s-5); display: grid; gap: var(--s-3); }
   @media (min-width: 768px) { .form-wrap { padding: var(--s-6); } }
   .form__title { font-size: var(--fs-h3); }
   .form__intro { color: var(--muted); }
@@ -236,7 +236,7 @@ const thankYou = localePath('thankYou', lang);
   .form__field { display: grid; gap: var(--s-2); }
   .form__field label { font-family: var(--font-display); font-weight: 600; font-size: var(--fs-small); color: var(--navy); }
   .form__req { color: var(--teal); }
-  .form input:not([type="checkbox"]), .form select, .form textarea { width: 100%; padding: var(--s-3); border: 1px solid var(--line); border-radius: var(--radius); background: var(--bg); color: var(--text); font-size: var(--fs-body); min-height: 44px; }
+  .form input:not([type="checkbox"]), .form select, .form textarea { width: 100%; padding: var(--s-3); border: 1px solid var(--line); border-radius: var(--r-field); background: var(--bg); color: var(--text); font-size: var(--fs-body); min-height: 44px; }
   .form select { appearance: auto; }
   .form textarea { resize: vertical; }
   .form input:focus-visible, .form select:focus-visible, .form textarea:focus-visible { outline: 2px solid var(--teal); outline-offset: 0; border-color: var(--teal); }
@@ -252,7 +252,7 @@ const thankYou = localePath('thankYou', lang);
   .form :global(.form__submit) { width: 100%; }
   @media (min-width: 768px) { .form :global(.form__submit) { width: auto; justify-self: start; } }
   .form :global(.form__submit[disabled]) { opacity: .7; cursor: default; }
-  .form__status { color: var(--crit); padding: var(--s-3); border: 1px solid var(--crit); border-radius: var(--radius); }
+  .form__status { color: var(--crit); padding: var(--s-3); border: 1px solid var(--crit); border-radius: var(--r-field); }
   .form__status[hidden] { display: none; }
   .form__signature { margin-top: calc(var(--s-2) * -1); }
 </style>

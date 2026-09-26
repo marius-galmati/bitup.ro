@@ -27,7 +27,7 @@ const graph = {
   .faq__item { border-bottom: 1px solid var(--line); }
   .faq__q { padding: var(--s-4) 0; padding-right: var(--s-7); font-family: var(--font-display); font-weight: 600; font-size: var(--fs-h3); color: var(--navy); cursor: pointer; list-style: none; position: relative; }
   .faq__q::-webkit-details-marker { display: none; }
-  .faq__q::after { content: '+'; position: absolute; right: var(--s-2); top: var(--s-4); font-family: var(--font-mono); font-weight: 400; color: var(--teal); transition: transform 150ms; }
+  .faq__q::after { content: '+'; position: absolute; right: var(--s-2); top: var(--s-4); font-weight: 400; color: var(--teal); transition: transform 150ms; }
   .faq__item[open] .faq__q::after { content: '−'; }
   .faq__q:hover { color: var(--teal); }
   .faq__a { padding: 0 0 var(--s-5); max-width: 70ch; }

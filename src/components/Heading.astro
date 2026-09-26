@@ -1,0 +1,47 @@
+---
+/**
+ * Heading (DESIGN § Tipografie, „Cuvântul evidențiat”, 26 septembrie 2026).
+ *
+ * Titlul se scrie o singură dată, în `src/copy/*.ts`, în sentence case. Cuvântul evidențiat nu se scrie
+ * separat și nu se marchează în text: se dă ca `accent`, un subșir exact din titlu, iar componenta îl
+ * învelește în `<span class="accent">` la **prima** potrivire. Așa textul rămâne un singur șir —
+ * `textdiff` îl compară neschimbat, iar cititoarele de ecran citesc o propoziție, nu două fragmente.
+ *
+ * Majusculele vin din CSS (`text-transform` pe h1/h2 în `base.css`), nu din text.
+ *
+ * Dacă `accent` nu se găsește în titlu, build-ul se oprește cu eroare: altfel o greșeală de tipar ar trece
+ * neobservată și titlul ar rămâne fără evidențiere, exact lucrul pe care nu-l vede nimeni la corectură.
+ * Cel mult un `accent` pe titlu, niciodată în titlurile de card (DESIGN § Ce nu facem).
+ */
+interface Props {
+  /** `h1` pe pagină, `h2` pe secțiune. Titlurile de card sunt `h3` și nu folosesc componenta asta. */
+  as?: 'h1' | 'h2';
+  text: string;
+  /** Subșir exact din `text`, 1–3 cuvinte. Fără el, titlul se randează simplu. */
+  accent?: string;
+  /** Pe fundal navy accentul e `--on-navy-accent`, nu `--teal`. */
+  onNavy?: boolean;
+  id?: string;
+  class?: string;
+}
+const { as: Tag = 'h2', text, accent, onNavy = false, id, class: className } = Astro.props as Props;
+
+let inainte = text;
+let mijloc = '';
+let dupa = '';
+
+if (accent) {
+  const i = text.indexOf(accent);
+  if (i === -1) {
+    throw new Error(
+      `Heading: accentul „${accent}” nu se găsește în titlul „${text}”. ` +
+        'Accentul trebuie să fie un subșir exact din titlu (DESIGN § Tipografie). ' +
+        'Verifică diacriticele și spațiile în src/copy/.',
+    );
+  }
+  inainte = text.slice(0, i);
+  mijloc = accent;
+  dupa = text.slice(i + accent.length);
+}
+---
+<Tag id={id} class={className}>{inainte}{mijloc && <span class:list={['accent', { 'accent--navy': onNavy }]}>{mijloc}</span>}{dupa}</Tag>

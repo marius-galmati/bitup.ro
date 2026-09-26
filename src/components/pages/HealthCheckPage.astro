@@ -51,7 +51,7 @@ const capacityStep = copy.how.steps.map((s, i) => (i === 0 ? { ...s, text: `${s.
       <ol class="checks">
         {copy.checks.items.map((it, i) => (
           <li class="check">
-            <span class="check__num mono" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+            <span class="check__num tnum" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
             <div><strong class="check__title">{it.title}</strong> <span>{it.text}</span></div>
           </li>
         ))}
@@ -123,7 +123,7 @@ const capacityStep = copy.how.steps.map((s, i) => (i === 0 ? { ...s, text: `${s.
   .who { padding-block: var(--s-7); }
   .who__grid { display: grid; gap: var(--s-5); align-items: start; }
   @media (min-width: 768px) { .who__grid { grid-template-columns: 200px minmax(0, 1fr); gap: var(--s-6); } }
-  .who :global(.who__photo) { width: 200px; height: 200px; border-radius: var(--radius); }
+  .who :global(.who__photo) { width: 200px; height: 200px; border-radius: var(--r-media); }
   .who__body { display: grid; gap: var(--s-3); max-width: 70ch; }
   .who__h2 { font-size: var(--fs-h3); }
   .who__body a { font-family: var(--font-display); font-weight: 600; }

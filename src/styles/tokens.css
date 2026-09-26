@@ -1,90 +1,101 @@
 /*
-  tokens.css — DESIGN.md § Tokeni și § Dark mode.
-  Nicio valoare inventată în componente: toate distanțele, culorile și mărimile vin de aici.
+  tokens.css — DESIGN.md § Tokeni și § Dark mode (stilul nou, din 26 septembrie 2026).
+  Nicio valoare inventată în componente: culorile, mărimile, razele și distanțele vin de aici.
   Light e implicit; dark prin `data-theme="dark"` pe <html> sau, fără alegere explicită, prin preferința sistemului.
 */
 
 :root {
   /* brand (din logo) */
-  --navy: #00202E;        /* text de titlu, fundaluri închise */
-  --navy-2: #003343;      /* iconul din logo, hover pe navy */
-  --teal: #20686C;        /* acțiune principală, linkuri, accente */
-  --teal-2: #4A9396;      /* accente secundare, eyebrow pe fundal închis */
-  --teal-soft: #E3EFEF;   /* fundaluri de evidențiere, citate */
-  --orange: #FE982A;      /* UN SINGUR rol: butonul principal de CTA (Radiografie) și, rar, un marcaj de atenție */
+  --navy: #00202E;        /* rol: culoarea titlurilor și a textului */
+  --navy-2: #003343;      /* hover pe navy */
+  --teal: #20686C;        /* cuvântul evidențiat din titlu, linkuri, butonul secundar, etichete */
+  --teal-2: #4A9396;
+  --teal-soft: #E3EFEF;   /* fundal de citat */
+  --orange: #FE982A;      /* butonul principal și nodurile din HeroDiagram; text navy pe el */
 
-  /* neutre, cu tentă rece spre teal (nu gri pur) */
-  --bg: #F5F8F8;          /* fundalul paginii */
-  --surface: #FFFFFF;     /* carduri, header, footer */
-  --surface-2: #EAF0F0;   /* benzi alternative, fundal de cod */
-  --line: #D6E0E1;        /* borduri */
-  --text: #14232A;        /* text curent */
+  /* neutre */
+  --bg: #FFFFFF;          /* fundalul paginii: alb curat */
+  --surface: #FFFFFF;     /* header, footer, carduri din panoul Servicii */
+  --surface-2: #EEF3F3;   /* carduri, benzi alternative, caseta „Ai nevoie de ajutor?” */
+  --line: #D6E0E1;        /* borduri, separatoare */
+  --text: #00202E;        /* text curent: navy aproape negru, contrast maxim */
   --muted: #55686F;       /* text secundar, legende */
-  --ok: #2E7D5B; --warn: #C97A12; --crit: #B4432F;  /* doar pentru semafor (Radiografie) și stări de formular */
+  --ok: #2E7D5B; --warn: #C97A12; --crit: #B4432F;
 
-  /* tipografie */
-  --font-display: "Public Sans Variable", "Segoe UI", system-ui, sans-serif;
+  /* tipografie: două familii, self-hosted */
+  --font-display: "Barlow Condensed", "Arial Narrow", sans-serif-condensed, sans-serif;
   --font-body: "Public Sans Variable", "Segoe UI", system-ui, sans-serif;
-  --font-mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
 
-  /* scară de tip (desktop; pe mobil se reduc cu clamp) */
-  --fs-hero: clamp(34px, 4.6vw, 52px);
-  --fs-h1: clamp(30px, 4vw, 44px);
-  --fs-h2: clamp(24px, 2.8vw, 30px);
-  --fs-h3: 19px;
-  --fs-body: 17px;
+  /* scară de tip (desktop; pe mobil coboară cu clamp) */
+  --fs-hero: clamp(56px, 8vw, 112px);    /* h1 homepage */
+  --fs-h1: clamp(48px, 6.4vw, 96px);     /* h1 pagini interne */
+  --fs-h2: clamp(44px, 5.2vw, 72px);
+  --fs-eyebrow: clamp(22px, 2.4vw, 32px);/* Barlow Condensed 300, deasupra titlului */
+  --fs-stat: clamp(48px, 5vw, 64px);     /* cifrele din NumberTiles */
+  --fs-h3: clamp(22px, 2vw, 26px);       /* titluri de card, Public Sans 600 */
   --fs-lead: 20px;
-  --fs-small: 14.5px;
-  --fs-eyebrow: 12.5px;
+  --fs-body: 18px;
+  --fs-small: 15px;
+  --fs-label: 14px;                      /* eticheta teal din card, majuscule */
+  --lh-display: .95;
+  --lh-body: 1.55;
+  --ls-display: -0.01em;
 
   /* spațiere (bază 8) */
-  --s-1: 4px; --s-2: 8px; --s-3: 12px; --s-4: 16px; --s-5: 24px; --s-6: 32px; --s-7: 48px; --s-8: 64px; --s-9: 96px;
-  --section-y: clamp(48px, 7vw, 96px);
+  --s-1: 4px; --s-2: 8px; --s-3: 12px; --s-4: 16px; --s-5: 24px; --s-6: 32px; --s-7: 48px; --s-8: 64px; --s-9: 96px; --s-10: 128px;
+  --section-y: clamp(80px, 10vw, 144px);
 
   /* layout */
-  --container: 1120px;
-  --container-narrow: 760px;   /* coloana de text lung; textul curent se limitează la 70ch în Prose */
-  --radius: 4px;               /* mic, deliberat; nu rotunjim totul */
-  --radius-lg: 8px;            /* doar caseta de logo, banda de CTA și bannerul de consimțământ */
-  --shadow: 0 1px 2px rgba(0,32,46,.06), 0 8px 24px rgba(0,32,46,.06); /* doar pe elementele ridicate: meniul mobil, formularul, bannerul de consimțământ. Nu pe header. */
+  --container: 1200px;
+  --container-narrow: 760px;   /* text lung (Prose) */
+  --measure: 60ch;             /* lățimea maximă a paragrafelor de marketing */
+  --header-h: 80px;
 
-  /* suprafețe navy (CtaBand, hero de studiu de caz, NumberTiles) — au tokeni proprii ca să poată fi ridicate în dark */
-  --navy-surface: var(--navy);
-  --navy-surface-2: var(--navy-2);
+  /* raze: fiecare element are raza lui; nimic în afara listei */
+  --r-pill: 999px;   /* butoane, comutatoare */
+  --r-card: 28px;    /* carduri, CtaBand, NumberTiles, Quote, blocul vizual din TwoCol */
+  --r-media: 16px;   /* imagini în carduri, capturi, Figure, cardurile din panoul Servicii, caseta de logo, portrete */
+  --r-field: 12px;   /* câmpuri de formular */
+
+  --shadow: 0 1px 2px rgba(0,32,46,.06), 0 12px 32px rgba(0,32,46,.08); /* doar panoul Servicii, meniul mobil, bannerul de consimțământ */
+
+  /* suprafețe navy (secțiunile navy, CtaBand, hero de caz, NumberTiles) */
+  --navy-surface: #00202E;
+  --navy-surface-2: #0F2A36;  /* blocuri vizuale pe navy */
   --on-navy: #FFFFFF;
   --on-navy-muted: #C9D8DB;
-  --logo-ink: #00202E;     /* „BIT” din logo */
-  --logo-accent: #20686C;  /* „UP” din logo */
+  --on-navy-accent: #7CC4C7;  /* cuvântul evidențiat din titlu, pe navy */
+  --logo-ink: #00202E;
+  --logo-accent: #20686C;
 
   color-scheme: light;
 }
 
-/* Paleta dark (DESIGN.md § Dark mode). Nu e „light inversat”: navy foarte închis cu tentă teal, nu negru. */
 :root[data-theme="dark"] {
-  --bg: #0C181D;          /* navy foarte închis, cu tentă teal; nu negru */
-  --surface: #12232A;     /* carduri, header, footer */
-  --surface-2: #182E36;   /* benzi alternative */
-  --line: #274047;        /* borduri */
-  --text: #E4ECEE;        /* text curent (nu alb pur) */
-  --muted: #9FB3B8;       /* text secundar */
-  --teal: #5FB0B4;        /* linkuri și accente: teal-ul de light (#20686C) nu are contrast pe fundal închis */
+  --bg: #0C181D;
+  --surface: #12232A;
+  --surface-2: #182E36;
+  --line: #274047;
+  --text: #E4ECEE;
+  --muted: #9FB3B8;
+  --teal: #5FB0B4;
   --teal-2: #7CC4C7;
-  --teal-soft: #16323A;   /* fundal de citat */
-  --navy: #E4ECEE;        /* în dark, „navy” ca rol de text de titlu devine text deschis; blocurile navy folosesc --navy-surface */
+  --teal-soft: #16323A;
+  --navy: #E4ECEE;
   --navy-2: #CFDDE0;
-  --navy-surface: #0F2A36;   /* CtaBand, hero de caz: ușor mai deschis decât fundalul, cu bordură 1px --line */
+  --navy-surface: #0F2A36;
   --navy-surface-2: #163845;
   --on-navy: #FFFFFF;
   --on-navy-muted: #B9CCD0;
+  --on-navy-accent: #7CC4C7;
   --logo-ink: #E4ECEE;
   --logo-accent: #5FB0B4;
-  --orange: #FE982A;      /* neschimbat; text pe buton rămâne #00202E */
+  --orange: #FE982A;
   --ok: #4CAF82; --warn: #E0983A; --crit: #E06A54;
-  --shadow: none;         /* în dark, ridicarea se face cu bordură, nu cu umbră */
+  --shadow: none;
   color-scheme: dark;
 }
 
-/* Fără alegere explicită, urmăm sistemul. Același bloc ca mai sus; CSS nu permite să-l scriem o singură dată. */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     --bg: #0C181D;
@@ -102,6 +113,7 @@
     --navy-surface-2: #163845;
     --on-navy: #FFFFFF;
     --on-navy-muted: #B9CCD0;
+    --on-navy-accent: #7CC4C7;
     --logo-ink: #E4ECEE;
     --logo-accent: #5FB0B4;
     --orange: #FE982A;

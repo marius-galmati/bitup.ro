@@ -16,7 +16,7 @@ Două lucruri, în ordinea asta, de fiecare dată:
 
 `spec/DESIGN.md`, `spec/continut/`, `spec/continut-en/` și `CLAUDE.md` sunt sursa de adevăr. Unde spec-ul fixează o valoare, o respecți la literă, chiar dacă `frontend-design` ar sugera altceva — skill-ul însuși spune că briefingul câștigă.
 
-Corolarul, care e ușor de uitat: `DESIGN.md` conține deja câteva lucruri care sunt pe lista de tipare generice a skill-ului (eyebrow cu majuscule și tracking deasupra fiecărui titlu, șiruri legate cu punct median, mono pentru etichete mici, `→` pe linkuri). **Alea rămân** — sunt decizii luate, nu accidente. Nu le „repari” și nu le extinzi: nu adaugi eyebrow-uri, puncte mediane sau mono unde spec-ul nu le cere deja.
+Corolarul, care e ușor de uitat: `DESIGN.md` conține deja câteva lucruri care sunt pe lista de tipare generice a skill-ului (eyebrow cu majuscule deasupra fiecărui titlu, șiruri legate cu punct median, `→` pe linkuri). **Alea rămân** — sunt decizii luate, nu accidente. Nu le „repari” și nu le extinzi: nu adaugi eyebrow-uri, puncte mediane sau mono unde spec-ul nu le cere deja.
 
 Nu modifici nimic în `spec/`. Dacă o schimbare de design cere schimbarea spec-ului, o scrii în `NOTES.md` și întrebi.
 
@@ -41,7 +41,9 @@ build → capturi → te uiți la ele cu Read → repari → build
 - **Numerotare (01/02/03) doar pentru secvențe reale.** Cei patru pași din „Cum lucrăm” sunt o secvență. Cele trei servicii nu sunt. Regula e din `frontend-design` și e ușor de încălcat fără să observi.
 - **Îndrăzneala se cheltuie într-un singur loc pe pagină.** Un element memorabil, restul disciplinat. Dacă două secțiuni se ceartă pentru atenție, una dintre ele e greșită.
 - **Nu toate secțiunile la fel.** Dacă patru secțiuni la rând au același tipar (cap de secțiune, apoi rânduri cu linie de păr), ai căzut în mirosul #10 din `CLAUDE.md`, chiar dacă fiecare secțiune în parte arată bine.
-- **Sentence case peste tot**, inclusiv în titluri. Referințele pot avea majuscule; noi nu.
+- **Majusculele vin numai din CSS.** Textul sursă (spec și `src/copy/`) rămâne în sentence case; h1, h2 și eyebrow se afișează
+  cu majuscule din `text-transform`. Nu scrii niciodată majuscule în text — e mirosul 9. (Regula veche, „sentence case peste tot,
+  inclusiv în titluri”, a picat odată cu `DESIGN.md` din 26 septembrie 2026.)
 - **Textul nu se atinge.** Dacă un text nu încape, schimbi componenta.
 
 ## 4. Capcane tehnice, verificate în repo-ul ăsta

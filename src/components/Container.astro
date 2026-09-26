@@ -1,5 +1,9 @@
 ---
-/** Container 1120 px (sau 760 px pentru text lung), gutter 20 px pe mobil, 32 px de la 768 px. */
+/**
+ * Container 1200 px (sau 760 px pentru text lung), gutter 20 px pe mobil, 32 px de la 768 px.
+ * DESIGN § Tokeni, 26 septembrie 2026. Varianta `wide` (1360 px, făcută pe 18 septembrie doar pentru hero)
+ * a dispărut odată cu tokenul `--container-wide`: acum toate secțiunile folosesc aceeași lățime.
+ */
 interface Props { narrow?: boolean; class?: string }
 const { narrow = false, class: className } = Astro.props;
 ---

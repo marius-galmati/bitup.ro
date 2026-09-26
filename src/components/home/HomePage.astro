@@ -52,7 +52,7 @@ const partners = copy.partners.names.map((name) => ({ name, logo: partnerLogo(na
 <BaseLayout lang={lang} routeKey="home" title={copy.title} description={copy.description}>
   {/* 1. Hero: text la stânga, graficul din hero.png la dreapta de la 1200 px. Banda de FactStrip a fost scoasă pe 17 septembrie 2026. */}
   <Section tone="bg" class="hero">
-    <Container wide>
+    <Container>
       <div class="hero__grid">
       <div class="hero__text">
         {copy.hero.eyebrow && <Eyebrow>{copy.hero.eyebrow}</Eyebrow>}
@@ -166,7 +166,7 @@ const partners = copy.partners.names.map((name) => ({ name, logo: partnerLogo(na
             <Card title={c.data.client} href={dynamicPath('caseStudy', lang, slugOf(c.id))} linkLabel={copy.results.readCase}>
               <p class="eyebrow">{c.data.kicker}</p>
               <p>{c.data.summary.split(/(?<=\.)\s+/).slice(0, 2).join(' ')}</p>
-              {c.data.draft && <p class="small muted">{dict.misc.draft}</p>}
+              {c.data.draft && <p class="small muted tnum">{dict.misc.draft}</p>}
             </Card>
           ))}
         </div>
@@ -187,7 +187,7 @@ const partners = copy.partners.names.map((name) => ({ name, logo: partnerLogo(na
                   <span class="partners__mono" aria-hidden="true"></span>
                   <img class="partners__color" src={p.logo.src} alt="" height="36" loading="lazy" decoding="async" />
                 </span>
-              : <span class="partners__ph mono">[[LOGO_PARTENERI]]</span>}
+              : <span class="partners__ph">[[LOGO_PARTENERI]]</span>}
             <span class="partners__name">{p.name}</span>
           </li>
         ))}
@@ -212,7 +212,7 @@ const partners = copy.partners.names.map((name) => ({ name, logo: partnerLogo(na
           {posts.map((p) => (
             <Card title={p.data.title} href={dynamicPath('post', lang, slugOf(p.id))} linkLabel={p.data.title}>
               <p>{p.data.description}</p>
-              <p class="small muted mono">{formatDate(p.data.pubDate, lang)} · {dict.misc.readTime(readMinutes(p.body))}</p>
+              <p class="small muted tnum">{formatDate(p.data.pubDate, lang)} · {dict.misc.readTime(readMinutes(p.body))}</p>
             </Card>
           ))}
         </div>
@@ -243,14 +243,6 @@ const partners = copy.partners.names.map((name) => ({ name, logo: partnerLogo(na
   @media (min-width: 1200px) {
     .hero__grid { grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: var(--s-7); }
     .hero__grid :global(.hero__graphic) { display: block; justify-self: end; }
-  }
-  /* De la 1360 px hero-ul folosește containerul lat, ca graficul să aibă loc. Prima coloană e o gutieră
-     de 72 px, care cu gap-ul de 48 px dă exact cei 120 px de decalaj dintre containerul lat și cel normal, ca textul să rămână aliniat
-     cu marginea stângă a tuturor celorlalte secțiuni. */
-  @media (min-width: 1360px) {
-    .hero__grid { grid-template-columns: 72px minmax(0, 1.3fr) minmax(0, 1fr); }
-    .hero__text { grid-column: 2; }
-    .hero__grid :global(.hero__graphic) { grid-column: 3; }
   }
   .hero__lead { margin-top: var(--s-4); }
   .hero__h1 { font-size: var(--fs-hero); max-width: 22ch; }
@@ -297,7 +289,7 @@ const partners = copy.partners.names.map((name) => ({ name, logo: partnerLogo(na
 
   .founder-section { padding-block: var(--s-7); }
   .founder { display: grid; gap: var(--s-5); align-items: start; }
-  .founder :global(.founder__photo) { width: 200px; height: 200px; border-radius: var(--radius); }
+  .founder :global(.founder__photo) { width: 200px; height: 200px; border-radius: var(--r-media); }
   .founder__body { display: grid; gap: var(--s-3); max-width: 70ch; }
   .founder__h2 { font-size: var(--fs-h3); }
   .founder__links { display: flex; flex-wrap: wrap; gap: var(--s-2) var(--s-5); }
@@ -334,7 +326,7 @@ const partners = copy.partners.names.map((name) => ({ name, logo: partnerLogo(na
   .partners__item:hover .partners__color { opacity: 1; }
   .partners__item:hover .partners__mono { opacity: 0; }
   .partners__name { font-family: var(--font-display); font-weight: 600; color: var(--muted); }
-  .partners__ph { font-size: var(--fs-eyebrow); color: var(--muted); }
+  .partners__ph { font-size: var(--fs-small); color: var(--muted); }
   .tech__list { max-width: 70ch; color: var(--muted); }
   @media (prefers-reduced-motion: reduce) { .partners__color, .partners__mono { transition: none; } }
 

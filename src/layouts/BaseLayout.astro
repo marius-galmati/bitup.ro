@@ -5,14 +5,18 @@
  * JSON-LD Organization + ProfessionalService (plus ce dă pagina), scriptul de temă, skip-link, header, <main>, footer, ConsentBanner.
  */
 import '@fontsource-variable/public-sans/wght.css';
-import '@fontsource/ibm-plex-mono/latin-400.css';
-import '@fontsource/ibm-plex-mono/latin-ext-400.css';
-import '@fontsource/ibm-plex-mono/latin-500.css';
-import '@fontsource/ibm-plex-mono/latin-ext-500.css';
+// Barlow Condensed, doar cele două greutăți și cele două subseturi din DESIGN § Tipografie.
+// Fișierele se aleg prin `unicode-range`, deci paginile EN nu descarcă latin-ext decât dacă întâlnesc diacritice.
+import '@fontsource/barlow-condensed/latin-300.css';
+import '@fontsource/barlow-condensed/latin-ext-300.css';
+import '@fontsource/barlow-condensed/latin-700.css';
+import '@fontsource/barlow-condensed/latin-ext-700.css';
 import '../styles/tokens.css';
 import '../styles/base.css';
 import fontLatin from '@fontsource-variable/public-sans/files/public-sans-latin-wght-normal.woff2?url';
 import fontLatinExt from '@fontsource-variable/public-sans/files/public-sans-latin-ext-wght-normal.woff2?url';
+import displayLatin from '@fontsource/barlow-condensed/files/barlow-condensed-latin-700-normal.woff2?url';
+import displayLatinExt from '@fontsource/barlow-condensed/files/barlow-condensed-latin-ext-700-normal.woff2?url';
 
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
@@ -49,6 +53,10 @@ const altAbsolute = absoluteUrl(pairPath);
 const roUrl = lang === 'ro' ? canonical : altAbsolute;
 const enUrl = lang === 'en' ? canonical : altAbsolute;
 const graph = baseGraph(lang, jsonLd);
+// Preîncărcăm doar fonturile de deasupra pliului: textul și titlul (Barlow 700, elementul LCP).
+// `latin-ext` doar pe RO: pe EN ar fi 32 KB descărcați degeaba, iar diacriticele izolate
+// (numele din /en/team) se încarcă la nevoie, fără să întârzie LCP-ul.
+const fonturi = lang === 'ro' ? [fontLatin, fontLatinExt, displayLatin, displayLatinExt] : [fontLatin, displayLatin];
 ---
 <!doctype html>
 <html lang={lang}>
@@ -88,8 +96,7 @@ const graph = baseGraph(lang, jsonLd);
         } catch (e) {}
       })();
     </script>
-    <link rel="preload" as="font" type="font/woff2" crossorigin href={fontLatin} />
-    <link rel="preload" as="font" type="font/woff2" crossorigin href={fontLatinExt} />
+    {fonturi.map((href) => <link rel="preload" as="font" type="font/woff2" crossorigin href={href} />)}
     <script type="application/ld+json" is:inline set:html={JSON.stringify(graph)} />
     <slot name="head" />
   </head>
@@ -105,7 +112,7 @@ const graph = baseGraph(lang, jsonLd);
 </html>
 
 <style is:global>
-  .skip-link { position: absolute; left: var(--s-4); top: -100px; z-index: 100; padding: var(--s-2) var(--s-4); background: var(--navy-surface); color: var(--on-navy); font-family: var(--font-display); font-weight: 600; border-radius: var(--radius); text-decoration: none; }
+  .skip-link { position: absolute; left: var(--s-4); top: -100px; z-index: 100; padding: var(--s-2) var(--s-4); background: var(--navy-surface); color: var(--on-navy); font-family: var(--font-display); font-weight: 600; border-radius: var(--r-pill); text-decoration: none; }
   .skip-link:focus { top: var(--s-4); outline: 2px solid var(--teal); outline-offset: 2px; }
   main:focus { outline: none; }
 </style>

@@ -22,8 +22,8 @@ const f = dict.footer;
         <address class="footer__address">
           <strong class="footer__name">{f.company.name}</strong><br />
           {f.company.city}<br />
-          <span class="mono footer__ids">{f.company.ids}</span><br />
-          <a href={site.emailHref}>{site.email}</a> · <a href={site.phone.href} class="mono" data-event="tel_click">{site.phone.display}</a><br />
+          <span class="footer__ids tnum">{f.company.ids}</span><br />
+          <a href={site.emailHref}>{site.email}</a> · <a href={site.phone.href} class="tnum" data-event="tel_click">{site.phone.display}</a><br />
           {f.company.linkedinLabel}<a href={site.linkedin} target="_blank" rel="noopener">{f.company.linkedinCompany}</a>
         </address>
       </div>
@@ -66,7 +66,7 @@ const f = dict.footer;
   .footer :global(.footer__logo) { width: 132px; }
   .footer__address { font-style: normal; line-height: 1.7; color: var(--text); }
   .footer__name { font-family: var(--font-display); font-weight: 600; color: var(--navy); font-size: var(--fs-body); }
-  .footer__ids { font-size: var(--fs-eyebrow); color: var(--muted); }
+  .footer__ids { font-size: var(--fs-small); color: var(--muted); }
   .footer__address a { color: var(--teal); }
   .footer__col { display: grid; gap: var(--s-5); align-content: start; }
   .footer__list { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--s-2); }
@@ -76,13 +76,17 @@ const f = dict.footer;
   @media (min-width: 1024px) { .footer__col { grid-template-columns: 1fr 1fr; } .footer__list--company { padding-top: 0; border-top: 0; } }
   .footer__list--partners { gap: var(--s-3); }
   .footer__partner { display: grid; gap: 2px; font-family: var(--font-display); font-weight: 600; color: var(--muted); }
-  .footer__level { font-family: var(--font-mono); font-weight: 400; font-size: var(--fs-eyebrow); }
+  .footer__level { font-size: var(--fs-label); font-weight: 400; }
+  /* Rândul de jos: copyright lipit de marginea stângă, restul de marginea dreaptă (aranjamentul din example.png, subsol). */
   .footer__bottom { margin-top: var(--s-7); padding-top: var(--s-5); border-top: 1px solid var(--line); display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-3) var(--s-5); }
   .footer__copy { margin: 0; }
   .footer__legal { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: var(--s-2) var(--s-4); }
+  /* De la 768 px: copyright la stânga, blocul legal + limba lipite de marginea dreaptă.
+     `margin-left: auto` trebuie să vină DUPĂ shorthand-ul `margin: 0` de mai sus, altfel e anulat. */
+  @media (min-width: 768px) { .footer__legal { margin-left: auto; } }
   .footer__legal a { color: var(--muted); }
   .footer__legal a:hover { color: var(--teal); }
   .footer__cookie-btn { background: none; border: 0; padding: 0; color: var(--muted); font-size: inherit; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
   .footer__cookie-btn:hover { color: var(--teal); }
-  .footer__bottom :global(.lang) { margin-left: auto; }
+  .footer__bottom :global(.lang) { margin-left: 0; }
 </style>

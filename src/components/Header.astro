@@ -5,7 +5,7 @@
  * Stânga: logo 132 px. Centru-dreapta: Servicii ▾ (buton real, aria-expanded, Esc și click în afară închid), Cum lucrăm, Rezultate, Despre, Echipa, Blog.
  * „Servicii” deschide un panou pe toată lățimea, după modelul din `meniu (2).png`: patru coloane (intro, două de servicii,
  * casetă de CTA despărțită de o linie verticală) și o bandă de jos peste o linie de 1 px. Tipografia, paleta și logo-ul rămân cele din DESIGN.md.
- * Dreapta: telefon (mono, --muted; ascuns între 1024 și 1200 px), RO · EN, comutatorul de temă, butonul orange.
+ * Dreapta: telefon (Public Sans, --muted, tabular-nums; ascuns între 1024 și 1200 px), RO · EN, comutatorul de temă, butonul orange.
  * Sub 1024 px: hamburger; panou full-height cu aceleași linkuri (Servicii ca listă desfășurată), butonul de Radiografie sus, telefon, WhatsApp (→ /suport), limbă și temă jos.
  */
 import Button from './Button.astro';
@@ -76,9 +76,9 @@ const groups = [mm.items.slice(0, 2), mm.items.slice(2)];
               </div>
 
               <p class="mega__foot">
-                <a class="mega__contact mono" href={site.phone.href} data-event="tel_click">{site.phone.display}</a>
-                <span class="mega__sep mono" aria-hidden="true">·</span>
-                <a class="mega__contact mono" href={site.emailHref}>{site.email}</a>
+                <a class="mega__contact tnum" href={site.phone.href} data-event="tel_click">{site.phone.display}</a>
+                <span class="mega__sep" aria-hidden="true">·</span>
+                <a class="mega__contact" href={site.emailHref}>{site.email}</a>
                 <a class="mega__link mega__link--foot" href={localePath('support', lang)}>{mm.supportLink}</a>
               </p>
             </Container>
@@ -91,7 +91,7 @@ const groups = [mm.items.slice(0, 2), mm.items.slice(2)];
     </nav>
 
     <div class="header__tools">
-      <a class="header__phone mono" href={site.phone.href} data-event="tel_click">{site.phone.display}</a>
+      <a class="header__phone tnum" href={site.phone.href} data-event="tel_click">{site.phone.display}</a>
       <LangSwitch lang={lang} altHref={altHref} class="header__lang" />
       <ThemeToggle label={dict.theme.ariaLabel} class="header__theme" />
       <Button href={localePath('healthCheck', lang)} size="small" class="header__cta" data-event="cta_radiografie_click">{nav.primary}</Button>
@@ -119,7 +119,7 @@ const groups = [mm.items.slice(0, 2), mm.items.slice(2)];
       </ul>
     </nav>
     <div class="mobile__bottom">
-      <a class="mobile__contact mono" href={site.phone.href} data-event="tel_click">{nav.mobile.call}</a>
+      <a class="mobile__contact tnum" href={site.phone.href} data-event="tel_click">{nav.mobile.call}</a>
       <a class="mobile__contact" href={localePath('support', lang)}>{nav.mobile.clients}</a>
       <div class="mobile__tools">
         <LangSwitch lang={lang} altHref={altHref} />
@@ -138,7 +138,7 @@ const groups = [mm.items.slice(0, 2), mm.items.slice(2)];
   .header__nav { display: none; margin-left: var(--s-3); }
   .nav { list-style: none; margin: 0; padding: 0; display: flex; align-items: center; gap: var(--s-1); }
   .nav__item { position: relative; }
-  .nav__link { display: inline-flex; align-items: center; gap: var(--s-1); white-space: nowrap; padding: var(--s-2) var(--s-3); font-family: var(--font-display); font-weight: 600; font-size: var(--fs-small); color: var(--text); text-decoration: none; border-radius: var(--radius); background: none; border: 0; cursor: pointer; transition: color 150ms; line-height: 1.2; }
+  .nav__link { display: inline-flex; align-items: center; gap: var(--s-1); white-space: nowrap; padding: var(--s-2) var(--s-3); font-family: var(--font-display); font-weight: 600; font-size: var(--fs-small); color: var(--text); text-decoration: none; border-radius: var(--r-pill); background: none; border: 0; cursor: pointer; transition: color 150ms; line-height: 1.2; }
   .nav__link:hover, .nav__link[aria-expanded="true"] { color: var(--teal); }
   .nav__link[aria-current] { color: var(--teal); text-decoration: underline; text-underline-offset: 6px; text-decoration-thickness: 2px; }
   .nav__caret { font-size: .8em; transition: transform 150ms; }
@@ -154,7 +154,7 @@ const groups = [mm.items.slice(0, 2), mm.items.slice(2)];
     .mega__grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); column-gap: var(--s-6); }
     .mega__col { display: grid; align-content: start; }
     .mega__col--aside { border-left: 1px solid var(--line); padding-left: var(--s-5); }
-    .mega__title { font-family: var(--font-display); font-weight: 600; font-size: var(--fs-h2); line-height: 1.15; letter-spacing: -0.01em; color: var(--navy); margin: var(--s-4) 0 0; text-wrap: balance; hyphens: manual; }
+    .mega__title { font-family: var(--font-body); font-weight: 600; font-size: 22px; line-height: 1.15; letter-spacing: -0.01em; color: var(--navy); margin: var(--s-4) 0 0; text-wrap: balance; hyphens: manual; }
     .mega__title--aside { font-size: var(--fs-lead); }
     .mega__lead { color: var(--muted); margin: var(--s-3) 0 0; max-width: 34ch; }
     .mega__link { justify-self: start; margin-top: var(--s-5); color: var(--teal); font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
@@ -177,7 +177,7 @@ const groups = [mm.items.slice(0, 2), mm.items.slice(2)];
   .header__phone:hover { color: var(--teal); }
   .header :global(.header__lang), .header :global(.header__theme), .header :global(.header__cta) { display: none; }
 
-  .burger { width: 44px; height: 44px; display: inline-flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px; padding: 0; background: none; border: 1px solid transparent; border-radius: var(--radius); cursor: pointer; color: var(--navy); }
+  .burger { width: 44px; height: 44px; display: inline-flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px; padding: 0; background: none; border: 1px solid transparent; border-radius: var(--r-pill); cursor: pointer; color: var(--navy); }
   .burger__bar { display: block; width: 20px; height: 2px; background: currentColor; transition: transform 150ms, opacity 150ms; }
   .burger[aria-expanded="true"] .burger__bar:nth-child(1) { transform: translateY(7px) rotate(45deg); }
   .burger[aria-expanded="true"] .burger__bar:nth-child(2) { opacity: 0; }
@@ -207,7 +207,7 @@ const groups = [mm.items.slice(0, 2), mm.items.slice(2)];
   .mobile__link[aria-current] { color: var(--teal); }
   .mobile__bottom { margin-top: auto; display: grid; gap: var(--s-3); padding-top: var(--s-5); border-top: 1px solid var(--line); }
   .mobile__contact { color: var(--text); text-decoration: none; padding: var(--s-2) 0; }
-  .mobile__contact.mono { font-size: var(--fs-small); color: var(--muted); }
+  .mobile__contact.tnum { font-size: var(--fs-small); color: var(--muted); }
   .mobile__tools { display: flex; align-items: center; justify-content: space-between; gap: var(--s-4); }
   /* Gutiera urmează containerul: 20 px sub 768, 32 px de la 768 (panoul e vizibil până la 1023 px). */
   @media (min-width: 768px) { .mobile { padding-inline: 32px; } }

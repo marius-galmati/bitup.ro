@@ -1,16 +1,20 @@
 ---
 /**
- * CtaBand (DESIGN § CtaBand): bloc navy, --radius-lg, titlu alb, text în --on-navy-muted, buton orange. O singură dată, la finalul paginii.
+ * CtaBand (DESIGN § CtaBand): bloc navy, --r-card, titlu alb, text în --on-navy-muted, buton orange. O singură dată, la finalul paginii.
+ * De la 1024 px, pereche stânga/dreapta pe același ax (aranjamentul din example.png, banda de CTA): titlul lipit de marginea stângă,
+ * acțiunea lipită de marginea dreaptă, gol mare la mijloc. Sub 1024 px se stivuiește ca înainte.
  * Textul vine din i18n (00-global § Banda finală), cu varianta `default` sau `blog`; titlul/textul se pot înlocui pe pagină (props).
  */
 import Button from './Button.astro';
 import Container from './Container.astro';
 import { t, localePath, type Locale } from '../i18n';
+import { site } from '../lib/site';
 interface Props { lang: Locale; variant?: 'default' | 'blog'; title?: string; text?: string; button?: string }
 const { lang, variant = 'default', title, text, button } = Astro.props;
 const dict = t(lang);
 const v = dict.ctaBand[variant];
-const contactLine = variant === 'default' ? dict.ctaBand.default.contactLine : undefined;
+// Linia de contact se compune din aceleași valori ca textul din i18n, ca telefonul și emailul să fie apăsabile.
+const showContact = variant === 'default';
 ---
 <section class="cta-wrap" aria-labelledby="cta-title">
   <Container>
@@ -19,7 +23,7 @@ const contactLine = variant === 'default' ? dict.ctaBand.default.contactLine : u
       <p class="cta__text">{text ?? v.text}</p>
       <div class="cta__actions">
         <Button href={localePath('healthCheck', lang)} data-event="cta_radiografie_click">{button ?? v.button}</Button>
-        {contactLine && <p class="cta__contact mono">{contactLine}</p>}
+        {showContact && <p class="cta__contact tnum"><a href={site.phone.href} data-event="tel_click">{site.phone.display}</a> <span aria-hidden="true">·</span> <a href={site.emailHref}>{site.email}</a></p>}
       </div>
     </div>
   </Container>
@@ -27,10 +31,18 @@ const contactLine = variant === 'default' ? dict.ctaBand.default.contactLine : u
 
 <style>
   .cta-wrap { padding-block: var(--section-y); background: var(--bg); }
-  .cta { background: var(--navy-surface); border: 1px solid var(--line); border-radius: var(--radius-lg); padding: var(--s-7) var(--s-6); display: grid; gap: var(--s-4); max-width: 100%; }
-  @media (min-width: 768px) { .cta { padding: var(--s-8); } }
+  /* Padding continuu: la 768 px containerul trece de la 20 la 32 px de gutieră; dacă ar sări și banda de la 32 la 64,
+     lățimea utilă ar scădea cu 87 px față de 767 px. */
+  .cta { background: var(--navy-surface); border: 1px solid var(--line); border-radius: var(--r-card); padding: clamp(var(--s-6), 5vw, var(--s-8)); display: grid; gap: var(--s-4); max-width: 100%; }
   .cta__title { color: var(--on-navy); max-width: 24ch; }
   .cta__text { color: var(--on-navy-muted); max-width: 60ch; font-size: var(--fs-lead); }
   .cta__actions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-4) var(--s-5); margin-top: var(--s-2); }
   .cta__contact { color: var(--on-navy-muted); font-size: var(--fs-small); }
+  .cta__contact a { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
+  .cta__contact a:hover { color: var(--on-navy); }
+  @media (min-width: 1024px) {
+    .cta { grid-template-columns: minmax(0, 1fr) auto; column-gap: var(--s-9); align-items: center; }
+    .cta__title, .cta__text { grid-column: 1; }
+    .cta__actions { grid-column: 2; grid-row: 1 / span 2; margin-top: 0; flex-direction: column; align-items: flex-end; gap: var(--s-3); text-align: right; }
+  }
 </style>

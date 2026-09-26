@@ -1,0 +1,206 @@
+---
+/**
+ * /qa/tokens — criteriul de acceptare al pasului R1 (PLAN § Faza R): fonturile, scara și culorile,
+ * în light și dark. Doar dev și staging, ca restul paginilor de QA.
+ *
+ * Textele de probă sunt din spec, nu inventate: titlul meta al homepage-ului și H1-ul din
+ * `spec/continut/01-acasa.md`. Diacriticele (ăâîșț) sunt în fiecare probă, ca să se vadă dacă
+ * subsetul `latin-ext` s-a încărcat pentru amândouă familiile.
+ */
+import Container from '../Container.astro';
+import Section from '../Section.astro';
+import Eyebrow from '../Eyebrow.astro';
+import Heading from '../Heading.astro';
+
+/** Fraza de probă: titlul meta din 01-acasa.md, care are toate diacriticele românești. */
+const PROBA = 'Suport IT și securitate pentru firme din Cluj · ăâîșț ĂÂÎȘȚ';
+
+const familii = [
+  { nume: 'Barlow Condensed 700 — display', clasa: 'qa-f-display', rol: 'h1, h2, cifrele din NumberTiles, titlul din CtaBand. Majusculele vin din CSS.' },
+  { nume: 'Barlow Condensed 300 — eyebrow', clasa: 'qa-f-eyebrow', rol: 'eyebrow, deasupra titlului.' },
+  { nume: 'Public Sans 600', clasa: 'qa-f-body600', rol: 'h3, etichete, butoane, valorile din FactStrip.' },
+  { nume: 'Public Sans 400', clasa: 'qa-f-body', rol: 'text curent, lead, legende.' },
+];
+
+const scara = [
+  ['--fs-hero', 'clamp(56–112) · h1 homepage', 'qa-hero'],
+  ['--fs-h1', 'clamp(48–96) · h1 pagini interne', 'qa-h1s'],
+  ['--fs-h2', 'clamp(44–72) · h2 de secțiune', 'qa-h2s'],
+  ['--fs-stat', 'clamp(48–64) · cifrele din NumberTiles', 'qa-stat'],
+  ['--fs-eyebrow', 'clamp(22–32) · eyebrow', 'qa-eb'],
+  ['--fs-h3', 'clamp(22–26) · titlu de card', 'qa-h3s'],
+  ['--fs-lead', '20 px · lead', 'qa-lead'],
+  ['--fs-body', '18 px · text curent', 'qa-body'],
+  ['--fs-small', '15 px · legende', 'qa-small'],
+  ['--fs-label', '14 px · eticheta teal, majuscule', 'qa-lab'],
+];
+
+const brand = [
+  ['--navy', 'titluri și text'],
+  ['--teal', 'accent, linkuri, etichete'],
+  ['--teal-2', 'accent secundar'],
+  ['--teal-soft', 'fundal de citat'],
+  ['--orange', 'butonul principal'],
+];
+const neutre = [
+  ['--bg', 'fundalul paginii'],
+  ['--surface', 'header, footer'],
+  ['--surface-2', 'carduri, benzi'],
+  ['--line', 'borduri'],
+  ['--text', 'text curent'],
+  ['--muted', 'text secundar'],
+];
+const peNavy = [
+  ['--navy-surface', 'secțiunea navy'],
+  ['--navy-surface-2', 'bloc vizual pe navy'],
+  ['--on-navy', 'text pe navy'],
+  ['--on-navy-muted', 'text secundar pe navy'],
+  ['--on-navy-accent', 'accentul pe navy'],
+];
+const semafor = [['--ok', 'bine'], ['--warn', 'atenție'], ['--crit', 'critic']];
+
+const raze = [
+  ['--r-pill', '999 px · butoane, comutatoare'],
+  ['--r-card', '28 px · carduri, CtaBand, Quote'],
+  ['--r-media', '16 px · imagini, capturi, portrete'],
+  ['--r-field', '12 px · câmpuri de formular'],
+];
+const spatii = ['--s-1', '--s-2', '--s-3', '--s-4', '--s-5', '--s-6', '--s-7', '--s-8', '--s-9', '--s-10'];
+---
+<Section tone="surface-2">
+  <Container>
+    <Eyebrow>QA · doar dev și staging</Eyebrow>
+    <Heading as="h1" text="Tokenii stilului nou" accent="stilului nou" />
+    <p class="lead qa-intro">Fonturile, scara și culorile din <code>DESIGN.md</code> (26 septembrie 2026). Se verifică în light și dark, la 375, 768, 1024 și 1440 px.</p>
+  </Container>
+</Section>
+
+<Section tone="bg" id="fonturi">
+  <Container>
+    <Eyebrow>Fonturi</Eyebrow>
+    <Heading as="h2" text="Două familii, amândouă self-hosted" accent="Două familii" />
+    <ul class="qa-list">
+      {familii.map((f) => (
+        <li class="qa-item">
+          <p class="label">{f.nume}</p>
+          <p class="small muted">{f.rol}</p>
+          <p class={`qa-fsample ${f.clasa}`}>{PROBA}</p>
+        </li>
+      ))}
+    </ul>
+  </Container>
+</Section>
+
+<Section tone="surface-2" id="scara">
+  <Container>
+    <Eyebrow>Scara</Eyebrow>
+    <Heading as="h2" text="Mărimile de tip, de la hero la etichetă" accent="Mărimile de tip" />
+    <ul class="qa-list">
+      {scara.map(([tok, rol, clasa]) => (
+        <li class="qa-item">
+          <p class="small muted">{tok} · {rol}</p>
+          <p class={`qa-fsample ${clasa}`}>{PROBA}</p>
+        </li>
+      ))}
+    </ul>
+  </Container>
+</Section>
+
+<Section tone="bg" id="accent">
+  <Container>
+    <Eyebrow>Cuvântul evidențiat</Eyebrow>
+    <Heading as="h2" text="Cel mult un cuvânt în teal, din câmpul accent" accent="un cuvânt în teal" />
+    <p class="qa-intro">Titlul de mai sus e un singur șir din <code>src/copy/</code>; evidențierea vine din câmpul <code>accent</code>, nu din text. Dacă subșirul nu se găsește, build-ul dă eroare.</p>
+  </Container>
+</Section>
+
+<Section tone="surface-2" id="culori">
+  <Container>
+    <Eyebrow>Culori</Eyebrow>
+    <Heading as="h2" text="Paleta, pe roluri" accent="pe roluri" />
+    <p class="label qa-sub">Brand</p>
+    <ul class="qa-swatches">{brand.map(([t, r]) => <li><span class="qa-chip" style={`background: var(${t})`}></span><span class="small">{t}</span><span class="small muted">{r}</span></li>)}</ul>
+    <p class="label qa-sub">Neutre</p>
+    <ul class="qa-swatches">{neutre.map(([t, r]) => <li><span class="qa-chip" style={`background: var(${t})`}></span><span class="small">{t}</span><span class="small muted">{r}</span></li>)}</ul>
+    <p class="label qa-sub">Semafor</p>
+    <ul class="qa-swatches">{semafor.map(([t, r]) => <li><span class="qa-chip" style={`background: var(${t})`}></span><span class="small">{t}</span><span class="small muted">{r}</span></li>)}</ul>
+  </Container>
+</Section>
+
+<Section tone="bg" id="navy">
+  <Container>
+    <div class="qa-navy on-navy">
+      <p class="eyebrow eyebrow--navy">Pe navy</p>
+      <Heading as="h2" text="Aceleași roluri, pe fundal închis" accent="pe fundal închis" onNavy />
+      <p class="qa-navy__text">Text secundar pe navy, la <code>--on-navy-muted</code>. Butonul principal rămâne orange în ambele teme.</p>
+      <ul class="qa-swatches qa-swatches--navy">{peNavy.map(([t, r]) => <li><span class="qa-chip" style={`background: var(${t})`}></span><span class="small">{t}</span><span class="small">{r}</span></li>)}</ul>
+    </div>
+  </Container>
+</Section>
+
+<Section tone="surface-2" id="raze">
+  <Container>
+    <Eyebrow>Raze și spațiere</Eyebrow>
+    <Heading as="h2" text="Patru raze, zece trepte de spațiu" accent="Patru raze" />
+    <ul class="qa-radii">
+      {raze.map(([tok, rol]) => (
+        <li>
+          <span class="qa-radius" style={`border-radius: var(${tok})`}></span>
+          <span class="small">{tok}</span>
+          <span class="small muted">{rol}</span>
+        </li>
+      ))}
+    </ul>
+    <p class="label qa-sub">Spațiere</p>
+    <ul class="qa-space">
+      {spatii.map((tok) => <li><span class="qa-bar" style={`width: var(${tok})`}></span><span class="small muted">{tok}</span></li>)}
+    </ul>
+  </Container>
+</Section>
+
+<style>
+  .qa-intro { max-width: var(--measure); margin-top: var(--s-4); }
+  .qa-list { list-style: none; margin: var(--s-6) 0 0; padding: 0; display: grid; gap: var(--s-6); }
+  .qa-item { display: grid; gap: var(--s-2); padding-bottom: var(--s-5); border-bottom: 1px solid var(--line); }
+  .qa-item:last-child { border-bottom: 0; padding-bottom: 0; }
+  .qa-fsample { overflow-wrap: anywhere; }
+
+  /* Familiile, arătate explicit: fiecare probă spune ce font și ce greutate folosește. */
+  .qa-f-display { font-family: var(--font-display); font-weight: 700; font-size: var(--fs-h2); text-transform: uppercase; line-height: var(--lh-display); letter-spacing: var(--ls-display); color: var(--navy); }
+  .qa-f-eyebrow { font-family: var(--font-display); font-weight: 300; font-size: var(--fs-eyebrow); text-transform: uppercase; color: var(--navy); }
+  .qa-f-body600 { font-family: var(--font-body); font-weight: 600; font-size: var(--fs-h3); }
+  .qa-f-body { font-family: var(--font-body); font-weight: 400; font-size: var(--fs-body); }
+
+  /* Scara: fiecare mărime cu fontul care o folosește în realitate. */
+  .qa-hero, .qa-h1s, .qa-h2s, .qa-stat { font-family: var(--font-display); font-weight: 700; text-transform: uppercase; line-height: var(--lh-display); letter-spacing: var(--ls-display); color: var(--navy); }
+  .qa-hero { font-size: var(--fs-hero); }
+  .qa-h1s { font-size: var(--fs-h1); }
+  .qa-h2s { font-size: var(--fs-h2); }
+  .qa-stat { font-size: var(--fs-stat); }
+  .qa-eb { font-family: var(--font-display); font-weight: 300; font-size: var(--fs-eyebrow); text-transform: uppercase; color: var(--navy); }
+  .qa-h3s { font-weight: 600; font-size: var(--fs-h3); line-height: 1.25; }
+  .qa-lead { font-size: var(--fs-lead); color: var(--muted); }
+  .qa-body { font-size: var(--fs-body); }
+  .qa-small { font-size: var(--fs-small); }
+  .qa-lab { font-size: var(--fs-label); font-weight: 600; letter-spacing: .04em; text-transform: uppercase; color: var(--teal); }
+
+  .qa-sub { margin-top: var(--s-6); margin-bottom: var(--s-3); }
+  .qa-swatches { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: var(--s-4); }
+  .qa-swatches li { display: grid; grid-template-columns: 48px 1fr; grid-template-rows: auto auto; column-gap: var(--s-3); align-items: center; }
+  .qa-chip { grid-row: 1 / span 2; width: 48px; height: 48px; border: 1px solid var(--line); border-radius: var(--r-media); }
+
+  .qa-navy { background: var(--navy-surface); border: 1px solid var(--line); border-radius: var(--r-card); padding: var(--s-5); display: grid; gap: var(--s-4); }
+  @media (min-width: 768px) { .qa-navy { padding: var(--s-8); } }
+  .qa-navy :global(h2) { color: var(--on-navy); }
+  .qa-navy__text { color: var(--on-navy-muted); max-width: var(--measure); }
+  .qa-swatches--navy { margin-top: var(--s-4); color: var(--on-navy); }
+  .qa-swatches--navy .muted { color: var(--on-navy-muted); }
+
+  .qa-radii { list-style: none; margin: var(--s-5) 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: var(--s-5); }
+  .qa-radii li { display: grid; grid-template-columns: 72px 1fr; grid-template-rows: auto auto; column-gap: var(--s-3); align-items: center; }
+  .qa-radius { grid-row: 1 / span 2; width: 72px; height: 56px; background: var(--surface); border: 1px solid var(--line); }
+
+  .qa-space { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--s-2); }
+  .qa-space li { display: flex; align-items: center; gap: var(--s-3); }
+  .qa-bar { height: 16px; background: var(--teal); border-radius: 2px; flex: none; }
+</style>

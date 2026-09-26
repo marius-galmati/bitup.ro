@@ -163,6 +163,45 @@ Acceptare:
 
 ---
 
+## Faza R — Stilul nou (redesign vizual)
+
+> Adăugată pe 26 septembrie 2026, odată cu înlocuirea lui `DESIGN.md`. Se face **acum**, înaintea fazelor rămase. Faza 6 (QA și lansare) verifică apoi după noul `DESIGN.md`.
+
+Scop: tot site-ul trece pe stilul din `spec/DESIGN.md` (versiunea din 26 septembrie 2026). **Conținutul nu se schimbă:** textele, rutele, SEO, formularele, i18n și logica rămân exact cum sunt. Se schimbă doar tokenii, CSS-ul și markup-ul componentelor.
+
+La finalul fiecărui pas te oprești, îmi arăți capturile și faci commit (`faza-R1` … `faza-R6`).
+
+**R1 — Tokeni, fonturi, bază**
+- Pui `src/styles/tokens.css` nou.
+- Instalezi `@fontsource/barlow-condensed` (300, 700, latin + latin-ext) și scoți IBM Plex Mono.
+- În `base.css`: display, eyebrow, `.accent`, etichete, corpul la 18 px.
+- Înlocuiești toate folosirile `--font-mono`, `--radius`, `--radius-lg` și ale mărimilor vechi. `grep` după ele trebuie să dea zero.
+- Adaugi componenta `Heading` cu câmpul `accent` (eroare de build dacă subșirul nu există) și propui în `NOTES.md` cuvântul evidențiat pentru fiecare h1 și h2, pe ambele limbi. Le aplici și aștepți confirmarea mea.
+- Acceptare: pagina `/qa/tokens` arată fonturile, scara și culorile în light și dark. Nicio cerere externă de font.
+
+**R2 — Header, panoul Servicii, meniul mobil, footer, butoane**
+- Header de 80 px și panoul Servicii după modelul filomuro21 (`spec/assets/referinte/filomuro-meniu.png`).
+- Butoanele-pastilă în toate variantele.
+- Acceptare: fără depășire pe orizontală la 1024, 1200, 1280 și 1440 px; tastatura merge (Tab, Esc, focusul revine pe buton); capturile sunt în `qa/faza-R2/`.
+
+**R3 — Componente**
+- Card, TwoCol (cu `reverse` și `aside`), Manifest, secțiunea navy, Steps, FactStrip, NumberTiles, Quote, CtaBand, Faq, Form, Figure, rândul de persoană, ConsentBanner, Prose.
+- Acceptare: fiecare componentă e pe `/qa/componente`, în light și dark, la 375 și 1440 px, iar raportul de contrast trece AA.
+
+**R4 — Homepage**
+- Hero TwoCol cu HeroDiagram (etichetele în Public Sans) și secțiunile rearanjate pe tiparul TwoCol / Manifest / navy, cu textul din `spec/continut/01-acasa.md` neschimbat.
+- Îmi arăți ordinea secțiunilor și ce vizual real primește fiecare TwoCol **înainte** să construiești. Unde nu există un vizual real, folosești varianta `aside`.
+
+**R5 — Restul paginilor, RO și EN**
+- În ordinea: servicii (3), Cum lucrăm, Radiografie, Rezultate + studiile de caz, Despre, Echipa, Blog + articol, Contact, Suport, legale, 404, Mulțumesc.
+
+**R6 — Verificare**
+- Toată lista din `CLAUDE.md` § Cum verifici: build curat, capturi la 375, 768, 1024 și 1440 px (light/dark, RO/EN), diff-ul textual cu zero diferențe, Lighthouse ≥ 95, consola curată, tastatura și lista de mirosuri.
+- Cuvintele lungi din titluri („INFRASTRUCTURĂ”, „CIBERNETICĂ”, „CYBERSECURITY”) nu depășesc lățimea la 375 px.
+- Greutatea paginii rămâne sub 300 KB fără imagini, cu fonturile incluse.
+
+---
+
 ## În afara acestui plan (nu se face acum)
 
 Portal pentru clienți; chat pe site; pagini pe industrii; a treia limbă; blog cu mai mult de un articol (următoarele se adaugă ca fișiere Markdown, nu ca lucru de dezvoltare); email automat de confirmare către lead (opțional, se decide după lansare).

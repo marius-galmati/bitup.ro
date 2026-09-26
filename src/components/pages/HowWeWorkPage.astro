@@ -70,7 +70,7 @@ const { lang, copy } = Astro.props;
       <div class="help">
         <div class="help__text">
           <ol class="help__steps">
-            {copy.help.steps.map((s, i) => <li class="help__step"><span class="help__num mono" aria-hidden="true">{i + 1}.</span><span>{s}</span></li>)}
+            {copy.help.steps.map((s, i) => <li class="help__step"><span class="help__num tnum" aria-hidden="true">{i + 1}.</span><span>{s}</span></li>)}
           </ol>
           <p class="help__row">{copy.help.row} <a href={copy.help.linkPath}>{copy.help.link}<span aria-hidden="true"> →</span></a></p>
         </div>

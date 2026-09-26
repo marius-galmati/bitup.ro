@@ -1,7 +1,7 @@
 ---
 /**
  * FactStrip (DESIGN § FactStrip): bandă pe --surface cu 4–5 celule separate de linii verticale;
- * eticheta în mono uppercase teal (opțională), valoarea în 600. Celulele pot fi și doar valori (FactStrip-ul de sub hero).
+ * eticheta ca la card (teal, majuscule, 14 px; opțională), valoarea în Public Sans 600. Celulele pot fi și doar valori (FactStrip-ul de sub hero).
  */
 interface Props { items: { k?: string; v: string }[]; class?: string; label?: string }
 const { items, class: className, label } = Astro.props;
@@ -16,11 +16,11 @@ const { items, class: className, label } = Astro.props;
 </dl>
 
 <style>
-  .facts { margin: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); }
+  .facts { margin: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-card); }
   .facts__cell { padding: var(--s-4) var(--s-5); border-left: 1px solid var(--line); display: grid; gap: var(--s-1); align-content: center; }
   .facts__cell:first-child { border-left: 0; }
   @media (max-width: 767px) { .facts__cell { border-left: 0; border-top: 1px solid var(--line); } .facts__cell:first-child { border-top: 0; } }
-  .facts__k { font-family: var(--font-mono); font-size: var(--fs-eyebrow); font-weight: 500; letter-spacing: .08em; text-transform: uppercase; color: var(--teal); }
+  .facts__k { font-size: var(--fs-label); font-weight: 600; letter-spacing: .04em; text-transform: uppercase; color: var(--teal); }
   .facts__v { margin: 0; font-weight: 600; color: var(--text); font-variant-numeric: tabular-nums; text-wrap: balance; }
   .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
 </style>

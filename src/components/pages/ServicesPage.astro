@@ -24,7 +24,7 @@ const { lang, copy } = Astro.props;
         {copy.groups.map((g, i) => (
           <li class="group">
             <div class="group__head">
-              <span class="mono small muted group__num" aria-hidden="true">0{i + 1}</span>
+              <span class="small muted group__num tnum" aria-hidden="true">0{i + 1}</span>
               <h2 class="group__title">{g.title}</h2>
               <p class="group__position">{g.position}</p>
             </div>

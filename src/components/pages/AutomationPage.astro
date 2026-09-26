@@ -84,7 +84,7 @@ const jsonLd = [service(lang, copy.serviceName, copy.description, absoluteUrl(ro
           <p>{copy.software.p3}</p>
           <p>{copy.software.p4}</p>
         </div>
-        <div class="logo-box" aria-hidden="true"><span class="mono">[[LOGO_PROQ_LOCAL]]</span></div>
+        <div class="logo-box" aria-hidden="true"><span>[[LOGO_PROQ_LOCAL]]</span></div>
       </div>
     </Container>
   </Section>
@@ -122,5 +122,5 @@ const jsonLd = [service(lang, copy.serviceName, copy.description, absoluteUrl(ro
   .split { display: grid; gap: var(--s-6); align-items: start; }
   .split :global(.split__figure) { max-width: 360px; }
   @media (min-width: 1024px) { .split { grid-template-columns: minmax(0, 1fr) 360px; gap: var(--s-8); } }
-  .logo-box { display: grid; place-items: center; min-height: 200px; padding: var(--s-6); background: var(--navy-surface); border: 1px solid var(--line); border-radius: var(--radius-lg); color: var(--on-navy-muted); font-size: var(--fs-small); }
+  .logo-box { display: grid; place-items: center; min-height: 200px; padding: var(--s-6); background: var(--navy-surface); border: 1px solid var(--line); border-radius: var(--r-media); color: var(--on-navy-muted); font-size: var(--fs-small); }
 </style>

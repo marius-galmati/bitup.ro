@@ -60,13 +60,13 @@ const peopleHeading = lang === 'ro' ? 'Oamenii' : 'The people';
             : <div class="person__photo person__photo--gol" aria-hidden="true"><span class="person__initials">{p.initials}</span></div>}
           <div class="person__body">
             <h3 class="person__name">{p.name}</h3>
-            <p class="person__role mono">{p.role}</p>
-            <p class="person__exp mono muted">{p.experience}</p>
+            <p class="person__role label">{p.role}</p>
+            <p class="person__exp muted">{p.experience}</p>
             <div class="person__text">{p.paragraphs.map((t) => <p>{t}</p>)}</div>
             <p class="person__link">
               {p.linkedin
                 ? <a href={p.linkedin} target="_blank" rel="noopener" aria-label={p.linkedinAriaLabel}><img src="/icons/linkedin.svg" alt="" width="20" height="20" aria-hidden="true" /></a>
-                : <span class="mono muted">{p.linkedinPlaceholder}</span>}
+                : <span class="muted">{p.linkedinPlaceholder}</span>}
             </p>
           </div>
         </article>
@@ -98,10 +98,10 @@ const peopleHeading = lang === 'ro' ? 'Oamenii' : 'The people';
   @media (min-width: 1024px) { .person { column-gap: var(--s-7); } }
 
   /* Fotografie și substituent, aceeași casetă: pătrat, colț de 4 px, bordură de 1 px. Nu rotund. */
-  .person :global(.person__photo) { width: 160px; height: auto; aspect-ratio: 1; object-fit: cover; border: 1px solid var(--line); border-radius: var(--radius); }
+  .person :global(.person__photo) { width: 160px; height: auto; aspect-ratio: 1; object-fit: cover; border: 1px solid var(--line); border-radius: var(--r-media); }
   @media (min-width: 768px) { .person :global(.person__photo) { width: 240px; } }
   .person__photo--gol { display: grid; place-items: center; background: var(--surface-2); }
-  .person__initials { font-family: var(--font-display); font-weight: 600; font-size: var(--fs-h1); color: var(--navy); }
+  .person__initials { font-family: var(--font-display); font-weight: 700; font-size: 72px; color: var(--navy); }
 
   .person__body { display: grid; gap: var(--s-2); max-width: 70ch; }
   .person__name { font-size: var(--fs-h3); }
@@ -115,7 +115,7 @@ const peopleHeading = lang === 'ro' ? 'Oamenii' : 'The people';
   .person__link a { display: inline-flex; align-items: center; justify-content: center; min-width: 44px; min-height: 44px; margin-left: -12px; transition: opacity 150ms; }
   .person__link a:hover { opacity: .75; }
   .person__link :global(img) { display: block; width: 20px; height: 20px; }
-  .person__link span { display: inline-flex; align-items: center; min-height: 44px; font-family: var(--font-mono); font-size: var(--fs-small); }
+  .person__link span { display: inline-flex; align-items: center; min-height: 44px; font-size: var(--fs-small); }
 
   .closing { display: grid; gap: var(--s-4); max-width: 70ch; }
   .closing p { text-wrap: pretty; }

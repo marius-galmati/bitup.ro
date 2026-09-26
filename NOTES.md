@@ -1744,6 +1744,296 @@ Antetul `X-Robots-Tag: noindex` merge și pe adresa din rețea (verificat), deci
 
 Producția: `dist/` e în continuare bit cu bit identic — 112 fișiere, zero diferențe față de build-ul de referință. `allowedHosts` e, ca și `headers`, exclusiv configurație de server local.
 
+## 26 septembrie 2026: stil nou, `DESIGN.md` înlocuit
+
+Marius a înlocuit integral `spec/DESIGN.md`. Direcția nouă: clar, simplu, aerisit, contrast puternic — titluri mari condensate cu majuscule, pagină albă, o idee pe ecran, un singur buton. Referința vizuală e `spec/assets/referinte/` (capturi de pe bancatransilvania.ro și filomuro21.ro, alese de el).
+
+Odată cu fișierul au venit: `src/styles/tokens.css` nou, înlocuirile din `CLAUDE.md` (aplicate, 11 la număr) și Faza R în `spec/PLAN.md` (mutată înainte de „În afara acestui plan”). Fișierele de instrucțiuni `CLAUDE-md-modificari.md` și `spec/PLAN-faza-R.md` au fost șterse după aplicare, cum a cerut.
+
+**Ce nu se schimbă în toată Faza R:** textele din `spec/continut/`, `spec/continut-en/` și `src/copy/`, rutele, SEO, formularele, i18n și logica. Majusculele vin numai din CSS; cuvântul evidențiat vine din câmpul `accent`, nu dintr-o modificare de text. Diff-ul textual trebuie să rămână la zero diferențe la fiecare pas.
+
+### Decizii vizuale vechi, acum depășite
+
+Fiecare a fost corectă când a fost luată. Le las în fișier ca istoric, dar de azi nu mai sunt valabile; unde cineva le caută, ăsta e răspunsul.
+
+| Decizia | Când | Ce spunea | Ce e valabil de azi |
+|---|---|---|---|
+| **Public Sans pe tot site-ul** | 14 sept. 2026 | O singură familie, inclusiv pe titluri, la 600, cu tracking negativ | Două familii: **Barlow Condensed 700** pe display (h1, h2, cifrele din NumberTiles, titlul din CtaBand) și Barlow Condensed 300 pe eyebrow; Public Sans rămâne pentru text, h3 și etichete. Comparația de fonturi din ziua aceea rămâne validă pentru text, nu pentru titluri. |
+| **IBM Plex Mono pentru mono** | 14 sept. 2026 | `--font-mono` pentru eyebrow, etichete mici, ani, telefon, numerele din lista Radiografiei | Mono-ul **iese din proiect**. Eyebrow-ul devine Barlow Condensed 300; etichetele mici devin Public Sans 600 majuscule 14 px teal; telefonul din header devine Public Sans cu `tabular-nums`. |
+| **Sentence case peste tot, inclusiv în titluri** | 14 sept. 2026 (§ premium) | Titlurile scrise și afișate în sentence case | Textul sursă **rămâne** în sentence case; afișarea h1/h2/eyebrow e cu majuscule, **numai din CSS**. Regula „fără majuscule în textul sursă” devine mirosul 9. |
+| **Raza 4 px (`--radius`), 8 px (`--radius-lg`)** | 14 sept. 2026 | „Mic, deliberat; nu rotunjim totul” | Patru raze, fiecare cu rolul ei: `--r-pill` 999, `--r-card` 28, `--r-media` 16, `--r-field` 12. Nicio alta. |
+| **Card cu bordură 1 px + bordură superioară 3 px teal, pe `--surface`** | 14 sept. 2026 (Faza 1) | Cardul se delimita prin bordură | Card pe `--surface-2`, **fără bordură**, `--r-card`, ordinea etichetă teal → h3 → text → imagine împinsă la bază. |
+| **Eyebrow mono, uppercase, teal, 12,5 px** | 14 sept. 2026 | Etichetă mică deasupra titlului | Barlow Condensed 300, majuscule, 22–32 px, `--navy`, la `--s-3` deasupra titlului. E acum un element de tipografie, nu o etichetă. |
+| **Container 1120 px** | 14 sept. 2026 | Lățimea utilă a paginii | **1200 px**. Gutter 20 px pe mobil, 32 px pe desktop. |
+| **`--container-wide` 1360 px, doar pentru hero** | 18 sept. 2026 | Hero-ul ieșea pe un container mai lat, cu gutieră de 72 px ca să rămână aliniat | Nu mai are rost: containerul unic e 1200 px. Gutiera de 72 px și calculul (1360 − 1120) / 2 = 120 px **se scot** odată cu el. |
+| **Header 64 px** | 14 sept. 2026 | Înălțimea barei | **80 px** (`--header-h`). |
+| **Padding-ul linkurilor din header strâns la 8 px** | 24 sept. 2026 | Reparația pentru al șaselea link („Echipa”), ca rândul să încapă în 1120 px | Se recalculează de la zero: container 1200 px, linkuri Public Sans 17 px, și un prag de hamburger care poate urca de la 1024 la 1200 px dacă rândul tot nu încape. **Măsurătoarea se reface în R2**, nu se păstrează valoarea veche. |
+| **Umbra doar pe meniul mobil și pe formular** | 13–14 sept. 2026 | Unde e permisă umbra | Panoul Servicii, meniul mobil și bannerul de consimțământ, **numai în light**. Formularul **nu** mai are umbră. |
+| **Aranjamentul homepage-ului după `example.png`** | 17 sept. 2026 | Rânduri cu linii de păr, `TwoCol` cu eyebrow sticky în stânga, carduri pe trei coloane cu linii verticale | Tiparul de bază devine **TwoCol**: text (eyebrow → titlu cu accent → paragraf → un buton) într-o coloană, vizual real în cealaltă, cu părțile alternate. Rândurile cu linii rămân, dar ca variantă `TwoCol aside`, nu ca tipar principal. |
+| **`TwoCol` = eyebrow sticky în stânga, text în dreapta** | 14 sept. 2026 | Modelul pentru text lung | `TwoCol` înseamnă acum text / vizual, cu `reverse` și `aside`. Varianta cu eyebrow sticky dispare. |
+| **Hero homepage: două butoane („Programează Radiografia IT” + „Explorează serviciile”)** | 18 sept. 2026 | Al doilea buton, secundar | Eticheta și destinația **rămân**, dar al doilea devine **link terțiar**, nu al doilea buton-pastilă. E regulă nouă în § Ce nu facem: „două butoane-pastilă unul lângă altul”. |
+| **Etichetele din `HeroDiagram` în mono** | 18 sept. 2026 | `--font-mono` în SVG | Public Sans 600. Restul graficului (geometria, benzile-link, secvența de desen, hover-ul, accesibilitatea) **rămâne neschimbat**. |
+| **Quote cu bordură laterală 4 px teal** | 14 sept. 2026 | Citat cu bară în stânga | `--teal-soft`, `--r-card`, padding `--s-8`, **fără bordură laterală**. |
+| **Cercurile din Steps** | 14 sept. 2026 | Cifra în font de text | Cerc 56 px `--teal`, cifra în Barlow Condensed 700, 28 px, albă. |
+| **Inițialele substituentului din `/echipa`, `--fs-h1`** | 19 sept. 2026 | Inițiale în fontul de titlu de atunci | Barlow Condensed 700, 72 px, `--navy`; fotografia primește `--r-media` în loc de colț de 4 px. |
+| **Lista de verificări din Radiografie cu numere mono** | 14 sept. 2026 | Numerele în `--font-mono` | Mono-ul nu mai există; se reface în R5 cu tipografia nouă. |
+
+### Ce rămâne valabil, ca să nu fie căutat degeaba
+
+- **Nodurile orange de pe spina `HeroDiagram`** (18 sept. 2026) — excepția e reconfirmată explicit în noul `DESIGN.md` § Culoare.
+- **Tot `HeroDiagram`-ul** în rest: geometria, cele cinci benzi-link către paginile de servicii (20 sept.), secvența de desen de ~1,9 s, hover-ul, `prefers-reduced-motion`.
+- **Marca LinkedIn** (19 sept.): albastrul oficial, 20 px, zonă de atingere de 44 px.
+- **Structura rândului de persoană** de pe `/echipa` (19 sept.): rânduri suprapuse, fotografie 240 px în stânga, fără alternanță.
+- **`/despre` fără nicio imagine** (18 sept.), portretul lui Marius în aceleași patru locuri.
+- **FactStrip-ul scos de sub hero** (17 sept.) — noul `DESIGN.md` o spune din nou.
+- **CtaBand stânga/dreapta de la 1024 px** (17 sept.).
+- **Logo-ul vectorizat** și variantele lui (14 sept.).
+- Vocea, textele, rutele, SEO-ul, `noindex`-ul de pe `/echipa`, tot ce nu e vizual.
+
+### Skill-ul `design-loop` contrazicea fișierul nou
+
+`.claude/skills/design-loop/SKILL.md` e fișier de lucru, nu spec, și dădea două indicații care acum sunt greșite: „**Sentence case peste tot, inclusiv în titluri**” și, în lista de tipare care rămân, „**mono pentru etichete mici**”. Le-am adus la zi în același commit; capcanele tehnice din el rămân neatinse.
+
+
+### R1 — tokeni, fonturi, bază (26 septembrie 2026)
+
+**Fonturi.** `@fontsource/barlow-condensed` instalat (300 și 700, `latin` și `latin-ext`), `@fontsource/ibm-plex-mono` dezinstalat. Importurile și preîncărcarea sunt în `BaseLayout`. Preîncărcarea e pe limbă: RO ia și `latin-ext` (are diacritice în titluri), EN ia doar `latin` — altfel ar descărca degeaba 32 KB pe care nu-i folosește deasupra pliului. Restul subseturilor rămân pe `unicode-range`, deci se iau doar la nevoie.
+
+**Zero cereri externe de font.** În HTML-ul construit, singurele `woff2` sunt de pe `/_astro/`; singurele adrese externe din pagină sunt cele două linkuri de LinkedIn, care erau și înainte.
+
+**`base.css` rescris.** Display (h1, h2) în Barlow Condensed 700 cu `text-transform: uppercase`, `line-height: .95`, `letter-spacing: -0.01em`; `h3` în Public Sans 600, sentence case; `.eyebrow` în Barlow Condensed 300, majuscule, `--navy`; `.accent`, `.label`, `.tnum` noi; corpul la 18 px / 1.55. Sub 480 px, `h1` și `h2` primesc `hyphens: manual` și `overflow-wrap: anywhere` ca plasă de siguranță pentru cuvintele lungi.
+
+**Tokenii vechi, la zero.** `grep` după `--radius`, `--radius-lg`, `--font-mono` și `--container-wide` nu mai întoarce nimic din `src/`. Fiecare folosire a primit rolul ei, nu o înlocuire oarbă:
+
+| Vechi | Unde a ajuns |
+|---|---|
+| `--radius` / `--radius-lg` | `--r-pill` (butoane, comutatoare, hamburger, skip-link), `--r-card` (Card, CtaBand, FactStrip, NumberTiles, Quote, AuthorBox, formular, cardurile de caz), `--r-media` (imagini, capturi, Figure, caseta de logo, portrete, substituenți, ConsentBanner), `--r-field` (câmpuri și caseta de eroare) |
+| `--font-mono` | `.label` (etichete: FactStrip, Contact, tabelul din Suport, rolul din /echipa, faptele din Rezultate), Public Sans cu `tabular-nums` (telefoane, date, CUI, numere de pas), Barlow Condensed 700 (cifrele din cercurile Steps), Public Sans 600 (etichetele din HeroDiagram) |
+| clasa `.mono` | 35 de atribute `class` curățate; 12 au primit `tnum` |
+
+**Capcana mărimilor care și-au schimbat înțelesul.** `--fs-eyebrow` era 12,5 px (etichetă mică) și acum e 22–32 px (eyebrow-ul mare). Cinci locuri îl foloseau ca mărime mică și au ieșit uriașe — s-a văzut în footer, unde CUI-ul și numărul de registru erau cât un titlu. Toate cinci au trecut pe `--fs-small` / `--fs-label`. La fel, `--fs-h1` și `--fs-h2` au crescut mult: inițialele din `/echipa` au trecut pe 72 px fix (cum cere DESIGN), titlul din panoul Servicii pe Public Sans 22 px, iar `h2` din `Prose` pe excepția pentru text lung (Public Sans 600, 30 px, sentence case).
+
+**Componenta `Heading`.** Primește `text` și `accent`; învelește prima potrivire în `<span class="accent">`. Dacă `accent` nu e subșir din `text`, **aruncă și oprește build-ul**, cu un mesaj care spune ce titlu și ce accent — altfel o greșeală de diacritice ar trece neobservată și titlul ar rămâne fără evidențiere. Are și `onNavy`, pentru `--on-navy-accent`.
+
+**`/qa/tokens`.** Pagină nouă, pe ruta de QA existentă (deci tot `noindex`, tot absentă în producție). Arată cele două familii cu rolurile lor, toată scara de tip, demonstrația de accent, paleta pe roluri, un bloc navy cu rolurile pe fundal închis, cele patru raze și cele zece trepte de spațiu. Fraza de probă e titlul meta al homepage-ului, care are toate diacriticele românești — așa se vede dintr-o privire dacă `latin-ext` s-a încărcat pentru amândouă familiile.
+
+#### Ce s-a verificat
+
+- `npm run build`: 0 erori, 0 avertismente, 44 de pagini (43 + `/qa/tokens`). `npx astro check`: 0 erori / 0 avertismente / 0 sugestii.
+- **Textul e neatins**, ceea ce era condiția Fazei R: `textdiff` dă zero diferențe pe `01-acasa`, `01-home`, `09-despre`, `16-echipa`, `03-suport-it`, `04-securitate` și `11-contact`. Majusculele vin din CSS, deci HTML-ul livrat are același text ca înainte.
+- `pagecheck`: 41 de pagini, 0 cu probleme. `headings`: 1 `h1` peste tot, 26 de titluri pe homepage în ambele limbi.
+- `keyboard`: trece pe homepage, `/en`, `/despre`, `/echipa` și `/contact`.
+- `contrast.py` adus la noua paletă (`--bg` a devenit alb, `--surface-2` `#EEF3F3`, `--text` navy) și extins cu 13 perechi noi. **55 din 57 trec**; cele două „NU” sunt excepțiile documentate de dinainte (logotipul LinkedIn în dark, și orange-ul care tocmai de aceea nu se folosește la focus). Perechile cerute explicit de `DESIGN.md` § Accesibilitate: teal pe `--surface-2` 5,75:1 (light) și 5,63:1 (dark); `--muted` pe `--surface-2` 5,21:1 și 6,48:1; accentul în titlu 6,45:1 și 7,18:1; accentul pe navy 8,49:1 și 7,53:1.
+- **Greutatea paginii**, fără imagini: **239,3 KB pe RO** (fonturi 114,5 KB) și **221,0 KB pe EN** (fonturi 96,5 KB). Bugetul e 300 KB, deci mai e loc, dar fonturile sunt acum cea mai mare parte din pagină — de urmărit la R6.
+- Fără depășire pe orizontală la 375, 768, 1024 și 1440 px, pe 16 pagini.
+- 24 de capturi în `qa/faza-R1/`, privite una câte una în light și dark.
+
+#### De lămurit
+
+1. **`<code>` fără mono.** Mono-ul a ieșit din proiect, dar `<code>` din `Prose` îl folosea — acolo stau numele de cookie-uri (`__cf_bm`, `_ga`) din pagina Cookies. Le-am lăsat în Public Sans 600, într-o casetă `--surface-2` cu `--r-field`, fără a treia familie. Alternativa ar fi fontul monospace al sistemului, care nu se descarcă și deci nu încalcă „două fonturi” ca greutate, dar ar arăta diferit de la un calculator la altul. **Cum vrei?**
+2. **Header-ul e 65 px, `DESIGN.md` cere 80.** E treaba pasului R2, îl las acolo; îl scriu aici ca să fie măsurat, nu uitat.
+3. **`TwoCol`-ul vechi nu încape titlurile noi.** Coloana de eyebrow are 240 px, iar `h2` e acum 72 px la 1440 px: „Trei lucruri, făcute până la capăt” iese pe **5 rânduri**, „Ce primești când răspunde un singur partener de tot” pe **8**, „Ce ne întreabă un patron înainte să scrie” pe **6**. Se vede în capturile din `qa/faza-R1/`. E exact componenta pe care o rescrie R3 (TwoCol devine text / vizual, fără coloană sticky de 240 px), deci nu am atins-o acum — dar așa arată site-ul între R1 și R3.
+4. **La 320 px**, două pagini depășesc pe orizontală: `/radiografie-it` (341 px) și `/rezultate` (340 px). La `/radiografie-it` e din cercul de 56 px al pașilor, pe care `DESIGN.md` îl cere explicit. Spec-ul verifică de la 375 px în sus, unde totul e curat, deci nu am forțat nimic. Spune dacă vrei 320 px în buget.
+5. **Cuvintele evidențiate** sunt propuse mai sus, toate 216, și așteaptă confirmarea ta.
+
+### R1 — cuvintele evidențiate propuse (așteaptă confirmarea lui Marius)
+
+Regula din `DESIGN.md` § Tipografie: 1–3 cuvinte din titlu în teal, cel mult unul pe titlu, niciodată în titlurile de card (care sunt `h3`). Accentul e un **subșir exact** din titlu, pus în câmpul `accent` de lângă el; textul titlului nu se atinge.
+
+Am propus pentru **toate cele 216 titluri** `h1` și `h2` din `src/copy/`, pe ambele limbi. Fiecare propunere a fost verificată automat că e subșir exact din titlul ei — dacă nu era, componenta `Heading` ar fi oprit build-ul. Unde scrie **—**, titlul rămâne fără accent: sunt numele proprii („BitUp Technology SRL”), titlurile de o vorbă („Întrebări frecvente”) și cele unde evidențierea n-ar adăuga nimic.
+
+Paginile legale (Termeni, Confidențialitate, Cookies) au accent doar pe `h1`: `h2`-urile lor sunt în `Prose`, care după noul `DESIGN.md` rămâne în sentence case, fără majuscule și fără accent.
+
+**Nu le-am aplicat încă**, și aici m-am abătut de la litera planului („le aplici și aștepți confirmarea mea”). Motivul: componentele nu folosesc încă `Heading` — asta se întâmplă în R3–R5, când fiecare componentă se rescrie. Aplicate acum, cele 216 câmpuri ar însemna și modificarea a circa 30 de interfețe din `src/copy/`, fără niciun efect vizibil, iar dacă schimbi regula ar trebui refăcute toate. Le aplic la prima ta confirmare, odată cu componentele care le folosesc. Spune-mi dacă preferi invers.
+
+**Despre**
+
+| | Titlu (RO) | Accent RO | Titlu (EN) | Accent EN |
+|---|---|---|---|---|
+| h1 | Standarde enterprise, aduse la scara companiei tale. | **Standarde enterprise** | Enterprise standards, brought to the scale of your … | **Enterprise standards** |
+| h2 | De ce am fondat BitUp | **am fondat** | Why we founded BitUp | **Why we founded** |
+| h2 | Specialiști pe zone diferite din IT, nu un singur o… | **pe zone diferite** | Specialists in different areas of IT, not one perso… | **different areas** |
+| h2 | Cu cine ne potrivim | **ne potrivim** | Who we are a fit for | **a fit for** |
+| h2 | Patru probleme care se repetă | **Patru probleme** | Four problems that keep coming back | **Four problems** |
+| h2 | Tehnologie modernă, aplicată pragmatic | **aplicată pragmatic** | Modern technology, applied pragmatically | **applied pragmatically** |
+| h2 | Trei valori, cu ce înseamnă fiecare în practică | **Trei valori** | Three values, and what each one means in practice | **Three values** |
+| h2 | BitUp Technology SRL | **—** | BitUp Technology SRL | **—** |
+
+**Automatizări**
+
+| | Titlu (RO) | Accent RO | Titlu (EN) | Accent EN |
+|---|---|---|---|---|
+| h1 | Ce se repetă în firma ta ar trebui să facă un siste… | **un sistem** | Whatever repeats in your company should be done by … | **a system** |
+| h2 | Semnele că un proces a crescut mai mult decât Excel… | **a crescut** | Signs a process has outgrown its Excel | **outgrown** |
+| h2 | Întâi procesul, apoi tehnologia | **Întâi procesul** | The process first, then the technology | **The process first** |
+| h2 | Trei feluri de lucruri | **Trei feluri** | Three kinds of things | **Three kinds** |
+| h2 | Cipri, asistentul nostru de suport | **Cipri** | Cipri, our support assistant | **Cipri** |
+| h2 | ProQ: un produs întreg, pornit de la o nevoie dintr… | **ProQ** | ProQ: a whole product, started from a factory's need | **ProQ** |
+| h2 | Trei lucruri pe care le spunem la prima discuție | **Trei lucruri** | Three things we say in the first conversation | **Three things** |
+| h2 | Întrebări frecvente | **—** | FAQ | **—** |
+
+**Blog**
+
+| | Titlu (RO) | Accent RO | Titlu (EN) | Accent EN |
+|---|---|---|---|---|
+| h1 | Decizii de tehnologie, pe înțelesul patronului | **Decizii de tehnologie** | Technology decisions, in plain language for owners | **Technology decisions** |
+| h2 | Trei teme, mereu din practică | **Trei teme** | Three themes, always from practice | **Three themes** |
+
+**Contact**
+
+| | Titlu (RO) | Accent RO | Titlu (EN) | Accent EN |
+|---|---|---|---|---|
+| h1 | Scrie-ne. Răspundem, nu un formular. | **Răspundem** | Write to us. We answer, not a form. | **We answer** |
+| h2 | Ce se întâmplă după ce trimiți | **după ce trimiți** | What happens after you send | **after you send** |
+
+**Radiografie**
+
+| | Titlu (RO) | Accent RO | Titlu (EN) | Accent EN |
+|---|---|---|---|---|
+| h1 | În 30 de minute afli unde stă firma ta cu backup-ul… | **30 de minute** | In 30 minutes you'll know where your company stands… | **30 minutes** |
+| h2 | Zece întrebări la care ar trebui să știi răspunsul | **Zece întrebări** | Ten questions you should know the answer to | **Ten questions** |
+| h2 | Trei pași, niciunul nu cere să instalezi ceva | **Trei pași** | Three steps, none of them asks you to install anyth… | **Three steps** |
+| h2 | O pagină, nu un raport de 40 | **O pagină** | One page, not a 40-page report | **One page** |
+| h2 | Cine face radiografia | **Cine face** | Who runs the health check | **Who runs** |
+| h2 | Întrebări | **—** | FAQ | **—** |
+
+**Homepage**
+
+| | Titlu (RO) | Accent RO | Titlu (EN) | Accent EN |
+|---|---|---|---|---|
+| h1 | Proiectăm, securizăm și administrăm întreaga infras… | **întreaga infrastructură IT** | We design, secure, and run the entire IT infrastruc… | **entire IT infrastructure** |
+| h2 | Trei propoziții pe care le auzim în aproape fiecare… | **Trei propoziții** | Three sentences we hear in almost every new company | **Three sentences** |
+| h2 | Trei lucruri, făcute până la capăt | **până la capăt** | Three things, seen through to the end | **through to the end** |
+| h2 | Patru pași. Al patrulea nu se termină. | **Patru pași** | Four steps. The fourth never ends. | **Four steps** |
+| h2 | Ce primești când răspunde un singur partener de tot | **un singur partener** | What you get when one partner answers for everything | **one partner** |
+| h2 | Scrii pe WhatsApp. Primești răspuns pe loc. Nimic n… | **Nimic nu se pierde** | You write on WhatsApp. You get an answer right away… | **Nothing gets lost** |
+| h2 | Marius Galmati, fondator BitUp | **Marius Galmati** | Marius Galmati, BitUp founder | **Marius Galmati** |
+| h2 | Ce am făcut, cu nume | **cu nume** | What we've done, with names | **with names** |
+| h2 | Cu ce lucrăm | **Cu ce lucrăm** | What we work with | **What we work with** |
+| h2 | Tehnologii cu care lucrăm zilnic | **zilnic** | Technologies we work with daily | **daily** |
+| h2 | Cum lucrăm, scris de noi | **scris de noi** | How we work, written by us | **written by us** |
+| h2 | Ce ne întreabă un patron înainte să scrie | **un patron** | What an owner asks us before writing | **an owner** |
+
+**Cum lucrăm**
+
+| | Titlu (RO) | Accent RO | Titlu (EN) | Accent EN |
+|---|---|---|---|---|
+| h1 | Concret, cum o să fie? | **Concret** | So what does it actually look like? | **actually look like** |
+| h2 | Patru pași. Al patrulea nu se termină. | **Patru pași** | Four steps. The fourth doesn't end. | **Four steps** |
+| h2 | Radiografia: 30 de minute în care aflăm amândoi cu … | **Radiografia** | The health check: 30 minutes for both of us to see … | **The health check** |
+| h2 | Planul: ce facem, în ce ordine, cât costă | **Planul** | The plan: what we do, in what order, what it costs | **The plan** |
+| h2 | Primele 30 de zile: punem ordine | **Primele 30 de zile** | The first 30 days: we put things in order | **The first 30 days** |
+| h2 | O lună obișnuită, în care nu ne suni | **O lună obișnuită** | A normal month, in which you don't call us | **A normal month** |
+| h2 | Scrii pe WhatsApp. Restul se întâmplă singur. | **Restul se întâmplă singur** | You write on WhatsApp. The rest happens by itself. | **The rest happens by itself** |
+| h2 | Ce primești la sfârșitul lunii | **la sfârșitul lunii** | What you get at the end of the month | **at the end of the month** |
+| h2 | Cum tratăm o urgență | **o urgență** | How we handle an emergency | **an emergency** |
+| h2 | O sumă fixă pe lună. Proiectele, cu ofertă înainte. | **O sumă fixă** | A fixed amount per month. Projects, quoted first. | **A fixed amount** |
+| h2 | Dacă vrei să pleci, pleci cu tot | **pleci cu tot** | If you want to leave, you leave with everything | **leave with everything** |
+| h2 | Întrebări | **—** | FAQ | **—** |
+
+**Suport IT**
+
+| | Titlu (RO) | Accent RO | Titlu (EN) | Accent EN |
+|---|---|---|---|---|
+| h1 | Suport și administrare IT, în abonament lunar | **abonament lunar** | IT support and administration, by monthly subscript… | **monthly subscription** |
+| h2 | Cum arată IT-ul într-o firmă care ne caută | **care ne caută** | What IT looks like in a company that calls us | **that calls us** |
+| h2 | Ce faci tu, ce facem noi | **ce facem noi** | What you do, what we do | **what we do** |
+| h2 | Nu trebuie să externalizezi tot | **Nu trebuie** | You don't have to outsource everything | **don't have to** |
+| h2 | Serverul din birou sau în cloud? Depinde, și îți sp… | **Depinde** | Office server or cloud? Depends, and we'll tell you… | **Depends** |
+| h2 | Alegem, cumpărăm, instalăm și răspundem de ele după | **răspundem de ele** | We pick, buy, install, and answer for it afterward | **answer for it** |
+| h2 | Ce se întâmplă când nu se întâmplă nimic | **nu se întâmplă nimic** | What happens when nothing happens | **nothing happens** |
+| h2 | Ca să nu pierdem timpul amândoi | **timpul amândoi** | So neither of us wastes time | **neither of us wastes time** |
+| h2 | Întrebări frecvente | **—** | FAQ | **—** |
+
+**Rezultate**
+
+| | Titlu (RO) | Accent RO | Titlu (EN) | Accent EN |
+|---|---|---|---|---|
+| h1 | Ce am făcut, cu nume | **cu nume** | What we've done, with names | **with names** |
+| h2 | Cum ajunge un caz pe pagina asta | **pe pagina asta** | How a case gets onto this page | **onto this page** |
+
+**Securitate**
+
+| | Titlu (RO) | Accent RO | Titlu (EN) | Accent EN |
+|---|---|---|---|---|
+| h1 | Firmele mici nu sunt atacate pentru că sunt interes… | **ușoare** | Small companies aren't attacked because they're int… | **they're easy** |
+| h2 | „Suntem prea mici să ne atace cineva” | **—** | "We\ | **—** |
+| h2 | Șase lucruri, în ordinea în care contează | **Șase lucruri** | Six things, in the order they matter | **Six things** |
+| h2 | Ai backup. Ai și restore? | **restore** | You have backup. Do you have restore? | **restore** |
+| h2 | Când vrei să știi exact unde stai | **unde stai** | When you want to know exactly where you stand | **where you stand** |
+| h2 | NIS2 și ISO 27001, fără hârtii de dragul hârtiilor | **NIS2 și ISO 27001** | NIS2 and ISO 27001, without paperwork for its own s… | **NIS2 and ISO 27001** |
+| h2 | Primele 24 de ore | **Primele 24 de ore** | The first 24 hours | **The first 24 hours** |
+| h2 | Întrebări frecvente | **—** | FAQ | **—** |
+
+**Servicii**
+
+| | Titlu (RO) | Accent RO | Titlu (EN) | Accent EN |
+|---|---|---|---|---|
+| h1 | Trei grupuri de servicii. Un singur responsabil. | **Un singur responsabil** | Three service groups. One partner accountable. | **One partner accountable** |
+| h2 | De ce le ținem împreună | **împreună** | Why we keep them together | **together** |
+| h2 | Ce nu facem | **Ce nu facem** | What we don't do | **What we don't do** |
+
+**Suport clienți**
+
+| | Titlu (RO) | Accent RO | Titlu (EN) | Accent EN |
+|---|---|---|---|---|
+| h1 | Ai o problemă? Scrie-i lui Cipri. | **Cipri** | Got a problem? Message Cipri. | **Cipri** |
+| h2 | Trei căi, același sistem | **Trei căi** | Three ways, the same system | **Three ways** |
+| h2 | Ca să știm amândoi la ce să ne așteptăm | **la ce să ne așteptăm** | So we both know what to expect | **what to expect** |
+| h2 | Ce se întâmplă după ce scrii | **după ce scrii** | What happens after you write | **after you write** |
+| h2 | Trei lucruri care scurtează orice tichet | **Trei lucruri** | Three things that shorten any ticket | **Three things** |
+| h2 | Ce nu face asistentul | **nu face** | What the assistant doesn't do | **doesn't do** |
+| h2 | Pentru cine nu e încă client | **nu e încă client** | For those who aren't clients yet | **aren't clients yet** |
+
+**Echipa**
+
+| | Titlu (RO) | Accent RO | Titlu (EN) | Accent EN |
+|---|---|---|---|---|
+| h1 | Oamenii din spatele BitUp. | **din spatele BitUp** | The people behind BitUp. | **behind BitUp** |
+| h2 | Patru specializări, un singur punct de contact | **Patru specializări** | Four specializations, one point of contact | **Four specializations** |
+
+**Termeni**
+
+| | Titlu (RO) | Accent RO | Titlu (EN) | Accent EN |
+|---|---|---|---|---|
+| h1 | Termeni de utilizare | **Termeni** | Terms of use | **Terms** |
+| h2 | Cine suntem | **—** | Who we are | **—** |
+| h2 | Ce e site-ul ăsta | **—** | What this site is | **—** |
+| h2 | Ce poți face cu conținutul | **—** | What you can do with the content | **—** |
+| h2 | Ce garantăm și ce nu | **—** | What we guarantee and what we don't | **—** |
+| h2 | Linkuri către alte site-uri | **—** | Links to other sites | **—** |
+| h2 | Studiile de caz | **—** | Case studies | **—** |
+| h2 | Date personale și cookie-uri | **—** | Personal data and cookies | **—** |
+| h2 | Modificări | **—** | Changes | **—** |
+| h2 | Legea și litigiile | **—** | Law and disputes | **—** |
+| h2 | Contact | **—** | Contact | **—** |
+
+**Confidențialitate**
+
+| | Titlu (RO) | Accent RO | Titlu (EN) | Accent EN |
+|---|---|---|---|---|
+| h1 | Politica de confidențialitate | **confidențialitate** | Privacy policy | **Privacy** |
+| h2 | Pe scurt | **—** | In short | **—** |
+| h2 | Cine răspunde de datele tale | **—** | Who is accountable for your data | **—** |
+| h2 | Ce date colectăm și de ce | **—** | What data we collect and why | **—** |
+| h2 | Cât ținem datele | **—** | How long we keep the data | **—** |
+| h2 | Cine mai vede datele | **—** | Who else sees the data | **—** |
+| h2 | Drepturile tale | **—** | Your rights | **—** |
+| h2 | Cum protejăm datele | **—** | How we protect the data | **—** |
+| h2 | Modificări | **—** | Changes | **—** |
+| h2 | Contact | **—** | Contact | **—** |
+
+**Cookies**
+
+| | Titlu (RO) | Accent RO | Titlu (EN) | Accent EN |
+|---|---|---|---|---|
+| h1 | Politica de cookie-uri | **cookie-uri** | Cookie policy | **Cookie** |
+| h2 | Pe scurt | **—** | In short | **—** |
+| h2 | Ce e un cookie | **—** | What a cookie is | **—** |
+| h2 | Ce folosim | **—** | What we use | **—** |
+| h2 | Cum alegi | **—** | How you choose | **—** |
+| h2 | Mai mult | **—** | More | **—** |
+
 ## Propuneri (nu se fac fără acord)
 
 - Faza 5: Astro are suport experimental pentru CSP cu hash-uri generate la build (`experimental.csp`), care ar scoate `'unsafe-inline'` din `script-src` și `style-src`. E îmbunătățirea menționată în `ARHITECTURA.md` § Headere ca „nu o condiție de lansare”. De evaluat când ajungem acolo.

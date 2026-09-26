@@ -1,6 +1,6 @@
 ---
 /**
- * LangSwitch (DESIGN § LangSwitch): două linkuri, RO · EN, mono 12.5 px; limba curentă în --text 600 (fără link), cealaltă în --muted, link către pagina pereche.
+ * LangSwitch (DESIGN § LangSwitch): două linkuri, RO · EN, Public Sans 14 px; limba curentă în --text 600 (fără link), cealaltă în --muted, link către pagina pereche.
  * Fără steaguri. `hreflang` și `lang` pe linkul celeilalte limbi.
  */
 import { t, type Locale } from '../i18n';
@@ -20,10 +20,13 @@ const dict = t(lang);
 </nav>
 
 <style>
-  .lang { font-family: var(--font-mono); font-size: var(--fs-eyebrow); font-weight: 500; letter-spacing: .04em; white-space: nowrap; display: inline-flex; align-items: center; gap: var(--s-1); }
-  .lang__current { color: var(--text); font-weight: 500; padding-block: var(--s-2); }
+  .lang { font-size: var(--fs-label); font-weight: 400; white-space: nowrap; display: inline-flex; align-items: center; gap: var(--s-1); }
+  .lang__current, .lang__other { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding-inline: var(--s-1); }
+  /* Zonă de atingere de 44 × 44 px sub 1024 px, unde meniul mobil e singurul comutator de limbă (DESIGN § Accesibilitate). */
+  @media (max-width: 1023px) { .lang__current, .lang__other { min-width: 44px; } }
+  .lang__current { color: var(--text); font-weight: 500; }
   .lang__sep { color: var(--muted); }
-  .lang__other { color: var(--muted); text-decoration: none; padding-block: var(--s-2); }
+  .lang__other { color: var(--muted); text-decoration: none; }
   .lang__other:hover { color: var(--teal); text-decoration: underline; text-underline-offset: 3px; }
   .lang--compact .lang__current, .lang--compact .lang__sep { display: none; }
 </style>

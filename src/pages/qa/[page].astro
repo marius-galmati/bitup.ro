@@ -1,6 +1,6 @@
 ---
 /**
- * /qa/componente — pagină de QA autorizată de Marius (excepție de la regula 4 din CLAUDE.md): doar în dev și pe staging,
+ * /qa/componente și /qa/tokens — pagini de QA autorizate de Marius (excepție de la regula 4 din CLAUDE.md): doar în dev și pe staging,
  * noindex, exclusă din sitemap, absentă în producție (CF_PAGES_BRANCH === 'main' → getStaticPaths returnează []).
  * Fiecare componentă din Faza 1, în toate stările, plus paleta și scara tipografică. Textele sunt din spec/continut (nu inventate).
  */
@@ -18,12 +18,17 @@ import CtaBand from '../../components/CtaBand.astro';
 import Prose from '../../components/Prose.astro';
 import Figure from '../../components/Figure.astro';
 import ConsentBanner from '../../components/ConsentBanner.astro';
+import QaTokens from '../../components/qa/QaTokens.astro';
 import { isProduction } from '../../lib/env';
 import { t } from '../../i18n';
 
 export function getStaticPaths() {
-  return isProduction ? [] : [{ params: { page: 'componente' } }];
+  // `tokens` e criteriul de acceptare al pasului R1 (PLAN § Faza R).
+  return isProduction ? [] : [{ params: { page: 'componente' } }, { params: { page: 'tokens' } }];
 }
+
+const { page } = Astro.params;
+const esteTokeni = page === 'tokens';
 
 const dict = t('ro');
 const brand = [
@@ -60,7 +65,18 @@ const numbers = [
   { v: '2.293', k: 'teste automate care rulează la fiecare actualizare, înainte ca ea să ajungă la clienți' },
 ];
 ---
-<BaseLayout lang="ro" title="QA · componente · BitUp" description="Pagină de QA: toate componentele din Faza 1, în toate stările, în ambele teme. Doar dev și staging." path="/qa/componente" altPath="/en" noindex noAlternates>
+<BaseLayout
+  lang="ro"
+  title={esteTokeni ? "QA · tokeni · BitUp" : "QA · componente · BitUp"}
+  description={esteTokeni ? "Pagină de QA: fonturile, scara de tip și culorile stilului nou, în ambele teme. Doar dev și staging." : "Pagină de QA: toate componentele din Faza 1, în toate stările, în ambele teme. Doar dev și staging."}
+  path={esteTokeni ? "/qa/tokens" : "/qa/componente"}
+  altPath="/en"
+  noindex
+  noAlternates
+>
+  {esteTokeni && <QaTokens />}
+  {!esteTokeni && (
+  <Fragment>
   <Section tone="surface-2">
     <Container>
       <Eyebrow>QA · doar dev și staging</Eyebrow>
@@ -74,14 +90,14 @@ const numbers = [
       <Eyebrow>Tokeni</Eyebrow>
       <h2 class="qa-h2">Paleta</h2>
       <ul class="qa-swatches">
-        {brand.map(([tok, hex]) => <li><span class="qa-chip" style={`background: var(${tok})`}></span><span class="mono small">{tok} {hex}</span></li>)}
+        {brand.map(([tok, hex]) => <li><span class="qa-chip" style={`background: var(${tok})`}></span><span class="small">{tok} {hex}</span></li>)}
       </ul>
       <ul class="qa-swatches">
-        {neutrals.map((tok) => <li><span class="qa-chip" style={`background: var(${tok})`}></span><span class="mono small">{tok}</span></li>)}
+        {neutrals.map((tok) => <li><span class="qa-chip" style={`background: var(${tok})`}></span><span class="small">{tok}</span></li>)}
       </ul>
       <h2 class="qa-h2">Scara tipografică</h2>
       <ul class="qa-type">
-        {type.map(([tok, label]) => <li><span class="mono small muted">{tok} · {label}</span><p class:list={['qa-sample', tok.replace('--fs-', 'qa-')]}>Suport IT și securitate pentru firme din Cluj · ăâîșț</p></li>)}
+        {type.map(([tok, label]) => <li><span class="small muted">{tok} · {label}</span><p class:list={['qa-sample', tok.replace('--fs-', 'qa-')]}>Suport IT și securitate pentru firme din Cluj · ăâîșț</p></li>)}
       </ul>
     </Container>
   </Section>
@@ -92,7 +108,7 @@ const numbers = [
       <h2 class="qa-h2">Principal, secundar, terțiar, plin teal; hover, focus, activ, dezactivat</h2>
       <div class="qa-row">
         <Button href="#">Radiografie IT gratuită</Button>
-        <Button href="#" variant="secondary">Vezi cum lucrăm</Button>
+        <Button href="#" variant="secondary">Explorează serviciile</Button>
         <Button href="#" variant="tertiary">Cum decurge o radiografie</Button>
         <Button href="#" variant="teal">Scrie-i lui Cipri pe WhatsApp</Button>
       </div>
@@ -205,6 +221,8 @@ const numbers = [
   </Section>
 
   <CtaBand lang="ro" />
+  </Fragment>
+  )}
 </BaseLayout>
 
 <style>
@@ -212,14 +230,14 @@ const numbers = [
   .qa-h2 { margin-top: var(--s-3); margin-bottom: var(--s-5); }
   .qa-swatches { list-style: none; padding: 0; margin: 0 0 var(--s-5); display: grid; gap: var(--s-3); grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
   .qa-swatches li { display: grid; gap: var(--s-1); }
-  .qa-chip { display: block; height: var(--s-7); border: 1px solid var(--line); border-radius: var(--radius); }
+  .qa-chip { display: block; height: var(--s-7); border: 1px solid var(--line); border-radius: var(--r-media); }
   .qa-type { list-style: none; padding: 0; margin: 0; display: grid; gap: var(--s-4); }
   .qa-sample { font-family: var(--font-display); font-weight: 700; color: var(--navy); line-height: 1.15; }
   .qa-hero { font-size: var(--fs-hero); } .qa-h1.qa-sample { font-size: var(--fs-h1); } .qa-h2.qa-sample { font-size: var(--fs-h2); margin: 0; } .qa-h3 { font-size: var(--fs-h3); font-weight: 600; }
   .qa-lead { font-family: var(--font-body); font-weight: 400; font-size: var(--fs-lead); color: var(--muted); }
   .qa-body { font-family: var(--font-body); font-weight: 400; font-size: var(--fs-body); color: var(--text); }
   .qa-small { font-family: var(--font-body); font-weight: 400; font-size: var(--fs-small); color: var(--muted); }
-  .qa-eyebrow { font-family: var(--font-mono); font-weight: 500; font-size: var(--fs-eyebrow); letter-spacing: .08em; text-transform: uppercase; color: var(--teal); }
+  .qa-eyebrow { font-family: var(--font-display); font-weight: 300; font-size: var(--fs-eyebrow); text-transform: uppercase; color: var(--navy); }
   .qa-row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-4); margin-bottom: var(--s-4); }
   .qa-cards { display: grid; gap: var(--s-5); grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
   @media (min-width: 1024px) { .qa-cards { grid-template-columns: 1.15fr 1.15fr 1fr; } }
