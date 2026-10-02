@@ -70,7 +70,7 @@ export const aboutRo: AboutCopy = {
     h2: 'Tehnologie modernă, aplicată pragmatic',
     paragraphs: [
       'Digitalizare, cloud, automatizări între aplicații, agenți AI cu scop definit: toate intră în discuție doar acolo unde rezolvă o problemă măsurabilă. Fiecare tehnologie nouă trece prin aceleași întrebări înainte să ajungă în producție — ce problemă rezolvă, cine o administrează, ce riscuri aduce și cum o oprim dacă nu dă rezultatul așteptat.',
-      'Dezvoltăm și produse proprii: CyberXscore, prin care o companie își poate evalua singură riscul cibernetic în termeni de business, și ProQ, platformă pentru furnizorii din industria auto, folosită în patru țări.',
+      'Dezvoltăm și produse proprii: CyberXscore, prin care o companie își poate evalua singură riscul cibernetic în termeni de business, și ProQ, platformă pentru furnizorii din industria auto, folosită în toată lumea.',
     ],
     link: 'Citește cazul ProQ',
   },

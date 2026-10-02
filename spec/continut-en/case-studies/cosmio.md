@@ -19,8 +19,8 @@ numbers:
   - { v: "4", unit: "/ year", k: "Disaster recovery tests, isolated, without stopping production, with a client-approved report" }
 service: "securitate"
 order: 1
-draft: true
-consent: "[[ACORD_COSMIO]]"
+draft: false
+consent: "acord primit 2026-10-02 (de înlocuit cu data din documentul semnat)"
 ---
 
 ## The situation

@@ -58,7 +58,7 @@ export const aboutEn: AboutCopy = {
     h2: 'Modern technology, applied pragmatically',
     paragraphs: [
       'Digitization, cloud, automation between applications, AI agents with a defined purpose: all of them come into discussion only where they solve a measurable problem. Every new technology goes through the same questions before it reaches production: what problem it solves, who administers it, what risks it brings, and how we stop it if it does not deliver the expected result.',
-      'We also build our own products: CyberXscore, through which a company can assess its own cyber risk in business terms, and ProQ, a platform for automotive suppliers, used in four countries.',
+      'We also build our own products: CyberXscore, through which a company can assess its own cyber risk in business terms, and ProQ, a platform for automotive suppliers, used all over the world.',
     ],
     link: 'Read the ProQ case',
   },

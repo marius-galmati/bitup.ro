@@ -66,7 +66,7 @@ export const automationRo: AutomationCopy = {
   software: {
     eyebrow: 'Software la comandă',
     h2: 'ProQ: un produs întreg, pornit de la o nevoie dintr-o fabrică',
-    p1: 'Cel mai mare lucru pe care l-am construit e ProQ, o platformă pentru furnizorii din industria auto care trebuie să dovedească clienților că procesul lor e sub control: planificare, analiză de riscuri, plan de control, dosar de omologare. 29 de module, folosite de furnizori din România, Mexic, India și China, găzduite de noi sau instalate pe serverele lor.',
+    p1: 'Cel mai mare lucru pe care l-am construit e ProQ, o platformă pentru furnizorii din industria auto care trebuie să dovedească clienților că procesul lor e sub control: planificare, analiză de riscuri, plan de control, dosar de omologare. 29 de module, folosite de furnizori auto din toată lumea, găzduite de noi sau instalate pe serverele lor.',
     p2: 'Chiar dacă nu ești din auto, ProQ e dovada că putem duce un software de la o idee dintr-o fabrică la un produs întreținut de ani de zile. La fel lucrăm și la o aplicație internă de 5 utilizatori.',
     caseLink: 'Citește cazul ProQ',
     p3: 'Ce construim de obicei: aplicații interne (evidențe, aprobări, planificări) care înlocuiesc Excel-uri împărțite pe email; portaluri pentru clienți sau furnizori; integrări între sistemele pe care le ai. Web, cu bază de date PostgreSQL, găzduit de noi sau la tine, cu backup și actualizări incluse în mentenanță.',

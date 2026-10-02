@@ -19,8 +19,8 @@ numbers:
   - { v: "4", unit: "/ an", k: "Teste de disaster recovery, izolate, fără oprirea producției, cu raport aprobat de client" }
 service: "securitate"
 order: 1
-draft: true
-consent: "[[ACORD_COSMIO]]"
+draft: false
+consent: "acord primit 2026-10-02 (de înlocuit cu data din documentul semnat)"
 ---
 
 ## Situația

@@ -54,7 +54,7 @@ export const automationEn: AutomationCopy = {
   software: {
     eyebrow: 'Custom software',
     h2: "ProQ: a whole product, started from a factory's need",
-    p1: 'The biggest thing we built is ProQ, a platform for automotive suppliers who must prove to clients their process is under control: planning, risk analysis, control plan, part approval file. 29 modules, used by suppliers in Romania, Mexico, India, and China, hosted by us or on their servers.',
+    p1: 'The biggest thing we built is ProQ, a platform for automotive suppliers who must prove to clients their process is under control: planning, risk analysis, control plan, part approval file. 29 modules, used by automotive suppliers all over the world, hosted by us or on their servers.',
     p2: 'Even outside automotive, ProQ is proof we can take software from an idea in a factory to a product maintained for years. We work the same way on a 5-user internal application.',
     caseLink: 'Read the ProQ case',
     p3: 'What we usually build: internal applications (records, approvals, scheduling) that replace Excel files emailed around; client or supplier portals; integrations between your systems. Web-based, PostgreSQL database, hosted by us or on your side, backup and updates included in maintenance.',

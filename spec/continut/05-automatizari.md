@@ -89,7 +89,7 @@ Eyebrow: `Software la comandă`
 
 Text (două coloane, logo ProQ pe fundal închis în dreapta):
 
-Cel mai mare lucru pe care l-am construit e ProQ, o platformă pentru furnizorii din industria auto care trebuie să dovedească clienților că procesul lor e sub control: planificare, analiză de riscuri, plan de control, dosar de omologare. 29 de module, folosite de furnizori din România, Mexic, India și China, găzduite de noi sau instalate pe serverele lor.
+Cel mai mare lucru pe care l-am construit e ProQ, o platformă pentru furnizorii din industria auto care trebuie să dovedească clienților că procesul lor e sub control: planificare, analiză de riscuri, plan de control, dosar de omologare. 29 de module, folosite de furnizori auto din toată lumea, găzduite de noi sau instalate pe serverele lor.
 
 Chiar dacă nu ești din auto, ProQ e dovada că putem duce un software de la o idee dintr-o fabrică la un produs întreținut de ani de zile. La fel lucrăm și la o aplicație internă de 5 utilizatori. → Citește cazul ProQ (`/rezultate/proq`)
 

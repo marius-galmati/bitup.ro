@@ -24,20 +24,26 @@ const pageText = norm(decode(html
   .replace(/<meta[^>]+content="([^"]*)"[^>]*>/gi, ' $1 ')
   .replace(/<title>([^<]*)<\/title>/gi, ' $1 ')
   .replace(/<span aria-hidden="true"> →<\/span>/g, '') // săgeata decorativă a linkurilor
-  .replace(/<\/?(a|strong|em|b|i|code|abbr)(\s[^>]*)?>/gi, '') // tag-urile inline nu rup propoziția („…cu <a>link</a>.”)
-  .replace(/<[^>]+>/g, ' ')));
+  .replace(/<\/?(a|strong|em|b|i|code|abbr|span)(\s[^>]*)?>/gi, '') // tag-urile inline nu rup propoziția („…cu <a>link</a>.”, „<span class="accent">”)
+  .replace(/<[^>]+>/g, ' ')
+  .replace(/→/g, ' ')));
 
-const SKIP = /^(Notă|Note for|Text \([^)]*\):\s*$|Text:|Trei carduri|Three cards|Patru carduri|Four cards|Patru rânduri|Four rows|Fotografie:|Photo:|LinkedIn:|Indexare:|Indexing:|Three large|Steps:|Steps \(|Faq \(|Faq:|Card:|Două carduri|Two cards|Două liste|Two lists|Două coloane|Two columns|Listă scurtă|Short list|Listă cronologică|Chronological list|Ultimele|Latest|Rând static|Static row|Trei coloane|Three columns|Aliniat|Left-aligned|Modelul|The [“"]two columns|Antetul|The section head|Rând discret|Discreet|Propoziție de închidere|Closing sentence|Imagine:|Image:|Varianta|Post-launch|Tipografic|Typographic|Imediat sub|Right under|Listă de|List of|Secțiune compactă|Compact section|CtaBand|JSON-LD|\*\*JSON-LD|Ancore|Required anchors|Mandatory anchors|Butoane:|Buttons:|Buton:|Button:|Buton \(|Button \(|Dreapta:|Right:|Stânga:|Left:|Pagina nu are|The page has no|\|---|Linkuri:|Links:|Link:|FactStrip:|Tabel|Table|Simple table|Numbered list|Listă numerotată|Câmpuri|Fields|Pe desktop|On desktop|---|#)/;
+const SKIP = /^(Notă|Note for|Text \([^)]*\):\s*$|Text:|Trei carduri|Three cards|Trei carduri scurte|Three short cards|Patru carduri|Four cards|Patru rânduri|Four rows|Fotografie:|Photo:|LinkedIn:|Indexare:|Indexing:|Three large|Steps:|Steps \(|Faq \(|Faq:|Card:|Grid de carduri|Card grid|Carduri din|Cards from|Două carduri|Two cards|Două liste|Two lists|Două coloane|Two columns|Listă scurtă|Short list|Listă cronologică|Chronological list|Ultimele|Latest|Rând static|Static row|Trei coloane|Three columns|Aliniat|Left-aligned|Modelul|The [“"]two columns|Antetul|The section head|Rând discret|Discreet|Propoziție de închidere|Closing sentence|Imagine:|Image:|Varianta|Post-launch|Tipografic|Typographic|Imediat sub|Right under|Listă de|List of|Secțiune compactă|Compact section|CtaBand|JSON-LD|\*\*JSON-LD|Ancore|Required anchors|Mandatory anchors|Butoane:|Buttons:|Buton:|Button:|Buton \(|Button \(|Dreapta:|Right:|Stânga:|Left:|Pagina nu are|The page has no|\|---|draft:|consent:|order:|service:|logo:|logoDark:|client:|facts:|numbers:|Footnote|La lansare|At launch|Dacă există|If there is only|If there's one|Linkuri:|Links:|Link:|FactStrip:|Tabel|Table|Simple table|Numbered list|Listă numerotată|Câmpuri|Fields|Pe desktop|On desktop|---|#)/;
 
 const fragments = [];
 for (let raw of md.split('\n')) {
   let line = raw.trim().replace(/^- /, '');
+  // Citatul dintr-un studiu de caz: în Markdown atribuirea e `> — Nume, rol`, dar layout-ul o randează
+  // ca `figcaption` cu numele și rolul separate, fără linia de dialog. Textul e pe pagină, doar fără prefix.
+  line = line.replace(/^>\s*/, '').replace(/^—\s*/, '');
   // linii de layout de formular și note scurte: „Sub buton: …”, „Succes → …”, „Consimțământ * (textul din …)”, „Șase carduri:”, „Listă:”
   if (/^(Sub buton|Under the button|Succes|Success|Consimțământ \*|Consent \*|Șase carduri|Six cards|Listă|List|Trei formule|Three options|Diagramă|Inline SVG|Rând:|Line:)/.test(line) && !/^(Listă|List) (de|of) \d/.test(line)) {
     if (/^(Rând|Line):/.test(line)) { line = line.replace(/^(Rând|Line):\s*/, ''); } else continue;
   }
   line = line.replace(/^(Text sub listă|Text under list) \([^)]*\):\s*/, '');
+  line = line.replace(/\s*\((opțional|optional)[^)]*\)/g, '');
   line = line.replace(/\[([^\]]+)\]\([^)]+\)/g, '$1'); // linkuri Markdown → eticheta
+  if (/\(Se randează din |\(Rendered from /.test(line)) continue;
   if (!line || SKIP.test(line.replace(/\*\*/g, ''))) {
     // butoanele și linkurile: extragem etichetele îngroșate / după săgeată
     if (/^(Butoane|Buttons|Buton|Button)\b/.test(line)) {
@@ -52,9 +58,17 @@ for (let raw of md.split('\n')) {
   line = line.replace(/^Eyebrow:\s*`([^`]*)`/, '$1').replace(/^Lead(?: \([^)]*\))?:\s*/, '');
   line = line.replace(/^Rând de închidere \([^)]*\):\s*/, '').replace(/^Closing row \([^)]*\):\s*/, '');
   // etichete de layout urmate de text de pagină: „Rând sub liste: …”, „Sub buton, `--muted`: …”, „Rând simplu, la final, `--muted`: …”, „Text (70ch): …”
-  line = line.replace(/^(Rând sub liste|Row under the lists|Sub buton, `--muted`|Under the button, `--muted`|Rând simplu, la final, `--muted`|Simple line, at the end, `--muted`|Rând sub pași|Row under the steps|Rând sub text|Row under text|Rând sub tabel|Line under the table|Titlu deasupra formularului|Title above the form|Sub H1, `--muted`|Under H1, `--muted`|Titlu|Title|Text scurt|Short text|Text \([^)]*\)):\s*/, '');
+  line = line.replace(/^(Rând sub liste|Row under the lists|Sub buton, `--muted`|Under the button, `--muted`|Rând simplu, la final, `--muted`|Simple line, at the end, `--muted`|Rând simplu|Simple line|Simple row|Rând sub pași|Row under the steps|Rând sub text|Row under text|Rând sub tabel|Line under the table|Titlu deasupra formularului|Title above the form|Sub H1, `--muted`|Under H1, `--muted`|Titlu|Title|Text scurt|Short text|Text \([^)]*\)):\s*/, '');
   line = line.replace(/^(Rol|Role|Experiență|Experience)\s*\([^)]*\):\s*/, '');
   line = line.replace(/^- /, '');
+  // Rândurile din `facts:` și `numbers:` sunt YAML inline (`{ k: "…", v: "…" }`, cu `v` înaintea lui `k`
+  // la numbers, plus `unit`). Pe pagină ajung ca celule de FactStrip și NumberTiles, deci se compară
+  // valoarea cu valoarea, nu linia întreagă. Valorile scurte (‘0’, ‘4’) s-ar potrivi oriunde, deci se sar.
+  line = line.replace(/^(summary|title|kicker|metaTitle|metaDescription|footnote):\s*"(.*)"\s*$/, '$2');
+  if (/^\{.*\}$/.test(line)) {
+    for (const m of line.matchAll(/"([^"]+)"/g)) { if (m[1].length >= 3) fragments.push(m[1]); }
+    continue;
+  }
   // câmpuri de formular: „Etichetă * (select: …)”, „Etichetă (opțional) — placeholder: „…””: eticheta și placeholder-ul, separat
   if (/\s\*(\s|$)|placeholder:/.test(line) && !/^\*\*/.test(line)) {
     const parts = line.split(/\s·\s/);

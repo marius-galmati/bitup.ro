@@ -2089,6 +2089,49 @@ Paginile legale (Termeni, Confidențialitate, Cookies) au accent doar pe `h1`: `
 | h2 | Cum alegi | **—** | How you choose | **—** |
 | h2 | Mai mult | **—** | More | **—** |
 
+## Cosmio publicat, ProQ fără enumerarea țărilor (2 octombrie 2026)
+
+Marius: „am primit aprobarea de la COSMIO pentru publicarea studiului de caz” și, pentru ProQ, „în loc de in Romania, Mexico, India, and China te rog să pui Automotive suppliers all over the world”.
+
+### ProQ
+
+Țările nu se mai enumeră nicăieri. `grep` după „Mexic / Mexico / India / China / patru țări / four countries” în `src/` și `spec/` nu mai întoarce nimic. Schimbarea a atins **12 fișiere** (conținut și spec, ambele limbi): studiul de caz (rezumat, faptul „Clienți”, eticheta cifrei, meta description, corpul), pagina Automatizări și pagina Despre, unde ProQ era descris cu aceleași patru țări. Dacă rămâneau acolo, pagina ar fi spus „din toată lumea” într-un loc și „patru țări” în altul.
+
+**Un lucru rămas în aer:** placa de cifre din studiul de caz spune în continuare **„4 · țări”**, acum cu eticheta „furnizori auto care rulează ProQ în producție” (fără nume de țări). E un număr real, și `NumberTiles` cere numai cifre reale, așa că nu l-am scos de capul meu — dar „4 țări” lângă „din toată lumea” se bate cap în cap pentru un cititor atent. **Îl scoatem, îl lăsăm, sau îl înlocuim cu altceva** (titlul studiului spune deja „pe trei continente”)?
+
+### Cosmio
+
+`draft: false` în toate cele patru fișiere (conținut și spec, RO și EN). Cazul se generează, apare pe `/rezultate` lângă ProQ, iar rândul „Următorul caz, în curând, cu acordul clientului” a dispărut de pe homepage, cum trebuia.
+
+`consent:` am pus `acord primit 2026-10-02 (de înlocuit cu data din documentul semnat)`. Câmpul e metadata, nu se randează, dar e evidența acordului — **dă-mi data de pe documentul semnat** și o corectez.
+
+Două placeholder-e sunt acum vizibile pe o pagină publicată, pentru că n-am de unde să le completez:
+
+| Placeholder | Ce lipsește |
+|---|---|
+| `[[CITAT_COSMIN]]` | Citatul lui Cosmin Cenan. Spec-ul spune că se publică doar dacă e bifat în acord. **E bifat?** Dacă da, trimite textul; dacă nu, șterg blocul. |
+| `[[LOGO_COSMIO_LOCAL]]` | `public/logos/cosmio.svg`, salvat local (nu link către cosmio.ro). |
+
+Până atunci rămân vizibile, cum cere regula 3 din `CLAUDE.md`. Site-ul nu e încă public pe domeniu, deci nu le vede nimeni din afară.
+
+### `qa/textdiff.mjs`: nouă erori de raportare, reparate
+
+Publicarea lui Cosmio a pus prima dată studiile de caz sub `textdiff`, și verificatorul a început să raporteze diferențe care nu existau. Toate erau ale lui, nu ale paginilor — textul era pe pagină de fiecare dată. Reparate:
+
+1. `<span>` nu era în lista de tag-uri inline, deci rupea propoziția în două. **Contează direct pentru stilul nou:** componenta `Heading` învelește cuvântul evidențiat în `<span class="accent">`, deci fără reparația asta fiecare titlu cu accent ar fi raportat ca diferență în R3–R5.
+2. Săgeata `→` era scoasă din fragmentul de spec, dar rămânea în textul paginii — aceeași frază nu se mai potrivea cu ea însăși. Acum se normalizează pe amândouă părțile.
+3. Atribuirea unui citat (`> — Nume, rol`) se randează ca `figcaption` cu numele și rolul separate, fără linia de dialog.
+4. `facts:` și `numbers:` sunt YAML inline (`{ v: "4", unit: "țări", k: "…" }`): se compară valorile, nu linia întreagă.
+5. Cheile scalare din frontmatter (`summary`, `title`, `kicker`, meta, `footnote`) poartă text de pagină: se compară valoarea, fără cheie și fără ghilimele.
+6. Cheile de mecanică (`draft`, `consent`, `order`, `service`, `logo`, `logoDark`, `client`) nu se randează nicăieri.
+7. Nota de lângă un placeholder opțional („(opțional; se publică doar dacă…)”) e instrucțiune.
+8. „(Se randează din `numbers`.)” e nota prin care spec-ul spune că proza aceea apare altfel.
+9. Etichete de layout care lipseau din listă: „Footnote”, „Rând simplu / Simple line / Simple row”, „Grid de carduri / Carduri din / Cards from”, „Trei carduri scurte”, „La lansare / At launch”, „Dacă există / If there's one”.
+
+**Rezultatul: zero diferențe de text pe toate cele 18 pagini RO și 15 EN**, inclusiv pe cele două studii de caz și pe paginile legale. Înainte de reparații, cinci dintre ele raportau fals.
+
+(`00-global.md` nu e o pagină, e microcopy global; nu e o țintă validă pentru `textdiff` și n-am inclus-o.)
+
 ## Propuneri (nu se fac fără acord)
 
 - Faza 5: Astro are suport experimental pentru CSP cu hash-uri generate la build (`experimental.csp`), care ar scoate `'unsafe-inline'` din `script-src` și `style-src`. E îmbunătățirea menționată în `ARHITECTURA.md` § Headere ca „nu o condiție de lansare”. De evaluat când ajungem acolo.
