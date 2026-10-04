@@ -2132,6 +2132,60 @@ Publicarea lui Cosmio a pus prima dată studiile de caz sub `textdiff`, și veri
 
 (`00-global.md` nu e o pagină, e microcopy global; nu e o țintă validă pentru `textdiff` și n-am inclus-o.)
 
+## Panoul „Servicii”, uniformizat (4 octombrie 2026)
+
+Marius: „meniul care se deschide servicii trebuie uniformizat ca fonturi, stil, mărime”. E pasul R2 din Faza R, luat devreme pentru că panoul rămăsese cel mai pestriț lucru de pe site după R1.
+
+### De ce arăta neuniform
+
+Trei cauze, toate vizibile în CSS, nu în ochi:
+
+1. **Titlurile de serviciu erau în Barlow Condensed 600** — o greutate pe care nu o încărcăm (avem 300 și 700), deci browserul o sintetiza, îngroșând artificial 700-ul. Lângă restul textului, în Public Sans, se vedea ca alt font.
+2. **Două mărimi de titlu diferite** în același panou: coloana de intro și cardurile la 22 px, caseta din dreapta la `--fs-lead` (20 px).
+3. **Două eyebrow-uri** rămase din vechiul `Eyebrow`, care după R1 înseamnă Barlow Condensed 300 la 22–32 px. Într-un meniu, etichete cât un titlu de secțiune.
+
+### Ce are acum
+
+Structura din `DESIGN.md` § Panoul „Servicii” (modelul filomuro21): grilă `3fr 1fr`, trei carduri de serviciu în stânga pe `repeat(auto-fit, minmax(240px, 1fr))`, caseta de Radiografie în dreapta, de aceeași înălțime, banda de contact dedesubt peste o linie de 1 px.
+
+**O singură familie și două mărimi în tot panoul**, măsurate pe pagina construită:
+
+| | |
+|---|---|
+| Titlu de card | Public Sans **600, 22 px** |
+| Titlu casetă | Public Sans **600, 22 px** |
+| Text de card | Public Sans **400, 15 px**, `--muted` |
+| Text casetă | Public Sans **400, 15 px**, `--muted` |
+| Linkuri | Public Sans **600, 15 px**, `--teal`, subliniate |
+| Banda de jos | Public Sans **400, 15 px**, `--muted` |
+
+Cardurile: `--surface`, bordură 1 px `--line`, `--r-media`, padding `--s-6`; la hover și la focus **doar** bordura devine `--teal`, nimic altceva. Caseta: `--surface-2`, aceeași rază, cu linkul împins la bază (`grid-template-rows: auto 1fr auto`).
+
+**Iconițele**, cele cerute de spec: `headset` pentru Suport IT, `scan-eye` pentru Securitate, `workflow` pentru Automatizări — lucide, 28 px, stroke 1.75, `--teal`. Fără scut, lacăt, nor sau rotiță (mirosul 4). Lista din `astro.config.mjs` a crescut de la 2 la 5 iconițe, din cele 16 permise.
+
+### Trei lucruri de știut
+
+1. **Textul nu s-a schimbat, dar două roluri s-au schimbat între ele.** Caseta din dreapta are acum „Radiografie IT gratuită” ca titlu și întrebarea din banda de CTA ca propoziție `--muted` — înainte eticheta era eyebrow, iar întrebarea titlu. Aceleași șiruri, deci `textdiff` rămâne la zero diferențe; doar rolul vizual diferă.
+2. **„Toate serviciile” a coborât în banda de jos.** Era linkul coloanei de intro, care dispare în structura nouă. `DESIGN.md` descrie banda cu telefon, email și „Suport pentru clienți”; am adăugat acolo și „Toate serviciile”, altfel linkul ar fi dispărut cu totul din panoul de desktop. **Dacă vrei alt loc, spune.**
+3. **Fără despărțire în silabe în panou.** Pe coloane de ~240 px, `hyphens: auto` rupea aproape fiecare rând din engleză („every-thing”, „com-puters”, „net-work”, „af-ter”). E navigație, nu text de citit, deci am pus `hyphens: manual`. În rest regula din `DESIGN.md` § Tipografie rămâne.
+
+### Spec adus la zi
+
+`00-global.md` § Meniu, ambele limbi, descria panoul vechi („coloana din stânga reia H1-ul și lead-ul”). Acum descrie cardurile cu iconiță, caseta și banda. Cele trei texte ale coloanei de intro (`eyebrow`, `title`, `lead` din `megaMenu`) au ieșit din `src/i18n/`, fiindcă nu mai au unde să apară.
+
+### Verificat
+
+- `npm run build` 0/0, 44 de pagini. `npx astro check` 0/0/0.
+- Tastatura, neatinsă: Enter deschide, Tab intră în panou, Esc închide, focusul revine pe buton, clic în afară închide. Trece și pe RO, și pe EN.
+- Fără depășire pe orizontală cu panoul deschis, la **1024, 1200, 1280 și 1440 px** — pragurile cerute de `DESIGN.md` § Header.
+- `pagecheck` 41 de pagini 0 probleme; `contrast.py` 55/57, neschimbat (perechile panoului — navy și `--muted` pe `--surface`, teal pe `--surface-2` — erau deja în listă).
+- `textdiff` zero diferențe pe homepage, Servicii și Despre, RO și EN.
+- Capturi în `qa/mega/`: RO light, RO dark, EN light, cu panoul deschis.
+
+### Ce rămâne din R2
+
+Header-ul însuși: e la **65 px**, `DESIGN.md` cere **80**. Plus butoanele-pastilă în toate variantele și meniul mobil. Le fac când spui.
+
 ## Propuneri (nu se fac fără acord)
 
 - Faza 5: Astro are suport experimental pentru CSP cu hash-uri generate la build (`experimental.csp`), care ar scoate `'unsafe-inline'` din `script-src` și `style-src`. E îmbunătățirea menționată în `ARHITECTURA.md` § Headere ca „nu o condiție de lansare”. De evaluat când ajungem acolo.

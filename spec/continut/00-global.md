@@ -9,7 +9,7 @@ Text final. Se copiază identic. `[[…]]` = placeholder din `PLACEHOLDERS.md`.
   - Securitate și continuitate → `/servicii/securitate`
   - Automatizări și software → `/servicii/automatizari`
   - Toate serviciile → `/servicii`
-  - În panou, fiecare serviciu are sub titlu propoziția de poziționare din `02-servicii-index.md` § Cele trei grupuri; coloana din stânga reia H1-ul și lead-ul din § Hero al aceleiași pagini; caseta din dreapta reia întrebarea și butonul din § Banda finală de CTA; banda de jos are telefonul, emailul și „Suport pentru clienți” → `/suport`. Textele nu se rescriu, se reiau.
+  - În panou, fiecare serviciu e un card cu iconiță, titlu și propoziția de poziționare din `02-servicii-index.md` § Cele trei grupuri; caseta din dreapta reia eticheta, întrebarea și butonul din § Banda finală de CTA; banda de jos are telefonul, emailul, „Toate serviciile” → `/servicii` și „Suport pentru clienți” → `/suport`. Textele nu se rescriu, se reiau.
 - Cum lucrăm → `/cum-lucram`
 - Rezultate → `/rezultate`
 - Despre → `/despre`

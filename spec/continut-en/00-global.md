@@ -9,7 +9,7 @@ Final copy. Copy verbatim. `[[…]]` = placeholder from `PLACEHOLDERS.md`.
   - Security and continuity → `/en/services/security`
   - Automation and software → `/en/services/automation`
   - All services → `/en/services`
-  - In the panel, each service carries the positioning sentence from `02-services.md` § The three groups under its title; the left column reuses the H1 and lead from § Hero of the same page; the box on the right reuses the question and button from § Final CTA band; the bottom strip has the phone, the email, and “Client support” → `/en/support`. The wording is reused, not rewritten.
+  - In the panel, each service is a card with an icon, a title, and the positioning sentence from `02-services.md` § The three groups; the box on the right reuses the label, question, and button from § Final CTA band; the bottom strip has the phone, the email, “All services” → `/en/services`, and “Client support” → `/en/support`. The wording is reused, not rewritten.
 - How we work → `/en/how-we-work`
 - Results → `/en/results`
 - About → `/en/about`

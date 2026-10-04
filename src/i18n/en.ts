@@ -37,9 +37,6 @@ export const en = {
   // The expanded “Services” menu (design from meniu (2).png). Wording copied from
   // 00-global § Menu, 02-services § Hero and § The three groups, and § Final CTA band.
   megaMenu: {
-    eyebrow: 'Services',
-    title: 'Three service groups. One partner accountable.',
-    lead: 'You can take them separately. They work best together: security and backup are part of how you run IT, not added afterward.',
     allLink: 'All services',
     items: [
       { label: 'IT support and administration', text: 'Monthly subscription. We take over everything to do with computers, servers, network, cloud, and Microsoft 365, and answer for the result.', route: 'itSupport' },

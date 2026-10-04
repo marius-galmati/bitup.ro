@@ -38,9 +38,6 @@ export const ro = {
   // 00-global § Meniu, 02-servicii-index § Hero și § Cele trei grupuri, și § Banda finală de CTA.
   // Meniul doar le reașază; niciun cuvânt nou.
   megaMenu: {
-    eyebrow: 'Servicii',
-    title: 'Trei grupuri de servicii. Un singur responsabil.',
-    lead: 'Le poți lua separat. Merg cel mai bine împreună: securitatea și backup-ul țin de cum administrezi IT-ul, nu se adaugă după.',
     allLink: 'Toate serviciile',
     items: [
       { label: 'Suport și administrare IT', text: 'Abonament lunar. Preluăm tot ce ține de calculatoare, servere, rețea, cloud și Microsoft 365, și răspundem de rezultat.', route: 'itSupport' },

@@ -78,7 +78,8 @@ export default defineConfig({
       // care stă în afara sitemap-ului cât timp `[[ACORD_ECHIPA]]` e necompletat (16-echipa.md § Indexare).
       filter: (page) => !/\/(404|multumesc|en\/thank-you|qa|echipa|en\/team)(\/|$)/.test(page),
     }),
-    // Doar setul `lucide`, maximum 12 iconițe în tot site-ul (DESIGN.md § Imagini și grafică). Lista crește pe măsură ce sunt folosite.
-    icon({ include: { lucide: ['sun', 'moon'] } }),
+    // Doar setul `lucide`, maximum 16 iconițe în tot site-ul (DESIGN.md § Imagini și grafică, 26 sept. 2026).
+    // Lista crește pe măsură ce sunt folosite: sun/moon la comutatorul de temă, celelalte trei în panoul „Servicii”.
+    icon({ include: { lucide: ['sun', 'moon', 'headset', 'scan-eye', 'workflow'] } }),
   ],
 });
