@@ -132,7 +132,7 @@ export function buildEmail(p: LeadPayload, meta: RequestMeta, to: string) {
     '--- Sfârșit mesaj ---',
   ].join('\n');
   return {
-    from: 'BitUp site <site@bitup.ro>',
+    from: 'BitUp site <site@notifications.bitup.ro>',
     to: [to],
     reply_to: p.email.trim(),
     subject,

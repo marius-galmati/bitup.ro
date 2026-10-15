@@ -241,7 +241,7 @@ Două formulare, aceeași componentă `Form.astro`, cu `kind: 'radiografie' | 'c
 4. Honeypot: dacă `website` nu e gol → răspunde `200 { ok: true }` fără să trimită nimic (spamerul nu trebuie să afle).
 5. Turnstile: `POST https://challenges.cloudflare.com/turnstile/v0/siteverify` cu `secret = env.TURNSTILE_SECRET_KEY`, `response = turnstileToken`, `remoteip = CF-Connecting-IP`. Dacă `success !== true` sau tokenul lipsește → `400 { ok: false, error: 'turnstile' }`. Nu există nicio cale fără token.
 6. Resend: `POST https://api.resend.com/emails` cu `Authorization: Bearer ${env.RESEND_API_KEY}`:
-   - `from`: `BitUp site <site@bitup.ro>` (domeniul `bitup.ro` verificat în Resend: înregistrările DKIM, SPF și, recomandat, DMARC puse în DNS-ul Cloudflare, vezi § Deploy).
+   - `from`: `BitUp site <site@notifications.bitup.ro>` (domeniul `notifications.bitup.ro` verificat în Resend: înregistrările DKIM, SPF și, recomandat, DMARC puse în DNS-ul Cloudflare, vezi § Deploy).
    - `to`: `env.LEAD_TO_EMAIL` (= `office@bitup.ro`).
    - `reply_to`: emailul din formular, ca Marius să răspundă cu „Reply”.
    - `subject`: `[Radiografie IT] Firma · Nume` sau `[Contact] Firma · Nume`; sufix ` · EN` când `lang === 'en'`.
@@ -371,7 +371,7 @@ https://www.bitup.ro/*                https://bitup.ro/:splat         301
 
 **Cloudflare, în fața serverului:** DNS pentru `bitup.ro` și `www` cu proxy (norișor portocaliu) către IP-ul serverului. SSL/TLS pe „Full (strict)”, cu un certificat Cloudflare Origin CA (`bitup.ro`, `*.bitup.ro`) pus în Dokploy pe domenii; „Always Use HTTPS”, TLS minim 1.2. Headerele `CF-Connecting-IP` și `CF-IPCountry` ajung la funcție prin Traefik și nginx (IP-ul și țara din email). Recomandat: firewall-ul serverului primește 80/443 doar de la IP-urile Cloudflare, ca headerele să nu poată fi falsificate ocolind proxy-ul.
 
-**Resend, în DNS-ul Cloudflare (o singură dată):** înregistrările pe care le dă Resend la „Add domain” pentru `bitup.ro`: DKIM (CNAME/TXT `resend._domainkey`), SPF pe subdomeniul de trimitere (Resend folosește implicit `send.bitup.ro` sau similar, ca să nu se amestece cu SPF-ul căsuței `office@`), și o politică DMARC pe domeniu (`_dmarc` TXT, `p=quarantine` după o săptămână de `p=none`). Fără ele, emailurile din site ajung în spam sau sunt respinse. Verificarea se face din dashboard-ul Resend; Claude Code documentează pașii în `NOTES.md`, Marius le pune în DNS.
+**Resend, în DNS-ul Cloudflare (o singură dată):** înregistrările pe care le dă Resend la „Add domain” pentru `notifications.bitup.ro` (subdomeniul de trimitere; `bitup.ro` și căsuța `office@` nu se ating): DKIM (CNAME/TXT `resend._domainkey`), SPF pe subdomeniul pe care îl indică Resend (sub `notifications.bitup.ro`, ca să nu se amestece cu SPF-ul căsuței `office@`), și o politică DMARC pe domeniu (`_dmarc` TXT, `p=quarantine` după o săptămână de `p=none`). Fără ele, emailurile din site ajung în spam sau sunt respinse. Verificarea se face din dashboard-ul Resend; Claude Code documentează pașii în `NOTES.md`, Marius le pune în DNS.
 
 **Cloudflare, din dashboard, la lansare:** regula de rate limiting pe `/api/lead`; Bot Fight Mode (dacă se activează, poate seta cookie-ul `__cf_bm`, deja menționat pe pagina de cookies).
 

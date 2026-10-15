@@ -13,7 +13,7 @@ const base = {
 const meta = { ip: '203.0.113.7', country: 'RO', receivedAt: '2026-09-14T12:00:01.000Z' };
 
 const ro = buildEmail(base, meta, 'office@bitup.ro');
-assert.equal(ro.from, 'BitUp site <site@bitup.ro>');
+assert.equal(ro.from, 'BitUp site <site@notifications.bitup.ro>');
 assert.deepEqual(ro.to, ['office@bitup.ro']);
 assert.equal(ro.reply_to, 'ana@firma-test.ro');
 assert.equal(ro.subject, '[Radiografie IT] Firma Test SRL · Ana Pop');

@@ -47,9 +47,9 @@ Două liste. Prima e cu valorile finale, pe care Claude Code le pune în `src/li
 | `[[CAPACITATE_RADIOGRAFII]]` | /radiografie-it (text), /en/it-health-check | Câte radiografii faci pe săptămână și în ce ferestre (ex. „marți și joi, 10:00–12:00, maximum trei pe săptămână”). Dacă nu vrei să apară, se șterge propoziția. |
 | `PUBLIC_TURNSTILE_SITE_KEY` | `.env` | Cheia publică Cloudflare Turnstile (widget „Managed / Invisible”, domeniul `bitup.ro` și, până la lansare, domeniul de test). Intră și în Dokploy → Environment, de unde ajunge în build. |
 | `TURNSTILE_SECRET_KEY` | Dokploy → Environment | Cheia secretă Turnstile. Doar pe server. |
-| `RESEND_API_KEY` | Dokploy → Environment | Cheie API Resend cu permisiunea „Sending access”, restrânsă la domeniul `bitup.ro`. Doar pe server. |
+| `RESEND_API_KEY` | Dokploy → Environment | Cheie API Resend cu permisiunea „Sending access”, restrânsă la domeniul `notifications.bitup.ro` (expeditorul e `site@notifications.bitup.ro`). Doar pe server. |
 | `LEAD_TO_EMAIL` | Dokploy → Environment | `office@bitup.ro`. |
-| DNS Resend | Cloudflare DNS | Înregistrările DKIM/SPF/DMARC date de Resend la „Add domain” pentru `bitup.ro`; verificat în dashboard-ul Resend. |
+| DNS Resend | Cloudflare DNS | Înregistrările DKIM/SPF/DMARC date de Resend la „Add domain” pentru `notifications.bitup.ro`; verificat în dashboard-ul Resend. |
 | `PUBLIC_GA4_ID` | `.env` | ID-ul de măsurare GA4 (`G-XXXXXXXXXX`) al proprietății pentru bitup.ro. În GA4: retenție 2 luni, Google Signals oprit. |
 | Rate limiting | Cloudflare WAF | O regulă pe `/api/lead`: 5 cereri / 10 secunde / IP (planul Free permite doar ferestre de 10 secunde). Apărarea principală rămâne Turnstile + honeypot + validarea din funcție. |
 

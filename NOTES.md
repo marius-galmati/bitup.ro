@@ -2210,7 +2210,7 @@ Cerut de Marius: producția pe serverul lui, cu Dokploy, ca aplicație de tip Co
 
 ### Pașii pentru Marius (în ordinea asta)
 1. **Turnstile** (Cloudflare → Turnstile): widget „Managed”, hostnames `bitup.ro` și domeniul de test (ex. `temp.bitup.ro`). Păstrezi site key și secret.
-2. **Resend**: domeniul `bitup.ro` și înregistrările DNS, ca în Faza 4a (DKIM, SPF pe subdomeniul de trimitere, DMARC `p=none` o săptămână, apoi `p=quarantine`). Cheie cu „Sending access” doar pe `bitup.ro`.
+2. **Resend**: domeniul `notifications.bitup.ro` și înregistrările DNS, ca în Faza 4a (DKIM, SPF pe subdomeniul de trimitere, DMARC `p=none` o săptămână, apoi `p=quarantine`). Cheie cu „Sending access” doar pe `notifications.bitup.ro`.
 3. **Certificat** (Cloudflare → SSL/TLS → Origin Server → Create Certificate): `bitup.ro` și `*.bitup.ro`, 15 ani. În Dokploy → Settings → Certificates → Add: certificatul și cheia. În Cloudflare: SSL/TLS „Full (strict)”, „Always Use HTTPS”, Minimum TLS 1.2. (Alternativa, Let's Encrypt din Dokploy, se blochează la reînnoire când proxy-ul Cloudflare redirecționează HTTP → HTTPS; de aceea Origin CA.)
 4. **Dokploy** → Project „bitup” → Create Service → **Compose**: sursa e repo-ul (GitHub sau Git), ramura `main`, Compose Path `./docker-compose.yml`.
 5. **Environment** (în aplicația compose): `PUBLIC_TURNSTILE_SITE_KEY`, `TURNSTILE_SECRET_KEY`, `RESEND_API_KEY`, `LEAD_TO_EMAIL=office@bitup.ro`, `PUBLIC_GA4_ID` (gol până la Faza 5), `ALLOWED_ORIGINS=https://temp.bitup.ro`. Cheile pot lipsi la primul deploy: site-ul urcă, formularele arată eroarea de trimitere, iar în Logs, la `bitup-api`, apare „lipsesc variabilele: …”. După ce le pui: Redeploy (cheia publică intră în HTML doar la build).
@@ -2230,6 +2230,9 @@ Dacă domeniul dă 404 sau „Bad Gateway” după deploy: serviciul `bitup-web`
 
 ### Rămase cu „staging” în text
 Comentariile și eticheta paginilor de QA (`/qa/*`, „doar dev și staging”), comentariile din `BlogPage`, `ResultsPage`, `collections.ts` și exportul `isStaging` din `env.ts`. Acolo „staging” înseamnă „în afara producției”, adică local acum. Paginile de QA nu ajung în producție. Le-am lăsat ca să nu ating fișiere din afara schimbării; le redenumesc dacă vrei. `spec/PLAN.md` § Faza 0 pomenește `functions/api/` și `.dev.vars`: e istoric, faza e închisă.
+
+### Expeditorul Resend: `site@notifications.bitup.ro` (16 octombrie 2026)
+Cerut de Marius: domeniul verificat în Resend e `notifications.bitup.ro`, nu `bitup.ro`. `from` devine `BitUp site <site@notifications.bitup.ro>` în `server/lead.ts` și în `qa/lead-email.test.mjs`; aduse la zi `ARHITECTURA.md` (§ Formulare și § Deploy, DNS), `PLACEHOLDERS.md` (`RESEND_API_KEY`) și pasul 2 de mai sus. Destinatarul (`LEAD_TO_EMAIL=office@bitup.ro`) și `reply_to` (emailul din formular) nu se schimbă. Mențiunile `site@bitup.ro` din Faza 4a rămân ca istoric. Tot azi, `verifyTurnstile` scrie în logul `bitup-api` motivul respingerii (fără token, `error-codes`, siteverify inaccesibil).
 
 ## Propuneri (nu se fac fără acord)
 
