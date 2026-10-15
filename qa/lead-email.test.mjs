@@ -1,9 +1,9 @@
 /**
- * Verificare locală, fără cheie Resend (PLAN § Faza 4a): cererea către Resend construită de `buildEmail` din functions/api/lead.ts,
+ * Verificare locală, fără cheie Resend (PLAN § Faza 4a): cererea către Resend construită de `buildEmail` din server/lead.ts,
  * plus validarea și regula de origine. Rulare: node qa/lead-email.test.mjs (Node ≥ 22.18 citește TypeScript direct, fără build).
  */
 import assert from 'node:assert/strict';
-import { buildEmail, validate, originAllowed } from '../functions/api/lead.ts';
+import { buildEmail, validate, originAllowed, parseOrigins } from '../server/lead.ts';
 
 const base = {
   kind: 'radiografie', lang: 'ro', name: 'Ana Pop', company: 'Firma Test SRL', employees: '10–30', phone: '0740 123 456', email: 'ana@firma-test.ro',
@@ -38,10 +38,13 @@ assert.deepEqual(validate({ ...base, kind: 'contact', employees: undefined, phon
 // originea
 const req = (origin, host = 'bitup.ro') => new Request('https://x/api/lead', { method: 'POST', headers: { Origin: origin, Host: host } });
 assert.equal(originAllowed(req('https://bitup.ro')), true);
-assert.equal(originAllowed(req('https://abc123.bitup-site.pages.dev')), true);
+assert.equal(originAllowed(req('https://abc123.bitup-site.pages.dev')), false); // Cloudflare Pages nu mai e în joc
+assert.equal(originAllowed(req('https://temp.bitup.ro'), parseOrigins('https://temp.bitup.ro, nu-e-url')), true); // ALLOWED_ORIGINS
+assert.equal(originAllowed(req('https://temp.bitup.ro')), false);
+assert.deepEqual(parseOrigins(' https://a.bitup.ro/ ,,x'), ['https://a.bitup.ro']);
 assert.equal(originAllowed(req('https://evil.example')), false);
-assert.equal(originAllowed(req('http://localhost:8788', 'localhost:8788')), true);
-assert.equal(originAllowed(req('http://localhost:8788', 'bitup.ro')), false); // localhost e permis doar când și funcția rulează local
+assert.equal(originAllowed(req('http://localhost:8080', 'localhost:8080')), true);
+assert.equal(originAllowed(req('http://localhost:8080', 'bitup.ro')), false); // localhost e permis doar când și serviciul rulează local
 assert.equal(originAllowed(new Request('https://x/api/lead', { method: 'POST' })), false);
 
 console.log('buildEmail / validate / originAllowed: toate aserțiunile trec.');

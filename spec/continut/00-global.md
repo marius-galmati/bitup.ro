@@ -133,7 +133,7 @@ Sub o linie, varianta engleză (din `continut-en/00-global.md` § 404), pentru c
 - Link „Află mai multe” nu se folosește nicăieri. Linkurile spun ce urmează: „Vezi ce include abonamentul”, „Cum decurge o radiografie”, „Citește cazul Cosmio”.
 - Butonul de WhatsApp pe /suport: „Scrie-i lui Cipri pe WhatsApp”.
 - Eticheta timpului de citit pe blog: „5 minute de citit”.
-- Eticheta pentru draft (doar în staging): „Draft, nepublicat”.
+- Eticheta pentru draft (doar în afara producției): „Draft, nepublicat”.
 - Comutatorul de temă: `aria-label` „Comută tema: luminos / întunecat”.
 - Comutatorul de limbă: `aria-label` „Schimbă limba”; linkul EN are `hreflang="en"` și `lang="en"`.
 - Linkuri externe (Calendly, LinkedIn, helpdesk.bitup.ro, wa.me): se deschid în tab nou, cu `rel="noopener"`; fără iconiță de „link extern”.

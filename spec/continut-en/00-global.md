@@ -133,7 +133,7 @@ This English block sits under a rule, below the Romanian version (from `continut
 - "Learn more" links are never used. Links say what comes next: "See what the subscription includes", "How a health check works", "Read the Cosmio case".
 - The WhatsApp button on /en/support: "Message Cipri on WhatsApp".
 - Reading-time label on the blog: "5 min read".
-- Draft label (staging only): "Draft, unpublished".
+- Draft label (outside production only): "Draft, unpublished".
 - Theme switcher: `aria-label` "Switch theme: light / dark".
 - Language switcher: `aria-label` "Change language"; the RO link has `hreflang="ro"` and `lang="ro"`.
 - External links (Calendly, LinkedIn, helpdesk.bitup.ro, wa.me): open in a new tab, with `rel="noopener"`; no "external link" icon.

@@ -8,7 +8,7 @@ Acest pachet conține tot ce are nevoie Claude Code ca să construiască noul si
 |---|---|
 | `CLAUDE.md` | Regulile permanente pentru Claude Code: cum lucrează cu spec-ul, ce înseamnă „premium” aici, lista de „mirosuri de site generat”, cum verifică. Se mută la rădăcina repo-ului, nu stă în `spec/`. |
 | `PLAN.md` | Fazele de lucru, în ordine, cu criterii de acceptare pentru fiecare. Claude Code lucrează pe el, fază cu fază. |
-| `ARHITECTURA.md` | Stack (Astro static pe Cloudflare Pages), limbile, structura proiectului, rutele RO ↔ EN, colecțiile de conținut, formularele (funcție proprie + Turnstile + Resend), consimțământul și GA4, dark mode, headerele de securitate, redirecturile, SEO, deploy. |
+| `ARHITECTURA.md` | Stack (Astro static, pe server propriu cu Dokploy, în spatele Cloudflare), limbile, structura proiectului, rutele RO ↔ EN, colecțiile de conținut, formularele (funcție proprie + Turnstile + Resend), consimțământul și GA4, dark mode, headerele de securitate, redirecturile, SEO, deploy. |
 | `DESIGN.md` | Sistemul de design: culori (light + dark), tipografie, spațiere, componente, reguli de layout, ce nu facem. |
 | `PLACEHOLDERS.md` | Valorile finale (telefon, email, program, linkuri) și ce mai lipsește înainte de lansare. |
 | `UMANIZARE.md` | Raportul trecerii textului prin filtrul anti-pattern-uri AI și lista afirmațiilor pe care Marius trebuie să le confirme. |
@@ -53,7 +53,7 @@ Continuăm cu Faza N din spec/PLAN.md. Recitește CLAUDE.md, NOTES.md și fișie
 
 ## Ce faci tu, Marius, înainte să pornești
 
-Deschizi `PLACEHOLDERS.md`. Valorile de contact sunt deja completate. Ce mai ai de făcut înainte de lansare, nu înainte de a porni: conturile și cheile (Turnstile, Resend cu DNS-ul verificat, GA4), acordul semnat de la Cosmio și logo-urile locale, badge-urile de la parteneri, cele două capturi de raport, logo-ul BitUp în varianta pentru fundal închis. Claude Code poate construi tot site-ul pe staging fără ele; ele blochează doar mutarea domeniului.
+Deschizi `PLACEHOLDERS.md`. Valorile de contact sunt deja completate. Ce mai ai de făcut înainte de lansare, nu înainte de a porni: conturile și cheile (Turnstile, Resend cu DNS-ul verificat, GA4), acordul semnat de la Cosmio și logo-urile locale, badge-urile de la parteneri, cele două capturi de raport, logo-ul BitUp în varianta pentru fundal închis. Claude Code poate construi tot site-ul fără ele; ele blochează doar mutarea domeniului.
 
 ## Ce s-a schimbat față de prima versiune (10 septembrie 2026, seara)
 

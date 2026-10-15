@@ -1,7 +1,7 @@
 /**
- * Mediul de build. Cloudflare Pages setează CF_PAGES_BRANCH la build; `main` = producție.
- * Local și pe staging (orice altă ramură) sunt vizibile draft-urile și pagina /qa/componente.
+ * Mediul de build. Imaginea Docker de producție (Dockerfile, etapa `build`) setează SITE_ENV=production.
+ * Local (fără variabilă) sunt vizibile draft-urile și paginile /qa/*; în producție, nu.
  */
-export const branch = process.env.CF_PAGES_BRANCH ?? 'local';
-export const isProduction = branch === 'main';
+export const siteEnv = process.env.SITE_ENV ?? 'local';
+export const isProduction = siteEnv === 'production';
 export const isStaging = !isProduction;

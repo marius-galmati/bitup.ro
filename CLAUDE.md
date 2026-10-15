@@ -17,7 +17,7 @@ Citești, în ordinea asta: `spec/README.md`, `spec/PLAN.md`, `spec/ARHITECTURA.
 7. Nimic nu se încarcă de pe un CDN extern la runtime. Fonturile sunt self-hosted. Singurele cereri externe permise sunt în `spec/ARHITECTURA.md` § Domenii permise, iar Google Analytics pornește doar după Accept în banner.
 8. Două limbi, română la rădăcină (`lang="ro"`) și engleză sub `/en/` (`lang="en"`), cu slug-urile din § Rute și `hreflang` peste tot. Fiecare pagină se face în ambele limbi în aceeași fază.
 9. Două teme, light și dark, după `spec/DESIGN.md` § Dark mode. Fiecare pagină se verifică în ambele.
-10. Cheile secrete (Resend, Turnstile) nu apar niciodată în repo, în `dist/` sau într-o variabilă `PUBLIC_`. Stau în Cloudflare Pages → Environment variables și, local, în `.dev.vars` (în `.gitignore`).
+10. Cheile secrete (Resend, Turnstile) nu apar niciodată în repo, în `dist/` sau într-o variabilă `PUBLIC_`. Stau în Dokploy → Environment (aplicația compose) și, local, în `.dev.vars` (în `.gitignore`).
 11. Verifici, nu declari. „E ok” fără dovadă nu e un răspuns. Rulezi build-ul, faci capturile, rulezi testele și îmi arăți rezultatul.
 12. **O modificare se face întreagă sau deloc.** Orice schimbare pe care ți-o cer se duce, în aceeași sesiune, în toate locurile unde trăiește lucrul acela. Lista de verificat, de fiecare dată, punct cu punct:
     - **Ambele limbi.** Română și engleză, în aceeași fază. Dacă am dat textul doar în română, îl traduci tu, respectând § Voce, și îmi spui explicit că traducerea e a ta și trebuie confirmată. Nu mai las nimic „în așteptarea variantei EN”.

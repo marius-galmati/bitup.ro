@@ -1,0 +1,6 @@
+# Doar pentru test local, peste docker-compose.yml: publică site-ul pe http://localhost:8080. Dokploy nu citește fișierul ăsta.
+# docker compose -f docker-compose.yml -f compose.local.yml --env-file .env --env-file .dev.vars up --build
+services:
+  bitup-web:
+    ports:
+      - "127.0.0.1:8080:80"

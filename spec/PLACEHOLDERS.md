@@ -45,10 +45,10 @@ Două liste. Prima e cu valorile finale, pe care Claude Code le pune în `src/li
 | `[[CAPTURA_RAPORT_LUNAR]]` | /cum-lucram, /suport-it (ambele limbi) și hero-ul homepage-ului (Figure, „document pe hârtie”, ambele limbi) | O captură anonimizată cu prima pagină a unui raport lunar din BitUp Helpdesk. Până există, hero-ul homepage-ului e tipografic, fără imagine. |
 | `[[CAPTURA_RAPORT_RADIOGRAFIE]]` | /radiografie-it, /en/it-health-check | Un exemplu de raport de o pagină (semafor pe 10 puncte), anonimizat sau fictiv marcat „exemplu”. |
 | `[[CAPACITATE_RADIOGRAFII]]` | /radiografie-it (text), /en/it-health-check | Câte radiografii faci pe săptămână și în ce ferestre (ex. „marți și joi, 10:00–12:00, maximum trei pe săptămână”). Dacă nu vrei să apară, se șterge propoziția. |
-| `PUBLIC_TURNSTILE_SITE_KEY` | `.env` | Cheia publică Cloudflare Turnstile (widget „Managed / Invisible”, domeniile `bitup.ro` și `*.pages.dev`). |
-| `TURNSTILE_SECRET_KEY` | Cloudflare Pages → Environment variables | Cheia secretă Turnstile. Doar pe server. |
-| `RESEND_API_KEY` | Cloudflare Pages → Environment variables | Cheie API Resend cu permisiunea „Sending access”, restrânsă la domeniul `bitup.ro`. Doar pe server. |
-| `LEAD_TO_EMAIL` | Cloudflare Pages → Environment variables | `office@bitup.ro`. |
+| `PUBLIC_TURNSTILE_SITE_KEY` | `.env` | Cheia publică Cloudflare Turnstile (widget „Managed / Invisible”, domeniul `bitup.ro` și, până la lansare, domeniul de test). Intră și în Dokploy → Environment, de unde ajunge în build. |
+| `TURNSTILE_SECRET_KEY` | Dokploy → Environment | Cheia secretă Turnstile. Doar pe server. |
+| `RESEND_API_KEY` | Dokploy → Environment | Cheie API Resend cu permisiunea „Sending access”, restrânsă la domeniul `bitup.ro`. Doar pe server. |
+| `LEAD_TO_EMAIL` | Dokploy → Environment | `office@bitup.ro`. |
 | DNS Resend | Cloudflare DNS | Înregistrările DKIM/SPF/DMARC date de Resend la „Add domain” pentru `bitup.ro`; verificat în dashboard-ul Resend. |
 | `PUBLIC_GA4_ID` | `.env` | ID-ul de măsurare GA4 (`G-XXXXXXXXXX`) al proprietății pentru bitup.ro. În GA4: retenție 2 luni, Google Signals oprit. |
 | Rate limiting | Cloudflare WAF | O regulă pe `/api/lead`: 5 cereri / 10 secunde / IP (planul Free permite doar ferestre de 10 secunde). Apărarea principală rămâne Turnstile + honeypot + validarea din funcție. |

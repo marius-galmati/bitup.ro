@@ -9,10 +9,10 @@
 - **Fonturi:** self-hosted prin `@fontsource-variable/public-sans`, `@fontsource/ibm-plex-mono` (400, 500). Subset latin + latin-ext (diacriticele românești sunt în latin-ext). `font-display: swap`.
 - **Integrări Astro:** `@astrojs/sitemap` (cu configurarea i18n), `@astrojs/rss`, `astro-og-canvas` (imagini OG la build), `astro-icon` doar dacă e nevoie de iconițe (set: `lucide`, maximum 12 iconițe în tot site-ul, inclusiv soare/lună pentru temă).
 - **Imagini:** `astro:assets` (`<Image>` / `<Picture>`), AVIF + WebP, dimensiuni declarate.
-- **Formulare:** HTML nativ + `fetch` către o funcție proprie (`/api/lead`, Cloudflare Pages Function) care verifică Turnstile și trimite emailul prin **Resend**. Cheile stau doar pe server. Detalii la § Formulare.
+- **Formulare:** HTML nativ + `fetch` către o funcție proprie (`/api/lead`, serviciul Node `bitup-api`, de lângă site) care verifică Turnstile și trimite emailul prin **Resend**. Cheile stau doar pe server. Detalii la § Formulare.
 - **Analytics:** **Google Analytics 4**, încărcat doar după consimțământ explicit (banner cu Accept / Refuz egale). Detalii la § Analytics și consimțământ.
 - **Programări:** link către Calendly (`https://calendly.com/marius-galmati-bitup/30min`), deschis în tab nou. Fără widget încorporat: widgetul ar încărca scripturi și cookie-uri de la Calendly înainte de consimțământ.
-- **Găzduire:** Cloudflare Pages, conectat la repo (branch `main` = producție, `staging` = previzualizare). Funcțiile din `functions/` se publică automat împreună cu site-ul.
+- **Găzduire:** server propriu, în România, cu **Dokploy**: o aplicație de tip Compose din ramura `main` (`docker-compose.yml`), cu două servicii, `bitup-web` (nginx: site-ul static, headerele, redirecturile) și `bitup-api` (Node: `/api/lead`). În față, Cloudflare ca proxy (DNS, TLS, WAF, Turnstile). Un singur mediu, producția. Decizia lui Marius din 16 octombrie 2026; înainte era Cloudflare Pages. Detalii la § Deploy.
 - **Node:** LTS curent, fixat în `.nvmrc`.
 
 ## Structura proiectului
@@ -20,12 +20,14 @@
 ```
 bitup-site/
   spec/                      ← acest pachet, neatins
-  functions/
-    api/
-      lead.ts                ← Pages Function: validare, honeypot, Turnstile, Resend
+  server/
+    lead.ts                  ← funcția /api/lead: validare, honeypot, Turnstile, Resend (Request/Response standard)
+    api.ts                   ← serverul HTTP Node al serviciului `bitup-api` (fără dependențe)
+  deploy/
+    nginx/
+      default.conf           ← rute, 404, redirecturi 301, cache, proxy către `bitup-api`
+      security-headers.conf  ← headerele de securitate
   public/
-    _headers                 ← headere de securitate (Cloudflare Pages)
-    _redirects               ← redirecturi 301
     robots.txt
     favicon.svg, favicon.ico, apple-touch-icon.png
     logo-bitup.svg           ← varianta pentru fundal deschis
@@ -99,8 +101,11 @@ bitup-site/
       site.ts                ← constante: nume, telefon, email, oraș, linkuri (valorile din PLACEHOLDERS.md § Completate)
       schema.ts              ← generatoare JSON-LD
   astro.config.mjs
-  wrangler.toml              ← doar pentru `wrangler pages dev` local
-  .dev.vars.example          ← RESEND_API_KEY, TURNSTILE_SECRET_KEY, LEAD_TO_EMAIL (server, niciodată PUBLIC_)
+  Dockerfile                 ← etapele build (Astro) → web (nginx + dist/) și api (Node + server/)
+  docker-compose.yml         ← aplicația din Dokploy: bitup-web + bitup-api
+  compose.local.yml          ← doar local: publică site-ul pe localhost:8080
+  .dockerignore              ← ține secretele (.env, .dev.vars) afară din imagini
+  .dev.vars.example          ← RESEND_API_KEY, TURNSTILE_SECRET_KEY, LEAD_TO_EMAIL, ALLOWED_ORIGINS (server, niciodată PUBLIC_)
   .env.example               ← PUBLIC_TURNSTILE_SITE_KEY, PUBLIC_GA4_ID
 ```
 
@@ -118,7 +123,7 @@ bitup-site/
 - Colecțiile au un subfolder pe limbă (`cases/ro`, `cases/en`); intrările pereche au același nume de fișier (`cosmio.md` în ambele). Un articol de blog poate exista doar în română: pagina `/en/blog` afișează doar intrările din `blog/en`, iar comutatorul de limbă de pe un articol fără pereche duce la `/en/blog` (nu la o pagină 404).
 - Formatare: datele în română „10 septembrie 2026”, în engleză „September 10, 2026”; numerele cu separatorii limbii. Telefonul și emailul sunt identice în ambele limbi.
 - OG image per limbă (titlul paginii în limba ei). JSON-LD: `inLanguage` pe fiecare pagină; `Organization.availableLanguage: ["Romanian", "English"]`.
-- 404: o singură pagină (`404.astro`), bilingvă compact: textul român sus, cel englez sub o linie, ambele din `00-global.md` § 404 și `continut-en/00-global.md` § 404. Cloudflare Pages servește `404.html` pentru orice rută inexistentă, inclusiv sub `/en/`.
+- 404: o singură pagină (`404.astro`), bilingvă compact: textul român sus, cel englez sub o linie, ambele din `00-global.md` § 404 și `continut-en/00-global.md` § 404. nginx servește `404.html`, cu status 404, pentru orice rută inexistentă, inclusiv sub `/en/`.
 
 ## Rute
 
@@ -144,7 +149,7 @@ bitup-site/
 | `/cookies` | `/en/cookies` | `15-…` | `LegalLayout` |
 | `/404` | (aceeași) | `00-global.md` § 404, ambele limbi | status 404 real |
 
-Trailing slash: fără (`trailingSlash: 'never'`), `build.format: 'file'` sau echivalentul care produce `/despre` → `despre.html` cu rescriere corectă pe Cloudflare Pages.
+Trailing slash: fără (`trailingSlash: 'never'`), `build.format: 'file'`, care produce `/despre` → `despre.html`; nginx îl servește cu `try_files $uri $uri.html`, iar `/despre/` și `/despre.html` primesc 301 la `/despre` (parametrii rămân).
 
 ## Colecții (`src/content.config.ts`)
 
@@ -229,9 +234,9 @@ Două formulare, aceeași componentă `Form.astro`, cu `kind: 'radiografie' | 'c
 }
 ```
 
-**Funcția `functions/api/lead.ts` (Cloudflare Pages Function), în ordinea asta:**
+**Funcția `handleLead` din `server/lead.ts` (rulată de `server/api.ts` în serviciul `bitup-api`, în spatele nginx), în ordinea asta:**
 1. Acceptă doar `POST`; altceva → 405.
-2. Verifică `Origin`/`Referer`: trebuie să fie `https://bitup.ro` (sau `*.pages.dev` pe staging); altfel 403.
+2. Verifică `Origin`/`Referer`: trebuie să fie `https://bitup.ro` (sau o origine din variabila `ALLOWED_ORIGINS`, pentru domeniul de test dinainte de lansare); altfel 403.
 3. Parsează corpul (doar JSON; alt `Content-Type` sau JSON invalid → `400 { ok: false, error: 'body' }`). Validare server-side: câmpurile obligatorii după `kind`, email cu format valid, telefon cu cel puțin 9 cifre, `message` ≤ 5.000 caractere, `consent === true`.
 4. Honeypot: dacă `website` nu e gol → răspunde `200 { ok: true }` fără să trimită nimic (spamerul nu trebuie să afle).
 5. Turnstile: `POST https://challenges.cloudflare.com/turnstile/v0/siteverify` cu `secret = env.TURNSTILE_SECRET_KEY`, `response = turnstileToken`, `remoteip = CF-Connecting-IP`. Dacă `success !== true` sau tokenul lipsește → `400 { ok: false, error: 'turnstile' }`. Nu există nicio cale fără token.
@@ -243,10 +248,10 @@ Două formulare, aceeași componentă `Form.astro`, cu `kind: 'radiografie' | 'c
    - `text` (fără HTML): toate câmpurile, unul pe rând, plus `source`, `utm`, `referrer`, `ts`, IP-ul și țara din headerele Cloudflare. Textul din `message` se pune ca atare, într-un bloc separat, ca să nu poată fi confundat cu antetul.
    - Etichetă (`tags`): `kind`, `lang`.
 7. Opțional (recomandat, dar se decide cu Marius): un al doilea email, de confirmare, către persoana care a scris, din `Marius Galmati <office@bitup.ro>`, cu textul de pe `/multumesc`. Dacă se face, `from` trebuie să fie o adresă la care Marius chiar citește răspunsurile.
-8. Răspuns: `200 { ok: true }`. La eșec Resend → `502 { ok: false, error: 'mail' }`, și funcția scrie eroarea în log (`console.error`), vizibil în Cloudflare → Pages → Functions → Logs.
+8. Răspuns: `200 { ok: true }`. La eșec Resend → `502 { ok: false, error: 'mail' }`, și funcția scrie eroarea în log (`console.error`), vizibil în Dokploy → aplicația → Logs, serviciul `bitup-api`.
 9. Limitare de rată: o regulă **Cloudflare WAF Rate Limiting** pe `/api/lead`, 5 cereri / 10 secunde / IP, setată din dashboard, nu în cod (planul Free permite doar ferestre de 10 secunde). Apărarea principală rămâne Turnstile + honeypot + validarea din funcție; regula doar taie rafalele. Dacă apare spam real, pasul următor e o limitare în funcție, pe Workers KV (cheie per IP, TTL 10 minute), nu un upgrade de plan.
 
-Secretele (`RESEND_API_KEY`, `TURNSTILE_SECRET_KEY`, `LEAD_TO_EMAIL`) se setează în Cloudflare Pages → Settings → Environment variables, separat pentru Production și Preview, și nu apar niciodată în repo sau într-o variabilă `PUBLIC_`. Local: `.dev.vars` (în `.gitignore`) și `npx wrangler pages dev dist`.
+Secretele (`RESEND_API_KEY`, `TURNSTILE_SECRET_KEY`, `LEAD_TO_EMAIL`) se setează în Dokploy → aplicația compose → Environment și nu apar niciodată în repo, în imagini sau într-o variabilă `PUBLIC_`. Serviciul `bitup-api` nu pornește fără `RESEND_API_KEY` și `TURNSTILE_SECRET_KEY`. Local: `.dev.vars` (în `.gitignore`), cu `docker compose -f docker-compose.yml -f compose.local.yml --env-file .env --env-file .dev.vars up --build` (site-ul pe `http://localhost:8080`).
 
 **De ce Turnstile rămâne:** formularul e public și funcția e apelabilă de oricine. Fără Turnstile, boții completează formularul (honeypot-ul prinde doar boții simpli), iar fiecare trimitere devine un email real trimis prin Resend din contul BitUp. Turnstile e gratuit, invizibil pentru oameni și se verifică în funcție cu o cerere. Costul e zero, beneficiul e că `office@bitup.ro` nu se umple de spam din propriul site.
 
@@ -280,7 +285,7 @@ Secretele (`RESEND_API_KEY`, `TURNSTILE_SECRET_KEY`, `LEAD_TO_EMAIL`) se seteaz�
 - Logo-ul: SVG inline (`Logo.astro`, căile din `logo-paths.json`) cu culorile din tokeni (`--logo-ink`, `--logo-accent`), deci urmează și `prefers-color-scheme`, și comutatorul `data-theme`; fișierele `logo-bitup.svg` / `logo-bitup-dark.svg` din `public/` sunt aceleași desene, pentru JSON-LD, OG și uz extern.
 - Imaginile OG rămân pe fundal navy, indiferent de temă.
 
-## Headere de securitate (`public/_headers`)
+## Headere de securitate (`deploy/nginx/security-headers.conf`)
 
 ```
 /*
@@ -299,14 +304,17 @@ Secretele (`RESEND_API_KEY`, `TURNSTILE_SECRET_KEY`, `LEAD_TO_EMAIL`) se seteaz�
 ```
 
 Note:
-- HSTS fără `preload` la lansare: preload e greu de scos și ar obliga orice subdomeniu (inclusiv `helpdesk.bitup.ro` și subdomeniile de test) la HTTPS pentru totdeauna. Pe staging (`*.pages.dev`) `max-age=300`. Preload se discută după o lună de producție fără probleme.
+- Blocul `/*` se aplică tuturor răspunsurilor nginx (inclusiv 404 și `/api/`), blocul `/api/*` locației `/api/` din `default.conf`.
+- Pe orice nume în afară de `bitup.ro` (domeniul de test dinainte de lansare), nginx adaugă `X-Robots-Tag: noindex, nofollow`.
+- Cache: HTML-ul cu `public, max-age=0, must-revalidate`; fișierele din `/_astro/` (au hash în nume) cu `public, max-age=31536000, immutable`.
+- HSTS fără `preload` la lansare: preload e greu de scos și ar obliga orice subdomeniu (inclusiv `helpdesk.bitup.ro` și subdomeniile de test) la HTTPS pentru totdeauna. Preload se discută după o lună de producție fără probleme.
 - `script-src 'unsafe-inline'` e nevoie pentru scriptul de temă din `<head>` și pentru inițializarea gtag. Preferat: Claude Code mută ambele în fișiere `.js` proprii sau folosește hash-uri (`'sha256-…'`) generate la build și scoate `'unsafe-inline'`. E o îmbunătățire, nu o condiție de lansare.
 - `style-src 'unsafe-inline'` e necesar pentru stilurile scoped ale Astro.
 - Logo-urile clienților se copiază local în `public/` la publicare, deci `pro-q.ro` și `cosmio.ro` din `img-src` se scot după; sunt acolo doar pentru perioada de draft.
 - Domeniile Google apar în CSP chiar dacă scriptul se încarcă doar după consimțământ; CSP-ul e static.
 - Calendly e doar link (`<a target="_blank" rel="noopener">`), deci nu apare în CSP.
 
-## Redirecturi (`public/_redirects`)
+## Redirecturi (`deploy/nginx/default.conf`)
 
 ```
 /de-ce-bitup                          /cum-lucram                     301
@@ -353,13 +361,21 @@ https://www.bitup.ro/*                https://bitup.ro/:splat         301
 
 ## Deploy
 
-**Cloudflare Pages:** proiect conectat la repo; build `npm run build`, output `dist`; `functions/` publicat automat. Variabile: `PUBLIC_*` în Build, secretele în Environment variables (Production și Preview separat). `main` → producție, `staging` → previzualizare pe `*.pages.dev`. DNS: `bitup.ro` CNAME flattening către Pages; `www` → redirect 301 la apex. HTTPS forțat, TLS 1.2+, HSTS din `_headers`.
+**Server propriu cu Dokploy (România), aplicație de tip Compose.** Decizia lui Marius din 16 octombrie 2026, în locul Cloudflare Pages. Un singur mediu, producția; nu există staging.
+- Sursa: repo-ul, ramura `main`, fișierul `docker-compose.yml`. La deploy, Dokploy construiește imaginile din `Dockerfile` și repornește containerele (automat la push, prin webhook, sau manual).
+- `bitup-web`: etapa `build` rulează `npm ci --omit=dev` și `npm run build` cu `SITE_ENV=production` (draft-urile, paginile `/qa/*` și `public/qa/` nu intră), apoi `dist/` intră într-o imagine nginx cu `deploy/nginx/`. Domeniile `bitup.ro` și `www.bitup.ro` se leagă din Dokploy de acest serviciu, pe portul 80, cu HTTPS.
+- `bitup-api`: Node 24, doar `server/`, fără dependențe. Nu are domeniu; nginx îi trimite numai `/api/`.
+- Variabile, în Dokploy → Environment: `PUBLIC_TURNSTILE_SITE_KEY` și `PUBLIC_GA4_ID` (ajung în build ca argumente), `RESEND_API_KEY`, `TURNSTILE_SECRET_KEY`, `LEAD_TO_EMAIL`, opțional `ALLOWED_ORIGINS`. `.dockerignore` ține `.env` și `.dev.vars` afară din imagini.
+- Niciun port publicat pe gazdă: traficul intră doar prin Traefik-ul din Dokploy. Jurnalele Docker sunt rotite (3 × 10 MB per serviciu). Jurnalul de acces nginx nu conține adresa IP a vizitatorului.
+- Verificare: `bash qa/deploy-check.sh [URL]` (rute, redirecturi, 404, headere, `/api/lead`) și `node qa/deploy-browser.mjs [URL]` (consola pe fiecare pagină, cu CSP-ul real; formularele cap-coadă).
+
+**Cloudflare, în fața serverului:** DNS pentru `bitup.ro` și `www` cu proxy (norișor portocaliu) către IP-ul serverului. SSL/TLS pe „Full (strict)”, cu un certificat Cloudflare Origin CA (`bitup.ro`, `*.bitup.ro`) pus în Dokploy pe domenii; „Always Use HTTPS”, TLS minim 1.2. Headerele `CF-Connecting-IP` și `CF-IPCountry` ajung la funcție prin Traefik și nginx (IP-ul și țara din email). Recomandat: firewall-ul serverului primește 80/443 doar de la IP-urile Cloudflare, ca headerele să nu poată fi falsificate ocolind proxy-ul.
 
 **Resend, în DNS-ul Cloudflare (o singură dată):** înregistrările pe care le dă Resend la „Add domain” pentru `bitup.ro`: DKIM (CNAME/TXT `resend._domainkey`), SPF pe subdomeniul de trimitere (Resend folosește implicit `send.bitup.ro` sau similar, ca să nu se amestece cu SPF-ul căsuței `office@`), și o politică DMARC pe domeniu (`_dmarc` TXT, `p=quarantine` după o săptămână de `p=none`). Fără ele, emailurile din site ajung în spam sau sunt respinse. Verificarea se face din dashboard-ul Resend; Claude Code documentează pașii în `NOTES.md`, Marius le pune în DNS.
 
-**Cloudflare, din dashboard, la lansare:** regula de rate limiting pe `/api/lead`; Bot Fight Mode (dacă se activează, poate seta cookie-ul `__cf_bm`, deja menționat pe pagina de cookies); Cache Rules implicite pentru static.
+**Cloudflare, din dashboard, la lansare:** regula de rate limiting pe `/api/lead`; Bot Fight Mode (dacă se activează, poate seta cookie-ul `__cf_bm`, deja menționat pe pagina de cookies).
 
-**Alternativă, serverul propriu:** e posibilă (Caddy/nginx + un mic serviciu Node pentru `/api/lead`), dar pierde funcțiile Pages și rate limiting-ul gratuit. Se alege doar dacă există un motiv.
+**Test înainte de lansare (în locul staging-ului):** un domeniu temporar (de exemplu `temp.bitup.ro`) adăugat în Dokploy pe `bitup-web`, în `ALLOWED_ORIGINS` și în lista de hostname-uri a widgetului Turnstile. Pe el, nginx răspunde cu `noindex`. După mutarea lui `bitup.ro`, domeniul temporar se scoate din toate trei.
 
 ## Ce nu intră
 

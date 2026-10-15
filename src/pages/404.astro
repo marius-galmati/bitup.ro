@@ -1,7 +1,7 @@
 ---
 /**
  * 404 (ARHITECTURA § Limbi, 00-global § Pagina 404, ambele limbi): o singură pagină, bilingvă compact.
- * Textul român sus, cel englez sub o linie, cu lang="en". Comutatorul de limbă duce la / și /en. Status 404 real: Cloudflare Pages servește 404.html.
+ * Textul român sus, cel englez sub o linie, cu lang="en". Comutatorul de limbă duce la / și /en. Status 404 real: nginx servește 404.html (deploy/nginx/default.conf, error_page).
  */
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Container from '../components/Container.astro';

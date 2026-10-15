@@ -1,7 +1,7 @@
 ---
 /**
- * /qa/componente și /qa/tokens — pagini de QA autorizate de Marius (excepție de la regula 4 din CLAUDE.md): doar în dev și pe staging,
- * noindex, exclusă din sitemap, absentă în producție (CF_PAGES_BRANCH === 'main' → getStaticPaths returnează []).
+ * /qa/componente și /qa/tokens — pagini de QA autorizate de Marius (excepție de la regula 4 din CLAUDE.md): doar local,
+ * noindex, exclusă din sitemap, absentă în producție (SITE_ENV === 'production' → getStaticPaths returnează []).
  * Fiecare componentă din Faza 1, în toate stările, plus paleta și scara tipografică. Textele sunt din spec/continut (nu inventate).
  */
 import BaseLayout from '../../layouts/BaseLayout.astro';

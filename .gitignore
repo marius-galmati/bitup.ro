@@ -8,7 +8,6 @@ dist/
 .env.*
 !.env.example
 .dev.vars
-.wrangler/
 
 # capturi QA: rămân locale; în repo intră doar qa/<faza>/rezumat/ (WebP) și rapoartele JSON
 qa/**/*.png

@@ -2186,6 +2186,51 @@ Cardurile: `--surface`, bordură 1 px `--line`, `--r-media`, padding `--s-6`; la
 
 Header-ul însuși: e la **65 px**, `DESIGN.md` cere **80**. Plus butoanele-pastilă în toate variantele și meniul mobil. Le fac când spui.
 
+## Deploy pe Dokploy (16 octombrie 2026)
+
+Cerut de Marius: producția pe serverul lui, cu Dokploy, ca aplicație de tip Compose. Răspunsurile lui la întrebări: Cloudflare rămâne în față, ca proxy; serverul e propriu, în România; fără staging; acum doar se pregătește, lansarea e după Faza 6. Înlocuiește tot ce era Cloudflare Pages (secțiunile de mai sus despre `wrangler pages dev`, Pages Functions, `_headers`/`_redirects` și lista „De făcut din dashboard” din Faza 4a rămân ca istoric).
+
+### Ce s-a făcut
+- `functions/api/lead.ts` → `server/lead.ts` (`git mv`): aceeași ordine a pașilor, `onRequest` (Pages) devine `handleLead(request, env)`. Origini: `https://bitup.ro`, plus cele din `ALLOWED_ORIGINS` (pentru domeniul de test), plus localhost când și serviciul e pe localhost; `*.pages.dev` a ieșit. `server/api.ts`: server HTTP Node fără dependențe (Node 24 citește TypeScript direct), corp maxim 64 KB, `/healthz` pentru compose, oprire curată la SIGTERM, refuză să pornească fără `RESEND_API_KEY` și `TURNSTILE_SECRET_KEY`.
+- `deploy/nginx/default.conf` + `security-headers.conf`: rute `try_files $uri $uri.html`, 404 real cu `404.html`, `/pagina/` și `/pagina.html` → 301 `/pagina`, cele 12 redirecturi din spec (parametrii se păstrează, înaintea ancorei), `www` → apex, headerele din spec pe orice răspuns (inclusiv 404), cache (`/_astro/` un an, HTML revalidat), `/api/` → `bitup-api` cu `no-store` și `noindex`, `noindex` pe orice nume în afară de `bitup.ro`, jurnal de acces fără IP.
+- `Dockerfile` (etape `build` → `web` / `api`), `docker-compose.yml` (pentru Dokploy), `compose.local.yml` (doar local, port 8080), `.dockerignore` (fără `.env`, `.dev.vars`, `qa/`, materialele din rădăcină).
+- `src/lib/env.ts`: producția se recunoaște după `SITE_ENV=production` (setat în Dockerfile), nu după `CF_PAGES_BRANCH`.
+- `public/qa/whatsapp-cipri.jpg` nu mai intră în producție (`rm -rf dist/qa` în build). Pe Cloudflare Pages ar fi fost publică.
+- `wrangler` scos din devDependencies. `package-lock.json` regenerat pe Linux (`npm install --package-lock-only` în `node:24`): `npm ci` pe Linux pica fiindcă lockfile-ul făcut pe Windows nu avea `@emnapi/core` și `@emnapi/runtime`. Nicio versiune schimbată (comparat pachet cu pachet față de HEAD).
+- Spec: `ARHITECTURA.md` (§ Stack, § Structura, § Limbi/404, § Rute, § Formulare, § Headere, § Redirecturi, § Deploy rescrisă), `PLAN.md` (Faza 4: sarcina 6 și acceptarea; Faza 5: sarcinile 3–4 și acceptarea; Faza 6: sarcinile 6–7), `PLACEHOLDERS.md` (unde stau cheile), `spec/README.md`, `00-global.md` RO/EN (eticheta de draft: „doar în afara producției”).
+- Pagina de confidențialitate, RO și EN (spec + `src/copy/privacy.*.ts`): găzduirea pe serverul nostru din România, Cloudflare ca rețea de livrare și protecție, funcția formularelor pe serverul nostru, jurnalele serverului fără IP. **Textul e al meu și trebuie confirmat.**
+- `CLAUDE.md` regula 10 și `README.md`: secretele stau în Dokploy → Environment.
+- QA: `qa/deploy-check.sh` (HTTP: rute, redirecturi, 404, headere, `/api/lead`) și `qa/deploy-browser.mjs` (consola pe fiecare pagină cu CSP-ul real; formularele cap-coadă, doar local).
+
+### Ce s-a verificat (local, imaginea de producție, cheile de test Turnstile, cheie Resend falsă)
+- `docker compose … build`: ambele imagini; Astro construiește 41 de pagini cu `SITE_ENV=production` (fără `/qa/*`, fără draft-uri). În `dist/` din imagine nu există `re_…` și nici secretul Turnstile; există doar cheia publică.
+- `bash qa/deploy-check.sh`: 86 ok, 0 greșite.
+- `node qa/deploy-browser.mjs`: 41 de pagini × 2 teme cu consola curată. **CSP-ul din spec se aplică acum pentru prima oară** (pe Pages nu existase `_headers`) și nu blochează nimic. Cele 4 formulare (RO/EN, Radiografie/Contact), trimise real: Turnstile → nginx → `bitup-api` → Resend răspunde 401 la cheia falsă → `502 mail` → starea de eroare, textul rămâne.
+- `npm run build` local fără warning-uri, `astro check` 0/0/0, `node qa/lead-email.test.mjs` trece, `textdiff` pe 14 RO/EN: zero diferențe.
+
+### Pașii pentru Marius (în ordinea asta)
+1. **Turnstile** (Cloudflare → Turnstile): widget „Managed”, hostnames `bitup.ro` și domeniul de test (ex. `temp.bitup.ro`). Păstrezi site key și secret.
+2. **Resend**: domeniul `bitup.ro` și înregistrările DNS, ca în Faza 4a (DKIM, SPF pe subdomeniul de trimitere, DMARC `p=none` o săptămână, apoi `p=quarantine`). Cheie cu „Sending access” doar pe `bitup.ro`.
+3. **Certificat** (Cloudflare → SSL/TLS → Origin Server → Create Certificate): `bitup.ro` și `*.bitup.ro`, 15 ani. În Dokploy → Settings → Certificates → Add: certificatul și cheia. În Cloudflare: SSL/TLS „Full (strict)”, „Always Use HTTPS”, Minimum TLS 1.2. (Alternativa, Let's Encrypt din Dokploy, se blochează la reînnoire când proxy-ul Cloudflare redirecționează HTTP → HTTPS; de aceea Origin CA.)
+4. **Dokploy** → Project „bitup” → Create Service → **Compose**: sursa e repo-ul (GitHub sau Git), ramura `main`, Compose Path `./docker-compose.yml`.
+5. **Environment** (în aplicația compose): `PUBLIC_TURNSTILE_SITE_KEY`, `TURNSTILE_SECRET_KEY`, `RESEND_API_KEY`, `LEAD_TO_EMAIL=office@bitup.ro`, `PUBLIC_GA4_ID` (gol până la Faza 5), `ALLOWED_ORIGINS=https://temp.bitup.ro`. Fără cele trei chei obligatorii, deploy-ul se oprește cu mesajul „lipsește …”.
+6. **Domains**: serviciul `bitup-web`, host `temp.bitup.ro`, path `/`, port **80**, HTTPS pornit, certificatul din pasul 3. În Cloudflare DNS: `temp` → IP-ul serverului, proxy pornit.
+7. **Deploy**. În Logs, `bitup-api` trebuie să scrie `[api] ascultă pe 3000`. Apoi, din calculatorul tău: `bash qa/deploy-check.sh https://temp.bitup.ro` și `node qa/deploy-browser.mjs https://temp.bitup.ro` (nu trimit emailuri). Formularele le încerci de mână: așa se face și acceptarea Fazei 4b.
+8. **Lansarea** (după Faza 6): DNS `bitup.ro` (A) și `www` → IP-ul serverului, proxy pornit; în Dokploy, domeniile `bitup.ro` și `www.bitup.ro` pe `bitup-web`, port 80; scoți `temp.bitup.ro` din Domains, din `ALLOWED_ORIGINS` și din Turnstile; Redeploy. Apoi `bash qa/deploy-check.sh https://bitup.ro`.
+9. **Cloudflare WAF** → Rate limiting: `/api/lead`, 5 cereri / 10 s / IP.
+10. **Firewall pe server**: 80/443 doar de la IP-urile Cloudflare (lista e la cloudflare.com/ips), panoul Dokploy (3000) doar de la IP-ul tău. Fără asta, cine ocolește proxy-ul poate trimite antete `CF-Connecting-IP` false (afectează doar IP-ul din emailul de lead).
+11. **Deploy automat** (opțional): Dokploy → aplicația → Deployments → webhook-ul pus în GitHub, sau Autodeploy pornit. Altfel, deploy manual după fiecare push pe `main`.
+
+Dacă domeniul dă 404 sau „Bad Gateway” după deploy: serviciul `bitup-web` trebuie să fie în rețeaua `dokploy-network`. Dokploy îl adaugă singur când pui domeniul din interfață; dacă versiunea ta nu o face, se adaugă în `docker-compose.yml`.
+
+### De confirmat
+- Textul nou de pe pagina de confidențialitate (RO și EN, mai sus). Data „Ultima actualizare: 10 septembrie 2026” am lăsat-o neschimbată: o actualizezi la lansare sau acum?
+- „Jurnalele serverului nostru nu conțin adresa IP” e adevărat pentru nginx și pentru `bitup-api` (verificat). Pe server mai e Traefik-ul din Dokploy: dacă are access log-ul pornit, în el apare IP-ul Cloudflare, nu al vizitatorului, cât timp Traefik nu e configurat să creadă `X-Forwarded-For`. Merită o privire în Dokploy → Traefik.
+- `__cf_bm` rămâne pe pagina de cookies: Cloudflare e tot în față.
+
+### Rămase cu „staging” în text
+Comentariile și eticheta paginilor de QA (`/qa/*`, „doar dev și staging”), comentariile din `BlogPage`, `ResultsPage`, `collections.ts` și exportul `isStaging` din `env.ts`. Acolo „staging” înseamnă „în afara producției”, adică local acum. Paginile de QA nu ajung în producție. Le-am lăsat ca să nu ating fișiere din afara schimbării; le redenumesc dacă vrei. `spec/PLAN.md` § Faza 0 pomenește `functions/api/` și `.dev.vars`: e istoric, faza e închisă.
+
 ## Propuneri (nu se fac fără acord)
 
 - Faza 5: Astro are suport experimental pentru CSP cu hash-uri generate la build (`experimental.csp`), care ar scoate `'unsafe-inline'` din `script-src` și `style-src`. E îmbunătățirea menționată în `ARHITECTURA.md` § Headere ca „nu o condiție de lansare”. De evaluat când ajungem acolo.

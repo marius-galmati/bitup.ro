@@ -1,5 +1,9 @@
-# Secrete pentru functions/api/lead.ts, DOAR pe server. Copiază în .dev.vars (în .gitignore) pentru `npx wrangler pages dev dist`.
-# În producție: Cloudflare Pages → Settings → Environment variables, separat pentru Production și Preview.
+# Secrete pentru serviciul /api/lead (server/api.ts), DOAR pe server. Copiază în .dev.vars (în .gitignore) pentru test local:
+#   node --env-file=.dev.vars server/api.ts
+#   docker compose -f docker-compose.yml -f compose.local.yml --env-file .env --env-file .dev.vars up --build
+# În producție: Dokploy → aplicația compose → Environment (niciodată în repo, niciodată cu prefix PUBLIC_).
 RESEND_API_KEY=
 TURNSTILE_SECRET_KEY=
 LEAD_TO_EMAIL=office@bitup.ro
+# Opțional: origini în plus față de https://bitup.ro, separate prin virgulă (ex. domeniul de test dinainte de lansare).
+ALLOWED_ORIGINS=

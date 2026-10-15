@@ -5,7 +5,7 @@
 
 **JSON-LD:** global. Layout: `LegalLayout`.
 
-Notă pentru Marius: scris după configurația reală (formulare prin funcție proprie + Resend, GA4 doar cu consimțământ, Turnstile, Cloudflare Pages, Calendly ca link). Două lucruri de confirmat: că `office@bitup.ro` e găzduit în Microsoft 365 (§ Cine mai vede datele) și termenul de păstrare de 12 luni pentru cererile care nu devin contracte. Nu a fost verificat de un avocat.
+Notă pentru Marius: scris după configurația reală (formulare prin funcție proprie + Resend, GA4 doar cu consimțământ, Turnstile, server propriu în România, în spatele Cloudflare, Calendly ca link). Două lucruri de confirmat: că `office@bitup.ro` e găzduit în Microsoft 365 (§ Cine mai vede datele) și termenul de păstrare de 12 luni pentru cererile care nu devin contracte. Nu a fost verificat de un avocat.
 
 ---
 
@@ -24,7 +24,7 @@ Operatorul datelor e BitUp Technology SRL, cu sediul social în Câmpia Turzii, 
 
 **Când trimiți un formular** (cererea de Radiografie IT sau formularul de contact): numele, firma, numărul de angajați (la Radiografie), telefonul, emailul și mesajul tău. Salvăm și pagina de pe care ai trimis, sursa din care ai ajuns pe site (parametrii UTM, dacă există), data și ora. Adresa IP și țara le primim de la Cloudflare și le păstrăm odată cu cererea. Folosim datele ca să te contactăm și să răspundem la ce ai cerut. Temeiul legal e că ne-ai cerut tu să te contactăm (pași înainte de un eventual contract, art. 6 alin. 1 lit. b din GDPR) și interesul nostru legitim de a ține evidența cererilor și de a ne apăra de spam (lit. f).
 
-**Când navighezi pe site**: Cloudflare, care găzduiește site-ul, procesează adresa IP și datele tehnice ale cererii (browser, pagină, oră) ca să livreze paginile și să oprească atacurile. Noi nu vedem aceste jurnale decât agregat. Temeiul e interesul legitim de a avea un site care funcționează și e sigur.
+**Când navighezi pe site**: site-ul e găzduit pe un server al nostru, în România, iar paginile ajung la tine prin rețeaua Cloudflare. Cloudflare procesează adresa IP și datele tehnice ale cererii (browser, pagină, oră) ca să livreze paginile și să oprească atacurile. Noi nu vedem aceste jurnale decât agregat. Temeiul e interesul legitim de a avea un site care funcționează și e sigur.
 
 **Când accepți statisticile**: Google Analytics 4 pune cookie-uri și înregistrează paginile vizitate, durata, tipul de dispozitiv, țara și orașul aproximativ, sursa din care ai venit. Adresa IP e trunchiată de Google înainte de stocare. Am oprit Google Signals și personalizarea reclamelor; nu facem remarketing. Temeiul e consimțământul tău, dat din banner, pe care îl poți retrage oricând din „Setări cookie-uri”, jos în pagină. Detalii în [Politica de cookie-uri](/cookies).
 
@@ -38,13 +38,13 @@ Nu colectăm date despre copii, nu cerem date sensibile și nu luăm decizii aut
 
 ## Cât ținem datele
 
-Cererile din formulare care nu duc la o colaborare: 12 luni de la trimitere, apoi le ștergem. Cererile care devin contracte: pe durata contractului și, după, atât cât cere legea pentru documentele contabile și contractuale (în general 5 ani, 10 pentru unele documente financiare). Jurnalele tehnice Cloudflare: după politica Cloudflare, de ordinul zilelor. Datele din Google Analytics: 2 luni pentru datele detaliate (am setat retenția minimă), rapoartele agregate rămân în cont. Emailurile: cât timp există relația și rezonabil după.
+Cererile din formulare care nu duc la o colaborare: 12 luni de la trimitere, apoi le ștergem. Cererile care devin contracte: pe durata contractului și, după, atât cât cere legea pentru documentele contabile și contractuale (în general 5 ani, 10 pentru unele documente financiare). Jurnalele tehnice Cloudflare: după politica Cloudflare, de ordinul zilelor. Jurnalele serverului nostru nu conțin adresa IP și se șterg automat, prin rotație. Datele din Google Analytics: 2 luni pentru datele detaliate (am setat retenția minimă), rapoartele agregate rămân în cont. Emailurile: cât timp există relația și rezonabil după.
 
 ## Cine mai vede datele
 
 Nu vindem și nu închiriem date. Le vede doar cine are nevoie ca să funcționeze site-ul și comunicarea:
 
-- **Cloudflare, Inc.** (SUA, cu centre de date în UE): găzduirea site-ului, rețeaua de livrare, funcția care procesează formularele, Turnstile. Transfer către SUA acoperit de certificarea Cloudflare în EU-US Data Privacy Framework și de clauze contractuale standard.
+- **Cloudflare, Inc.** (SUA, cu centre de date în UE): rețeaua prin care ajung paginile la tine, protecția împotriva atacurilor, Turnstile. Transfer către SUA acoperit de certificarea Cloudflare în EU-US Data Privacy Framework și de clauze contractuale standard.
 - **Resend, Inc.** (SUA): serviciul prin care formularele ajung pe emailul nostru. Datele din formular trec prin Resend ca email și sunt păstrate acolo pe termen scurt, pentru jurnalul de trimitere. Transfer acoperit de clauze contractuale standard.
 - **Microsoft** (Microsoft 365, UE): căsuța de email office@bitup.ro, unde ajung cererile.
 - **Google LLC** (SUA): Google Analytics, doar dacă ai acceptat statisticile. Transfer acoperit de certificarea Google în EU-US Data Privacy Framework.
@@ -61,7 +61,7 @@ Scrii la office@bitup.ro; răspundem în maximum o lună, de obicei în câteva 
 
 ## Cum protejăm datele
 
-Site-ul e servit doar prin HTTPS. Formularele ajung la noi printr-o funcție care rulează pe serverele Cloudflare, cu cheile de acces ținute pe server, nu în pagină. Căsuța de email are autentificare în doi pași. Datele din cereri nu se salvează în site (site-ul e static); stau în email și, pentru clienți, în sistemul nostru de helpdesk, cu acces separat pe client. Facem pentru noi ce le spunem clienților să facă.
+Site-ul e servit doar prin HTTPS. Formularele ajung la noi printr-o funcție care rulează pe serverul nostru, cu cheile de acces ținute pe server, nu în pagină. Căsuța de email are autentificare în doi pași. Datele din cereri nu se salvează în site (site-ul e static); stau în email și, pentru clienți, în sistemul nostru de helpdesk, cu acces separat pe client. Facem pentru noi ce le spunem clienților să facă.
 
 ## Modificări
 

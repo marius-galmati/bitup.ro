@@ -1,0 +1,52 @@
+# Producția pe Dokploy (aplicație de tip „Compose”, din ramura `main`). ARHITECTURA § Deploy; pașii în NOTES.md § Deploy pe Dokploy.
+# Domeniile se pun din Dokploy pe serviciul `bitup-web`, portul 80 (bitup.ro și www.bitup.ro). Niciun port publicat pe gazdă:
+# traficul intră doar prin Traefik-ul din Dokploy, care ajunge la containere prin rețeaua Docker.
+# Variabilele vin din Dokploy → Environment (le scrie într-un `.env` lângă fișierul ăsta; `.dockerignore` îl ține afară din imagini).
+# Numele serviciilor au prefixul `bitup-` ca să nu se lovească de alte proiecte din rețeaua comună a Dokploy.
+
+x-logging: &logging
+  driver: json-file
+  options:
+    max-size: "10m"
+    max-file: "3"
+
+services:
+  bitup-web:
+    build:
+      context: .
+      target: web
+      args:
+        PUBLIC_TURNSTILE_SITE_KEY: ${PUBLIC_TURNSTILE_SITE_KEY:?lipsește PUBLIC_TURNSTILE_SITE_KEY}
+        PUBLIC_GA4_ID: ${PUBLIC_GA4_ID:-}
+    restart: unless-stopped
+    expose:
+      - "80"
+    depends_on:
+      bitup-api:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://127.0.0.1/"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    logging: *logging
+
+  bitup-api:
+    build:
+      context: .
+      target: api
+    restart: unless-stopped
+    expose:
+      - "3000"
+    environment:
+      RESEND_API_KEY: ${RESEND_API_KEY:?lipsește RESEND_API_KEY}
+      TURNSTILE_SECRET_KEY: ${TURNSTILE_SECRET_KEY:?lipsește TURNSTILE_SECRET_KEY}
+      LEAD_TO_EMAIL: ${LEAD_TO_EMAIL:-office@bitup.ro}
+      ALLOWED_ORIGINS: ${ALLOWED_ORIGINS:-}
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:3000/healthz').then(r => process.exit(r.ok ? 0 : 1), () => process.exit(1))"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 5s
+    logging: *logging

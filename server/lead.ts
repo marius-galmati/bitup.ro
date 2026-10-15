@@ -1,7 +1,8 @@
 /**
- * POST /api/lead — Cloudflare Pages Function (ARHITECTURA § Formulare), fără biblioteci externe, doar `fetch`.
+ * POST /api/lead (ARHITECTURA § Formulare), fără biblioteci externe, doar `fetch`. Rulează în serviciul `bitup-api` (server/api.ts),
+ * în spatele nginx-ului din `bitup-web`; logica e scrisă pe `Request`/`Response` standard, deci nu depinde de server.
  * Ordinea e exact cea din spec: 1 metodă → 2 origine → 3 corp și validare → 4 honeypot → 5 Turnstile → 6 Resend → 7 răspuns.
- * Secretele vin din `env` (Cloudflare Pages → Environment variables; local din `.dev.vars`). Nimic din ele nu ajunge în client.
+ * Secretele vin din `env` (Dokploy → Environment; local din `.dev.vars`). Nimic din ele nu ajunge în client.
  * `buildEmail` e pură (payload → cererea către Resend) ca să poată fi verificată local fără cheie reală; `sendEmail` e singurul loc care vorbește cu Resend.
  */
 
@@ -9,9 +10,9 @@ export interface Env {
   RESEND_API_KEY: string;
   TURNSTILE_SECRET_KEY: string;
   LEAD_TO_EMAIL: string;
+  /** Origini în plus față de https://bitup.ro, separate prin virgulă (ex. un domeniu de test înainte de lansare). Opțional. */
+  ALLOWED_ORIGINS?: string;
 }
-// Tipurile minime ale unei Pages Function (fără @cloudflare/workers-types în proiect).
-interface PagesContext { request: Request; env: Env }
 
 export type Kind = 'radiografie' | 'contact';
 export type Lang = 'ro' | 'en';
@@ -32,7 +33,7 @@ export interface LeadPayload {
   website?: string;
   ts?: string;
 }
-/** Ce se știe din cerere, nu din payload: IP-ul și țara din headerele Cloudflare. */
+/** Ce se știe din cerere, nu din payload: IP-ul și țara din headerele Cloudflare (proxy-ul din fața serverului; Traefik și nginx le lasă să treacă). */
 export interface RequestMeta { ip: string; country: string; receivedAt: string }
 
 const SITE_ORIGIN = 'https://bitup.ro';
@@ -41,14 +42,21 @@ const MAX_MESSAGE = 5000;
 const json = (status: number, body: Record<string, unknown>, headers: Record<string, string> = {}) =>
   new Response(JSON.stringify(body), { status, headers: { 'Content-Type': 'application/json; charset=utf-8', 'Cache-Control': 'no-store', ...headers } });
 
-/** 2. Originea: doar site-ul, previzualizările *.pages.dev și, când funcția rulează chiar pe localhost (wrangler pages dev), localhost. */
-export function originAllowed(request: Request): boolean {
+/** Lista din `ALLOWED_ORIGINS` → origini normalizate (`https://temp.bitup.ro`); intrările invalide se ignoră. */
+export function parseOrigins(list: string | undefined): string[] {
+  return (list ?? '').split(',').map((s) => s.trim()).filter(Boolean).flatMap((s) => {
+    try { return [new URL(s).origin]; } catch { return []; }
+  });
+}
+
+/** 2. Originea: doar site-ul, originile din `ALLOWED_ORIGINS` și, când serviciul rulează chiar pe localhost (docker compose local), localhost. */
+export function originAllowed(request: Request, extra: string[] = []): boolean {
   const raw = request.headers.get('Origin') ?? request.headers.get('Referer');
   if (!raw) return false;
   let origin: URL;
   try { origin = new URL(raw); } catch { return false; }
   if (origin.origin === SITE_ORIGIN) return true;
-  if (origin.protocol === 'https:' && origin.hostname.endsWith('.pages.dev')) return true;
+  if (extra.includes(origin.origin)) return true;
   const local = (h: string) => h === 'localhost' || h === '127.0.0.1';
   const host = (request.headers.get('Host') ?? '').split(':')[0];
   return local(origin.hostname) && local(host);
@@ -140,12 +148,12 @@ export async function sendEmail(apiKey: string, email: ReturnType<typeof buildEm
   return { ok: res.ok, status: res.status, body: await res.text() };
 }
 
-export const onRequest = async ({ request, env }: PagesContext): Promise<Response> => {
+export async function handleLead(request: Request, env: Env): Promise<Response> {
   // 1. Doar POST.
   if (request.method !== 'POST') return json(405, { ok: false, error: 'method' }, { Allow: 'POST' });
 
   // 2. Origine.
-  if (!originAllowed(request)) return json(403, { ok: false, error: 'origin' });
+  if (!originAllowed(request, parseOrigins(env.ALLOWED_ORIGINS))) return json(403, { ok: false, error: 'origin' });
 
   // 3. Corp: doar JSON valid, apoi validare.
   if (!(request.headers.get('Content-Type') ?? '').toLowerCase().includes('application/json')) return json(400, { ok: false, error: 'body' });
@@ -179,4 +187,4 @@ export const onRequest = async ({ request, env }: PagesContext): Promise<Respons
 
   // 7. Gata.
   return json(200, { ok: true });
-};
+}

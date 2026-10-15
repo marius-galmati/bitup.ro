@@ -3,15 +3,15 @@ import { defineConfig, envField } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 import icon from 'astro-icon';
 
-// ARHITECTURA.md § Stack, § Limbi, § Rute. Astro (versiunea din package.json), static, fără adapter (Cloudflare Pages servește dist/).
+// ARHITECTURA.md § Stack, § Limbi, § Rute. Astro (versiunea din package.json), static, fără adapter (nginx servește dist/ pe serverul Dokploy; vezi Dockerfile).
 /*
   Blocarea roboților, DOAR pe serverul local (`astro dev` și `astro preview`).
   Cerut de Marius pe 24 septembrie 2026: vrea să expună public serverul local, printr-un tunel, ca să arate
   site-ul cuiva, fără ca adresa aceea să ajungă în vreun index.
 
   De ce e sigur că nu ajunge în producție: `server.headers` configurează exclusiv serverul local de
-  dezvoltare și de previzualizare. Nu scrie nimic în `dist/`, deci build-ul pe care îl publică Cloudflare Pages
-  rămâne neschimbat, iar headerele reale de producție sunt tot cele din `ARHITECTURA.md` § Headere.
+  dezvoltare și de previzualizare. Nu scrie nimic în `dist/`, deci build-ul care intră în imaginea de producție
+  rămâne neschimbat, iar headerele reale de producție sunt tot cele din `ARHITECTURA.md` § Headere (deploy/nginx/).
   Nu există `robots.txt` și nu trebuie creat: `public/robots.txt` ar intra în build, deci în producție.
 
   De ce un antet și NU `Disallow: /` în `robots.txt`: sunt două lucruri diferite. `Disallow` oprește *citirea*
@@ -54,7 +54,7 @@ export default defineConfig({
   // Din Astro 7 implicitul e 'jsx' (păstrează spațiile); vrem HTML comprimat, ca înainte.
   compressHTML: true,
   build: {
-    // `/despre` → dist/despre.html, `/en` → dist/en.html: Cloudflare Pages le servește fără slash final.
+    // `/despre` → dist/despre.html, `/en` → dist/en.html: nginx le servește fără slash final (try_files $uri.html).
     format: 'file',
   },
   i18n: {
@@ -65,7 +65,7 @@ export default defineConfig({
   },
   env: {
     schema: {
-      // Doar chei publice aici. Secretele (Resend, Turnstile secret, LEAD_TO_EMAIL) stau în .dev.vars / Cloudflare Pages.
+      // Doar chei publice aici. Secretele (Resend, Turnstile secret, LEAD_TO_EMAIL) stau în .dev.vars / Dokploy → Environment.
       PUBLIC_TURNSTILE_SITE_KEY: envField.string({ context: 'client', access: 'public', optional: true }),
       PUBLIC_GA4_ID: envField.string({ context: 'client', access: 'public', optional: true }),
     },

@@ -105,16 +105,16 @@ Acceptare:
 **Scop:** formularele de Radiografie și Contact ajung pe email la Marius prin Resend, cu protecție anti-spam și confirmare reală, în ambele limbi.
 
 Sarcini:
-1. `functions/api/lead.ts` exact după `ARHITECTURA.md` § Formulare (ordinea: metodă, origine, validare, honeypot, Turnstile, Resend, răspuns). Fără biblioteci externe: `fetch` nativ către Turnstile și Resend.
+1. `server/lead.ts` (până pe 16 octombrie 2026, `functions/api/lead.ts` pe Cloudflare Pages) exact după `ARHITECTURA.md` § Formulare (ordinea: metodă, origine, validare, honeypot, Turnstile, Resend, răspuns). Fără biblioteci externe: `fetch` nativ către Turnstile și Resend.
 2. Componenta `Form` cu etichete vizibile, câmpuri obligatorii marcate, honeypot, Turnstile invizibil, trimitere prin `fetch` către `/api/lead`, stare de succes doar după `{ ok: true }`, stare de eroare care păstrează textul introdus și arată telefonul și emailul. Mesajele din i18n.
 3. Paginile `/multumesc` și `/en/thank-you` cu textul din § Mulțumesc al fișierelor globale, inclusiv linkul Calendly.
 4. Payload-ul exact din `ARHITECTURA.md` § Formulare, inclusiv `lang`, `source` și parametrii UTM din URL.
 5. Linkurile `tel:`, `mailto:`, butonul de WhatsApp (`wa.me/…`) pe `/suport` și `/en/support`, linkul Calendly pe contact și mulțumesc, toate cu `data-event`.
-6. `.dev.vars.example`, instrucțiunile pentru `wrangler pages dev` și pentru variabilele din Cloudflare Pages în `NOTES.md`; pașii DNS pentru Resend (DKIM, SPF, DMARC) în `NOTES.md`.
+6. `.dev.vars.example`, instrucțiunile pentru testul local și pentru variabilele din Dokploy în `NOTES.md`; pașii DNS pentru Resend (DKIM, SPF, DMARC) în `NOTES.md`. (Până pe 16 octombrie 2026: `wrangler pages dev` și Cloudflare Pages.)
 
 Acceptare:
-- Trimitere de test reușită pe staging pentru ambele formulare, în ambele limbi: Marius confirmă că a primit emailul la `office@bitup.ro`, cu `reply_to` corect, și că emailul nu a ajuns în spam.
-- Test de eroare (cheie Resend greșită pe Preview): mesajul de eroare apare, textul rămâne în câmpuri.
+- Trimitere de test reușită pe domeniul de test (`ARHITECTURA.md` § Deploy) pentru ambele formulare, în ambele limbi: Marius confirmă că a primit emailul la `office@bitup.ro`, cu `reply_to` corect, și că emailul nu a ajuns în spam.
+- Test de eroare (cheie Resend greșită, local cu Docker: `node qa/deploy-browser.mjs`): mesajul de eroare apare, textul rămâne în câmpuri.
 - `curl` fără token Turnstile, cu JSON → 400; cu honeypot completat → 200 fără email; cu `Origin` străin → 403.
 - Nicio cheie secretă în `dist/`, în repo sau în vreo variabilă `PUBLIC_` (grep în `dist/` după `re_` și după secretul Turnstile).
 
@@ -127,16 +127,16 @@ Acceptare:
 Sarcini:
 1. `ConsentBanner.astro` funcțional după `ARHITECTURA.md` § Analytics și consimțământ: cookie `bitup-consent` 6 luni, Accept/Refuz egale, Esc = Refuz, „Setări cookie-uri” din footer redeschide bannerul, la trecerea pe Refuz se șterg `_ga*`.
 2. `Analytics.astro`: încarcă `gtag.js` doar după Accept, cu consent mode v2 (publicitate refuzată permanent), `anonymize_ip`, fără Google Signals. Evenimentele din `data-event`.
-3. `public/_headers` cu setul din `ARHITECTURA.md` § Headere (inclusiv blocul pentru `/api/*`).
-4. `public/_redirects` cu toate redirecturile 301 din `ARHITECTURA.md` § Redirecturi.
+3. Headerele din `ARHITECTURA.md` § Headere (inclusiv blocul pentru `/api/*`), în `deploy/nginx/security-headers.conf`. Făcut pe 16 octombrie 2026, odată cu trecerea pe Dokploy; aici rămâne verificarea.
+4. Toate redirecturile 301 din `ARHITECTURA.md` § Redirecturi, în `deploy/nginx/default.conf`. Făcut pe 16 octombrie 2026; aici rămâne verificarea.
 5. Sitemap cu alternativele de limbă, `robots.txt`, canonical pe fiecare pagină către propria limbă, `hreflang` complet (ro, en, x-default).
 6. Imagini Open Graph generate la build pentru fiecare pagină și fiecare limbă (`astro-og-canvas`), 1200×630, titlul pe fundal navy și logo.
 7. JSON-LD verificat cu validatorul Schema.org pe fiecare tip de pagină, în ambele limbi.
 
 Acceptare:
 - Înainte de orice alegere în banner: zero cereri către domenii Google (tab-ul Network, la prima vizită în fereastră incognito). După Accept: `gtag.js` se încarcă și un `page_view` apare în GA4 DebugView. După Refuz: zero cereri, iar bannerul nu mai apare la navigare.
-- securityheaders.com: nota A sau A+ pe domeniul de staging.
-- Toate URL-urile vechi din lista de redirecturi răspund 301 către destinația corectă (script de verificare în `NOTES.md`).
+- securityheaders.com: nota A sau A+ pe domeniul de test.
+- Toate URL-urile vechi din lista de redirecturi răspund 301 către destinația corectă (`bash qa/deploy-check.sh <URL>`).
 - `/pagina-inexistenta` și `/en/nonexistent` → 404 real.
 - Nicio cerere de rețea către domenii terțe în afara celor din `ARHITECTURA.md` § Domenii permise.
 - Validatorul de hreflang (de exemplu `technicalseo.com/tools/hreflang`) nu raportează erori pe 5 pagini alese.
@@ -153,8 +153,8 @@ Sarcini:
 3. Test de accesibilitate cu tastatura pe fiecare pagină; `axe` fără erori critice, în light și dark.
 4. Verificare vizuală la 375, 768, 1024, 1440 px pe fiecare pagină, în ambele teme; capturi în `NOTES.md`.
 5. Lista finală a placeholder-elor rămase; lansarea e blocată dacă mai există vreunul.
-6. Din dashboard-ul Cloudflare (Marius, cu pașii din `NOTES.md`): DNS-ul Resend verificat, regula de rate limiting pe `/api/lead`, variabilele de Production setate.
-7. Deploy pe Cloudflare Pages, domeniul `bitup.ro` mutat, HTTPS forțat, `www` redirecționat la apex.
+6. Din dashboard-urile Cloudflare și Dokploy (Marius, cu pașii din `NOTES.md` § Deploy pe Dokploy): DNS-ul Resend verificat, regula de rate limiting pe `/api/lead`, certificatul Origin CA, variabilele din Dokploy → Environment setate.
+7. Deploy pe Dokploy (aplicația compose din `main`), testat pe domeniul temporar, apoi `bitup.ro` și `www` mutate pe server prin Cloudflare (proxy), HTTPS forțat, `www` redirecționat la apex (nginx), domeniul temporar scos.
 8. După lansare: Search Console cu sitemap-ul nou (ambele limbi), Google Business Profile legat de site, verificarea indexării în 7 zile, verificarea redirecturilor pe domeniul live, un formular de test din producție.
 
 Acceptare:

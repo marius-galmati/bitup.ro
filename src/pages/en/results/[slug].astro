@@ -1,5 +1,5 @@
 ---
-/** /en/results/[slug]: case studies in English; drafts get a page only outside production (CF_PAGES_BRANCH ≠ main). */
+/** /en/results/[slug]: case studies in English; drafts get a page only outside production (SITE_ENV ≠ production). */
 import { render } from 'astro:content';
 import CaseLayout from '../../../layouts/CaseLayout.astro';
 import { visibleCases, slugOf } from '../../../lib/collections';

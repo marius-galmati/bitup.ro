@@ -5,7 +5,7 @@
 
 **JSON-LD:** global. Layout: `LegalLayout`.
 
-Note for Marius: written to match the actual setup (forms through our own function + Resend, GA4 only with consent, Turnstile, Cloudflare Pages, Calendly as a link). Two things to confirm: that `office@bitup.ro` is hosted in Microsoft 365 (§ Who else sees the data) and the 12-month retention for requests that don't become contracts. Not checked by a lawyer.
+Note for Marius: written to match the actual setup (forms through our own function + Resend, GA4 only with consent, Turnstile, our own server in Romania behind Cloudflare, Calendly as a link). Two things to confirm: that `office@bitup.ro` is hosted in Microsoft 365 (§ Who else sees the data) and the 12-month retention for requests that don't become contracts. Not checked by a lawyer.
 
 ---
 
@@ -24,7 +24,7 @@ The data controller is BitUp Technology SRL, registered office in Câmpia Turzii
 
 **When you send a form** (the IT Health Check request or the contact form): your name, company, number of employees (for the IT Health Check), phone, email, and message. We also save the page you sent from, where you came from (UTM parameters, if any), date and time, and the IP address with country, from Cloudflare. We use the data to contact you and reply to what you asked. The legal basis is that you asked us to contact you (steps before a possible contract, Article 6(1)(b) GDPR) and our legitimate interest in keeping a record of requests and keeping spam out (point (f)).
 
-**When you browse the site**: Cloudflare, which hosts the site, processes the IP address and the request's technical details (browser, page, time) to deliver pages and stop attacks. We see these logs only in aggregate. The basis is the legitimate interest in a site that works and is secure.
+**When you browse the site**: the site is hosted on our own server in Romania, and pages reach you through Cloudflare's network. Cloudflare processes the IP address and the request's technical details (browser, page, time) to deliver pages and stop attacks. We see these logs only in aggregate. The basis is the legitimate interest in a site that works and is secure.
 
 **When you accept statistics**: Google Analytics 4 sets cookies and records pages visited, duration, device type, country and approximate city, and where you came from. Google truncates the IP address before storing it. Google Signals and ad personalization are off; we don't do remarketing. The basis is your consent, given in the banner, which you can withdraw any time from "Cookie settings" at the bottom of the page. Details in the [Cookie policy](/en/cookies).
 
@@ -38,13 +38,13 @@ We don't collect data about children, don't ask for sensitive data, and don't ma
 
 ## How long we keep the data
 
-Form requests that don't lead to a collaboration: 12 months from submission, then deleted. Requests that become contracts: for the contract's duration and, after, as long as the law requires for accounting and contract documents (generally 5 years, 10 for some financial documents). Cloudflare technical logs: per Cloudflare's policy, a matter of days. Google Analytics: 2 months for detailed data (we set the minimum retention); aggregate reports stay in the account. Emails: as long as the relationship lasts and a reasonable time after.
+Form requests that don't lead to a collaboration: 12 months from submission, then deleted. Requests that become contracts: for the contract's duration and, after, as long as the law requires for accounting and contract documents (generally 5 years, 10 for some financial documents). Cloudflare technical logs: per Cloudflare's policy, a matter of days. Our server's logs don't contain IP addresses and are deleted automatically, by rotation. Google Analytics: 2 months for detailed data (we set the minimum retention); aggregate reports stay in the account. Emails: as long as the relationship lasts and a reasonable time after.
 
 ## Who else sees the data
 
 We don't sell or rent data. Only those who need it to run the site and communication see it:
 
-- **Cloudflare, Inc.** (USA, with EU data centers): hosting, delivery network, the form-processing function, Turnstile. Transfer to the USA covered by Cloudflare's EU-US Data Privacy Framework certification and standard contractual clauses.
+- **Cloudflare, Inc.** (USA, with EU data centers): delivery network, attack protection, Turnstile. Transfer to the USA covered by Cloudflare's EU-US Data Privacy Framework certification and standard contractual clauses.
 - **Resend, Inc.** (USA): the service that gets forms to our email. Form data passes through Resend as email and is kept there briefly, for the sending log. Transfer covered by standard contractual clauses.
 - **Microsoft** (Microsoft 365, EU): the office@bitup.ro mailbox, where requests arrive.
 - **Google LLC** (USA): Google Analytics, only if you accepted statistics. Transfer covered by Google's EU-US Data Privacy Framework certification.
@@ -61,7 +61,7 @@ Write to office@bitup.ro; we reply within a month at most, usually within days. 
 
 ## How we protect the data
 
-The site is served over HTTPS only. Forms reach us through a function on Cloudflare's servers, with access keys kept on the server, not in the page. The mailbox has two-step verification. Request data isn't stored in the site (it's static); it lives in email and, for clients, in our helpdesk system, with separate access per client. We do for ourselves what we tell clients to do.
+The site is served over HTTPS only. Forms reach us through a function on our own server, with access keys kept on the server, not in the page. The mailbox has two-step verification. Request data isn't stored in the site (it's static); it lives in email and, for clients, in our helpdesk system, with separate access per client. We do for ourselves what we tell clients to do.
 
 ## Changes
 

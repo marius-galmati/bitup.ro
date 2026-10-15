@@ -10,7 +10,7 @@ import type { Locale } from '../i18n';
 
 export const slugOf = (id: string) => id.replace(/^(ro|en)\//, '');
 
-/** Intrările vizibile în limba dată: draft-urile apar doar în afara producției (CF_PAGES_BRANCH ≠ main). */
+/** Intrările vizibile în limba dată: draft-urile apar doar în afara producției (SITE_ENV ≠ production). */
 export async function visibleCases(lang: Locale): Promise<CollectionEntry<'cases'>[]> {
   const list = await getCollection('cases', (e) => e.id.startsWith(`${lang}/`) && (!e.data.draft || !isProduction));
   return list.sort((a, b) => a.data.order - b.data.order);

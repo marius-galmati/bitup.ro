@@ -1,5 +1,5 @@
 ---
-/** /rezultate/[slug]: studiile de caz în română; draft-urile primesc pagină doar în afara producției (CF_PAGES_BRANCH ≠ main). */
+/** /rezultate/[slug]: studiile de caz în română; draft-urile primesc pagină doar în afara producției (SITE_ENV ≠ production). */
 import { render } from 'astro:content';
 import CaseLayout from '../../layouts/CaseLayout.astro';
 import { visibleCases, slugOf } from '../../lib/collections';
