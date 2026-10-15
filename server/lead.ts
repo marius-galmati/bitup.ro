@@ -85,14 +85,17 @@ export function validate(p: Partial<LeadPayload>): string[] {
 
 /** 5. Turnstile: siteverify cu secretul din env; fără token sau fără `success: true` → respins. Nu există cale fără token. */
 export async function verifyTurnstile(secret: string, token: string | undefined, remoteip: string): Promise<boolean> {
-  if (!token) return false;
+  // Motivul respingerii ajunge în log (Dokploy → Logs, `bitup-api`); fără el, „turnstile” din browser nu spune care dintre cauze e.
+  if (!token) { console.error('[lead] Turnstile: cerere fără token (cheia publică lipsește din build sau widgetul n-a rulat pe domeniul ăsta)'); return false; }
   const body = new URLSearchParams({ secret, response: token });
   if (remoteip) body.set('remoteip', remoteip);
   try {
     const res = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', { method: 'POST', body });
-    const data = (await res.json()) as { success?: boolean };
+    const data = (await res.json()) as { success?: boolean; 'error-codes'?: string[]; hostname?: string };
+    if (data.success !== true) console.error(`[lead] Turnstile respins: ${(data['error-codes'] ?? []).join(', ') || '-'} (hostname: ${data.hostname ?? '-'})`);
     return data.success === true;
-  } catch {
+  } catch (err) {
+    console.error(`[lead] Turnstile: siteverify inaccesibil: ${err instanceof Error ? err.message : String(err)}`);
     return false;
   }
 }
