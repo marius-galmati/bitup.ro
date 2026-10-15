@@ -16,12 +16,10 @@ const env: Env = {
   LEAD_TO_EMAIL: process.env.LEAD_TO_EMAIL || 'office@bitup.ro',
   ALLOWED_ORIGINS: process.env.ALLOWED_ORIGINS,
 };
-// Fără secrete, fiecare formular ar da eroare abia la trimitere; mai bine nu pornește deloc și deploy-ul pică vizibil.
+// Fără secrete, serviciul pornește totuși (site-ul nu depinde de formulare), dar fiecare trimitere primește 503 `config`,
+// pe care formularul îl arată ca eroare de trimitere, cu telefonul și emailul. Lipsa se vede în log la pornire și la fiecare cerere.
 const missing = (['RESEND_API_KEY', 'TURNSTILE_SECRET_KEY'] as const).filter((k) => !env[k]);
-if (missing.length) {
-  console.error(`[api] lipsesc variabilele: ${missing.join(', ')}`);
-  process.exit(1);
-}
+if (missing.length) console.error(`[api] lipsesc variabilele: ${missing.join(', ')}; formularele răspund cu eroare până se pun în Dokploy → Environment`);
 
 const send = (res: import('node:http').ServerResponse, status: number, body: object) => {
   res.writeHead(status, { 'Content-Type': 'application/json; charset=utf-8', 'Cache-Control': 'no-store' });
@@ -32,6 +30,10 @@ const server = createServer(async (req, res) => {
   const path = (req.url ?? '/').split('?')[0];
   if (path === '/healthz') return send(res, 200, { ok: true });
   if (path !== '/api/lead') return send(res, 404, { ok: false, error: 'not-found' });
+  if (missing.length) {
+    console.error(`[api] cerere refuzată: lipsesc ${missing.join(', ')}`);
+    return send(res, 503, { ok: false, error: 'config' });
+  }
 
   const chunks: Buffer[] = [];
   let size = 0;
