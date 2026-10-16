@@ -2319,6 +2319,12 @@ Textele noi sunt ale mele, de confirmat. Capturi: `qa/proq-hosting/` (tile-urile
 
 Rămân, de decis de Marius: „un produs întreținut de ani de zile” (Automatizări p2) și CyberXscore pe /despre (scos din prezentare, nu și de pe site).
 
+## Fotografia lui Cristian (16 octombrie 2026, de la Marius, folderul `Echipa/`)
+
+`Echipa/Cristian.png` (1065 × 1477) decupată pătrat (de la y = 60) și redusă la `src/assets/foto-echipa/cristian-boanca-960x960.jpg`. `TeamPage.astro`: intră în `FOTO`, substituentul „CB” dispare. `photoAlt` pentru Cristian, RO și EN: „Cristian Boanca, Full Stack Developer”. Spec: `16-echipa.md` / `16-team.md` (calea fotografiei), `PLACEHOLDERS.md` (`[[FOTO_CRISTIAN]]` mutat din Rămase în Completate). Celelalte trei fotografii din `Echipa/` sunt aceleași cu cele de pe site (alt decupaj), deci n-au fost schimbate; `Petre.jpeg` e tot 400 × 400.
+
+Verificat: build fără erori și fără warning-uri; `/echipa` și `/en/team` la 1440 (light, dark) și 375: 4 fotografii, 0 substituenți, 0 răspunsuri 4xx; capturi în `qa/echipa-cristian/`, privite.
+
 ## Propuneri (nu se fac fără acord)
 
 - Faza 5: Astro are suport experimental pentru CSP cu hash-uri generate la build (`experimental.csp`), care ar scoate `'unsafe-inline'` din `script-src` și `style-src`. E îmbunătățirea menționată în `ARHITECTURA.md` § Headere ca „nu o condiție de lansare”. De evaluat când ajungem acolo.

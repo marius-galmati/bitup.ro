@@ -64,7 +64,7 @@ Samuel is an AI & Innovation Specialist passionate about exploring how emerging 
 ### Cristian Boanca
 Role (mono): `Full Stack Developer`
 Experience (mono, `--muted`): `Enterprise background: Bosch`
-Photo: `[[FOTO_CRISTIAN]]`
+Photo: `src/assets/foto-echipa/cristian-boanca-960x960.jpg` (received 16 October 2026)
 LinkedIn: `[[LINKEDIN_CRISTIAN]]`
 
 A full stack developer, three years in the field, with experience built in a large industrial environment. Next.js and React on the front, NestJS and Python on the server, TypeScript and PostgreSQL for the rest. These are deliberate choices, so we can maintain what we build, not just ship it.

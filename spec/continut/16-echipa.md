@@ -64,7 +64,7 @@ Samuel este AI & Innovation Specialist, pasionat de felul în care tehnologiile 
 ### Cristian Boanca
 Rol (mono): `Full Stack Developer`
 Experiență (mono, `--muted`): `Experiență enterprise: Bosch`
-Fotografie: `[[FOTO_CRISTIAN]]`
+Fotografie: `src/assets/foto-echipa/cristian-boanca-960x960.jpg` (primită 16 octombrie 2026)
 LinkedIn: `[[LINKEDIN_CRISTIAN]]`
 
 Dezvoltator full stack, în domeniu de trei ani, cu experiență formată într-un mediu industrial de mari dimensiuni. Next.js și React pe partea din față, NestJS și Python pe server, TypeScript și PostgreSQL în rest. Sunt tehnologiile alese deliberat, ca să putem întreține ce construim, nu doar să livrăm.

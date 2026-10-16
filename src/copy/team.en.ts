@@ -67,7 +67,7 @@ export const teamEn: TeamCopy = {
     {
       id: 'cristian',
       name: 'Cristian Boanca',
-      photoAlt: '',
+      photoAlt: 'Cristian Boanca, Full Stack Developer',
       initials: 'CB',
       role: 'Full Stack Developer',
       experience: 'Enterprise background: Bosch',

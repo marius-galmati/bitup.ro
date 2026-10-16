@@ -11,6 +11,7 @@
  * Fotografii: trei din patru au sosit pe 19 septembrie 2026. Cine n-are încă poză primește substituentul —
  * același pătrat, aceeași bordură, cu inițialele în fontul de titlu. Decizia lui Marius, la întrebare directă:
  * cele trei poze intră acum, Cristian rămâne pe inițiale până trimite poza (abatere asumată de la regula lui de layout 5).
+ * Poza lui Cristian a sosit pe 16 octombrie 2026 (`Echipa/Cristian.png`, decupată pătrat la 960 px); acum toți patru au fotografie.
  *
  * Marca „in” a LinkedIn: `public/icons/linkedin.svg`, decupată din `LinkedIn_Logo.svg` trimis de Marius.
  * Rămâne în albastrul oficial #2867B3 în toate stările, cum cer regulile lor de brand; hover-ul se marchează
@@ -29,9 +30,10 @@ import type { TeamCopy } from '../../copy/team.ro';
 import fotoMarius from '../../assets/foto-echipa/marius-galmati-960x960.jpg';
 import fotoPetre from '../../assets/foto-echipa/petre-radu-catalin-400x400.jpg';
 import fotoSamuel from '../../assets/foto-echipa/samuel-bota-960x960.jpg';
+import fotoCristian from '../../assets/foto-echipa/cristian-boanca-960x960.jpg';
 
-/** Cine are fotografie. Când sosește poza lui Cristian, se adaugă aici și substituentul dispare de la sine. */
-const FOTO = { marius: fotoMarius, petre: fotoPetre, samuel: fotoSamuel } as const;
+/** Cine are fotografie. Cine lipsește de aici primește substituentul cu inițiale. */
+const FOTO = { marius: fotoMarius, petre: fotoPetre, samuel: fotoSamuel, cristian: fotoCristian } as const;
 
 interface Props { lang: Locale; copy: TeamCopy }
 const { lang, copy } = Astro.props;
