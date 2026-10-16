@@ -1,27 +1,26 @@
 ---
-title: "ProQ: platforma de planificare a calității pentru furnizorii auto, construită de BitUp și folosită pe trei continente"
+title: "ProQ: platforma de planificare a calității pentru furnizorii auto, construită de BitUp"
 client: "ProQ (produs BitUp)"
 kicker: "Software la comandă și produs propriu"
-summary: "ProQ este software-ul APQP dezvoltat integral de BitUp și vândut ca SaaS unor furnizori din industria auto din toată lumea. Un produs, nu un proiect: 29 de module, găzduit de noi sau instalat la client, actualizat continuu, cu suport de la oamenii care l-au scris."
+summary: "ProQ este software-ul APQP dezvoltat integral de BitUp și vândut ca SaaS furnizorilor din industria auto. Un produs, nu un proiect: 29 de module, găzduit în cloud-ul nostru privat, în UE, actualizat continuu, cu suport de la oamenii care l-au scris."
 logo: "/logos/proq.svg"
 logoDark: true
 facts:
   - { k: "Produs", v: "ProQ · pro-q.ro" }
   - { k: "Rolul BitUp", v: "Dezvoltare 100%, găzduire, operare, actualizări, suport" }
-  - { k: "Clienți", v: "Furnizori din industria auto din toată lumea" }
-  - { k: "Model", v: "SaaS, abonament per utilizator, sau instalat pe serverele clientului" }
+  - { k: "Pentru", v: "Furnizori din industria auto" }
+  - { k: "Model", v: "SaaS, abonament per utilizator, găzduit în cloud-ul privat BitUp" }
   - { k: "Acoperire", v: "29 de module, cele 6 faze APQP, de la kick-off la producție de serie" }
 numbers:
   - { v: "29", k: "module, grupate pe cele 6 faze APQP, de la planificare la viața de serie" }
   - { v: "8", k: "standarde din industria auto implementate în platformă" }
-  - { v: "4", unit: "țări", k: "furnizori auto care rulează ProQ în producție" }
   - { v: "2.293", k: "teste automate care rulează la fiecare actualizare, înainte ca ea să ajungă la clienți" }
   - { v: "0", k: "proiecte de implementare: se importă datele, se rulează primul program" }
 service: "automatizari"
 order: 2
-footnote: "ProQ este un produs BitUp Technology. Clienții ProQ nu sunt numiți în acest studiu de caz; referințele cu nume se oferă la cerere, cu acordul lor."
+footnote: "ProQ este un produs BitUp Technology."
 metaTitle: "ProQ: platformă pentru furnizorii din auto · BitUp"
-metaDescription: "Platforma construită pentru furnizorii din industria auto: 29 de module, folosite de furnizori auto din toată lumea. Găzduită de noi sau pe serverele lor."
+metaDescription: "Platforma APQP construită pentru furnizorii auto: 29 de module, de la kick-off la producția de serie, găzduită în cloud-ul nostru privat, în UE."
 draft: false
 ---
 
@@ -56,9 +55,9 @@ ProQ e întreținut ca produs: aceeași versiune la toți clienții, actualizăr
 
 ## Cum e operat
 
-### Găzduit de BitUp sau pe serverele clientului
+### Găzduit în cloud-ul privat BitUp
 
-- **Aceeași imagine, două moduri de livrare.** ProQ rulează ca un container cu o bază de date PostgreSQL alături, fie în infrastructura BitUp, fie pe serverele clientului, pentru cei care nu vor ca datele să le părăsească rețeaua. Imaginea, schema bazei de date și actualizările nu se plătesc separat.
+- **Găzduit în cloud-ul nostru privat, în UE.** ProQ rulează ca un container cu o bază de date PostgreSQL alături, în cloud-ul privat BitUp. Actualizările nu se plătesc separat.
 - **Izolarea datelor între companii e în arhitectură, nu într-un filtru.** Fiecare înregistrare aparține unei companii, iar fiecare interogare e limitată la compania utilizatorului printr-o clasă de bază pe care o moștenește fiecare model.
 - **Fără dependențe externe la rulare.** Aplicația e randată pe server, fără pas de build, cu toate componentele incluse; nicio cerere către CDN-uri terțe.
 - **Backup, retenție și rezidența datelor** sunt scrise în contractul de găzduire, nu pe o pagină de marketing.
@@ -68,6 +67,6 @@ ProQ e întreținut ca produs: aceeași versiune la toți clienții, actualizăr
 
 ### De ce contează pentru firma ta
 
-Când BitUp propune unei firme un software la comandă sau o automatizare, nu propune o idee. Am construit, lansat și operăm un produs pe care îl folosesc zilnic ingineri de calitate din toată lumea, într-o industrie în care fiecare document se auditează. Același mod de lucru îl aducem în proiectele mai mici: procesul în cod, nu în configurări; înregistrări create în timpul lucrului; erori vizibile, nu tăcute; și răspundem de rulare, nu ne oprim la livrare.
+Când BitUp propune unei firme un software la comandă sau o automatizare, nu propune o idee. Am construit, lansat și operăm un produs pentru o industrie în care fiecare document se auditează. Același mod de lucru îl aducem în proiectele mai mici: procesul în cod, nu în configurări; înregistrări create în timpul lucrului; erori vizibile, nu tăcute; și răspundem de rulare, nu ne oprim la livrare.
 
 Detalii, module și prețuri: [pro-q.ro](https://pro-q.ro).

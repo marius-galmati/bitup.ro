@@ -2299,6 +2299,26 @@ De știut / de decis:
 - Cifra „5” e orange ca în video: pe alb are 2,1:1, sub AA. E `aria-hidden` (numărul îl dă lista ordonată), deci Lighthouse n-o numără, dar vizual rămâne sub prag. Alternativa: cifra în `--teal`, ca celelalte, și orange rămâne doar pe strat.
 - `CLAUDE.md` pomenește încă nodurile orange (§ Culoare) și HeroDiagram (mirosul 1); nu l-am modificat.
 
+## ProQ: doar în cloud-ul privat BitUp (16 octombrie 2026, cerut de Marius)
+
+ProQ se oferă numai găzduit în cloud-ul privat BitUp; varianta „instalat pe serverele clientului” iese de peste tot. Textul nou e al meu (RO și EN), de confirmat.
+
+- Studiul de caz ProQ, RO și EN (`src/content/cases/*/proq.md` + `spec/continut/studii-de-caz/proq.md`, `spec/continut-en/case-studies/proq.md`): `summary`, fact-ul „Model”, `metaDescription` (doar în `src/`, spec-ul nu are meta), H3 din „Cum e operat” și primul punct („Găzduit doar în cloud-ul nostru privat… în UE. Actualizările nu se plătesc separat.”).
+- Pagina Automatizări, RO și EN (`src/copy/automation.*.ts` p1 + `spec/continut/05-automatizari.md`, `spec/continut-en/05-automation.md` § 92): „găzduite în cloud-ul nostru privat” / „hosted in our private cloud”.
+- `src/pages/qa/[page].astro`: fact-ul „Model” din fixture.
+- Rămâne intenționat: p3 din Automatizări („găzduit de noi sau la tine” / „hosted by us or on your side”) — e despre aplicațiile la comandă, nu despre ProQ.
+
+Verificat: build fără erori și fără warning-uri (44 de pagini); grep după formulările vechi în `src/`, `spec/`, `public/`, `dist/`: zero potriviri în afara lui p3.
+
+**Același zi, a doua cerere:** „doar” scos („Găzduit în cloud-ul nostru privat, în UE” / „Hosted in our private cloud, in the EU”, ca în deck) și scoase toate afirmațiile despre clienții ProQ, RO și EN, în `src/` și în spec:
+- studiul de caz: din titlu „folosită pe trei continente”; din `summary` „din toată lumea” (+ „în UE” la găzduire); fact-ul „Clienți: … din toată lumea” → „Pentru: Furnizori din industria auto”; cifra „4 țări” scoasă din `numbers` (rămân 4 tile-uri); nota de subsol redusă la „ProQ este un produs BitUp Technology.” (fără „referințele cu nume la cerere”); „Ce dovedește”: fără „îl folosesc zilnic ingineri de calitate din toată lumea”; `metaDescription` nou (140 / 144 de caractere);
+- Despre: „ProQ, platformă pentru furnizorii din industria auto” (fără „folosită în toată lumea”);
+- Automatizări p1: „29 de module, găzduite în cloud-ul nostru privat, în UE”;
+- fixture-ul din `src/pages/qa/[page].astro` (Mexic, India, China, 4 țări).
+Textele noi sunt ale mele, de confirmat. Capturi: `qa/proq-hosting/` (tile-urile la 1440 și 375, RO și EN, privite).
+
+Rămân, de decis de Marius: „un produs întreținut de ani de zile” (Automatizări p2) și CyberXscore pe /despre (scos din prezentare, nu și de pe site).
+
 ## Propuneri (nu se fac fără acord)
 
 - Faza 5: Astro are suport experimental pentru CSP cu hash-uri generate la build (`experimental.csp`), care ar scoate `'unsafe-inline'` din `script-src` și `style-src`. E îmbunătățirea menționată în `ARHITECTURA.md` § Headere ca „nu o condiție de lansare”. De evaluat când ajungem acolo.

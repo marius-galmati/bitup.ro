@@ -89,7 +89,7 @@ Eyebrow: `Custom software`
 
 Text (two columns, ProQ logo on dark background, right):
 
-The biggest thing we built is ProQ, a platform for automotive suppliers who must prove to clients their process is under control: planning, risk analysis, control plan, part approval file. 29 modules, used by automotive suppliers all over the world, hosted by us or on their servers.
+The biggest thing we built is ProQ, a platform for automotive suppliers who must prove to clients their process is under control: planning, risk analysis, control plan, part approval file. 29 modules, hosted in our private cloud, in the EU.
 
 Even outside automotive, ProQ is proof we can take software from an idea in a factory to a product maintained for years. We work the same way on a 5-user internal application. → Read the ProQ case (`/en/results/proq`)
 

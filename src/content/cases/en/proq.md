@@ -1,27 +1,26 @@
 ---
-title: "ProQ: the quality planning platform for automotive suppliers, built by BitUp and used on three continents"
+title: "ProQ: the quality planning platform for automotive suppliers, built by BitUp"
 client: "ProQ (a BitUp product)"
 kicker: "Custom software and our own product"
-summary: "ProQ is the APQP software developed entirely by BitUp and sold as SaaS to automotive suppliers all over the world. A product, not a project: 29 modules, hosted by us or installed at the client, continuously updated, with support from the people who wrote it."
+summary: "ProQ is the APQP software developed entirely by BitUp and sold as SaaS to automotive suppliers. A product, not a project: 29 modules, hosted in our private cloud, in the EU, continuously updated, with support from the people who wrote it."
 logo: "/logos/proq.svg"
 logoDark: true
 facts:
   - { k: "Product", v: "ProQ · pro-q.ro" }
   - { k: "BitUp's role", v: "100% development, hosting, operations, updates, support" }
-  - { k: "Clients", v: "Automotive suppliers all over the world" }
-  - { k: "Model", v: "SaaS, per-user subscription, or installed on the client's servers" }
+  - { k: "For", v: "Automotive suppliers" }
+  - { k: "Model", v: "SaaS, per-user subscription, hosted in BitUp's private cloud" }
   - { k: "Coverage", v: "29 modules, all 6 APQP phases, from kick-off to series production" }
 numbers:
   - { v: "29", k: "modules, grouped by the 6 APQP phases, from planning to series life" }
   - { v: "8", k: "automotive industry standards implemented in the platform" }
-  - { v: "4", unit: "countries", k: "automotive suppliers running ProQ in production" }
   - { v: "2,293", k: "automated tests that run on every update, before it reaches clients" }
   - { v: "0", k: "implementation projects: import the data, run the first program" }
 service: "automatizari"
 order: 2
-footnote: "ProQ is a BitUp Technology product. ProQ clients are not named in this case study; named references are available on request, with their consent."
+footnote: "ProQ is a BitUp Technology product."
 metaTitle: "ProQ: a platform for automotive suppliers · BitUp"
-metaDescription: "The platform we built for automotive suppliers: 29 modules, used by automotive suppliers all over the world. Hosted by us or on their own servers."
+metaDescription: "The APQP platform we built for automotive suppliers: 29 modules, from kick-off to series production, hosted in our private cloud, in the EU."
 draft: false
 ---
 
@@ -56,9 +55,9 @@ ProQ is maintained as a product: the same version for all clients, updates inclu
 
 ## How it's operated
 
-### Hosted by BitUp or on the client's servers
+### Hosted in BitUp's private cloud
 
-- **The same image, two delivery modes.** ProQ runs as a container with a PostgreSQL database alongside, either in BitUp's infrastructure or on the client's servers, for those who don't want data leaving their network. The image, the database schema, and the updates are not paid for separately.
+- **Hosted in our private cloud, in the EU.** ProQ runs as a container with a PostgreSQL database alongside, in BitUp's private cloud. Updates are not paid for separately.
 - **Data isolation between companies is in the architecture, not in a filter.** Every record belongs to a company, and every query is limited to the user's company through a base class every model inherits.
 - **No external dependencies at runtime.** The application is server-rendered, no build step, all components included; no requests to third-party CDNs.
 - **Backup, retention, and data residency** are written in the hosting contract, not on a marketing page.
@@ -68,6 +67,6 @@ ProQ is maintained as a product: the same version for all clients, updates inclu
 
 ### Why it matters for your company
 
-When BitUp proposes custom software or an automation to a company, it isn't proposing an idea. We built, launched, and operate a product that quality engineers all over the world use daily, in an industry where every document gets audited. We bring the same way of working to smaller projects: the process in code, not in configuration; records created during the work; errors visible, not silent; and we answer for running it, not just delivering it.
+When BitUp proposes custom software or an automation to a company, it isn't proposing an idea. We built, launched, and operate a product for an industry where every document gets audited. We bring the same way of working to smaller projects: the process in code, not in configuration; records created during the work; errors visible, not silent; and we answer for running it, not just delivering it.
 
 Details, modules, and pricing: [pro-q.ro](https://pro-q.ro).
