@@ -127,7 +127,7 @@ FactStrip:
 - Din: iunie 2020
 - Unde: Cluj-Napoca
 - CUI: RO42613248 · J12/1556/2020
-- Parteneriate: Microsoft Partner · Fortinet Advocate · Veeam Partner · Anthropic Partner
+- Parteneriate: Microsoft Partner · Fortinet Partner · Veeam Partner · Anthropic Partner
 
 Link: LinkedIn BitUp → https://www.linkedin.com/company/bitup-technology
 

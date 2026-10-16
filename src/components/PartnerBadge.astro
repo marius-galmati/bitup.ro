@@ -1,0 +1,30 @@
+---
+/**
+ * Logo de partener (DESIGN § Imagini): monocrom `--muted`, în culorile lui la hover, 150 ms.
+ * Hover-ul pornește de pe elementul-părinte marcat cu `data-badge-host` (celula de pe homepage, rândul din footer).
+ * În dark, hover-ul doar luminează logo-ul (`--muted` → `--text`): Fortinet și Anthropic au textul negru în original și ar dispărea pe fundalul închis.
+ * Folosit pe homepage § 9 și în footer; fișierele sunt în `public/logos/parteneri/` (`src/lib/partners.ts`).
+ */
+interface Props { src: string; height: number; width: number; class?: string }
+const { src, height, width, class: className } = Astro.props;
+---
+<span class:list={['pbadge', className]} style={`--logo: url("${src}"); --pbadge-h: ${height}px; --pbadge-w: ${width}px`}>
+  <span class="pbadge__mono" aria-hidden="true"></span>
+  <img class="pbadge__color" src={src} alt="" height={height} loading="lazy" decoding="async" />
+</span>
+
+<style>
+  .pbadge { position: relative; display: block; height: var(--pbadge-h); width: var(--pbadge-w); max-width: 100%; }
+  /* Stratul monocrom: masca SVG-ului umplută cu --muted. Cel colorat stă deasupra și apare la hover. */
+  .pbadge__mono { position: absolute; inset: 0; opacity: 1; transition: opacity 150ms, background-color 150ms; background: var(--muted); -webkit-mask: var(--logo) left center / contain no-repeat; mask: var(--logo) left center / contain no-repeat; }
+  .pbadge__color { position: absolute; inset: 0; height: 100%; width: 100%; object-fit: contain; object-position: left center; opacity: 0; transition: opacity 150ms; }
+  :global([data-badge-host]:hover) .pbadge__color { opacity: 1; }
+  :global([data-badge-host]:hover) .pbadge__mono { opacity: 0; }
+  :global(:root[data-theme="dark"] [data-badge-host]:hover) .pbadge__color { opacity: 0; }
+  :global(:root[data-theme="dark"] [data-badge-host]:hover) .pbadge__mono { opacity: 1; background: var(--text); }
+  @media (prefers-color-scheme: dark) {
+    :global(:root:not([data-theme="light"]) [data-badge-host]:hover) .pbadge__color { opacity: 0; }
+    :global(:root:not([data-theme="light"]) [data-badge-host]:hover) .pbadge__mono { opacity: 1; background: var(--text); }
+  }
+  @media (prefers-reduced-motion: reduce) { .pbadge__color, .pbadge__mono { transition: none; } }
+</style>

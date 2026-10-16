@@ -15,12 +15,13 @@ Text final. Se copiază identic. `[[…]]` = placeholder din `PLACEHOLDERS.md`.
 - Despre → `/despre`
 - Echipa → `/echipa`
 - Blog → `/blog`
-- Telefon (link `tel:+40757150894`): `+40 757 150 894`
-- Comutator de limbă: `RO · EN` (`aria-label`: „Schimbă limba”)
+- Comutator de limbă: `RO | EN`, în două segmente, limba curentă plină (`aria-label`: „Schimbă limba”)
+
+Telefonul nu mai stă în bara de meniu (decizia lui Marius, 16 octombrie 2026); rămâne în banda de jos a panoului Servicii, în meniul mobil și în footer.
 - Comutator de temă (buton cu iconiță; `aria-label`: „Comută tema: luminos / întunecat”; `title` la fel)
 - Buton principal: **Radiografie IT gratuită** → `/radiografie-it`
 
-Meniu mobil, jos: `Sună: +40 757 150 894` · `Clienți: scrie-i lui Cipri pe WhatsApp` → `/suport` · `RO · EN` · temă
+Meniu mobil, jos: `Sună: +40 757 150 894` · `Clienți: scrie-i lui Cipri pe WhatsApp` → `/suport` · `RO | EN` · temă
 
 ## Footer
 
@@ -40,10 +41,10 @@ Suport și administrare IT · Securitate și continuitate · Automatizări și s
 Cum lucrăm · Rezultate · Despre · Echipa · Blog · Contact · Suport pentru clienți
 
 **Coloana 4 — parteneri**
-Microsoft Partner · Fortinet Advocate · Veeam Partner · Anthropic Partner (badge-urile din [[LOGO_PARTENERI]], cu nivelul sub fiecare)
+Microsoft Partner · Fortinet Partner · Veeam Partner · Anthropic Partner (logo-ul fiecăruia din `public/logos/parteneri/`, monocrom, cu numele parteneriatului sub el)
 
 **Rândul de jos**
-© 2026 BitUp Technology SRL · Termeni → `/termeni` · Confidențialitate → `/confidentialitate` · Cookies → `/cookies` · Setări cookie-uri (buton, redeschide bannerul) · `RO · EN`
+© 2026 BitUp Technology SRL · Termeni → `/termeni` · Confidențialitate → `/confidentialitate` · Cookies → `/cookies` · Setări cookie-uri (buton, redeschide bannerul) · `RO | EN`
 
 ## Banner de consimțământ (cookie-uri)
 
@@ -76,7 +77,7 @@ Varianta pentru pagina Radiografie (nu are bandă; formularul e CTA-ul).
 
 Notă pentru Claude Code: banda nu mai apare pe homepage. Valorile rămân aici pentru că le folosește pagina de QA a componentelor, iar componenta `FactStrip` e în continuare folosită pe Despre, pe studiile de caz și pe Contact.
 
-Cele patru celule erau, pe `--surface`, pe toată lățimea containerului: `Din 2020` · `Cluj-Napoca` · `Răspuns sub 2 ore în program` · Microsoft Partner · Fortinet Advocate · Veeam Partner · Anthropic Partner (badge-urile din [[LOGO_PARTENERI]], monocrom; text până există). Hero-ul nu are rând de încredere: informațiile nu apar de două ori pe același ecran.
+Cele patru celule erau, pe `--surface`, pe toată lățimea containerului: `Din 2020` · `Cluj-Napoca` · `Răspuns sub 2 ore în program` · Microsoft Partner · Fortinet Partner · Veeam Partner · Anthropic Partner (badge-urile din [[LOGO_PARTENERI]], monocrom; text până există). Hero-ul nu are rând de încredere: informațiile nu apar de două ori pe același ecran.
 
 („Răspuns sub 2 ore” e timpul contractual în program; media reală din helpdesk, sub 30 de minute, apare în text pe /suport-it, /cum-lucram și /suport, nu în FactStrip.)
 

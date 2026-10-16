@@ -84,7 +84,7 @@ export const en = {
       { label: 'Contact', route: 'contact' },
       { label: 'Client support', route: 'support' },
     ],
-    partners: ['Microsoft Partner', 'Fortinet Advocate', 'Veeam Partner', 'Anthropic Partner'],
+    partners: ['Microsoft Partner', 'Fortinet Partner', 'Veeam Partner', 'Anthropic Partner'],
     bottom: {
       copyright: '© 2026 BitUp Technology SRL',
       terms: 'Terms',
@@ -123,7 +123,7 @@ export const en = {
     since: 'Since 2020',
     city: 'Cluj-Napoca',
     response: 'Response under 2 hours during business hours',
-    partners: ['Microsoft Partner', 'Fortinet Advocate', 'Veeam Partner', 'Anthropic Partner'],
+    partners: ['Microsoft Partner', 'Fortinet Partner', 'Veeam Partner', 'Anthropic Partner'],
   },
 
   formSignature: 'A person replies, within one business day.',

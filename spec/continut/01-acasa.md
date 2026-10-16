@@ -164,22 +164,14 @@ Card: kicker · titlu scurt · două propoziții din `summary` · link „Citeș
 
 ---
 
-## 9. Parteneri și tehnologii
+## 9. Parteneri
 
 Eyebrow: `Parteneri`
 
 **H2:** Cu ce lucrăm
 
-Rând static, patru celule egale pe toată lățimea containerului, despărțite de rigle verticale scurte de 1 px `--line` (2,8 em, centrate pe verticală): Microsoft Partner · Fortinet Advocate · Veeam Partner · Anthropic Partner (badge-uri din `[[LOGO_PARTENERI]]`, nivelul scris sub fiecare). La 640–1023 px, 2 × 2, cu o linie orizontală între rânduri; sub 640 px, o coloană.
-Notă pentru Claude Code: dedesubt, secțiune proprie (decizie a lui Marius, 17 septembrie 2026), pe același fundal, despărțită de o linie de 1 px.
-
-Eyebrow: `Tehnologii`
-
-**H2:** Tehnologii cu care lucrăm zilnic
-
-Microsoft 365, Fortinet, Veeam, CrowdStrike, Palo Alto Networks, WireGuard, Proxmox / VMware, Synology.
-
-Notă pentru Claude Code: dacă `[[LOGO_PARTENERI]]` lipsește la lansare, rândul de badge-uri devine text (numele partenerului + nivelul), fără logo-uri improvizate.
+Rând static, patru celule egale pe toată lățimea containerului, despărțite de rigle verticale scurte de 1 px `--line` (2,8 em, centrate pe verticală): Microsoft Partner · Fortinet Partner · Veeam Partner · Anthropic Partner (logo-urile din `public/logos/parteneri/`, monocrom, cu numele parteneriatului scris sub fiecare). La 640–1023 px, 2 × 2, cu o linie orizontală între rânduri; sub 640 px, o coloană.
+Notă pentru Claude Code: logo-urile sunt cele oficiale ale firmelor, din Wikimedia Commons (decizia lui Marius, 16 octombrie 2026), nu badge-urile din portalurile de partener. Dacă un fișier lipsește, celula lui arată `[[LOGO_PARTENERI]]`, fără logo-uri improvizate.
 
 ---
 

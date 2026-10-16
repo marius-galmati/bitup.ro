@@ -90,7 +90,7 @@ export const aboutRo: AboutCopy = {
       { k: 'Din', v: 'iunie 2020' },
       { k: 'Unde', v: 'Cluj-Napoca' },
       { k: 'CUI', v: 'RO42613248 · J12/1556/2020' },
-      { k: 'Parteneriate', v: 'Microsoft Partner · Fortinet Advocate · Veeam Partner · Anthropic Partner' },
+      { k: 'Parteneriate', v: 'Microsoft Partner · Fortinet Partner · Veeam Partner · Anthropic Partner' },
     ],
     companyLink: 'LinkedIn BitUp',
   },

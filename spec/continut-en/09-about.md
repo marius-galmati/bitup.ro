@@ -127,7 +127,7 @@ FactStrip:
 - Since: June 2020
 - Where: Cluj-Napoca
 - VAT no.: RO42613248 · Trade Register no. J12/1556/2020
-- Partnerships: Microsoft Partner · Fortinet Advocate · Veeam Partner · Anthropic Partner
+- Partnerships: Microsoft Partner · Fortinet Partner · Veeam Partner · Anthropic Partner
 
 Link: BitUp LinkedIn → https://www.linkedin.com/company/bitup-technology
 

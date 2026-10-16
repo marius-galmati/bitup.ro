@@ -2234,10 +2234,53 @@ Comentariile și eticheta paginilor de QA (`/qa/*`, „doar dev și staging”),
 ### Expeditorul Resend: `site@notifications.bitup.ro` (16 octombrie 2026)
 Cerut de Marius: domeniul verificat în Resend e `notifications.bitup.ro`, nu `bitup.ro`. `from` devine `BitUp site <site@notifications.bitup.ro>` în `server/lead.ts` și în `qa/lead-email.test.mjs`; aduse la zi `ARHITECTURA.md` (§ Formulare și § Deploy, DNS), `PLACEHOLDERS.md` (`RESEND_API_KEY`) și pasul 2 de mai sus. Destinatarul (`LEAD_TO_EMAIL=office@bitup.ro`) și `reply_to` (emailul din formular) nu se schimbă. Mențiunile `site@bitup.ro` din Faza 4a rămân ca istoric. Tot azi, `verifyTurnstile` scrie în logul `bitup-api` motivul respingerii (fără token, `error-codes`, siteverify inaccesibil).
 
+## Logo-uri: Cosmio, ProQ și partenerii (16 octombrie 2026, cerut de Marius)
+
+Marius a pus în rădăcină `cosmio-logo.svg` și `ProQ-header-logo.svg` și a cerut ca logo-urile Microsoft, Fortinet, Veeam și Anthropic să le descarc eu. Decizia lui înlocuiește ce cerea spec-ul: logo-urile oficiale ale firmelor, nu badge-urile din portalurile de partener cu nivelul.
+
+- `public/logos/cosmio.svg`, `public/logos/proq.svg`: copiate din fișierele lui. Caseta de logo de pe /rezultate, /rezultate/cosmio și /rezultate/proq le ia singură (`caseLogo`); caseta ProQ de pe /servicii/automatizari (+ EN) arată acum logo-ul (`AutomationPage`).
+- `public/logos/parteneri/`: din Wikimedia Commons, prin API-ul lor — `Microsoft logo (2012).svg` (domeniu public), `Fortinet logo.svg` (domeniu public), `Veeam logo.svg` (wordmark-ul, CC BY-SA 4.0 pe desen; varianta 2022 cu dreptunghi verde a fost respinsă, ca mască monocromă devine un dreptunghi plin), `Anthropic logo.svg` (domeniu public). Fișierele n-au scripturi, imagini sau fonturi externe. (`fortinet-advocate.svg` a devenit `fortinet-partner.svg` în aceeași zi, vezi mai jos.)
+- `src/components/PartnerBadge.astro`: badge-ul de pe homepage scos într-o componentă, folosită și în footer (20 px în loc de 36). În dark, hover-ul nu mai arată culorile originale (Fortinet și Anthropic au textul negru și dispăreau), doar trece masca din `--muted` în `--text`.
+- Footer: logo deasupra numelui; `[[LOGO_PARTENERI]]` rămâne doar dacă lipsește fișierul.
+- CSP: `pro-q.ro` și `cosmio.ro` scoase din `img-src` (`deploy/nginx/security-headers.conf`, `ARHITECTURA.md`), cum cerea § Headere odată ce logo-urile sunt locale.
+- Bug găsit pe drum: `.logo-box--dark` folosea `--navy-2`, care în dark e `#CFDDE0`; logo-ul alb ProQ stătea pe o casetă deschisă. Acum `--navy-surface-2`, navy în ambele teme.
+- Spec: `00-global.md` × 2 (footer), `01-acasa.md` / `01-home.md` § 9, `DESIGN.md` (caseta de logo, § Imagini), `PLACEHOLDERS.md` (trei rânduri mutate din Rămase în Completate), `assets/logos/README.md`, `ARHITECTURA.md`. Rândul de FactStrip din `00-global.md` (cu `[[LOGO_PARTENERI]]`) rămâne: descrie banda scoasă de pe homepage, ca istoric.
+
+Verificat: `npm run build` fără erori și fără warning-uri; în `dist/` nu mai există `[[LOGO_PARTENERI]]`, `[[LOGO_PROQ_LOCAL]]` sau `[[LOGO_COSMIO_LOCAL]]`. Capturi în `qa/logos/` (homepage § 9 și footer, RO/EN, /servicii/automatizari, /rezultate, cele două studii de caz; 1440 și 375, light și dark; hover pe homepage în ambele teme): consolă curată, zero 4xx.
+
+De confirmat de Marius:
+- Dreptul de a afișa logo-urile. Microsoft, Fortinet și Veeam cer, de regulă, ca partenerii să folosească badge-ul de partener din portal, nu logo-ul firmei; Anthropic are reguli de brand proprii. Dacă vin badge-urile, se pun peste fișierele din `public/logos/parteneri/`, cu același nume, fără cod.
+- Nivelul parteneriatului (cerut inițial sub fiecare logo) nu se afișează.
+
+## Homepage fără „Tehnologii”; „Fortinet Partner” (16 octombrie 2026, cerut de Marius)
+
+- Secțiunea „Tehnologii / Tehnologii cu care lucrăm zilnic” (`s9b`, adăugată pe 17 septembrie) scoasă de pe homepage, RO și EN: `HomePage.astro` (markup și `.tech__list`), `home.ro.ts` / `home.en.ts` (`tech`), `01-acasa.md` / `01-home.md` (§ 9 se numește acum „Parteneri” / „Partners”). După secțiunea Parteneri (`--surface`) urmează direct Blog (`--bg`). Meta-urile homepage-ului nu pomeneau lista, rămân neschimbate. Pomenirile din secțiunea din 17 septembrie și din tabelul de accente rămân ca istoric.
+- „Fortinet Advocate” → „Fortinet Partner” peste tot: `site.ts`, `i18n/ro.ts` și `en.ts` (footer și FactStrip), `home.*.ts`, `about.*.ts` (tabelul de pe Despre), `itsupport.*.ts` (propoziția despre statusurile de partener), spec `00-global.md`, `01-acasa.md`, `03-suport-it.md`, `09-despre.md` (ambele limbi), `PLACEHOLDERS.md` (§ Completate și § Decizii), `assets/logos/README.md`. Fișierul de logo redenumit `fortinet-partner.svg`, pentru că `partnerLogo` derivă numele fișierului din text.
+
+## Logo-ul BitUp nou și favicon-ul (16 octombrie 2026, cerut de Marius)
+
+Marius a modificat logo-ul și a pus în rădăcină `bitup_header_pozitiv_2x.png`, `bitup_header_negativ_2x.png` (297 × 80, transparente) și `favicon.ico` (16/32/48). Față de cel vechi: liniile mărcii mai groase și mai apropiate de romb, „UP” puțin mai gros; culorile pe light sunt aceleași (#00202E, #20686C, #FE982A).
+
+- Vectorizat ca în septembrie (potrace, pachetul Python `potracer`, separat pe cele trei culori), din varianta pozitivă mărită de 8 ori, cu un blur mic înainte de prag și `opttolerance` 1,0: fără ele, fiecare latură oblică ieșea din ~150 de curbe (treptele pixelilor), 20 KB în loc de 3,4 KB, cu aceeași diferență față de PNG. Coordonate întregi într-un viewBox de 1188 × 320. Sursa are doar 80 px înălțime: la mărimea din header nu se vede nimic, la 4× marginile literelor au mici ondulații. **Dacă există fișierul vectorial original (SVG, AI, PDF), îl folosesc pe acela.**
+- `src/components/logo-paths.json` (header, footer, HeroDiagram), `public/logos/bitup.svg` și `bitup-dark.svg` (+ copiile `public/logo-bitup*.svg`), `public/logos/bitup-marca.svg`, `public/favicon.svg` (marca, cu variantă dark prin `prefers-color-scheme`), `public/logo-bitup.png` (800 px, pentru JSON-LD), `public/apple-touch-icon.png` (180 px), toate din același vector. `public/favicon.ico` e fișierul lui Marius, ca atare. `favicon.svg` trebuia regenerat: browserele îl preferă pe el, iar fără asta `favicon.ico` nou nu s-ar fi văzut.
+- Varianta dark ia culorile din `bitup_header_negativ_2x.png`: `--logo-ink` #FFFFFF (era #E4ECEE) și `--logo-accent` #5FA8AB (era #5FB0B4), în `tokens.css`, ambele blocuri dark.
+- Spec: `PLACEHOLDERS.md` (`[[LOGO_BITUP_SVG]]` mutat din Rămase în Completate), `assets/logos/README.md`, `README.md` § Ce nu e în pachet.
+
+Verificat: build fără erori și fără warning-uri; capturi în `qa/logo-bitup/` (homepage sus și footer, 1440 și 375, light și dark, plus logo-ul din HeroDiagram), privite: logo-ul corect în ambele teme; consolă curată, zero 4xx, `favicon.svg`, `favicon.ico`, `apple-touch-icon.png` servite.
+
+## Comutatorul de limbă, mai vizibil; telefonul scos din bară (16 octombrie 2026, cerut de Marius)
+
+- `LangSwitch.astro`: în locul textului „RO · EN” (curentă 500 `--text`, cealaltă `--muted`), două segmente într-o bordură de 1 px `--line` cu `--r-pill`. Limba curentă plină (`--navy` / text `--surface`, inversată automat în dark), cealaltă link `--text`, hover `--surface-2` + `--teal`, focus outline 2 px `--teal`. 40 px pe desktop, cât butonul `sm`; segmente 56 × 44 px sub 1024 px. Același component în header, meniul mobil și footer. Varianta `compact` (doar limba inactivă) a ieșit: nu o folosea nimeni, iar cu telefonul scos rândul încape.
+- Contrast (formula WCAG): curentă 16,85:1 light / 13,49:1 dark; cealaltă la fel; hover 5,75:1 / 5,63:1.
+- `Header.astro`: telefonul scos din bară (markup, `.header__phone`, regula de la 1200 px). Rămâne în banda de jos a panoului Servicii, în meniul mobil („Sună: …”) și în footer.
+- Spec: `00-global.md` × 2 (§ Meniu, meniul mobil, footer: `RO | EN`; rândul de telefon din bară scos, cu nota), `DESIGN.md` (§ Header, § LangSwitch).
+
+Verificat: build fără erori și fără warning-uri, `astro check` 0/0/0, textdiff `00-global.md` × 2. Rândul din header măsurat la 1024, 1200, 1280 și 1440, RO și EN, light și dark: un singur rând, fără overflow orizontal, comutatorul și butonul la 40 px, centrate pe aceeași linie (diferență 0 px). Tab ajunge pe linkul de limbă cu focus vizibil; Esc închide meniul mobil. Capturi în `qa/lang-switch/` (header 1024 și 1440, hover, focus, meniul mobil, footer; RO/EN, light/dark), privite. Consolă curată, zero 4xx.
+
 ## Propuneri (nu se fac fără acord)
 
 - Faza 5: Astro are suport experimental pentru CSP cu hash-uri generate la build (`experimental.csp`), care ar scoate `'unsafe-inline'` din `script-src` și `style-src`. E îmbunătățirea menționată în `ARHITECTURA.md` § Headere ca „nu o condiție de lansare”. De evaluat când ajungem acolo.
 
 ## Placeholder-e rămase
 
-Lista din `spec/PLACEHOLDERS.md` § Rămase, neschimbată ca listă. Unde apar efectiv după Faza 3: `[[LOGO_PARTENERI]]` (footer, homepage § 9), `[[CAPTURA_RAPORT_LUNAR]]` (03, 07), `[[CAPTURA_RAPORT_RADIOGRAFIE]]` și `[[CAPACITATE_RADIOGRAFII]]` (06), `[[LOGO_PROQ_LOCAL]]` (05, /rezultate, /rezultate/proq), `[[LOGO_COSMIO_LOCAL]]` și `[[CITAT_COSMIN]]` (cazul Cosmio, doar pe staging), `[[ACORD_COSMIO]]` (frontmatter Cosmio, `consent`), `[[LOGO_BITUP_SVG]]` (logo PNG placeholder). Nefolosit: `[[FOTO_CONTEXT]]` (opțional).
+Lista din `spec/PLACEHOLDERS.md` § Rămase, neschimbată ca listă. Unde apar efectiv după Faza 3: `[[CAPTURA_RAPORT_LUNAR]]` (03, 07), `[[CAPTURA_RAPORT_RADIOGRAFIE]]` și `[[CAPACITATE_RADIOGRAFII]]` (06), `[[CITAT_COSMIN]]` (cazul Cosmio), `[[ACORD_COSMIO]]` (frontmatter Cosmio, `consent`), `[[LOGO_BITUP_SVG]]` (logo PNG placeholder). Nefolosit: `[[FOTO_CONTEXT]]` (opțional). Completate pe 16 octombrie 2026: `[[LOGO_PARTENERI]]`, `[[LOGO_PROQ_LOCAL]]`, `[[LOGO_COSMIO_LOCAL]]`, `[[LOGO_BITUP_SVG]]`.

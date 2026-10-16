@@ -15,12 +15,13 @@ Final copy. Copy verbatim. `[[…]]` = placeholder from `PLACEHOLDERS.md`.
 - About → `/en/about`
 - Team → `/en/team`
 - Blog → `/en/blog`
-- Phone (link `tel:+40757150894`): `+40 757 150 894`
-- Language switcher: `RO · EN` (`aria-label`: "Change language")
+- Language switcher: `RO | EN`, two segments, the current language filled (`aria-label`: "Change language")
+
+The phone is no longer in the menu bar (Marius's decision, 16 October 2026); it stays in the bottom strip of the Services panel, in the mobile menu, and in the footer.
 - Theme switcher (icon button; `aria-label`: "Switch theme: light / dark"; same `title`)
 - Primary button: **Free IT Health Check** → `/en/it-health-check`
 
-Mobile menu, bottom: `Call: +40 757 150 894` · `Clients: message Cipri on WhatsApp` → `/en/support` · `RO · EN` · theme
+Mobile menu, bottom: `Call: +40 757 150 894` · `Clients: message Cipri on WhatsApp` → `/en/support` · `RO | EN` · theme
 
 ## Footer
 
@@ -40,10 +41,10 @@ IT support and administration · Security and continuity · Automation and softw
 How we work · Results · About · Team · Blog · Contact · Client support
 
 **Column 4 — partners**
-Microsoft Partner · Fortinet Advocate · Veeam Partner · Anthropic Partner (badges from [[LOGO_PARTENERI]], level under each)
+Microsoft Partner · Fortinet Partner · Veeam Partner · Anthropic Partner (each logo from `public/logos/parteneri/`, monochrome, with the partnership name under it)
 
 **Bottom row**
-© 2026 BitUp Technology SRL · Terms → `/en/terms` · Privacy → `/en/privacy` · Cookies → `/en/cookies` · Cookie settings (button, reopens the banner) · `RO · EN`
+© 2026 BitUp Technology SRL · Terms → `/en/terms` · Privacy → `/en/privacy` · Cookies → `/en/cookies` · Cookie settings (button, reopens the banner) · `RO | EN`
 
 ## Consent banner (cookies)
 
@@ -76,7 +77,7 @@ Variant for the IT Health Check page (no band; the form is the CTA).
 
 Note for Claude Code: the strip no longer appears on the homepage. The values stay here because the component QA page uses them, and the `FactStrip` component is still used on About, on the case studies, and on Contact.
 
-The four cells were, on `--surface`, full container width: `Since 2020` · `Cluj-Napoca` · `Response under 2 hours during business hours` · Microsoft Partner · Fortinet Advocate · Veeam Partner · Anthropic Partner (badges from [[LOGO_PARTENERI]], monochrome; text until they exist). The hero has no trust row: the information doesn't appear twice on the same screen.
+The four cells were, on `--surface`, full container width: `Since 2020` · `Cluj-Napoca` · `Response under 2 hours during business hours` · Microsoft Partner · Fortinet Partner · Veeam Partner · Anthropic Partner (badges from [[LOGO_PARTENERI]], monochrome; text until they exist). The hero has no trust row: the information doesn't appear twice on the same screen.
 
 ("Response under 2 hours" is the contractual time during business hours; the real helpdesk average, under 30 minutes, appears in the copy on /en/services/it-support, /en/how-we-work, and /en/support, not in the FactStrip.)
 

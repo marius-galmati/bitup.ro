@@ -61,5 +61,5 @@ Formularele merg prin funcția proprie `/api/lead` + Turnstile + Resend, nu prin
 
 ## Ce nu e în pachet, deliberat
 
-- Logo-ul BitUp ca fișier. Se ia din site-ul actual (`logo-bitup.png`) sau din sursa originală; `DESIGN.md` spune cum se folosește, iar varianta pentru dark trebuie făcută (sau exportată) de Marius.
+- Logo-ul BitUp ca fișier. Marius l-a dat pe 16 octombrie 2026 (variantele pozitiv și negativ, PNG la 2×, plus `favicon.ico`); e vectorizat în `public/logos/`, vezi `assets/logos/README.md`.
 - O a treia limbă, un portal de clienți, un chat.

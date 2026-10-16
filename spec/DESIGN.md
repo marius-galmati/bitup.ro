@@ -71,7 +71,7 @@ Două familii, amândouă self-hosted (`@fontsource/barlow-condensed`, greutăț
 
 ## Componente
 
-**Header.** Fundal `--surface`, `--header-h` 80 px, linie de 1 px `--line` jos, fără umbră, sticky pe desktop, static pe mobil. Stânga: logo (SVG, 140 px lățime). Centru: Servicii ▾, Cum lucrăm, Rezultate, Despre, Echipa, Blog, în Public Sans 400, 17 px, `--text`; pagina curentă și Servicii deschis în `--teal` 600. Dreapta, în ordine: telefonul (link `tel:`, Public Sans, `--muted`, tabular-nums), `RO · EN`, comutatorul de temă, butonul principal în varianta `sm`. Dacă rândul nu încape (se măsoară la 1024, 1200 și 1280 px, ca până acum), iese întâi telefonul, apoi comutatorul de limbă arată doar limba inactivă, apoi pragul de hamburger urcă de la 1024 la 1200 px. Butonul principal nu se micșorează niciodată sub varianta `sm`.
+**Header.** Fundal `--surface`, `--header-h` 80 px, linie de 1 px `--line` jos, fără umbră, sticky pe desktop, static pe mobil. Stânga: logo (SVG, 140 px lățime). Centru: Servicii ▾, Cum lucrăm, Rezultate, Despre, Echipa, Blog, în Public Sans 400, 17 px, `--text`; pagina curentă și Servicii deschis în `--teal` 600. Dreapta, în ordine: comutatorul de limbă, comutatorul de temă, butonul principal în varianta `sm`. Telefonul nu mai stă în bară (16 octombrie 2026); rămâne în panoul Servicii, în meniul mobil și în footer. Dacă rândul nu încape (se măsoară la 1024, 1200 și 1280 px, ca până acum), pragul de hamburger urcă de la 1024 la 1200 px. Butonul principal nu se micșorează niciodată sub varianta `sm`.
 Sub prag: hamburger, iar meniul mobil e un panou full-height cu aceleași linkuri în Public Sans 600 24 px, butonul principal sus, telefonul, WhatsApp-ul, limba și tema jos.
 
 **Panoul „Servicii”** (modelul filomuro21, de la pragul de hamburger în sus). Se deschide sub header, pe toată lățimea, fundal `--surface`, linie de 1 px jos, `--shadow`. În container, o grilă `3fr 1fr`, gap `--s-5`:
@@ -117,11 +117,11 @@ Sub prag: hamburger, iar meniul mobil e un panou full-height cu aceleași linkur
 
 **Figure.** Imagine cu `--r-media` și bordură 1 px `--line`, legenda `--fs-small` `--muted` sub ea, fără padding în jurul imaginii. În dark, capturile au `filter: brightness(.92)`.
 
-**Caseta de logo** (studii de caz): `--r-media`, 260 px.
+**Caseta de logo** (studii de caz): `--r-media`, 260 px. Fundal alb, sau `--navy-surface-2` pentru logo-urile pentru fundal închis (`logoDark`), care rămâne navy în ambele teme.
 
 **ConsentBanner.** Poziția și comportamentul rămân. Primește `--r-media`, iar cele două butoane identice devin pastile outline, `sm`.
 
-**LangSwitch, ThemeToggle.** Rămân. LangSwitch folosește Public Sans 14 px, limba curentă 600 `--text`, cealaltă `--muted`.
+**LangSwitch, ThemeToggle.** Rămân. LangSwitch (din 16 octombrie 2026, ca să se vadă mai bine): două segmente `RO` | `EN` într-o bordură de 1 px `--line` cu `--r-pill` și `--s-1` înăuntru, Public Sans 14 px 600. Limba curentă e plină, `--navy` cu text `--surface` (inversată automat în dark), fără link; cealaltă e link `--text`, hover `--surface-2` + `--teal`, focus outline 2 px. 40 px înălțime pe desktop, cât butonul `sm` de lângă; segmente de 44 px sub 1024 px. Același component în header, meniul mobil și footer.
 
 **Prose.** 18 px / 1.65, `h2` ca la § Tipografie (excepția pentru text lung), linkuri subliniate cu `text-underline-offset: 3px`, imagini cu `--r-media`.
 
@@ -133,7 +133,7 @@ Sub prag: hamburger, iar meniul mobil e un panou full-height cu aceleași linkur
 - Toate imaginile au `--r-media`. Singura excepție e portretul din caseta de autor, rotund, de 96 px.
 - Blocul vizual din TwoCol e doar ceva real (§ Layout). Fără mockup-uri de telefon generate, fără rotiri în perspectivă și fără umbre plutitoare.
 - Iconițele sunt din `lucide`, maximum 16 în tot site-ul, 20–28 px, stroke 1.75, `--teal`. Apar în panoul Servicii, în FactStrip, în lista de verificări din Radiografie, pe butonul outline, la Faq și la comutatorul de temă.
-- Logo-urile partenerilor rămân pe un rând static, monocrom `--muted`, colorat la hover. Fără carusel.
+- Logo-urile partenerilor rămân pe un rând static, monocrom `--muted`, colorat la hover. În dark, hover-ul doar le luminează (`--muted` → `--text`): Fortinet și Anthropic au textul negru în original. Aceeași componentă (`PartnerBadge`) pe homepage (36 px) și în footer (20 px). Fără carusel.
 
 ## Mișcare
 

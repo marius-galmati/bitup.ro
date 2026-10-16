@@ -66,7 +66,7 @@ export const site = {
   calendly: 'https://calendly.com/marius-galmati-bitup/30min',
   helpdesk: 'https://helpdesk.bitup.ro',
 
-  partners: ['Microsoft Partner', 'Fortinet Advocate', 'Veeam Partner', 'Anthropic Partner'],
+  partners: ['Microsoft Partner', 'Fortinet Partner', 'Veeam Partner', 'Anthropic Partner'],
 
   /** Data de pe paginile legale. */
   legalUpdated: '2026-09-10',

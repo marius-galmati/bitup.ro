@@ -7,12 +7,16 @@ import Container from './Container.astro';
 import Logo from './Logo.astro';
 import LangSwitch from './LangSwitch.astro';
 import { t, localePath, type Locale, type RouteKey } from '../i18n';
+import PartnerBadge from './PartnerBadge.astro';
 import { site } from '../lib/site';
+import { partnerLogo } from '../lib/partners';
 
 interface Props { lang: Locale; altHref: string }
 const { lang, altHref } = Astro.props;
 const dict = t(lang);
 const f = dict.footer;
+// Logo-ul de partener apare doar dacă fișierul e în public/logos/parteneri/; altfel rămâne placeholder-ul (CLAUDE.md regula 3).
+const partners = f.partners.map((name) => ({ name, logo: partnerLogo(name) }));
 ---
 <footer class="footer">
   <Container>
@@ -39,7 +43,9 @@ const f = dict.footer;
 
       <div class="footer__col footer__partners">
         <ul class="footer__list footer__list--partners">
-          {f.partners.map((p) => <li class="footer__partner">{p}<span class="footer__level muted small">[[LOGO_PARTENERI]]</span></li>)}
+          {partners.map((p) => p.logo
+            ? <li class="footer__partner" data-badge-host><PartnerBadge src={p.logo.src} height={20} width={120} />{p.name}</li>
+            : <li class="footer__partner">{p.name}<span class="footer__level muted small">[[LOGO_PARTENERI]]</span></li>)}
         </ul>
       </div>
     </div>
@@ -75,7 +81,7 @@ const f = dict.footer;
   .footer__list--company { padding-top: var(--s-4); border-top: 1px solid var(--line); }
   @media (min-width: 1024px) { .footer__col { grid-template-columns: 1fr 1fr; } .footer__list--company { padding-top: 0; border-top: 0; } }
   .footer__list--partners { gap: var(--s-3); }
-  .footer__partner { display: grid; gap: 2px; font-family: var(--font-display); font-weight: 600; color: var(--muted); }
+  .footer__partner { display: grid; gap: var(--s-1);font-family: var(--font-display); font-weight: 600; color: var(--muted); }
   .footer__level { font-size: var(--fs-label); font-weight: 400; }
   /* Rândul de jos: copyright lipit de marginea stângă, restul de marginea dreaptă (aranjamentul din example.png, subsol). */
   .footer__bottom { margin-top: var(--s-7); padding-top: var(--s-5); border-top: 1px solid var(--line); display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-3) var(--s-5); }

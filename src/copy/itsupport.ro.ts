@@ -82,7 +82,7 @@ export const itSupportRo: ItSupportCopy = {
     h2: 'Alegem, cumpărăm, instalăm și răspundem de ele după',
     paragraphs: [
       'Nu suntem magazin. Când firma ta are nevoie de un laptop, un server, un switch sau un firewall, îți spunem ce ar trebui să cumperi și de ce. Îl cumpărăm la prețul furnizorului sau îl cumperi tu, dacă preferi. Ajunge la angajat configurat și trecut în inventar. Când se strică, știm exact ce e, de când și ce garanție are.',
-      'Lucrăm cu Fortinet pentru firewall-uri, Synology pentru NAS-uri, Microsoft pentru licențe, și cu ce are sens pentru laptopuri și servere în bugetul tău. Statusurile de partener (Microsoft Partner, Fortinet Advocate, Veeam Partner) înseamnă acces la suportul lor direct, nu comision pe spatele tău.',
+      'Lucrăm cu Fortinet pentru firewall-uri, Synology pentru NAS-uri, Microsoft pentru licențe, și cu ce are sens pentru laptopuri și servere în bugetul tău. Statusurile de partener (Microsoft Partner, Fortinet Partner, Veeam Partner) înseamnă acces la suportul lor direct, nu comision pe spatele tău.',
     ],
   },
   month: {

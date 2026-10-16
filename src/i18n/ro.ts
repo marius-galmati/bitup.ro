@@ -85,7 +85,7 @@ export const ro = {
       { label: 'Contact', route: 'contact' },
       { label: 'Suport pentru clienți', route: 'support' },
     ],
-    partners: ['Microsoft Partner', 'Fortinet Advocate', 'Veeam Partner', 'Anthropic Partner'],
+    partners: ['Microsoft Partner', 'Fortinet Partner', 'Veeam Partner', 'Anthropic Partner'],
     bottom: {
       copyright: '© 2026 BitUp Technology SRL',
       terms: 'Termeni',
@@ -124,7 +124,7 @@ export const ro = {
     since: 'Din 2020',
     city: 'Cluj-Napoca',
     response: 'Răspuns sub 2 ore în program',
-    partners: ['Microsoft Partner', 'Fortinet Advocate', 'Veeam Partner', 'Anthropic Partner'],
+    partners: ['Microsoft Partner', 'Fortinet Partner', 'Veeam Partner', 'Anthropic Partner'],
   },
 
   formSignature: 'Îți răspunde un om, în maximum o zi lucrătoare.',

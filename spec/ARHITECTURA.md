@@ -290,7 +290,7 @@ Secretele (`RESEND_API_KEY`, `TURNSTILE_SECRET_KEY`, `LEAD_TO_EMAIL`) se seteaz�
 ```
 /*
   Strict-Transport-Security: max-age=31536000; includeSubDomains
-  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://challenges.cloudflare.com https://www.googletagmanager.com; frame-src https://challenges.cloudflare.com; connect-src 'self' https://challenges.cloudflare.com https://www.googletagmanager.com https://*.google-analytics.com https://*.analytics.google.com; img-src 'self' data: https://www.googletagmanager.com https://*.google-analytics.com https://pro-q.ro https://cosmio.ro; style-src 'self' 'unsafe-inline'; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://challenges.cloudflare.com https://www.googletagmanager.com; frame-src https://challenges.cloudflare.com; connect-src 'self' https://challenges.cloudflare.com https://www.googletagmanager.com https://*.google-analytics.com https://*.analytics.google.com; img-src 'self' data: https://www.googletagmanager.com https://*.google-analytics.com; style-src 'self' 'unsafe-inline'; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests
   X-Content-Type-Options: nosniff
   X-Frame-Options: DENY
   Referrer-Policy: strict-origin-when-cross-origin
@@ -310,7 +310,7 @@ Note:
 - HSTS fără `preload` la lansare: preload e greu de scos și ar obliga orice subdomeniu (inclusiv `helpdesk.bitup.ro` și subdomeniile de test) la HTTPS pentru totdeauna. Preload se discută după o lună de producție fără probleme.
 - `script-src 'unsafe-inline'` e nevoie pentru scriptul de temă din `<head>` și pentru inițializarea gtag. Preferat: Claude Code mută ambele în fișiere `.js` proprii sau folosește hash-uri (`'sha256-…'`) generate la build și scoate `'unsafe-inline'`. E o îmbunătățire, nu o condiție de lansare.
 - `style-src 'unsafe-inline'` e necesar pentru stilurile scoped ale Astro.
-- Logo-urile clienților se copiază local în `public/` la publicare, deci `pro-q.ro` și `cosmio.ro` din `img-src` se scot după; sunt acolo doar pentru perioada de draft.
+- Logo-urile clienților și ale partenerilor stau local, în `public/logos/` (16 octombrie 2026); `pro-q.ro` și `cosmio.ro` au ieșit din `img-src`.
 - Domeniile Google apar în CSP chiar dacă scriptul se încarcă doar după consimțământ; CSP-ul e static.
 - Calendly e doar link (`<a target="_blank" rel="noopener">`), deci nu apare în CSP.
 
@@ -350,7 +350,7 @@ https://www.bitup.ro/*                https://bitup.ro/:splat         301
 
 ## Domenii permise (singurele cereri de rețea admise de pe site)
 
-`bitup.ro` (self, inclusiv `/api/lead`), `challenges.cloudflare.com` (Turnstile), `www.googletagmanager.com` și `*.google-analytics.com` / `*.analytics.google.com` (doar după Accept). Temporar, pe durata draft-urilor: `pro-q.ro`, `cosmio.ro` pentru logo-uri. Linkuri externe (nu cereri): `calendly.com`, `linkedin.com`, `helpdesk.bitup.ro`, `wa.me`.
+`bitup.ro` (self, inclusiv `/api/lead`), `challenges.cloudflare.com` (Turnstile), `www.googletagmanager.com` și `*.google-analytics.com` / `*.analytics.google.com` (doar după Accept). Linkuri externe (nu cereri): `calendly.com`, `linkedin.com`, `helpdesk.bitup.ro`, `wa.me`.
 
 ## Performanță
 

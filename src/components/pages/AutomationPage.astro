@@ -21,10 +21,13 @@ import { localePath, dynamicPath, anchors, absoluteUrl, routes, type Locale } fr
 import { service } from '../../lib/schema';
 import type { AutomationCopy } from '../../copy/automation.ro';
 import whatsapp from '../../assets/blog/helpdesk/whatsapp-cipri.jpg';
+import { existsSync } from 'node:fs';
 
 interface Props { lang: Locale; copy: AutomationCopy }
 const { lang, copy } = Astro.props;
 const a = anchors.automation[lang];
+// Caseta ProQ: logo-ul local (varianta pentru fundal închis) dacă e salvat, altfel placeholder-ul vizibil (CLAUDE.md regula 3).
+const proqLogo = existsSync('public/logos/proq.svg') ? '/logos/proq.svg' : null;
 const jsonLd = [service(lang, copy.serviceName, copy.description, absoluteUrl(routes.automation[lang]))];
 ---
 <BaseLayout lang={lang} routeKey="automation" title={copy.title} description={copy.description} jsonLd={jsonLd}>
@@ -84,7 +87,7 @@ const jsonLd = [service(lang, copy.serviceName, copy.description, absoluteUrl(ro
           <p>{copy.software.p3}</p>
           <p>{copy.software.p4}</p>
         </div>
-        <div class="logo-box" aria-hidden="true"><span>[[LOGO_PROQ_LOCAL]]</span></div>
+        <div class="logo-box" aria-hidden="true">{proqLogo ? <img src={proqLogo} alt="" width="220" height="64" loading="lazy" decoding="async" /> : <span>[[LOGO_PROQ_LOCAL]]</span>}</div>
       </div>
     </Container>
   </Section>
@@ -123,4 +126,5 @@ const jsonLd = [service(lang, copy.serviceName, copy.description, absoluteUrl(ro
   .split :global(.split__figure) { max-width: 360px; }
   @media (min-width: 1024px) { .split { grid-template-columns: minmax(0, 1fr) 360px; gap: var(--s-8); } }
   .logo-box { display: grid; place-items: center; min-height: 200px; padding: var(--s-6); background: var(--navy-surface); border: 1px solid var(--line); border-radius: var(--r-media); color: var(--on-navy-muted); font-size: var(--fs-small); }
+  .logo-box img { max-width: 100%; height: auto; }
 </style>

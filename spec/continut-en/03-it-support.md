@@ -102,7 +102,7 @@ Text (70ch):
 
 We're not a store. When your company needs a laptop, server, switch, or firewall, we tell you what to buy and why. We buy it at vendor price, or you do, if you prefer. It reaches the employee configured and inventoried. When it breaks, we know exactly what it is, how old, and its warranty.
 
-We work with Fortinet for firewalls, Synology for NAS, Microsoft for licenses, and whatever fits your budget for laptops and servers. Partner statuses (Microsoft Partner, Fortinet Advocate, Veeam Partner) mean direct access to their support, not a commission behind your back.
+We work with Fortinet for firewalls, Synology for NAS, Microsoft for licenses, and whatever fits your budget for laptops and servers. Partner statuses (Microsoft Partner, Fortinet Partner, Veeam Partner) mean direct access to their support, not a commission behind your back.
 
 ---
 

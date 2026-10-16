@@ -25,6 +25,7 @@ import { t, localePath, dynamicPath, formatDate, type Locale } from '../../i18n'
 import { site } from '../../lib/site';
 import { isProduction } from '../../lib/env';
 import { partnerLogo } from '../../lib/partners';
+import PartnerBadge from '../PartnerBadge.astro';
 import type { HomeCopy } from '../../copy/home.types';
 import whatsapp from '../../assets/blog/helpdesk/whatsapp-cipri.jpg';
 import portrait from '../../assets/foto-marius/marius-patrat-430x430.jpg';
@@ -181,25 +182,14 @@ const partners = copy.partners.names.map((name) => ({ name, logo: partnerLogo(na
       <SectionHead id="s9" eyebrow={copy.partners.eyebrow} title={copy.partners.h2} />
       <ul class="partners">
         {partners.map((p) => (
-          <li class="partners__item">
+          <li class="partners__item" data-badge-host>
             {p.logo
-              ? <span class="partners__badge" style={`--logo: url("${p.logo.src}")`}>
-                  <span class="partners__mono" aria-hidden="true"></span>
-                  <img class="partners__color" src={p.logo.src} alt="" height="36" loading="lazy" decoding="async" />
-                </span>
+              ? <PartnerBadge src={p.logo.src} height={36} width={180} />
               : <span class="partners__ph">[[LOGO_PARTENERI]]</span>}
             <span class="partners__name">{p.name}</span>
           </li>
         ))}
       </ul>
-    </Container>
-  </Section>
-
-  {/* 9b. Tehnologii — secțiune proprie, pe același fundal, despărțită de o linie de 1 px */}
-  <Section tone="surface" line labelledby="s9b">
-    <Container>
-      <SectionHead id="s9b" eyebrow={copy.tech.eyebrow} title={copy.tech.h2} />
-      <p class="tech__list">{copy.tech.list}</p>
     </Container>
   </Section>
 
@@ -319,15 +309,7 @@ const partners = copy.partners.names.map((name) => ({ name, logo: partnerLogo(na
     .partners__item + .partners__item:nth-child(n + 3) { border-top: 0; }
     .partners__item + .partners__item::before { content: ''; position: absolute; left: 0; top: 50%; transform: translateY(-50%); width: 1px; height: 2.8em; background: var(--line); }
   }
-  .partners__badge { position: relative; display: block; height: 36px; width: 180px; max-width: 100%; }
-  /* Stratul monocrom: masca SVG-ului umplută cu --muted. Cel colorat stă deasupra și apare la hover. */
-  .partners__mono { position: absolute; inset: 0; opacity: 1; transition: opacity 150ms; background: var(--muted); -webkit-mask: var(--logo) left center / contain no-repeat; mask: var(--logo) left center / contain no-repeat; }
-  .partners__color { position: absolute; inset: 0; height: 100%; width: 100%; object-fit: contain; object-position: left center; opacity: 0; transition: opacity 150ms; }
-  .partners__item:hover .partners__color { opacity: 1; }
-  .partners__item:hover .partners__mono { opacity: 0; }
   .partners__name { font-family: var(--font-display); font-weight: 600; color: var(--muted); }
   .partners__ph { font-size: var(--fs-small); color: var(--muted); }
-  .tech__list { max-width: 70ch; color: var(--muted); }
-  @media (prefers-reduced-motion: reduce) { .partners__color, .partners__mono { transition: none; } }
 
 </style>

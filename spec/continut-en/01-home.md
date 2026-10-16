@@ -164,22 +164,14 @@ Card: kicker · short title · two sentences from `summary` · link "Read the ca
 
 ---
 
-## 9. Partners and technologies
+## 9. Partners
 
 Eyebrow: `Partners`
 
 **H2:** What we work with
 
-Static row, four equal cells across the container width, separated by short 1 px `--line` vertical rules (2.8 em, vertically centred): Microsoft Partner · Fortinet Advocate · Veeam Partner · Anthropic Partner (badges from `[[LOGO_PARTENERI]]`, level written under each). At 640–1023 px, 2 × 2 with a horizontal rule between rows; below 640 px, one column.
-Note for Claude Code: below it, a section of its own (Marius's decision, 17 September 2026), on the same background, separated by a 1 px rule.
-
-Eyebrow: `Technologies`
-
-**H2:** Technologies we work with daily
-
-Microsoft 365, Fortinet, Veeam, CrowdStrike, Palo Alto Networks, WireGuard, Proxmox / VMware, Synology.
-
-Note for Claude Code: if `[[LOGO_PARTENERI]]` is missing at launch, the badge row becomes text (partner name + level), no improvised logos.
+Static row, four equal cells across the container width, separated by short 1 px `--line` vertical rules (2.8 em, vertically centred): Microsoft Partner · Fortinet Partner · Veeam Partner · Anthropic Partner (logos from `public/logos/parteneri/`, monochrome, with the partnership name written under each). At 640–1023 px, 2 × 2 with a horizontal rule between rows; below 640 px, one column.
+Note for Claude Code: the logos are the companies' official ones, from Wikimedia Commons (Marius's decision, 16 October 2026), not the badges from the partner portals. If a file is missing, its cell shows `[[LOGO_PARTENERI]]`, no improvised logos.
 
 ---
 

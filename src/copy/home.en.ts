@@ -93,13 +93,7 @@ export const homeEn: HomeCopy = {
   partners: {
     eyebrow: 'Partners',
     h2: 'What we work with',
-    names: ['Microsoft Partner', 'Fortinet Advocate', 'Veeam Partner', 'Anthropic Partner'],
-  },
-
-  tech: {
-    eyebrow: 'Technologies',
-    h2: 'Technologies we work with daily',
-    list: 'Microsoft 365, Fortinet, Veeam, CrowdStrike, Palo Alto Networks, WireGuard, Proxmox / VMware, Synology.',
+    names: ['Microsoft Partner', 'Fortinet Partner', 'Veeam Partner', 'Anthropic Partner'],
   },
 
   blog: {

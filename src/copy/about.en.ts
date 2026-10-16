@@ -78,7 +78,7 @@ export const aboutEn: AboutCopy = {
       { k: 'Since', v: 'June 2020' },
       { k: 'Where', v: 'Cluj-Napoca' },
       { k: 'VAT no.', v: 'RO42613248 · Trade Register no. J12/1556/2020' },
-      { k: 'Partnerships', v: 'Microsoft Partner · Fortinet Advocate · Veeam Partner · Anthropic Partner' },
+      { k: 'Partnerships', v: 'Microsoft Partner · Fortinet Partner · Veeam Partner · Anthropic Partner' },
     ],
     companyLink: 'BitUp LinkedIn',
   },

@@ -88,8 +88,8 @@
   --on-navy: #FFFFFF;
   --on-navy-muted: #B9CCD0;
   --on-navy-accent: #7CC4C7;
-  --logo-ink: #E4ECEE;
-  --logo-accent: #5FB0B4;
+  --logo-ink: #FFFFFF;    /* culorile din bitup_header_negativ_2x.png */
+  --logo-accent: #5FA8AB;
   --orange: #FE982A;
   --ok: #4CAF82; --warn: #E0983A; --crit: #E06A54;
   --shadow: none;
@@ -114,8 +114,8 @@
     --on-navy: #FFFFFF;
     --on-navy-muted: #B9CCD0;
     --on-navy-accent: #7CC4C7;
-    --logo-ink: #E4ECEE;
-    --logo-accent: #5FB0B4;
+    --logo-ink: #FFFFFF;
+    --logo-accent: #5FA8AB;
     --orange: #FE982A;
     --ok: #4CAF82; --warn: #E0983A; --crit: #E06A54;
     --shadow: none;

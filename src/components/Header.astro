@@ -5,7 +5,8 @@
  * Stânga: logo 132 px. Centru-dreapta: Servicii ▾ (buton real, aria-expanded, Esc și click în afară închid), Cum lucrăm, Rezultate, Despre, Echipa, Blog.
  * „Servicii” deschide un panou pe toată lățimea, după modelul din `meniu (2).png`: patru coloane (intro, două de servicii,
  * casetă de CTA despărțită de o linie verticală) și o bandă de jos peste o linie de 1 px. Tipografia, paleta și logo-ul rămân cele din DESIGN.md.
- * Dreapta: telefon (Public Sans, --muted, tabular-nums; ascuns între 1024 și 1200 px), RO · EN, comutatorul de temă, butonul orange.
+ * Dreapta: comutatorul de limbă RO | EN, comutatorul de temă, butonul orange. Telefonul nu mai stă în bară (16 octombrie 2026, cerut de Marius);
+ * rămâne în panoul Servicii, în meniul mobil și în footer.
  * Sub 1024 px: hamburger; panou full-height cu aceleași linkuri (Servicii ca listă desfășurată), butonul de Radiografie sus, telefon, WhatsApp (→ /suport), limbă și temă jos.
  */
 import { Icon } from 'astro-icon/components';
@@ -87,7 +88,6 @@ const ICOANE: Record<string, string> = { itSupport: 'headset', security: 'scan-e
     </nav>
 
     <div class="header__tools">
-      <a class="header__phone tnum" href={site.phone.href} data-event="tel_click">{site.phone.display}</a>
       <LangSwitch lang={lang} altHref={altHref} class="header__lang" />
       <ThemeToggle label={dict.theme.ariaLabel} class="header__theme" />
       <Button href={localePath('healthCheck', lang)} size="small" class="header__cta" data-event="cta_radiografie_click">{nav.primary}</Button>
@@ -182,9 +182,7 @@ const ICOANE: Record<string, string> = { itSupport: 'headset', security: 'scan-e
   }
 
   .header__tools { margin-left: auto; display: flex; align-items: center; gap: var(--s-3); }
-  .header__phone { display: none; color: var(--muted); text-decoration: none; font-size: var(--fs-small); white-space: nowrap; }
   .header :global(.header__cta) { white-space: nowrap; }
-  .header__phone:hover { color: var(--teal); }
   .header :global(.header__lang), .header :global(.header__theme), .header :global(.header__cta) { display: none; }
 
   .burger { width: 44px; height: 44px; display: inline-flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px; padding: 0; background: none; border: 1px solid transparent; border-radius: var(--r-pill); cursor: pointer; color: var(--navy); }
@@ -203,8 +201,6 @@ const ICOANE: Record<string, string> = { itSupport: 'headset', security: 'scan-e
     .nav__link { padding-inline: var(--s-2); }
     .header__tools { gap: var(--s-2); }
   }
-  /* Telefonul se vede doar de la 1200 px; între 1024 și 1200 rămâne în meniul mobil și în footer. */
-  @media (min-width: 1200px) { .header__phone { display: inline; } }
 
   .mobile { position: fixed; inset: 64px 0 0 0; background: var(--surface); box-shadow: var(--shadow); border-top: 1px solid var(--line); overflow-y: auto; display: flex; flex-direction: column; padding: var(--s-5) 20px var(--s-6); gap: var(--s-6); z-index: 25; }
   .mobile[hidden] { display: none; }
