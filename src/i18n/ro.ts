@@ -52,11 +52,11 @@ export const ro = {
 
   // Graficul din hero (hero.png, cerut de Marius pe 18 septembrie 2026). Etichetele sunt text nou,
   // luat din mockup: nu sunt în spec și nu se suprapun peste cele trei grupuri de servicii.
-  heroDiagram: {
-    benzi: ['Securitate cibernetică', 'Automatizări', 'Agentic AI', 'Software development', 'Infrastructură IT'],
-    de: 'De la fragmentare',
-    la: 'La progres',
-    descriere: 'De la fragmentare la progres: cinci direcții împrăștiate se adună într-un singur traseu.',
+  // Graficul din hero (HeroStack), după ce-facem_01_animat.mp4: straturile de jos în sus, 1 = fundația.
+  heroStack: {
+    straturi: ['Securitate cibernetică', 'Infrastructură', 'Dezvoltare software', 'Automatizări', 'Agenți AI'],
+    fundatia: 'fundația',
+    ariaLabel: 'Securitatea stă la baza fiecărui serviciu',
   },
 
   langSwitch: { ariaLabel: 'Schimbă limba', ro: 'RO', en: 'EN', separator: ' · ' },

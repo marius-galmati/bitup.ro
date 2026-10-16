@@ -51,11 +51,11 @@ export const en = {
 
   // The hero diagram (hero.png, asked for by Marius on 18 September 2026). The labels are new copy,
   // taken from the mockup; the English wording is Claude Code's translation, pending confirmation.
-  heroDiagram: {
-    benzi: ['Cybersecurity', 'Automation', 'Agentic AI', 'Software development', 'IT infrastructure'],
-    de: 'From fragmentation',
-    la: 'To progress',
-    descriere: 'From fragmentation to progress: five scattered directions gather into a single path.',
+  // Hero graphic (HeroStack), after ce-facem_01_animat.mp4: layers bottom to top, 1 = the foundation. Claude Code's translation, pending confirmation.
+  heroStack: {
+    straturi: ['Cybersecurity', 'Infrastructure', 'Software development', 'Automation', 'AI agents'],
+    fundatia: 'the foundation',
+    ariaLabel: 'Security sits at the base of every service',
   },
 
   langSwitch: { ariaLabel: 'Change language', ro: 'RO', en: 'EN', separator: ' · ' },

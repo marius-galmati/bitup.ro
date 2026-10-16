@@ -2277,6 +2277,28 @@ Verificat: build fără erori și fără warning-uri; capturi în `qa/logo-bitup
 
 Verificat: build fără erori și fără warning-uri, `astro check` 0/0/0, textdiff `00-global.md` × 2. Rândul din header măsurat la 1024, 1200, 1280 și 1440, RO și EN, light și dark: un singur rând, fără overflow orizontal, comutatorul și butonul la 40 px, centrate pe aceeași linie (diferență 0 px). Tab ajunge pe linkul de limbă cu focus vizibil; Esc închide meniul mobil. Capturi în `qa/lang-switch/` (header 1024 și 1440, hover, focus, meniul mobil, footer; RO/EN, light/dark), privite. Consolă curată, zero 4xx.
 
+## Hero: stiva de straturi din `ce-facem_01_animat.mp4` în locul „De la fragmentare / La progres” (16 octombrie 2026, cerut de Marius)
+
+Video-ul (7 s, 1080 × 1350) a fost citit cadru cu cadru (Chrome prin Playwright, la 0,1 s; în mașină nu există ffmpeg). Ciclul lui: stiva întreagă 0–1,2 s; straturile 5…2 pleacă în sus, la 100 ms unul de altul (1,2–1,7 s); fundația singură până la 2,5 s; straturile 2…5 cad pe rând, la 0,62 s, eticheta fiecăruia după aterizare (2,5–4,9 s); pauză până la 7 s. Deciziile lui Marius: o dată la încărcare și buclă doar la hover; vizibil peste tot (sub text pe telefon și tabletă); etichetele în Public Sans, nu în fontul din video (IBM Plex Sans, scos din proiect).
+
+- `src/components/home/HeroStack.astro` (nou): SVG inline cu geometria măsurată în pixelii video-ului (romburi 2:1, semi-axe 230 × 115, vârfurile la y = 1031 / 975 / 888 / 801 / 680, grosimi 22 / 10 / 10 / 10 / 12) și etichete HTML (listă ordonată de linkuri, aceleași destinații ca vechile benzi). Animațiile sunt CSS; un script mic doar pornește bucla la `pointerenter` pe desen, o repetă cât timp mouse-ul e acolo și o lasă să se termine. `HeroDiagram.astro` șters.
+- `tokens.css`: `--stack-base-top` / `-left` / `-right` (fundația, culorile din video, aceleași în ambele teme); comentariul de la `--orange`.
+- `i18n/ro.ts`, `en.ts`: `heroDiagram` → `heroStack` (etichetele, „fundația”, `aria-label` = titlul din video). EN tradus de mine, de confirmat.
+- `HomePage.astro`: graficul se vede și sub 1200 px, sub butoane, cel mult 560 px.
+- `home.types.ts`: scos câmpul `tech` rămas de la secțiunea „Tehnologii”. **Corectură:** `astro check` dădea 2 erori de la commit-ul `0aa181b`; le-am raportat atunci ca 0/0/0 pentru că citisem doar ultimele trei rânduri (warnings, hints), fără rândul de erori. Build-ul trecea, deci site-ul n-a fost afectat.
+- Spec: `01-acasa.md` / `01-home.md` (§ 1 Hero, notele și etichetele), `DESIGN.md` (excepția orange, § Hero, § HeroStack în locul § HeroDiagram, § Mișcare), `PLACEHOLDERS.md` (rândul logo-ului: graficul nu mai conține logo-ul). `PLAN.md` § Faza R pomenește încă HeroDiagram, ca istoric.
+
+Verificat:
+- Build fără erori și fără warning-uri; `astro check` 0 / 0 / 0 (cu rândul de erori citit).
+- Cadre ale secvenței de încărcare și ale buclei, oprite la aceleași momente ca în video și puse lângă cadrele din video: aceeași ordine, aceleași direcții, aceleași pauze. După ce mouse-ul pleacă, ciclul se termină și rămân 0 animații pornite. Cu `prefers-reduced-motion`, 0 animații.
+- Capturi 375 / 768 / 1024 / 1440, RO / EN, light / dark, în `qa/hero-stack/`, privite. Etichetele încap în grafic la toate lățimile (cea mai lungă la 13–28 px de margine), fără overflow orizontal; „fundația” aliniată la 0 px sub nume.
+- Lighthouse mobil (preview pe 4322): `/` 98 / 100 / 100 / 66, LCP 1,9 s, CLS 0, 152 KiB; `/en` 99 / 100 / 100 / 66, LCP 1,6 s, CLS 0,032, 133 KiB. SEO 66 vine din antetul `X-Robots-Tag: noindex…` pe care îl pune `astro preview`; HTML-ul din `dist/` n-are meta robots, iar nginx-ul de producție nu trimite antetul. `target-size` pica întâi pe `/en` (etichetele 1 și 2 la 20 px pe telefon); reparat prin distanțarea egală a etichetelor 1–3 sub 480 px (min. 24 px de la 360 px în sus).
+- Tastatură: Tab trece prin cele cinci etichete, de sus în jos, cu outline de 2 px. Consolă curată, zero 4xx.
+
+De știut / de decis:
+- Cifra „5” e orange ca în video: pe alb are 2,1:1, sub AA. E `aria-hidden` (numărul îl dă lista ordonată), deci Lighthouse n-o numără, dar vizual rămâne sub prag. Alternativa: cifra în `--teal`, ca celelalte, și orange rămâne doar pe strat.
+- `CLAUDE.md` pomenește încă nodurile orange (§ Culoare) și HeroDiagram (mirosul 1); nu l-am modificat.
+
 ## Propuneri (nu se fac fără acord)
 
 - Faza 5: Astro are suport experimental pentru CSP cu hash-uri generate la build (`experimental.csp`), care ar scoate `'unsafe-inline'` din `script-src` și `style-src`. E îmbunătățirea menționată în `ARHITECTURA.md` § Headere ca „nu o condiție de lansare”. De evaluat când ajungem acolo.

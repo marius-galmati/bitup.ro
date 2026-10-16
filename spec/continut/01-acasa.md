@@ -11,19 +11,17 @@
 
 Aliniat la stânga, pe `--bg`. Fără fotografie, fără rând de încredere, fără eyebrow.
 
-Notă pentru Claude Code: de la 1200 px, două coloane — textul în stânga, graficul `HeroDiagram` în dreapta (DESIGN.md § Imagini); de la 1360 px, hero-ul trece pe containerul lat, cu marginea stângă păstrată aliniată. Sub 1200 px, o coloană, fără grafic. În grafic: logo-ul oficial deasupra spinei, nodurile de pe spină în orange și săgețile de la capete în V, teal (cerut de Marius pe 18 septembrie 2026).
+Notă pentru Claude Code: de la 1200 px, două coloane — textul în stânga, graficul `HeroStack` în dreapta (DESIGN.md § HeroStack); de la 1360 px, hero-ul trece pe containerul lat, cu marginea stângă păstrată aliniată. Sub 1200 px, o coloană, cu graficul sub butoane, cel mult 560 px lat. Graficul (cerut de Marius pe 16 octombrie 2026, după `ce-facem_01_animat.mp4`) e o stivă de cinci straturi izometrice, cu fundația teal jos și stratul 5 alb cu muchie orange sus, fiecare cu eticheta lui numerotată în dreapta. Înlocuiește graficul „De la fragmentare / La progres”.
 
-Notă pentru Claude Code: graficul se desenează o singură dată la încărcarea paginii, în ~1,9 s (cerut de Marius pe 20 septembrie 2026; detaliile în DESIGN.md § Mișcare și § Imagini). Textul paginii nu depinde de mișcare: cu `prefers-reduced-motion` desenul apare direct terminat.
+Notă pentru Claude Code: la încărcare, o singură dată, fundația apare și straturile 2…5 cad pe rând (~2,8 s). Cât timp mouse-ul stă pe desen, se repetă ciclul din video (demontare, reconstruire, 3,3 s pauză; 7 s), iar ciclul început se termină mereu. Textul paginii nu depinde de mișcare: cu `prefers-reduced-motion` stiva apare direct întreagă.
 
-Notă pentru Claude Code: fiecare bandă e link către pagina serviciului ei — `Securitate cibernetică` → `/servicii/securitate`, `Automatizări` → `/servicii/automatizari`, `Agentic AI` → `/servicii/automatizari`, `Software development` → `/servicii/automatizari#software`, `Infrastructură IT` → `/servicii/suport-it`. La hover și la focus, celelalte patru benzi se estompează.
+Notă pentru Claude Code: fiecare etichetă e link către pagina serviciului ei — `Securitate cibernetică` → `/servicii/securitate`, `Infrastructură` → `/servicii/suport-it`, `Dezvoltare software` → `/servicii/automatizari#software`, `Automatizări` → `/servicii/automatizari`, `Agenți AI` → `/servicii/automatizari`.
 
-Notă pentru Claude Code: etichetele din grafic sunt text nou, luat din `hero.png` pe 18 septembrie 2026; nu se suprapun peste cele trei grupuri de servicii din `02-servicii-index.md` — de reconciliat.
+Notă pentru Claude Code: etichetele sunt cele din video, de jos în sus; sub stratul 1 stă nota „fundația”.
 
-`Securitate cibernetică` · `Automatizări` · `Agentic AI` · `Software development` · `Infrastructură IT`
+`Securitate cibernetică` (fundația) · `Infrastructură` · `Dezvoltare software` · `Automatizări` · `Agenți AI`
 
-Notă pentru Claude Code: cele două etichete de colț stau jos, `De la fragmentare` în stânga și `La progres` în dreapta.
-
-Notă pentru Claude Code: eticheta pentru cititoarele de ecran (`aria-label` pe SVG) e „De la fragmentare la progres: cinci direcții împrăștiate se adună într-un singur traseu.”, iar majusculele de pe etichetele de colț se fac din CSS, nu din text.
+Notă pentru Claude Code: eticheta pentru cititoarele de ecran (`aria-label` pe lista de etichete) e „Securitatea stă la baza fiecărui serviciu”, titlul din video; desenul e decorativ.
 
 Notă pentru Claude Code: hero schimbat de Marius pe 17 septembrie 2026. Eyebrow-ul a fost scos, textul nou n-are unul.
 

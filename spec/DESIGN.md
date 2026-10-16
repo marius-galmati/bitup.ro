@@ -54,7 +54,7 @@ Două familii, amândouă self-hosted (`@fontsource/barlow-condensed`, greutăț
 - Pagina e albă. Benzile alternative și cardurile sunt `--surface-2`. Contrastul vine din navy pe alb, nu din multe culori.
 - Navy: titluri, text, secțiunile navy (maximum una la trei secțiuni, niciodată două la rând), CtaBand, hero-ul studiilor de caz. Footer-ul rămâne pe alb.
 - Teal: cuvântul evidențiat, linkuri, butonul secundar, etichete, cercurile din Steps, iconițele.
-- Orange: butonul principal, de maximum trei ori pe pagină (header, hero, CtaBand). Excepția cerută de Marius pe 18 septembrie 2026 rămâne: nodurile de pe spina `HeroDiagram` sunt orange.
+- Orange: butonul principal, de maximum trei ori pe pagină (header, hero, CtaBand). Excepția din 16 octombrie 2026 (cerută de Marius, după `ce-facem_01_animat.mp4`): stratul 5 din `HeroStack` și cifra lui sunt orange. Nodurile orange de pe spina fostului `HeroDiagram` au plecat odată cu el.
 - Semafor (`--ok/--warn/--crit`): doar în exemplul de raport din Radiografie și în stările formularelor.
 - Fără gradienturi nicăieri, nici pe hero-ul studiilor de caz.
 
@@ -91,9 +91,9 @@ Sub prag: hamburger, iar meniul mobil e un panou full-height cu aceleași linkur
 
 **Card.** Fundal `--surface-2`, fără bordură, fără umbră, `--r-card`, padding `--s-7` (32 px sub 768 px). Ordinea: eticheta teal cu majuscule → h3 → textul (`--muted`, opțional) → imaginea jos, cu `--r-media`, `aspect-ratio: 16/10`, `object-fit: cover`, la `--s-6` sub text și împinsă la baza cardului (`margin-top: auto`), ca imaginile dintr-un rând să stea pe aceeași linie. Fără imagine, cardul se oprește după text; nu se pune substituent. Dacă tot cardul e link, hover-ul schimbă fundalul spre `--line` (150 ms), fără mărire și fără mișcare. Cardurile dintr-un rând au aceeași înălțime.
 
-**Hero (homepage).** TwoCol pe `--bg`, de la 1200 px, cu HeroDiagram în dreapta: eyebrow, h1 `--fs-hero` cu accent, lead `--fs-lead` la 34em, un singur buton principal și, lângă el, un link terțiar (nu un al doilea buton-pastilă). Sub 1200 px, o coloană, fără grafic. Fără FactStrip dedesubt. Înălțimea e dată de conținut, nu de 100vh.
+**Hero (homepage).** TwoCol pe `--bg`, de la 1200 px, cu HeroStack în dreapta: eyebrow, h1 `--fs-hero` cu accent, lead `--fs-lead` la 34em, un singur buton principal și, lângă el, un link terțiar (nu un al doilea buton-pastilă). Sub 1200 px, o coloană, cu HeroStack sub butoane (cel mult 560 px). Fără FactStrip dedesubt. Înălțimea e dată de conținut, nu de 100vh.
 
-**HeroDiagram.** Rămâne cum a fost specificat și construit (geometria, cele cinci benzi-link, secvența de desen de ~1,9 s la încărcare, hover-ul, accesibilitatea, `prefers-reduced-motion`). Se schimbă doar tipografia etichetelor: Public Sans 600 în loc de mono. Graficul se aliniază pe verticală cu blocul de text.
+**HeroStack** (16 octombrie 2026, înlocuiește HeroDiagram). Cinci straturi izometrice, după `ce-facem_01_animat.mp4`: romburi 2:1 în SVG inline, geometria din pixelii video-ului. Straturile 2…4: față `--surface-2`, contur 1 px `--muted`, laturi `--line`; stratul 5: față `--surface`, muchie 2 px și laturi `--orange`; fundația: tokenii `--stack-base-top` / `-left` / `-right`, aceiași în ambele teme. Etichetele sunt o listă ordonată de linkuri HTML, Public Sans (numele 600, cifra 500 `--teal`, la stratul 5 `--orange`), cu corpul legat de lățimea graficului (`3,1cqw`, între 14 și 19 px); nota „fundația” e `--muted`, minimum 12 px. Pe telefon (sub 480 px) desenul ia 42 % din lățime, liniuța dinaintea cifrei dispare, iar etichetele 1–3 se distanțează egal, ca linkurile să aibă 24 px între ele. Mișcarea e în § Mișcare. Graficul se aliniază pe verticală cu blocul de text.
 
 **Hero (pagini interne).** O coloană pe `--bg`, aliniată la stânga: eyebrow, h1 `--fs-h1` cu accent, lead la 34em. `padding-block` de `--s-10` sus și `--s-9` jos. Fără fundal colorat. Despre: fără imagine, ca până acum.
 
@@ -137,7 +137,7 @@ Sub prag: hamburger, iar meniul mobil e un panou full-height cu aceleași linkur
 
 ## Mișcare
 
-Neschimbată: tranziții de 150 ms pe hover și focus, meniul mobil și panoul Servicii se deschid în 200 ms, nimic la scroll. Singura excepție rămâne secvența HeroDiagram de la încărcare. `prefers-reduced-motion` dezactivează tot.
+Neschimbată: tranziții de 150 ms pe hover și focus, meniul mobil și panoul Servicii se deschid în 200 ms, nimic la scroll. Singura excepție e HeroStack: la încărcare, o singură dată, straturile cad pe rând (~2,8 s); cât timp mouse-ul stă pe desen, se repetă ciclul de 7 s din video, iar ciclul început se termină mereu. `prefers-reduced-motion` dezactivează tot.
 
 ## Accesibilitate
 

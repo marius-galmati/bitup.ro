@@ -11,7 +11,7 @@
   --teal: #20686C;        /* cuvântul evidențiat din titlu, linkuri, butonul secundar, etichete */
   --teal-2: #4A9396;
   --teal-soft: #E3EFEF;   /* fundal de citat */
-  --orange: #FE982A;      /* butonul principal și nodurile din HeroDiagram; text navy pe el */
+  --orange: #FE982A;      /* butonul principal, stratul 5 și cifra lui din HeroStack; text navy pe el */
 
   /* neutre */
   --bg: #FFFFFF;          /* fundalul paginii: alb curat */
@@ -67,6 +67,10 @@
   --on-navy-accent: #7CC4C7;  /* cuvântul evidențiat din titlu, pe navy */
   --logo-ink: #00202E;
   --logo-accent: #20686C;
+  /* fundația din HeroStack (stratul 1), culorile din ce-facem_01_animat.mp4; aceleași în ambele teme */
+  --stack-base-top: #1B616B;
+  --stack-base-left: #00202E;
+  --stack-base-right: #2C4653;
 
   color-scheme: light;
 }

@@ -12,7 +12,6 @@ export interface HomeCopy {
   founder: { eyebrow: string; h2: string; text: string; storyLink: string; teamLink: string; linkedinLabel: string; portraitAlt: string };
   results: { eyebrow: string; h2: string; readCase: string; nextCase: string };
   partners: { eyebrow: string; h2: string; names: string[] };
-  tech: { eyebrow: string; h2: string; list: string };
   blog: { eyebrow: string; h2: string };
   faq: { eyebrow: string; h2: string; items: { q: string; a: string }[] };
 }

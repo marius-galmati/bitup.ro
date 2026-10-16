@@ -35,7 +35,7 @@ const check = (ok, msg) => { console.log(`${ok ? 'OK ' : 'NU '} ${msg}`); if (!o
   }
   console.log(`Desktop: ${seen.length} elemente atinse cu Tab`);
   // Elementele fără `outline` propriu pot avea totuși focus vizibil, desenat altfel: de exemplu benzile
-  // din `HeroDiagram` sunt linkuri SVG a căror cutie ar încadra tot evantaiul, așa că inelul se desenează
+  // din fostul `HeroDiagram` (înlocuit pe 16 octombrie 2026 de HeroStack) erau linkuri SVG a căror cutie ar încadra tot evantaiul, așa că inelul se desena
   // pe fâșia de atingere. Le verificăm comparând stilurile din subarbore cu focus și fără: dacă nimic nu se
   // schimbă, chiar nu există indicator.
   const fingerprint = (key) => {

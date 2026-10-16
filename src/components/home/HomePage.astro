@@ -14,7 +14,7 @@ import Section from '../Section.astro';
 import SectionHead from '../SectionHead.astro';
 import TwoCol from '../TwoCol.astro';
 import Eyebrow from '../Eyebrow.astro';
-import HeroDiagram from './HeroDiagram.astro';
+import HeroStack from './HeroStack.astro';
 import Button from '../Button.astro';
 import Card from '../Card.astro';
 import Steps from '../Steps.astro';
@@ -51,7 +51,7 @@ const slugOf = (id: string) => id.replace(/^(ro|en)\//, '');
 const partners = copy.partners.names.map((name) => ({ name, logo: partnerLogo(name) }));
 ---
 <BaseLayout lang={lang} routeKey="home" title={copy.title} description={copy.description}>
-  {/* 1. Hero: text la stânga, graficul din hero.png la dreapta de la 1200 px. Banda de FactStrip a fost scoasă pe 17 septembrie 2026. */}
+  {/* 1. Hero: text la stânga, stiva de straturi (HeroStack, după ce-facem_01_animat.mp4) la dreapta de la 1200 px, sub text sub atât. Banda de FactStrip a fost scoasă pe 17 septembrie 2026. */}
   <Section tone="bg" class="hero">
     <Container>
       <div class="hero__grid">
@@ -64,7 +64,7 @@ const partners = copy.partners.names.map((name) => ({ name, logo: partnerLogo(na
           <Button href={localePath('services', lang)} variant="secondary">{copy.hero.secondary}</Button>
         </div>
       </div>
-      <HeroDiagram lang={lang} class="hero__graphic" />
+      <HeroStack lang={lang} class="hero__graphic" />
       </div>
     </Container>
   </Section>
@@ -227,12 +227,13 @@ const partners = copy.partners.names.map((name) => ({ name, logo: partnerLogo(na
   /* Ritm gradat, ca in example.png: titlu → lead mai strans decat lead → actiuni. */
   .hero__grid { display: grid; gap: var(--s-7); align-items: center; }
   .hero__text { display: grid; gap: 0; justify-items: start; }
-  .hero__grid :global(.hero__graphic) { display: none; }
+  /* Sub 1200 px graficul stă sub butoane, cel mult 560 px lat (16 octombrie 2026: se vede peste tot, cerut de Marius). */
+  .hero__grid :global(.hero__graphic) { max-width: 560px; }
   /* Text stânga / grafic dreapta de la 1200 px. Sub atât, titlul ar rămâne pe o coloană prea îngustă
-     (la 1024 px ajungea la șase rânduri), așa că graficul nu se arată. */
+     (la 1024 px ajungea la șase rânduri), așa că graficul trece dedesubt. */
   @media (min-width: 1200px) {
     .hero__grid { grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: var(--s-7); }
-    .hero__grid :global(.hero__graphic) { display: block; justify-self: end; }
+    .hero__grid :global(.hero__graphic) { justify-self: end; }
   }
   .hero__lead { margin-top: var(--s-4); }
   .hero__h1 { font-size: var(--fs-hero); max-width: 22ch; }

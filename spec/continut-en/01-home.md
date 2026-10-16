@@ -11,19 +11,17 @@
 
 Left-aligned, on `--bg`. No photo, no trust row, no eyebrow.
 
-Note for Claude Code: from 1200 px, two columns — text on the left, the `HeroDiagram` graphic on the right (DESIGN.md § Imagini); from 1360 px the hero switches to the wide container, with its left edge kept aligned. Below 1200 px, one column, no graphic. Inside the graphic: the official logo above the spine, the spine nodes in orange, and the end arrows drawn as teal chevrons (asked for by Marius on 18 September 2026).
+Note for Claude Code: from 1200 px, two columns — text on the left, the `HeroStack` graphic on the right (DESIGN.md § HeroStack); from 1360 px the hero switches to the wide container, with its left edge kept aligned. Below 1200 px, one column, with the graphic under the buttons, at most 560 px wide. The graphic (asked for by Marius on 16 October 2026, after `ce-facem_01_animat.mp4`) is a stack of five isometric layers, the teal foundation at the bottom and layer 5 white with an orange edge at the top, each with its numbered label on the right. It replaces the “From fragmentation / To progress” graphic.
 
-Note for Claude Code: the graphic draws itself once on page load, over ~1.9 s (asked for by Marius on 20 September 2026; details in DESIGN.md § Mișcare and § Imagini). No page text depends on the motion: with `prefers-reduced-motion` the drawing appears already finished.
+Note for Claude Code: on load, once, the foundation appears and layers 2…5 drop in one by one (~2.8 s). While the mouse is over the drawing, the video's cycle repeats (take apart, rebuild, 3.3 s hold; 7 s), and a cycle that has started always finishes. No page text depends on the motion: with `prefers-reduced-motion` the stack appears already complete.
 
-Note for Claude Code: each band is a link to its service page — `Cybersecurity` → `/en/services/security`, `Automation` → `/en/services/automation`, `Agentic AI` → `/en/services/automation`, `Software development` → `/en/services/automation#software`, `IT infrastructure` → `/en/services/it-support`. On hover and on focus, the other four bands fade back.
+Note for Claude Code: each label is a link to its service page — `Cybersecurity` → `/en/services/security`, `Infrastructure` → `/en/services/it-support`, `Software development` → `/en/services/automation#software`, `Automation` → `/en/services/automation`, `AI agents` → `/en/services/automation`.
 
-Note for Claude Code: the labels inside the graphic are new copy, taken from `hero.png` on 18 September 2026; the English wording is Claude Code's translation, pending confirmation.
+Note for Claude Code: the labels are the ones in the video, bottom to top; under layer 1 sits the note “the foundation”. The English wording is Claude Code's translation, pending confirmation.
 
-`Cybersecurity` · `Automation` · `Agentic AI` · `Software development` · `IT infrastructure`
+`Cybersecurity` (the foundation) · `Infrastructure` · `Software development` · `Automation` · `AI agents`
 
-Note for Claude Code: the two corner labels sit at the bottom, `From fragmentation` on the left and `To progress` on the right.
-
-Note for Claude Code: the screen-reader label (`aria-label` on the SVG) is “From fragmentation to progress: five scattered directions gather into a single path.”, and the capitals on the corner labels come from CSS, not from the text.
+Note for Claude Code: the screen-reader label (`aria-label` on the label list) is “Security sits at the base of every service”, the video's title; the drawing is decorative.
 
 Note for Claude Code: hero changed by Marius on 17 September 2026. The eyebrow was dropped, the new text has none. The English wording is Claude Code's translation of the Romanian and is pending confirmation.
 
