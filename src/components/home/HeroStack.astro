@@ -3,64 +3,103 @@
  * Graficul din hero-ul homepage-ului (16 octombrie 2026, cerut de Marius): cinci straturi izometrice, după
  * `ce-facem_01_animat.mp4` (7 s, 1080 × 1350). Înlocuiește HeroDiagram („De la fragmentare / La progres”).
  *
- * Geometria e cea din video, în pixelii cadrului: romburi 2:1 cu semi-axele 230 × 115, centrate pe x = 318;
- * vârful stâng al fiecărui strat la y = 1031 / 975 / 888 / 801 / 680 (straturile 1…5), grosimi 22 / 10 / 10 / 10 / 12.
- * Etichetele, la dreapta, sunt centrate pe y = 1040 / 972 / 885 / 797 / 677. Culorile vin din tokeni
- * (fundația are trei tokeni proprii, aceiași în ambele teme), deci dark mode-ul e automat.
+ * Geometria e cea din video, în pixelii cadrului: plăci pătrate care, privite din unghiul video-ului, dau romburi 2:1
+ * cu semi-axele 230 × 115, centrate pe x = 318; centrul fiecărei plăci la y = 1031 / 975 / 888 / 801 / 680
+ * (straturile 1…5). Grosimile sunt 22 / 18 / 18 / 18 / 20 (în video 22 / 10 / 10 / 10 / 12; mai groase de la
+ * 17 octombrie 2026, ca plăcile să aibă volum). Etichetele, la dreapta, sunt centrate pe y = 1040 / 972 / 885 / 797 / 677.
+ * Culorile vin din tokeni (fundația are trei tokeni proprii, aceiași în ambele teme), deci dark mode-ul e automat.
  *
- * Mișcare, toată din CSS (JavaScript doar pornește și oprește bucla):
- *   1. La încărcare, o singură dată: fundația apare, apoi straturile 2…5 cad pe rând de la 45 de unități mai sus,
- *      la 0,62 s unul de altul (320 ms fiecare), iar eticheta fiecăruia apare după ce stratul s-a așezat. ~2,8 s.
- *   2. Cât timp mouse-ul stă pe desen, se repetă ciclul din video, rotit ca să înceapă cu demontarea:
- *      straturile 5…2 pleacă în sus (200 ms, la 100 ms unul de altul), rămâne fundația, se reconstruiesc ca la
- *      încărcare, apoi stiva stă întreagă 3,3 s. 7 s pe ciclu, ca în video. Ciclul început se termină mereu,
- *      deci stiva rămâne întreagă când mouse-ul pleacă.
- * Cu `prefers-reduced-motion: reduce`, nimic nu se mișcă: stiva apare direct întreagă.
+ * 3D (20 octombrie 2026, cerut de Marius): desenul e o proiecție calculată în `heroStack3d.ts`, aceeași la build și în
+ * browser. Stiva se rotește în jurul axei verticale; lumina stă pe loc (din dreapta-sus), deci fețele laterale își
+ * schimbă nuanța după cât de întoarse sunt spre ea, iar umbrele pe care plăcile le aruncă una pe alta alunecă pe fețe.
+ * Etichetele nu se mișcă: rotația în jurul axei verticale nu schimbă înălțimea plăcilor.
+ *
+ * Mișcare:
+ *   1. La încărcare, o singură dată (CSS): fundația apare, apoi straturile 2…5 cad pe rând de la 45 de unități mai sus,
+ *      la 0,62 s unul de altul (360 ms fiecare, cu decelerare lungă), iar eticheta fiecăruia apare după ce stratul s-a
+ *      așezat. ~2,8 s. Umbra de dedesubt se strânge și se închide odată cu aterizarea.
+ *   2. Imediat după, stiva face o jumătate de tură (180°, 2,2 s), și se oprește în aceeași poziție ca la început.
+ *   3. Cu mouse-ul pe desen, mișcarea pe orizontală rotește stiva (0,5° pe pixel), cu inerție; pe ecran tactil,
+ *      tragerea pe orizontală (derularea pe verticală rămâne a paginii). Când mouse-ul pleacă, stiva se întoarce la
+ *      cea mai apropiată poziție de repaus (la fiecare 90° arată la fel).
+ * Cu `prefers-reduced-motion: reduce`, nimic nu se mișcă: stiva apare direct întreagă, în poziția de repaus.
  *
  * Etichetele sunt HTML, nu text SVG: o listă ordonată de linkuri către paginile serviciilor (ca benzile din
  * HeroDiagram), cu mărimea legată de lățimea graficului (`cqw`), ca proporțiile din video să se păstreze.
  * Desenul e decorativ (`aria-hidden`); lista are numele graficului ca `aria-label`.
  */
 import { t, localePath, anchors, type Locale } from '../../i18n';
+import { scena, golSub, REST } from './heroStack3d';
 
 interface Props { lang: Locale; class?: string }
 const { lang, class: className } = Astro.props;
 const d = t(lang).heroStack;
 
-const CX = 318, W = 230, H = 115;
-/** Straturile de jos în sus: vârful stâng (y), grosimea, centrul etichetei (y), destinația linkului. */
+/** Straturile de jos în sus: centrul etichetei (y) și destinația linkului. Geometria plăcilor e în `heroStack3d.ts`. */
 const STRATURI = [
-  { y: 1031, g: 22, ey: 1040, href: localePath('security', lang) },
-  { y: 975, g: 10, ey: 972, href: localePath('itSupport', lang) },
-  { y: 888, g: 10, ey: 885, href: localePath('automation', lang, anchors.automation[lang].software) },
-  { y: 801, g: 10, ey: 797, href: localePath('automation', lang) },
-  { y: 680, g: 12, ey: 677, href: localePath('automation', lang) },
+  { ey: 1040, href: localePath('security', lang) },
+  { ey: 972, href: localePath('itSupport', lang) },
+  { ey: 885, href: localePath('automation', lang, anchors.automation[lang].software) },
+  { ey: 797, href: localePath('automation', lang) },
+  { ey: 677, href: localePath('automation', lang) },
 ].map((s, i) => ({ ...s, n: i + 1, nume: d.straturi[i] }));
 
-// Fereastra desenului, în pixelii cadrului: x 84…552, y 550…1175 (loc pentru grosimea fundației).
+// Fereastra desenului, în pixelii cadrului: x 84…552, y 550…1175 (loc pentru grosimea fundației). Colțurile plăcilor
+// stau mereu la cel mult 230 de unități de axă, deci desenul încape în fereastră la orice unghi.
 const VB = { x: 84, y: 550, w: 468, h: 625 };
 const pct = (y: number) => `${(((y - VB.y) / VB.h) * 100).toFixed(2)}%`;
 
-const p = (pts: number[][]) => pts.map(([x, y]) => `${x},${y}`).join(' ');
-const fete = (y: number, g: number) => ({
-  sus: p([[CX, y - H], [CX + W, y], [CX, y + H], [CX - W, y]]),
-  stanga: p([[CX - W, y], [CX, y + H], [CX, y + H + g], [CX - W, y + g]]),
-  dreapta: p([[CX, y + H], [CX + W, y], [CX + W, y + g], [CX, y + H + g]]),
-});
+const sc = scena(REST);
+/** Cât de difuză și cât de tare e umbra plăcii i: cu cât golul de sub ea e mai mare, cu atât mai difuză și mai slabă. */
+const umbra = (i: number) => {
+  const gol = golSub(i);
+  return { blur: (4 + gol * 0.1).toFixed(1), a: Math.max(0.55, 1.25 - gol / 150).toFixed(2) };
+};
 
 // Încărcarea: când pornește fiecare strat (ms). Fundația la 0; apoi pasul din video, 0,62 s.
 const START = [0, 450, 1070, 1690, 2310];
 ---
 <figure class:list={['hs', className]} data-hstack>
   <svg class="hs__art" viewBox={`${VB.x} ${VB.y} ${VB.w} ${VB.h}`} aria-hidden="true" focusable="false">
-    {STRATURI.map((s, i) => {
-      const f = fete(s.y, s.g);
+    <defs>
+      <filter id="hs-blur-sol" x="-30%" y="-40%" width="160%" height="180%"><feGaussianBlur stdDeviation="9" /></filter>
+    </defs>
+    {/* Umbra fundației pe „podea”, ca stiva să stea pe ceva. */}
+    <g class="hs__shadow hs__shadow--1" style={`--d: ${START[0]}ms`}>
+      <polygon class="hs__shadow-shape" data-sol points={sc.sol} filter="url(#hs-blur-sol)" style="--a: .55" />
+    </g>
+    {sc.placi.map((pl, i) => {
+      const n = i + 1;
+      const u = i > 0 ? umbra(i) : null;
       return (
-        <g class:list={['hs__layer', `hs__layer--${s.n}`]} style={`--d: ${START[i]}ms`}>
-          <polygon class="hs__left" points={f.stanga} />
-          <polygon class="hs__right" points={f.dreapta} />
-          <polygon class="hs__top" points={f.sus} />
-        </g>
+        <>
+          {u && (
+            <g clip-path={`url(#hs-clip-${n})`}>
+              <defs>
+                <clipPath id={`hs-clip-${n}`}><polygon data-clip={i - 1} points={sc.umbre[i - 1].clip} /></clipPath>
+                <filter id={`hs-blur-${n}`} x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation={u.blur} /></filter>
+              </defs>
+              <g class:list={['hs__shadow', `hs__shadow--${n}`]} style={`--d: ${START[i]}ms`}>
+                <polygon class="hs__shadow-shape" data-umbra={i - 1} points={sc.umbre[i - 1].pts} filter={`url(#hs-blur-${n})`} style={`--a: ${u.a}`} />
+              </g>
+            </g>
+          )}
+          <g class:list={['hs__layer', `hs__layer--${n}`]} style={`--d: ${START[i]}ms`}>
+            {/* Gradientul feței de sus stă în strat, ca opririle să moștenească --face. E legat de ecran, nu de placă:
+                un luciu care stă pe loc când placa se rotește, ca o reflexie a luminii. */}
+            <defs>
+              <linearGradient id={`hs-t-${n}`} x1="1" y1="0" x2="0" y2="1"><stop class="hs__st hs__st--top-a" offset="0" /><stop class="hs__st hs__st--top-b" offset="1" /></linearGradient>
+            </defs>
+            {/* Laturile ascunse (cu spatele la privitor) nu se desenează; cele două vizibile nu se suprapun niciodată. */}
+            {pl.laturi.map((l, j) => (
+              <polygon class="hs__side" data-side={`${i}-${j}`} points={l.pts} style={`--t: ${l.t}${l.vizibil ? '' : '; display: none'}`} />
+            ))}
+            <polygon class="hs__top" data-top={i} points={pl.sus} fill={`url(#hs-t-${n})`} />
+            {pl.laturi.map((l, j) => (
+              <polyline class="hs__bevel" data-bevel={`${i}-${j}`} points={l.muchie} style={`--t: ${l.t}${l.vizibil ? '' : '; display: none'}`} />
+            ))}
+          </g>
+        </>
       );
     })}
   </svg>
@@ -79,25 +118,85 @@ const START = [0, 450, 1070, 1690, 2310];
 </figure>
 
 <script>
-  // Bucla de la hover: pornește când mouse-ul intră pe desen și se repetă cât timp stă acolo; ciclul început se
-  // termină mereu (stiva rămâne întreagă). `is-ready` scoate animația de încărcare după ce s-a terminat, ca
-  // bucla să nu o repornească. Fără JavaScript rămâne doar secvența de la încărcare.
+  import { scena, REST, QUARTER } from './heroStack3d';
+
+  // Rotația: jumătatea de tură de după încărcare, apoi stiva urmează mouse-ul (sau degetul) cât timp e pe desen.
+  // Fără JavaScript rămâne desenul static, în poziția de repaus, cu secvența de încărcare din CSS.
   const fig = document.querySelector<HTMLElement>('[data-hstack]');
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
   if (fig && !reduce.matches) {
-    const art = fig.querySelector<SVGElement>('.hs__art')!;
-    const last = fig.querySelector<HTMLElement>('.hs__label--5')!; // ultimul lucru care se mișcă, și la încărcare, și în buclă
-    let hovering = false;
-    const ready = () => fig.classList.add('is-ready');
-    const start = () => { if (fig.classList.contains('is-ready') && !fig.classList.contains('is-cycling')) fig.classList.add('is-cycling'); };
-    last.addEventListener('animationend', () => {
-      if (!fig.classList.contains('is-ready')) { ready(); if (hovering) start(); return; }
-      fig.classList.remove('is-cycling');
-      if (hovering) { void fig.offsetWidth; fig.classList.add('is-cycling'); }
-    });
+    const art = fig.querySelector<SVGSVGElement>('.hs__art')!;
+    const last = fig.querySelector<HTMLElement>('.hs__label--5')!; // ultimul lucru care se mișcă la încărcare
+    const q = <T extends Element>(sel: string) => [...fig.querySelectorAll<T>(sel)];
+    const tops = q<SVGPolygonElement>('[data-top]');
+    const sides = q<SVGPolygonElement>('[data-side]');
+    const bevels = q<SVGPolylineElement>('[data-bevel]');
+    const umbre = q<SVGPolygonElement>('[data-umbra]');
+    const clips = q<SVGPolygonElement>('[data-clip]');
+    const sol = fig.querySelector<SVGPolygonElement>('[data-sol]')!;
+
+    const draw = (yaw: number) => {
+      const s = scena(yaw);
+      s.placi.forEach((p, i) => {
+        tops[i].setAttribute('points', p.sus);
+        p.laturi.forEach((l, j) => {
+          for (const el of [sides[i * 4 + j], bevels[i * 4 + j]]) {
+            el.style.display = l.vizibil ? '' : 'none';
+            if (!l.vizibil) continue;
+            el.setAttribute('points', el === sides[i * 4 + j] ? l.pts : l.muchie);
+            el.style.setProperty('--t', String(l.t));
+          }
+        });
+      });
+      s.umbre.forEach((u, i) => { umbre[i].setAttribute('points', u.pts); clips[i].setAttribute('points', u.clip); });
+      sol.setAttribute('points', s.sol);
+    };
+
+    const DEG = Math.PI / 180;
+    let yaw = REST, target = REST, raf = 0;
+    let spin: { from: number; t0: number } | null = null;
+    const SPIN_MS = 2200;
+    const ease = (x: number) => (x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2);
+    const rest = (a: number) => REST + Math.round((a - REST) / QUARTER) * QUARTER; // cea mai apropiată poziție de repaus
+
+    const frame = (now: number) => {
+      if (spin) {
+        const p = Math.min(1, (now - spin.t0) / SPIN_MS);
+        yaw = target = spin.from + Math.PI * ease(p);
+        if (p >= 1) spin = null;
+      } else {
+        yaw += (target - yaw) * 0.14; // inerție: stiva ajunge din urmă mouse-ul, nu sare
+        if (Math.abs(target - yaw) < 0.0005) yaw = target;
+      }
+      draw(yaw);
+      raf = spin || yaw !== target ? requestAnimationFrame(frame) : 0;
+    };
+    const go = () => { if (!raf) raf = requestAnimationFrame(frame); };
+
+    // 2. Jumătatea de tură, după ce s-a așezat și ultima etichetă. `is-ready` scoate animațiile de încărcare.
+    let started = false;
+    const ready = () => {
+      if (started) return;
+      started = true;
+      fig.classList.add('is-ready', 'is-live');
+      if (!hovering) { spin = { from: yaw, t0: performance.now() }; go(); }
+    };
+    last.addEventListener('animationend', ready, { once: true });
     window.setTimeout(ready, 3500); // plasă de siguranță, dacă `animationend` nu vine
-    art.addEventListener('pointerenter', () => { hovering = true; start(); });
-    art.addEventListener('pointerleave', () => { hovering = false; });
+
+    // 3. Mouse-ul (fără clic) sau degetul (tras pe orizontală) rotesc stiva; la plecare se așază în repaus.
+    let hovering = false, lastX: number | null = null;
+    const follow = (x: number) => {
+      if (lastX !== null && started) { spin = null; target += (x - lastX) * 0.5 * DEG; go(); }
+      lastX = x;
+    };
+    const settle = () => { lastX = null; if (started && !spin) { target = rest(target); go(); } };
+    art.addEventListener('pointerenter', (e) => { if (e.pointerType === 'mouse') { hovering = true; lastX = e.clientX; } });
+    art.addEventListener('pointermove', (e) => { if (e.pointerType === 'mouse' || e.buttons) follow(e.clientX); });
+    art.addEventListener('pointerleave', (e) => { if (e.pointerType === 'mouse') { hovering = false; settle(); } });
+    art.addEventListener('pointerdown', (e) => { if (e.pointerType !== 'mouse') lastX = e.clientX; });
+    art.addEventListener('pointerup', (e) => { if (e.pointerType !== 'mouse') settle(); });
+    art.addEventListener('pointercancel', settle);
   }
 </script>
 
@@ -106,19 +205,31 @@ const START = [0, 450, 1070, 1690, 2310];
   /* --dl / --dw / --dr: marginea, lungimea și golul liniuței dinaintea cifrei (în video: 14, 26, 23 de unități la un corp de 32). */
   .hs { --art: 50.9%; --fs: clamp(14px, 3.1cqw, 19px); --dl: .45em; --dw: .8em; --dr: .7em; position: relative; margin: 0; width: 100%; container-type: inline-size; }
   .hs__art { display: block; width: var(--art); height: auto; overflow: visible; }
+  /* Rotația cu degetul e doar pe orizontală; derularea pe verticală rămâne a paginii. */
+  .hs.is-live .hs__art { cursor: grab; touch-action: pan-y; }
 
-  /* Straturile 2…4: deschise, conturul de sus subțire; laturile semitransparente, ca în video. */
-  .hs__top { fill: var(--surface-2); stroke: var(--muted); stroke-width: 1; vector-effect: non-scaling-stroke; stroke-linejoin: round; }
-  .hs__left { fill: var(--line); }
-  .hs__right { fill: var(--line); opacity: .55; }
+  /* Volum: fiecare strat își dă culorile — fața (--face) și capetele laturilor, de la cea mai întunecată la cea mai
+     luminată (--side-dark, --side-light). --t (0…1, calculat în heroStack3d.ts) spune cât e de întoarsă latura spre lumină. */
+  .hs__layer { --face: var(--surface-2); --side-dark: color-mix(in oklab, var(--line), var(--stack-shade) calc(var(--stack-sink) * 2)); --side-light: color-mix(in oklab, var(--line), var(--stack-hi) var(--stack-lift)); }
+  .hs__side { fill: color-mix(in oklab, var(--side-dark), var(--side-light) calc(var(--t) * 100%)); }
+  .hs__st--top-a { stop-color: color-mix(in oklab, var(--face), var(--stack-hi) var(--stack-lift)); }
+  .hs__st--top-b { stop-color: color-mix(in oklab, var(--face), var(--stack-shade) 4%); }
+  /* Straturile 2…4: conturul de sus subțire, ca în video, dar mai stins: volumul îl dau fețele. */
+  .hs__top { stroke: color-mix(in oklab, var(--muted), transparent 45%); stroke-width: 1; vector-effect: non-scaling-stroke; stroke-linejoin: round; }
+  /* Linia de lumină pe muchia de sus a laturilor vizibile, cu atât mai tare cu cât latura e mai luminată. */
+  .hs__bevel { fill: none; stroke: var(--stack-hi); stroke-opacity: calc(var(--stack-bevel) * var(--t)); stroke-width: 1.25; vector-effect: non-scaling-stroke; stroke-linecap: round; }
   /* Stratul 5: alb, cu muchie și laturi orange. */
-  .hs__layer--5 .hs__top { fill: var(--surface); stroke: var(--orange); stroke-width: 2; }
-  .hs__layer--5 .hs__left { fill: var(--orange); }
-  .hs__layer--5 .hs__right { fill: var(--orange); opacity: .55; }
-  /* Stratul 1, fundația: teal plin, laturi navy. */
-  .hs__layer--1 .hs__top { fill: var(--stack-base-top); stroke: none; }
-  .hs__layer--1 .hs__left { fill: var(--stack-base-left); }
-  .hs__layer--1 .hs__right { fill: var(--stack-base-right); opacity: 1; }
+  .hs__layer--5 { --face: var(--surface); --side-dark: color-mix(in oklab, var(--orange), var(--stack-shade) calc(var(--stack-sink) * 1.6)); --side-light: color-mix(in oklab, var(--orange), var(--stack-hi) calc(var(--stack-lift) * .6)); }
+  .hs__layer--5 .hs__top { stroke: var(--orange); stroke-width: 2; }
+  .hs__layer--5 .hs__bevel { display: none; }
+  /* Stratul 1, fundația: teal plin, laturi navy (latura din umbră e --stack-base-left, cea din lumină --stack-base-right). */
+  .hs__layer--1 { --face: var(--stack-base-top); --side-dark: var(--stack-base-left); --side-light: color-mix(in oklab, var(--stack-base-right), var(--stack-hi) 12%); }
+  .hs__layer--1 .hs__st--top-a { stop-color: color-mix(in oklab, var(--face), var(--stack-hi) 14%); }
+  .hs__layer--1 .hs__top { stroke: none; }
+  .hs__layer--1 .hs__bevel { stroke-opacity: calc(.35 * var(--t)); }
+  /* Umbrele aruncate: --a e intensitatea calculată din gol, --stack-shadow-a pe cea a temei. */
+  .hs__shadow-shape { fill: var(--stack-shade); fill-opacity: calc(var(--a) * var(--stack-shadow-a)); }
+  .hs__shadow { transform-box: fill-box; transform-origin: 50% 50%; }
 
   .hs__labels { list-style: none; margin: 0; padding: 0; position: absolute; inset: 0; pointer-events: none; }
   .hs__label { position: absolute; top: var(--ym, var(--y)); left: var(--art); translate: 0 -50%; font-size: var(--fs); line-height: 1.2; pointer-events: auto; }
@@ -139,33 +250,18 @@ const START = [0, 450, 1070, 1690, 2310];
      (WCAG 2.5.8; în proporțiile din video, 1 și 2 stau la 20 px). Diferența față de strat e de cel mult 3 px, iar liniuța lipsește aici. */
   @media (max-width: 479px) { .hs__label--3 { --ym: 53.2%; } .hs__label--2 { --ym: 66.6%; } .hs__label--1 { --ym: 80%; } }
 
-  /* 1. Încărcarea, o singură dată. */
-  @keyframes hs-drop { from { opacity: 0; transform: translateY(-45px); } to { opacity: 1; transform: none; } }
+  /* 1. Încărcarea, o singură dată. Placa aterizează cu o decelerare lungă (ease-out-quint, fără depășire), iar umbra ei de
+        dedesubt se strânge și se închide pe măsură ce placa se apropie. Opacitatea are curba ei, scurtă (100 ms), ca placa
+        să fie opacă înainte să ajungă peste cea de dedesubt: un obiect solid nu se vede prin el. */
+  @keyframes hs-drop { from { transform: translateY(-45px); } to { transform: none; } }
   @keyframes hs-fade { from { opacity: 0; } to { opacity: 1; } }
-  .hs:not(.is-ready) .hs__layer { animation: hs-drop 320ms cubic-bezier(.2, .7, .3, 1) var(--d) both; }
-  .hs:not(.is-ready) .hs__layer--1 { animation: hs-fade 300ms ease-out var(--d) both; }
+  @keyframes hs-shade-in { from { opacity: 0; transform: scale(1.3); } to { opacity: 1; transform: none; } }
+  .hs:not(.is-ready) .hs__layer { animation: hs-drop 360ms cubic-bezier(.22, 1, .36, 1) var(--d) both, hs-fade 100ms linear var(--d) both; }
+  .hs:not(.is-ready) .hs__shadow { animation: hs-shade-in 360ms cubic-bezier(.22, 1, .36, 1) var(--d) both; }
+  .hs:not(.is-ready) .hs__layer--1, .hs:not(.is-ready) .hs__shadow--1 { animation: hs-fade 300ms ease-out var(--d) both; }
   .hs:not(.is-ready) .hs__label { animation: hs-fade 200ms ease-out var(--d) both; }
 
-  /* 2. Bucla de la hover: ciclul de 7 s din video, rotit să înceapă cu demontarea (1 % = 70 ms).
-        Plecare: stratul n la (5 − n) × 100 ms, 200 ms. Sosire: la 1300 + (n − 2) × 620 ms, 320 ms; eticheta la +330 ms, 200 ms. */
-  @keyframes hs-c5 { 0% { opacity: 1; transform: none; animation-timing-function: ease-in; } 2.857% { opacity: 0; transform: translateY(-25px); } 45.143% { opacity: 0; transform: translateY(-45px); animation-timing-function: cubic-bezier(.2, .7, .3, 1); } 49.714%, 100% { opacity: 1; transform: none; } }
-  @keyframes hs-c4 { 0%, 1.429% { opacity: 1; transform: none; animation-timing-function: ease-in; } 4.286% { opacity: 0; transform: translateY(-25px); } 36.286% { opacity: 0; transform: translateY(-45px); animation-timing-function: cubic-bezier(.2, .7, .3, 1); } 40.857%, 100% { opacity: 1; transform: none; } }
-  @keyframes hs-c3 { 0%, 2.857% { opacity: 1; transform: none; animation-timing-function: ease-in; } 5.714% { opacity: 0; transform: translateY(-25px); } 27.429% { opacity: 0; transform: translateY(-45px); animation-timing-function: cubic-bezier(.2, .7, .3, 1); } 32%, 100% { opacity: 1; transform: none; } }
-  @keyframes hs-c2 { 0%, 4.286% { opacity: 1; transform: none; animation-timing-function: ease-in; } 7.143% { opacity: 0; transform: translateY(-25px); } 18.571% { opacity: 0; transform: translateY(-45px); animation-timing-function: cubic-bezier(.2, .7, .3, 1); } 23.143%, 100% { opacity: 1; transform: none; } }
-  @keyframes hs-e5 { 0% { opacity: 1; transform: none; animation-timing-function: ease-in; } 2.857% { opacity: 0; transform: translateY(-.75em); } 49.857% { opacity: 0; transform: none; animation-timing-function: ease-out; } 52.714%, 100% { opacity: 1; transform: none; } }
-  @keyframes hs-e4 { 0%, 1.429% { opacity: 1; transform: none; animation-timing-function: ease-in; } 4.286% { opacity: 0; transform: translateY(-.75em); } 41% { opacity: 0; transform: none; animation-timing-function: ease-out; } 43.857%, 100% { opacity: 1; transform: none; } }
-  @keyframes hs-e3 { 0%, 2.857% { opacity: 1; transform: none; animation-timing-function: ease-in; } 5.714% { opacity: 0; transform: translateY(-.75em); } 32.143% { opacity: 0; transform: none; animation-timing-function: ease-out; } 35%, 100% { opacity: 1; transform: none; } }
-  @keyframes hs-e2 { 0%, 4.286% { opacity: 1; transform: none; animation-timing-function: ease-in; } 7.143% { opacity: 0; transform: translateY(-.75em); } 23.286% { opacity: 0; transform: none; animation-timing-function: ease-out; } 26.143%, 100% { opacity: 1; transform: none; } }
-  .hs.is-cycling .hs__layer--5 { animation: hs-c5 7s linear both; }
-  .hs.is-cycling .hs__layer--4 { animation: hs-c4 7s linear both; }
-  .hs.is-cycling .hs__layer--3 { animation: hs-c3 7s linear both; }
-  .hs.is-cycling .hs__layer--2 { animation: hs-c2 7s linear both; }
-  .hs.is-cycling .hs__label--5 { animation: hs-e5 7s linear both; }
-  .hs.is-cycling .hs__label--4 { animation: hs-e4 7s linear both; }
-  .hs.is-cycling .hs__label--3 { animation: hs-e3 7s linear both; }
-  .hs.is-cycling .hs__label--2 { animation: hs-e2 7s linear both; }
-
   @media (prefers-reduced-motion: reduce) {
-    .hs .hs__layer, .hs .hs__label { animation: none !important; }
+    .hs .hs__layer, .hs .hs__shadow, .hs .hs__label { animation: none !important; }
   }
 </style>

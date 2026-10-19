@@ -56,7 +56,7 @@ Două familii, amândouă self-hosted (`@fontsource/barlow-condensed`, greutăț
 - Teal: cuvântul evidențiat, linkuri, butonul secundar, etichete, cercurile din Steps, iconițele.
 - Orange: butonul principal, de maximum trei ori pe pagină (header, hero, CtaBand). Excepția din 16 octombrie 2026 (cerută de Marius, după `ce-facem_01_animat.mp4`): stratul 5 din `HeroStack` și cifra lui sunt orange. Nodurile orange de pe spina fostului `HeroDiagram` au plecat odată cu el.
 - Semafor (`--ok/--warn/--crit`): doar în exemplul de raport din Radiografie și în stările formularelor.
-- Fără gradienturi nicăieri, nici pe hero-ul studiilor de caz.
+- Fără gradienturi nicăieri, nici pe hero-ul studiilor de caz. Excepția din 17 octombrie 2026 (cerută de Marius): nuanțarea fețelor din `HeroStack`, care dă volum plăcilor (§ HeroStack).
 
 ## Layout
 
@@ -93,7 +93,7 @@ Sub prag: hamburger, iar meniul mobil e un panou full-height cu aceleași linkur
 
 **Hero (homepage).** TwoCol pe `--bg`, de la 1200 px, cu HeroStack în dreapta: eyebrow, h1 `--fs-hero` cu accent, lead `--fs-lead` la 34em, un singur buton principal și, lângă el, un link terțiar (nu un al doilea buton-pastilă). Sub 1200 px, o coloană, cu HeroStack sub butoane (cel mult 560 px). Fără FactStrip dedesubt. Înălțimea e dată de conținut, nu de 100vh.
 
-**HeroStack** (16 octombrie 2026, înlocuiește HeroDiagram). Cinci straturi izometrice, după `ce-facem_01_animat.mp4`: romburi 2:1 în SVG inline, geometria din pixelii video-ului. Straturile 2…4: față `--surface-2`, contur 1 px `--muted`, laturi `--line`; stratul 5: față `--surface`, muchie 2 px și laturi `--orange`; fundația: tokenii `--stack-base-top` / `-left` / `-right`, aceiași în ambele teme. Etichetele sunt o listă ordonată de linkuri HTML, Public Sans (numele 600, cifra 500 `--teal`, la stratul 5 `--orange`), cu corpul legat de lățimea graficului (`3,1cqw`, între 14 și 19 px); nota „fundația” e `--muted`, minimum 12 px. Pe telefon (sub 480 px) desenul ia 42 % din lățime, liniuța dinaintea cifrei dispare, iar etichetele 1–3 se distanțează egal, ca linkurile să aibă 24 px între ele. Mișcarea e în § Mișcare. Graficul se aliniază pe verticală cu blocul de text.
+**HeroStack** (16 octombrie 2026, înlocuiește HeroDiagram). Cinci straturi izometrice, după `ce-facem_01_animat.mp4`: romburi 2:1 în SVG inline, geometria din pixelii video-ului. Din 20 octombrie 2026 (cerut de Marius) plăcile sunt pătrate într-o proiecție 3D calculată (`heroStack3d.ts`, aceeași la build și în browser), cu camera fixă la 30° deasupra orizontului, ca romburile să rămână 2:1, și se pot roti în jurul axei verticale (§ Mișcare). Straturile 2…4: față `--surface-2`, contur 1 px `--muted` (estompat la 55 %), laturi `--line`; stratul 5: față `--surface`, muchie 2 px și laturi `--orange`; fundația: tokenii `--stack-base-top` / `-left` / `-right`, aceiași în ambele teme. Volum (17 octombrie 2026, cerut de Marius): plăcile 2…5 au grosimea 18 / 18 / 18 / 20 de unități (în video 10–12); lumina vine din dreapta-sus, ca în video, deci fiecare față e nuanțată din culoarea ei cu `color-mix` spre `--stack-hi` sau `--stack-shade` (fața de sus mai deschisă spre spate-dreapta, cu un luciu legat de ecran; fiecare latură între o nuanță închisă și una deschisă, după cât e de întoarsă spre lumină, care stă pe loc când stiva se rotește), muchiile de sus ale laturilor au o linie de lumină, cu atât mai tare cu cât latura e mai luminată, iar fiecare placă aruncă pe cea de dedesubt o umbră difuză, deplasată spre stânga-față, cu atât mai slabă și mai difuză cu cât golul e mai mare; fundația are o umbră pe „podea”. Cât de tare se nuanțează și cât de întunecate sunt umbrele dau tokenii `--stack-lift`, `--stack-sink`, `--stack-shadow-a`, `--stack-bevel`, diferiți pe teme. Etichetele sunt o listă ordonată de linkuri HTML, Public Sans (numele 600, cifra 500 `--teal`, la stratul 5 `--orange`), cu corpul legat de lățimea graficului (`3,1cqw`, între 14 și 19 px); nota „fundația” e `--muted`, minimum 12 px. Pe telefon (sub 480 px) desenul ia 42 % din lățime, liniuța dinaintea cifrei dispare, iar etichetele 1–3 se distanțează egal, ca linkurile să aibă 24 px între ele. Mișcarea e în § Mișcare. Graficul se aliniază pe verticală cu blocul de text.
 
 **Hero (pagini interne).** O coloană pe `--bg`, aliniată la stânga: eyebrow, h1 `--fs-h1` cu accent, lead la 34em. `padding-block` de `--s-10` sus și `--s-9` jos. Fără fundal colorat. Despre: fără imagine, ca până acum.
 
@@ -137,7 +137,7 @@ Sub prag: hamburger, iar meniul mobil e un panou full-height cu aceleași linkur
 
 ## Mișcare
 
-Neschimbată: tranziții de 150 ms pe hover și focus, meniul mobil și panoul Servicii se deschid în 200 ms, nimic la scroll. Singura excepție e HeroStack: la încărcare, o singură dată, straturile cad pe rând (~2,8 s); cât timp mouse-ul stă pe desen, se repetă ciclul de 7 s din video, iar ciclul început se termină mereu. `prefers-reduced-motion` dezactivează tot.
+Neschimbată: tranziții de 150 ms pe hover și focus, meniul mobil și panoul Servicii se deschid în 200 ms, nimic la scroll. Singura excepție e HeroStack: la încărcare, o singură dată, straturile cad pe rând (~2,8 s), apoi stiva face o jumătate de tură (180°, 2,2 s, ease-in-out) și se oprește în aceeași poziție ca la început. Cu mouse-ul pe desen (fără clic), mișcarea pe orizontală rotește stiva, 0,5° pe pixel, cu inerție; pe ecran tactil, tragerea pe orizontală (derularea pe verticală rămâne a paginii). Când mouse-ul pleacă, stiva se întoarce la cea mai apropiată poziție de repaus (pătratul arată la fel la fiecare 90°). Ciclul din video de la hover (demontare și reconstruire, 7 s) a fost înlocuit de rotație pe 20 octombrie 2026. Plăcile aterizează cu o decelerare lungă, fără depășire (curbă `cubic-bezier(.22, 1, .36, 1)`, ease-out-quint) și sunt opace pe aproape tot drumul (apar în 100 ms, dispar doar în ultimele 80 ms ale plecării), ca să nu se vadă prin ele; umbra fiecăreia se strânge și se închide când placa aterizează și se lărgește și se stinge când pleacă. `prefers-reduced-motion` dezactivează tot.
 
 ## Accesibilitate
 
@@ -145,15 +145,15 @@ Contrast AA peste tot; se verifică, în ambele teme, textul `--teal` pe `--surf
 
 ## Ce nu facem
 
-- Gradienturi (nici pe hero-ul studiilor de caz), glassmorphism, glow, blob-uri, rețele de puncte, particule.
-- Umbre pe carduri. Umbra apare doar pe panoul Servicii, pe meniul mobil și pe bannerul de consimțământ, și numai în light.
+- Gradienturi (nici pe hero-ul studiilor de caz), glassmorphism, glow, blob-uri, rețele de puncte, particule. Excepția: fețele plăcilor din `HeroStack`.
+- Umbre pe carduri. Umbra apare doar pe panoul Servicii, pe meniul mobil și pe bannerul de consimțământ, și numai în light. Umbrele aruncate dintre plăcile din `HeroStack` țin de desen, nu de interfață, și apar în ambele teme.
 - Raze în afara celor patru din tokeni.
 - Mai mult de două fonturi. Mono-ul iese din proiect.
 - Majuscule scrise în textul sursă. Vin numai din CSS, numai pe display și pe etichete.
 - Mai mult de un cuvânt evidențiat pe titlu, sau evidențieri în alte culori decât teal.
 - Două butoane-pastilă unul lângă altul. Al doilea e mereu link terțiar.
 - Blocuri vizuale goale, mockup-uri generate, imagini de stoc cu oameni.
-- Carusele, contoare animate, animații la scroll, hover cu mărire sau cu mișcare.
+- Carusele, contoare animate, animații la scroll, hover cu mărire sau cu mișcare. Excepția (20 octombrie 2026, cerută de Marius): rotația lui `HeroStack` sub mouse, care e manipulare directă a desenului, nu efect de hover.
 - Emoji, steaguri la comutatorul de limbă, redirecționare automată după limbă.
 - Dark mode cu negru pur sau gri neutru.
 
