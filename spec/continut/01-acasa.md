@@ -11,15 +11,15 @@
 
 Aliniat la stânga, pe `--bg`. Fără fotografie, fără rând de încredere, fără eyebrow.
 
-Notă pentru Claude Code: de la 1200 px, două coloane — textul în stânga, graficul `HeroStack` în dreapta (DESIGN.md § HeroStack); de la 1360 px, hero-ul trece pe containerul lat, cu marginea stângă păstrată aliniată. Sub 1200 px, o coloană, cu graficul sub butoane, cel mult 560 px lat. Graficul (cerut de Marius pe 16 octombrie 2026, după `ce-facem_01_animat.mp4`) e o stivă de cinci straturi izometrice, cu fundația teal jos și stratul 5 alb cu muchie orange sus, fiecare cu eticheta lui numerotată în dreapta. Din 17 octombrie 2026 plăcile au volum: grosime, fețe nuanțate după o lumină din dreapta-sus și umbre aruncate una pe alta. Înlocuiește graficul „De la fragmentare / La progres”.
+Notă pentru Claude Code: de la 1200 px, două coloane — textul în stânga, graficul `HeroStack` în dreapta (DESIGN.md § HeroStack); de la 1360 px, hero-ul trece pe containerul lat, cu marginea stângă păstrată aliniată. Sub 1200 px, o coloană, cu graficul sub butoane, centrat, cel mult 420 px lat. Graficul e o stivă de cinci plăci izometrice, cu fundația închisă jos și stratul 5 alb cu muchie orange sus, fiecare cu iconița serviciului; numele serviciului apare doar pe placa activă, deasupra iconiței ridicate. Din 25 octombrie 2026 e modelul generat de Marius, care înlocuiește complet variantele anterioare (stiva după `ce-facem_01_animat.mp4` din 16 octombrie, cu volum din 17 și rotație 3D din 20). Înlocuiește graficul „De la fragmentare / La progres”.
 
-Notă pentru Claude Code: la încărcare, o singură dată, fundația apare și straturile 2…5 cad pe rând (~2,8 s). Apoi stiva face o jumătate de tură (180°) și se oprește în poziția de la început. Cu mouse-ul pe desen, mișcarea pe orizontală rotește stiva; pe telefon, tragerea cu degetul pe orizontală. Când mouse-ul pleacă, stiva revine în repaus (din 20 octombrie 2026, în locul ciclului din video de la hover). Textul paginii nu depinde de mișcare: cu `prefers-reduced-motion` stiva apare direct întreagă.
+Notă pentru Claude Code: când mouse-ul stă pe o placă (sau eticheta ei are focus), placa iese în față cu iconița ridicată și eticheta deasupra, iar celelalte se depărtează în sus și în jos. Pe ecran tactil, prima atingere pe o placă arată eticheta, a doua deschide linkul. În repaus se vede doar iconița de pe stratul 5. La încărcare, o singură dată, plăcile cad pe rând una peste alta (~2,7 s), apoi stiva face o tură completă (360°) și se oprește cum a început. Trasă cu mouse-ul sau cu degetul pe orizontală, stiva se rotește; la eliberare revine în repaus. Textul paginii nu depinde de mișcare: cu `prefers-reduced-motion` stiva apare direct întreagă, fără rotație, iar stările se schimbă fără tranziție.
 
 Notă pentru Claude Code: fiecare etichetă e link către pagina serviciului ei — `Securitate cibernetică` → `/servicii/securitate`, `Infrastructură` → `/servicii/suport-it`, `Dezvoltare software` → `/servicii/automatizari#software`, `Automatizări` → `/servicii/automatizari`, `Agenți AI` → `/servicii/automatizari`.
 
-Notă pentru Claude Code: etichetele sunt cele din video, de jos în sus; sub stratul 1 stă nota „fundația”.
+Notă pentru Claude Code: etichetele, de jos în sus. Doar numele, fără cifră și fără descriere; la fundație, „— fundația” după nume (25 octombrie 2026, cerut de Marius).
 
-`Securitate cibernetică` (fundația) · `Infrastructură` · `Dezvoltare software` · `Automatizări` · `Agenți AI`
+`Securitate cibernetică — fundația` · `Infrastructură` · `Dezvoltare software` · `Automatizări` · `Agenți AI`
 
 Notă pentru Claude Code: eticheta pentru cititoarele de ecran (`aria-label` pe lista de etichete) e „Securitatea stă la baza fiecărui serviciu”, titlul din video; desenul e decorativ.
 

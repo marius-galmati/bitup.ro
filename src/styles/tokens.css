@@ -67,19 +67,14 @@
   --on-navy-accent: #7CC4C7;  /* cuvântul evidențiat din titlu, pe navy */
   --logo-ink: #00202E;
   --logo-accent: #20686C;
-  /* fundația din HeroStack (stratul 1), culorile din ce-facem_01_animat.mp4; aceleași în ambele teme */
-  --stack-base-top: #1B616B;
-  --stack-base-left: #00202E;
-  --stack-base-right: #2C4653;
-  /* lumina și umbra din HeroStack (16 octombrie 2026): lumina vine din dreapta-sus, ca în video. Fețele se nuanțează din
-     culoarea lor cu color-mix spre --stack-hi (cât spune --stack-lift) sau spre --stack-shade (cât spune --stack-sink);
-     umbrele aruncate sunt --stack-shade la --stack-shadow-a. Muchia luminată e --stack-hi la --stack-bevel. */
-  --stack-hi: #FFFFFF;
+  /* HeroStack (modelul din 25 octombrie 2026): fundația (culorile din model; în dark, o treaptă mai deschise) și umbrele plăcilor */
+  --stack-base-top: #1E3A45;
+  --stack-base-left: #0F2229;
+  --stack-base-right: #172F38;
+  --stack-base-edge: #162E37;
   --stack-shade: #00202E;
-  --stack-lift: 55%;
-  --stack-sink: 14%;
-  --stack-shadow-a: .2;
-  --stack-bevel: .9;
+  --stack-shadow-ambient: .12;
+  --stack-shadow-base: .25;
 
   color-scheme: light;
 }
@@ -106,7 +101,7 @@
   --orange: #FE982A;
   --ok: #4CAF82; --warn: #E0983A; --crit: #E06A54;
   --shadow: none;
-  --stack-lift: 9%; --stack-sink: 24%; --stack-shadow-a: .55; --stack-bevel: .22;
+  --stack-shadow-ambient: .4; --stack-shadow-base: .5; --stack-base-top: #28525F; --stack-base-left: #143640; --stack-base-right: #1D424E; --stack-base-edge: #346674;
   color-scheme: dark;
 }
 
@@ -133,7 +128,7 @@
     --orange: #FE982A;
     --ok: #4CAF82; --warn: #E0983A; --crit: #E06A54;
     --shadow: none;
-    --stack-lift: 9%; --stack-sink: 24%; --stack-shadow-a: .55; --stack-bevel: .22;
+    --stack-shadow-ambient: .4; --stack-shadow-base: .5; --stack-base-top: #28525F; --stack-base-left: #143640; --stack-base-right: #1D424E; --stack-base-edge: #346674;
     color-scheme: dark;
   }
 }

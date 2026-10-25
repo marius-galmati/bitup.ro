@@ -79,7 +79,8 @@ export default defineConfig({
       filter: (page) => !/\/(404|multumesc|en\/thank-you|qa|echipa|en\/team)(\/|$)/.test(page),
     }),
     // Doar setul `lucide`, maximum 16 iconițe în tot site-ul (DESIGN.md § Imagini și grafică, 26 sept. 2026).
-    // Lista crește pe măsură ce sunt folosite: sun/moon la comutatorul de temă, celelalte trei în panoul „Servicii”.
-    icon({ include: { lucide: ['sun', 'moon', 'headset', 'scan-eye', 'workflow'] } }),
+    // Lista crește pe măsură ce sunt folosite: sun/moon la comutatorul de temă, headset / scan-eye / workflow în panoul
+    // „Servicii”, shield / cloud / code-xml / zap / sparkles pe plăcile din HeroStack (modelul lui Marius, 25 oct. 2026).
+    icon({ include: { lucide: ['sun', 'moon', 'headset', 'scan-eye', 'workflow', 'shield', 'cloud', 'code-xml', 'zap', 'sparkles'] } }),
   ],
 });

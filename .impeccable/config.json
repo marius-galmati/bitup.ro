@@ -1,0 +1,14 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "bounce-easing",
+        "value": "cubic-bezier(.34, 1.56, .64, 1)",
+        "createdAt": "2026-10-24T23:00:56.105Z",
+        "reason": "Marius supplied the HeroStack model (2026-10-25) and asked to replace the graphic with it; this is the model's icon-lift easing, ported as-is"
+      }
+    ]
+  }
+}
