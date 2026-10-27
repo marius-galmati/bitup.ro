@@ -1,0 +1,20 @@
+{
+  "url": "http://localhost:4321/",
+  "performance": 97,
+  "accessibility": 100,
+  "bestPractices": 100,
+  "seo": 63,
+  "lcp": "1.7 s",
+  "cls": "0",
+  "tbt": "190 ms",
+  "transferKiB": 133,
+  "failed": [
+    "first-contentful-paint: First Contentful Paint",
+    "largest-contentful-paint: Largest Contentful Paint",
+    "total-blocking-time: Total Blocking Time",
+    "max-potential-fid: Max Potential First Input Delay",
+    "is-crawlable: Page is blocked from indexing",
+    "network-dependency-tree-insight: Network dependency tree",
+    "render-blocking-insight: Render-blocking requests"
+  ]
+}

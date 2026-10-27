@@ -5,10 +5,12 @@
 phase=$1; shift
 "/c/Program Files/Google/Chrome/Application/chrome.exe" --headless=new --remote-debugging-port=9222 --user-data-dir="$LOCALAPPDATA/Temp/claude-chrome-profile" about:blank >/dev/null 2>&1 &
 sleep 3
+# PID-ul Windows al procesului Chrome cu profilul de test (nu al Chrome-ului deschis de utilizator).
+chrome_pid=$(powershell -NoProfile -Command "(Get-CimInstance Win32_Process -Filter \"Name='chrome.exe'\" | Where-Object { \$_.CommandLine -like '*claude-chrome-profile*' -and \$_.CommandLine -notlike '*--type=*' } | Select-Object -First 1).ProcessId")
 for p in "$@"; do
   name=$(echo "$p" | sed 's#^/##; s#/#_#g'); [ -z "$name" ] && name=index
   out="qa/$phase/lighthouse-$name-mobile"
-  npx lighthouse "http://localhost:4321/$p" --port=9222 --output=json --output-path="$out.json" --quiet --form-factor=mobile --screenEmulation.mobile --throttling-method=simulate >/dev/null 2>&1
+  npx lighthouse "http://localhost:4321/${p#/}" --port=9222 --output=json --output-path="$out.json" --quiet --form-factor=mobile --screenEmulation.mobile --throttling-method=simulate >/dev/null 2>&1
   node -e "
     const r=require('./$out.json'); const c=r.categories, a=r.audits;
     const s={url:r.finalDisplayedUrl, performance:Math.round(c.performance.score*100), accessibility:Math.round(c.accessibility.score*100), bestPractices:Math.round(c['best-practices'].score*100), seo:Math.round(c.seo.score*100),
@@ -18,4 +20,5 @@ for p in "$@"; do
   "
   rm -f "$out.json"
 done
-taskkill //F //IM chrome.exe >/dev/null 2>&1
+# Doar Chrome-ul pornit mai sus (cu procesele lui copil). Înainte: `taskkill //IM chrome.exe` închidea orice Chrome deschis.
+[ -n "$chrome_pid" ] && taskkill //F //T //PID "$chrome_pid" >/dev/null 2>&1

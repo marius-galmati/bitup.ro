@@ -48,12 +48,27 @@ pairs += [
     ('cifră-cheie portocalie pe suprafața închisă', orange, surface_dark, TEXT),
     ('conturul butonului secundar, deschis: bleumarin pe alb', navy, white, UI),
     ('conturul butonului secundar, închis: alb pe bleumarin', white, navy, UI),
+    # Câmpurile de formular: contur slate (Marius, 28 octombrie 2026; WCAG 1.4.11).
+    ('conturul câmpului, deschis: slate pe alb', slate, white, UI),
+    ('conturul câmpului, închis: text secundar pe bleumarin', muted_dark, navy, UI),
+]
+# Stiva din hero (blocul HeroStack din global.css): eticheta plăcii active și iconițele.
+hs_glyph_base = mix(teal_l, white, 0.76)
+pairs += [
+    ('stiva, deschis: eticheta (bleumarin pe alb)', navy, white, TEXT),
+    ('stiva, deschis: „· fundația” pe alb', mix(navy, white, 0.67), white, TEXT),
+    ('stiva, deschis: iconița teal pe alb', teal, white, UI),
+    ('stiva, deschis: iconița fundației pe discul ei', hs_glyph_base, mix(teal, navy, 0.44), UI),
+    ('stiva, închis: eticheta pe suprafață', mix(teal, fog, 0.05), surface_dark, TEXT),
+    ('stiva, închis: „· fundația” pe suprafață', mix(mix(navy, line, 0.24), teal_l, 0.88), surface_dark, TEXT),
+    ('stiva, închis: iconița teal pe suprafață', mix(teal_l, white, 0.94), surface_dark, UI),
+    ('stiva, închis: iconița fundației pe discul ei', hs_glyph_base, mix(teal, navy, 0.89), UI),
 ]
 # De urmărit, nu blocante: componente.md cere aceste valori; informația e purtată de text, nu de ele.
 notes = [
-    ('conturul câmpului (--color-border) pe alb', line, white),
-    ('conturul câmpului, închis (teal 45 % + bleumarin) pe bleumarin', mix(teal, navy, 0.45), navy),
     ('bara portocalie a erorii pe alb', orange, white),
+    # Iconița stratului 5 din stivă: portocaliu pe disc alb, exact ca pe bitup.ro (decorativă, aria-hidden; numele e în etichetă).
+    ('stiva, deschis: iconița portocalie a stratului 5 pe alb', orange, white),
 ]
 
 fail = 0
