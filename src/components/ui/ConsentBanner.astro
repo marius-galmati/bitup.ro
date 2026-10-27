@@ -2,8 +2,8 @@
 /**
  * Bannerul de cookie-uri (spec-tehnica § 7): „Accept” și „Refuz” egale ca vizibilitate (două butoane secundare identice),
  * link spre politica de cookie-uri. Pe mobil, toată lățimea, jos; de la 768 px, casetă în colțul din dreapta jos.
- * Fundal --color-bg, contur 1 px, rază 2 px, fără umbră. Logica (Consent Mode v2, GA4 după acord) se leagă în faza 2.
- * `inline` îl afișează în flux, pentru /styleguide.
+ * Fundal --color-bg, contur 1 px, rază 2 px, fără umbră. Logica (Consent Mode v2, GA4 doar după acord): src/scripts/consent.ts.
+ * `inline` îl afișează în flux, pentru /styleguide (fără logică: butoanele de acolo nu schimbă nimic).
  */
 import Button from './Button.astro';
 import { t, localePath, type Locale } from '../../i18n';
@@ -11,14 +11,19 @@ interface Props { lang: Locale; visible?: boolean; inline?: boolean }
 const { lang, visible = false, inline = false } = Astro.props;
 const c = t(lang).consent;
 ---
-<div class:list={['consent', inline && 'consent--inline']} role="region" aria-label={c.regionLabel} tabindex="-1" data-consent-banner hidden={!visible}>
+<div class:list={['consent', inline && 'consent--inline']} role="region" aria-label={c.regionLabel} tabindex="-1" data-consent-banner={inline ? undefined : ''} hidden={!visible}>
   <p class="consent__title">{c.title}</p>
   <p class="consent__text">{c.text} <a href={localePath('cookies', lang)}>{c.linkLabel}</a></p>
   <div class="consent__actions">
-    <Button variant="secondary" arrow={false} data-consent="accept">{c.accept}</Button>
-    <Button variant="secondary" arrow={false} data-consent="decline">{c.decline}</Button>
+    <Button variant="secondary" arrow={false} data-consent={inline ? undefined : 'accept'}>{c.accept}</Button>
+    <Button variant="secondary" arrow={false} data-consent={inline ? undefined : 'decline'}>{c.decline}</Button>
   </div>
 </div>
+
+<script>
+  // Fără efect pentru varianta `inline` (nu are data-consent-banner).
+  import '../../scripts/consent';
+</script>
 
 <style>
   .consent {

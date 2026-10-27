@@ -1,0 +1,107 @@
+---
+/**
+ * Subsolul (componente.md § Subsol): fundal bleumarin (contextul `.on-navy`), logo negativ, coloane cu linkuri teal deschis,
+ * datele de contact (doar „Cluj-Napoca”, copy.md § Adresa publică), suportul pentru clienții existenți (helpdesk și WhatsApp),
+ * partenerii doar ca text, linkurile legale și butonul care redeschide bannerul de cookie-uri.
+ * Fără „Straturile”: elementul stă în banda de îndemn de deasupra (cel mult unul pe compoziție).
+ */
+import Logo from '../ui/Logo.astro';
+import Container from '../ui/Container.astro';
+import { t, localePath, type Locale, type RouteKey } from '../../i18n';
+import { services } from '../../lib/services';
+import { site } from '../../lib/site';
+
+interface Props { lang: Locale }
+const { lang } = Astro.props;
+const d = t(lang);
+const f = d.footer;
+const company: { label: string; key: RouteKey }[] = [
+  { label: d.nav.projects, key: 'projects' },
+  { label: d.nav.nis2, key: 'nis2' },
+  { label: d.nav.cloud, key: 'cloud' },
+  { label: d.nav.about, key: 'about' },
+  { label: d.nav.blog, key: 'blog' },
+  { label: d.nav.contact, key: 'contact' },
+];
+const helpdeskHost = new URL(site.helpdesk).host;
+const year = new Date().getFullYear();
+---
+<footer class="footer on-navy">
+  <Container class="footer__inner">
+    <div class="footer__brand">
+      <Logo href={localePath('home', lang)} label={d.logoAlt} id="logo-subsol" />
+      <p class="footer__city">{site.city}</p>
+    </div>
+
+    <nav class="footer__col" aria-labelledby="subsol-servicii">
+      <h2 id="subsol-servicii" class="footer__title">{f.services}</h2>
+      <ul role="list">{services(lang).map((s) => <li><a href={localePath(s.key, lang)}>{s.name}</a></li>)}</ul>
+    </nav>
+
+    <nav class="footer__col" aria-labelledby="subsol-companie">
+      <h2 id="subsol-companie" class="footer__title">{f.company}</h2>
+      <ul role="list">{company.map((l) => <li><a href={localePath(l.key, lang)}>{l.label}</a></li>)}</ul>
+    </nav>
+
+    <div class="footer__col">
+      <h2 class="footer__title">{f.contact}</h2>
+      <ul role="list">
+        <li><a href={site.phone.href} class="nowrap">{site.phone.display}</a></li>
+        <li><a href={site.emailHref}>{site.email}</a></li>
+        <li><a href={site.linkedin} rel="noopener">LinkedIn</a></li>
+      </ul>
+      <h2 class="footer__title footer__title--next">{f.clients}</h2>
+      <ul role="list">
+        <li><a href={site.helpdesk} rel="noopener">{f.helpdesk}: {helpdeskHost}</a></li>
+        <li><a href={site.whatsapp.href} rel="noopener">{f.whatsapp}: <span class="nowrap">{site.whatsapp.display}</span></a></li>
+      </ul>
+    </div>
+  </Container>
+
+  <Container>
+    <div class="footer__bottom">
+    <p class="footer__partners"><span class="visually-hidden">{f.partners}: </span>{site.partners[lang].join(' · ')}</p>
+    <nav aria-label={f.legalAria}>
+      <ul class="footer__legal" role="list">
+        <li><a href={localePath('terms', lang)}>{f.terms}</a></li>
+        <li><a href={localePath('privacy', lang)}>{f.privacy}</a></li>
+        <li><a href={localePath('cookies', lang)}>{f.cookies}</a></li>
+        <li><button type="button" class="footer__cookie-btn" data-consent-open>{f.cookieSettings}</button></li>
+      </ul>
+    </nav>
+    <p class="footer__copy">© {year} {site.name}</p>
+    </div>
+  </Container>
+</footer>
+
+<style>
+  .footer { padding-block: var(--section-y) var(--space-5); border-top: var(--border-width) solid var(--color-border); }
+  .footer :global(.footer__inner) { display: grid; gap: var(--space-5); }
+  .footer__city { margin-top: var(--space-3); color: var(--color-text-muted); font-size: var(--fs-small); }
+  .footer__title { font-size: var(--fs-label); font-weight: var(--fw-semibold); letter-spacing: var(--ls-label); text-transform: uppercase; line-height: var(--lh-small); color: var(--color-text-muted); margin-bottom: var(--space-3); }
+  .footer__title--next { margin-top: var(--space-5); }
+  .footer__col ul { display: grid; gap: var(--space-2); }
+  .footer a { color: var(--color-link); }
+  .footer__col a { text-decoration: none; }
+  .footer__col a:hover { text-decoration: underline; }
+
+  .footer__bottom {
+    display: grid; gap: var(--space-3); margin-top: var(--space-6); padding-top: var(--space-4);
+    border-top: var(--border-width) solid var(--color-border); font-size: var(--fs-small); color: var(--color-text-muted);
+  }
+  .footer__legal { display: flex; flex-wrap: wrap; gap: var(--space-2) var(--space-4); }
+  .footer__cookie-btn {
+    background: none; border: 0; padding: 0; color: var(--color-link); font-size: inherit;
+    text-decoration: underline; text-decoration-thickness: var(--border-width); text-underline-offset: 0.2em;
+  }
+  .footer__cookie-btn:hover { text-decoration-thickness: var(--rule-strong); }
+
+  @media (min-width: 768px) {
+    .footer :global(.footer__inner) { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  @media (min-width: 1024px) {
+    .footer :global(.footer__inner) { grid-template-columns: 1.2fr 1fr 1fr 1.3fr; gap: var(--space-6); }
+    .footer__bottom { grid-template-columns: 1fr auto; align-items: center; }
+    .footer__copy { grid-column: 1 / -1; }
+  }
+</style>

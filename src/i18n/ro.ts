@@ -16,6 +16,46 @@ export const ro = {
 
   breadcrumb: { ariaLabel: 'Ești aici', home: 'Acasă' },
 
+  /** Antetul (componente.md § Antet; brief § 5: Servicii · Proiecte · NIS2 · Despre · Blog · Contact, plus butonul principal). */
+  nav: {
+    ariaLabel: 'Navigația principală',
+    services: 'Servicii',
+    projects: 'Proiecte',
+    nis2: 'NIS2',
+    about: 'Despre',
+    blog: 'Blog',
+    contact: 'Contact',
+    allServices: 'Toate serviciile',
+    cloud: 'BitUp Cloud',
+    cta: 'Scrie-ne problema',
+    menuOpen: 'Deschide meniul',
+    menuClose: 'Închide meniul',
+    menu: 'Meniu',
+  },
+
+  footer: {
+    services: 'Servicii',
+    company: 'Companie',
+    contact: 'Contact',
+    clients: 'Pentru clienții existenți',
+    helpdesk: 'Helpdesk',
+    whatsapp: 'WhatsApp suport',
+    partners: 'Parteneri',
+    legalAria: 'Informații legale',
+    terms: 'Termeni',
+    privacy: 'Confidențialitate',
+    cookies: 'Cookie-uri',
+    cookieSettings: 'Setări cookie-uri',
+  },
+
+  notFound: {
+    title: 'Pagina nu există',
+    text: 'Adresa nu duce la nicio pagină de pe site. Poate a fost mutată sau are o greșeală de scriere.',
+    home: 'Mergi la pagina principală',
+    services: 'Vezi serviciile',
+    contact: 'Scrie-ne',
+  },
+
   /** Cele 5 straturi din diagramă (copy.md § Serviciile, ca straturi), de jos în sus, plus al șaselea serviciu. */
   layers: {
     ariaLabel: 'Serviciile BitUp, ca straturi peste fundația de securitate',

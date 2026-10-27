@@ -1,0 +1,35 @@
+---
+/**
+ * 404 (planul fazei 2). Română, cu o frază în engleză pentru cine vine de pe /en. noindex, fără hreflang.
+ * nginx servește dist/404.html pentru orice adresă inexistentă.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Section from '../components/ui/Section.astro';
+import Label from '../components/ui/Label.astro';
+import Button from '../components/ui/Button.astro';
+import { t, localePath } from '../i18n';
+const lang = 'ro';
+const d = t(lang).notFound;
+const en = t('en').notFound;
+---
+<BaseLayout lang={lang} title={`${d.title} · BitUp Technology`} description={d.text} path="/404" noindex noAlternates>
+  <Section tone="white" labelledby="titlu-404">
+    <div class="nf">
+      <Label>404</Label>
+      <h1 id="titlu-404">{d.title}</h1>
+      <p class="measure">{d.text}</p>
+      <div class="nf__actions">
+        <Button href={localePath('home', lang)}>{d.home}</Button>
+        <Button href={localePath('services', lang)} variant="secondary">{d.services}</Button>
+        <Button href={localePath('contact', lang)} variant="tertiary">{d.contact}</Button>
+      </div>
+      <p class="nf__en small muted" lang="en">{en.title}. <a href={localePath('home', 'en')}>{en.home}</a></p>
+    </div>
+  </Section>
+</BaseLayout>
+
+<style>
+  .nf { display: grid; gap: var(--gap-title-text); justify-items: start; padding-block: var(--space-6); }
+  .nf__actions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-3) var(--space-4); margin-top: var(--space-4); }
+  .nf__en { margin-top: var(--space-5); }
+</style>

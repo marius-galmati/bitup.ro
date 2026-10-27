@@ -16,6 +16,45 @@ export const en: typeof ro = {
 
   breadcrumb: { ariaLabel: 'You are here', home: 'Home' },
 
+  nav: {
+    ariaLabel: 'Main navigation',
+    services: 'Services',
+    projects: 'Projects',
+    nis2: 'NIS2',
+    about: 'About',
+    blog: 'Blog',
+    contact: 'Contact',
+    allServices: 'All services',
+    cloud: 'BitUp Cloud',
+    cta: 'Tell us the problem',
+    menuOpen: 'Open the menu',
+    menuClose: 'Close the menu',
+    menu: 'Menu',
+  },
+
+  footer: {
+    services: 'Services',
+    company: 'Company',
+    contact: 'Contact',
+    clients: 'For existing clients',
+    helpdesk: 'Helpdesk',
+    whatsapp: 'WhatsApp support',
+    partners: 'Partners',
+    legalAria: 'Legal information',
+    terms: 'Terms',
+    privacy: 'Privacy',
+    cookies: 'Cookies',
+    cookieSettings: 'Cookie settings',
+  },
+
+  notFound: {
+    title: 'This page does not exist',
+    text: 'The address does not lead to any page on the site. It may have moved, or it may contain a typo.',
+    home: 'Go to the home page',
+    services: 'See the services',
+    contact: 'Write to us',
+  },
+
   layers: {
     ariaLabel: 'BitUp services, as layers on a security foundation',
     items: ['Cybersecurity', 'Infrastructure', 'Software development', 'Automation', 'AI agents'],

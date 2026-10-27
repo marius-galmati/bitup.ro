@@ -3,13 +3,17 @@
  * BaseLayout (docs/spec-tehnica.md § 4, § 5, § 8).
  * <html lang>, title/description, canonical, hreflang (ro, en, x-default), Open Graph, JSON-LD Organization + ProfessionalService,
  * scriptul de temă (înainte de randare, fără pâlpâire), preîncărcarea fonturilor 400 și 600, skip-link și <main>.
- * Antetul și subsolul intră în faza 2, prin sloturile `header` și `footer`.
+ * Antetul, subsolul și bannerul de cookie-uri se pun implicit; o pagină care umple slotul `header` sau `footer` (ca
+ * /styleguide) le înlocuiește, iar `consent={false}` scoate bannerul.
  */
 import '../styles/global.css';
 import plexRegular from '../../brand/fonts/IBMPlexSans-Regular.woff2?url';
 import plexSemiBold from '../../brand/fonts/IBMPlexSans-SemiBold.woff2?url';
 import tokens from '../../brand/brand-tokens.json';
 
+import Header from '../components/layout/Header.astro';
+import Footer from '../components/layout/Footer.astro';
+import ConsentBanner from '../components/ui/ConsentBanner.astro';
 import { t, routes, absoluteUrl, type Locale, type RouteKey } from '../i18n';
 import { baseGraph } from '../lib/schema';
 import { site } from '../lib/site';
@@ -29,8 +33,10 @@ interface Props {
   jsonLd?: Record<string, unknown>[];
   ogType?: 'website' | 'article';
   rss?: string;
+  /** Bannerul de cookie-uri (implicit da). */
+  consent?: boolean;
 }
-const { lang, title, description, routeKey, path, altPath, noindex = false, noAlternates = false, jsonLd = [], ogType = 'website', rss } = Astro.props;
+const { lang, title, description, routeKey, path, altPath, noindex = false, noAlternates = false, jsonLd = [], ogType = 'website', rss, consent = true } = Astro.props;
 
 const dict = t(lang);
 const other: Locale = lang === 'ro' ? 'en' : 'ro';
@@ -90,10 +96,11 @@ const themeDark = tokens.colors.primary.hex;
   </head>
   <body>
     <a class="skip-link" href="#continut">{dict.skipLink}</a>
-    <slot name="header" />
+    {Astro.slots.has('header') ? <slot name="header" /> : <Header lang={lang} altHref={pairPath} currentKey={routeKey ?? null} />}
     <main id="continut" tabindex="-1">
       <slot />
     </main>
-    <slot name="footer" />
+    {Astro.slots.has('footer') ? <slot name="footer" /> : <Footer lang={lang} />}
+    {consent && <ConsentBanner lang={lang} />}
   </body>
 </html>
