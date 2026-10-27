@@ -16,7 +16,7 @@ export function organization(locale: Locale) {
     name: site.legalName,
     alternateName: site.name,
     url: `${site.url}/`,
-    logo: `${site.url}/logo-bitup.png`,
+    logo: `${site.url}/icon-512.png`,
     telephone: site.phone.e164,
     email: site.email,
     sameAs: [site.linkedin],
@@ -43,7 +43,7 @@ export function professionalService(locale: Locale) {
     url: `${site.url}/`,
     telephone: site.phone.e164,
     email: site.email,
-    image: `${site.url}/logo-bitup.png`,
+    image: `${site.url}/icon-512.png`,
     parentOrganization: { '@id': ORG_ID },
     address: {
       '@type': 'PostalAddress',

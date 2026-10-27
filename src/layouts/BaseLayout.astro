@@ -1,45 +1,33 @@
 ---
 /**
- * BaseLayout (PLAN Faza 1, ARHITECTURA § Limbi, § SEO, § Dark mode).
- * Primește limba și cheia rutei; setează <html lang>, title/description, canonical, hreflang (ro, en, x-default), Open Graph,
- * JSON-LD Organization + ProfessionalService (plus ce dă pagina), scriptul de temă, skip-link, header, <main>, footer, ConsentBanner.
+ * BaseLayout (docs/spec-tehnica.md § 4, § 5, § 8).
+ * <html lang>, title/description, canonical, hreflang (ro, en, x-default), Open Graph, JSON-LD Organization + ProfessionalService,
+ * scriptul de temă (înainte de randare, fără pâlpâire), preîncărcarea fonturilor 400 și 600, skip-link și <main>.
+ * Antetul și subsolul intră în faza 2, prin sloturile `header` și `footer`.
  */
-import '@fontsource-variable/public-sans/wght.css';
-// Barlow Condensed, doar cele două greutăți și cele două subseturi din DESIGN § Tipografie.
-// Fișierele se aleg prin `unicode-range`, deci paginile EN nu descarcă latin-ext decât dacă întâlnesc diacritice.
-import '@fontsource/barlow-condensed/latin-300.css';
-import '@fontsource/barlow-condensed/latin-ext-300.css';
-import '@fontsource/barlow-condensed/latin-700.css';
-import '@fontsource/barlow-condensed/latin-ext-700.css';
-import '../styles/tokens.css';
-import '../styles/base.css';
-import fontLatin from '@fontsource-variable/public-sans/files/public-sans-latin-wght-normal.woff2?url';
-import fontLatinExt from '@fontsource-variable/public-sans/files/public-sans-latin-ext-wght-normal.woff2?url';
-import displayLatin from '@fontsource/barlow-condensed/files/barlow-condensed-latin-700-normal.woff2?url';
-import displayLatinExt from '@fontsource/barlow-condensed/files/barlow-condensed-latin-ext-700-normal.woff2?url';
+import '../styles/global.css';
+import plexRegular from '../../brand/fonts/IBMPlexSans-Regular.woff2?url';
+import plexSemiBold from '../../brand/fonts/IBMPlexSans-SemiBold.woff2?url';
+import tokens from '../../brand/brand-tokens.json';
 
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
-import ConsentBanner from '../components/ConsentBanner.astro';
 import { t, routes, absoluteUrl, type Locale, type RouteKey } from '../i18n';
 import { baseGraph } from '../lib/schema';
 import { site } from '../lib/site';
 
 interface Props {
   lang: Locale;
-  title: string;            // exact din fișierul de conținut (include „· BitUp” unde e cazul)
+  title: string;
   description: string;
   /** Cheia rutei statice: dă canonical, hreflang și pagina pereche. */
   routeKey?: RouteKey;
-  /** Pentru rute dinamice: calea curentă și calea pereche (sau indexul secțiunii din cealaltă limbă). */
+  /** Pentru rute dinamice: calea curentă și calea pereche. */
   path?: string;
   altPath?: string;
   noindex?: boolean;
-  /** Fără hreflang (pagina nu are pereche reală, de ex. 404). */
+  /** Fără hreflang (pagina nu are pereche reală, de exemplu 404 sau /styleguide). */
   noAlternates?: boolean;
   jsonLd?: Record<string, unknown>[];
   ogType?: 'website' | 'article';
-  /** Calea fluxului RSS al limbii (pe paginile de blog): <link rel="alternate" type="application/rss+xml">. */
   rss?: string;
 }
 const { lang, title, description, routeKey, path, altPath, noindex = false, noAlternates = false, jsonLd = [], ogType = 'website', rss } = Astro.props;
@@ -53,10 +41,9 @@ const altAbsolute = absoluteUrl(pairPath);
 const roUrl = lang === 'ro' ? canonical : altAbsolute;
 const enUrl = lang === 'en' ? canonical : altAbsolute;
 const graph = baseGraph(lang, jsonLd);
-// Preîncărcăm doar fonturile de deasupra pliului: textul și titlul (Barlow 700, elementul LCP).
-// `latin-ext` doar pe RO: pe EN ar fi 32 KB descărcați degeaba, iar diacriticele izolate
-// (numele din /en/team) se încarcă la nevoie, fără să întârzie LCP-ul.
-const fonturi = lang === 'ro' ? [fontLatin, fontLatinExt, displayLatin, displayLatinExt] : [fontLatin, displayLatin];
+// Culoarea barei browserului: din brand-tokens.json (alb pe deschis, bleumarin pe închis), nu scrisă de mână.
+const themeLight = tokens.colors.neutral_white.hex;
+const themeDark = tokens.colors.primary.hex;
 ---
 <!doctype html>
 <html lang={lang}>
@@ -86,8 +73,8 @@ const fonturi = lang === 'ro' ? [fontLatin, fontLatinExt, displayLatin, displayL
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-    <meta name="theme-color" content="#F5F8F8" media="(prefers-color-scheme: light)" />
-    <meta name="theme-color" content="#0C181D" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content={themeLight} media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content={themeDark} media="(prefers-color-scheme: dark)" />
     <script is:inline>
       (function () {
         try {
@@ -96,23 +83,17 @@ const fonturi = lang === 'ro' ? [fontLatin, fontLatinExt, displayLatin, displayL
         } catch (e) {}
       })();
     </script>
-    {fonturi.map((href) => <link rel="preload" as="font" type="font/woff2" crossorigin href={href} />)}
+    <link rel="preload" as="font" type="font/woff2" crossorigin href={plexRegular} />
+    <link rel="preload" as="font" type="font/woff2" crossorigin href={plexSemiBold} />
     <script type="application/ld+json" is:inline set:html={JSON.stringify(graph)} />
     <slot name="head" />
   </head>
   <body>
     <a class="skip-link" href="#continut">{dict.skipLink}</a>
-    <Header lang={lang} altHref={pairPath} currentKey={routeKey ?? null} />
+    <slot name="header" />
     <main id="continut" tabindex="-1">
       <slot />
     </main>
-    <Footer lang={lang} altHref={pairPath} />
-    <ConsentBanner lang={lang} />
+    <slot name="footer" />
   </body>
 </html>
-
-<style is:global>
-  .skip-link { position: absolute; left: var(--s-4); top: -100px; z-index: 100; padding: var(--s-2) var(--s-4); background: var(--navy-surface); color: var(--on-navy); font-family: var(--font-display); font-weight: 600; border-radius: var(--r-pill); text-decoration: none; }
-  .skip-link:focus { top: var(--s-4); outline: 2px solid var(--teal); outline-offset: 2px; }
-  main:focus { outline: none; }
-</style>

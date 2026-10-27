@@ -24,7 +24,7 @@ const dictionaries = { ro, en } as const;
 
 /** Dicționarul de microcopy pentru o limbă. Tipul e cel al dicționarului RO; EN are aceeași formă. */
 export function t(locale: Locale): typeof ro {
-  return dictionaries[locale] as unknown as typeof ro;
+  return dictionaries[locale];
 }
 
 /** Limba se deduce din URL: tot ce începe cu /en este engleză; restul e română. */

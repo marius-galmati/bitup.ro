@@ -1,0 +1,123 @@
+/*
+ * Stilurile globale ale site-ului. Toate valorile vin din brand/tokens.css (care încarcă și brand/fonts.css).
+ * Aici: resetul, tipografia de bază, focusul, mișcarea redusă și blocul „Valori derivate”.
+ * Nimic din fișierul ăsta nu introduce culori, fonturi sau raze noi.
+ */
+@import '../../brand/tokens.css';
+
+/* =====================================================================
+   Valori derivate (docs/spec-tehnica.md § 2; SKILL bitup-brand, pasul 2)
+   Doar compuneri din tokens. Fiecare are motivul lângă ea.
+   ===================================================================== */
+:root {
+  /* Ritmul vertical al secțiunilor: 64 px pe desktop, 48 px pe mobil (componente.md § Secțiuni). */
+  --section-y: var(--space-6);
+  /* Text lung: maximum 68 de caractere pe rând (componente.md § Secțiuni). */
+  --measure: 68ch;
+  /* Bara portocalie din stânga mesajului de eroare (componente.md § Formulare): grosimea, din spațiere. */
+  --error-bar: var(--space-1);
+  /* Linia groasă de sus a cifrelor-cheie și de sub antetul tabelelor: 2 × grosimea bordurii. */
+  --rule-strong: calc(var(--border-width) * 2);
+  /* Mărimea cifrei din „stat”: 32 → 40 px (componente.md § Cifre-cheie); 40 px = 2,5rem. */
+  --fs-stat: clamp(2rem, 1.6rem + 1.4vw, 2.5rem);
+  /* Durata tranzițiilor discrete (hover, focus). */
+  --dur: 150ms;
+}
+@media (min-width: 768px) {
+  :root { --section-y: var(--gap-section); }
+}
+
+/*
+ * Contextul „pe bleumarin” în tema deschisă: secțiunea bleumarin (o singură pe pagină), subsolul, banda de îndemn.
+ * Rolurile semantice primesc aceleași valori ca în tema închisă din brand/tokens.css, ca textul, linkurile și butoanele
+ * de pe bleumarin să respecte regulile (fără slate sau teal pe bleumarin; butonul principal portocaliu cu text bleumarin).
+ */
+.on-navy {
+  --color-bg: var(--color-section-dark);
+  --color-surface: color-mix(in srgb, var(--bu-navy) 94%, var(--bu-white));
+  --color-text: var(--bu-fog);
+  --color-text-muted: color-mix(in srgb, var(--bu-fog) 78%, var(--bu-navy));
+  --color-heading: var(--bu-white);
+  --color-link: var(--bu-teal-light);
+  --color-border: color-mix(in srgb, var(--bu-teal) 45%, var(--bu-navy));
+  --btn-primary-bg: var(--bu-orange);
+  --btn-primary-fg: var(--bu-navy);
+  --btn-secondary-border: var(--bu-white);
+  --btn-secondary-fg: var(--bu-white);
+  --focus-ring: var(--bu-teal-light);
+  background: var(--color-bg);
+  color: var(--color-text);
+}
+
+/* ===================== Reset minim ===================== */
+*, *::before, *::after { box-sizing: border-box; }
+* { margin: 0; }
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+body { min-height: 100vh; background: var(--color-bg); color: var(--color-text); -webkit-font-smoothing: antialiased; }
+img, svg, video, picture { display: block; max-width: 100%; }
+img, video { height: auto; }
+input, button, textarea, select { font: inherit; color: inherit; }
+button { cursor: pointer; }
+p, li, h1, h2, h3, h4, dt, dd { overflow-wrap: break-word; }
+ul[role='list'], ol[role='list'] { list-style: none; padding: 0; }
+table { border-collapse: collapse; }
+:target { scroll-margin-top: var(--space-8); }
+
+/* ===================== Tipografie ===================== */
+h1, h2, h3, h4 { font-family: var(--font-sans); font-weight: var(--fw-semibold); color: var(--color-heading); text-wrap: balance; }
+h1 { font-size: var(--fs-h1); line-height: var(--lh-h1); letter-spacing: var(--ls-h1); }
+h2 { font-size: var(--fs-h2); line-height: var(--lh-h2); letter-spacing: var(--ls-h2); }
+h3 { font-size: var(--fs-h3); line-height: var(--lh-h3); }
+h4 { font-size: var(--fs-body); line-height: var(--lh-body); }
+.display { font-size: var(--fs-display); line-height: var(--lh-display); letter-spacing: var(--ls-display); }
+p { text-wrap: pretty; }
+p + p { margin-top: var(--gap-paragraph); }
+small, .small { font-size: var(--fs-small); line-height: var(--lh-small); }
+.muted { color: var(--color-text-muted); }
+.data { font-family: var(--font-mono); font-weight: var(--fw-medium); font-size: var(--fs-data); font-variant-numeric: tabular-nums; }
+.measure { max-width: var(--measure); }
+strong, b { font-weight: var(--fw-semibold); }
+
+a { color: var(--color-link); text-decoration-thickness: var(--border-width); text-underline-offset: 0.2em; transition: color var(--dur), text-decoration-thickness var(--dur); }
+a:hover { text-decoration-thickness: var(--rule-strong); }
+
+/* ===================== Focus ===================== */
+:focus-visible { outline: var(--rule-strong) solid var(--focus-ring); outline-offset: var(--rule-strong); }
+
+/* ===================== Utilitare ===================== */
+/* Cuvinte care nu se despart la cratimă („IT-ul”, „Microsoft 365”). */
+.nowrap { white-space: nowrap; }
+.visually-hidden {
+  position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+.skip-link {
+  position: absolute; left: var(--space-3); top: calc(-1 * var(--space-8)); z-index: 100;
+  display: inline-flex; align-items: center; min-height: var(--button-height); padding-inline: var(--button-padding-x);
+  background: var(--btn-primary-bg); color: var(--btn-primary-fg); font-weight: var(--fw-medium); font-size: var(--fs-button); text-decoration: none;
+}
+.skip-link:focus { top: var(--space-3); }
+main:focus { outline: none; }
+
+/*
+ * Logo-ul și ilustrațiile cu variantă pe deschis / pe închis: se arată una singură, după temă sau după context.
+ * Învelișul e un <span> cu `display: contents`, ca elementul din el să-și păstreze propriul `display`.
+ */
+.theme-light-only, .theme-dark-only { display: contents; }
+.theme-dark-only { display: none; }
+:root[data-theme='dark'] .theme-light-only { display: none; }
+:root[data-theme='dark'] .theme-dark-only { display: contents; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) .theme-light-only { display: none; }
+  :root:not([data-theme='light']) .theme-dark-only { display: contents; }
+}
+.on-navy .theme-light-only { display: none; }
+.on-navy .theme-dark-only { display: contents; }
+
+/* ===================== Mișcare redusă ===================== */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important; animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important; scroll-behavior: auto !important;
+  }
+}

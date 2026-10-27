@@ -3,7 +3,7 @@ import { defineConfig, envField } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 import icon from 'astro-icon';
 
-// ARHITECTURA.md § Stack, § Limbi, § Rute. Astro (versiunea din package.json), static, fără adapter (nginx servește dist/ pe serverul Dokploy; vezi Dockerfile).
+// docs/spec-tehnica.md § 2–4. Astro (versiunea din package.json), static, fără adapter (nginx servește dist/ pe serverul Dokploy; vezi Dockerfile).
 /*
   Blocarea roboților, DOAR pe serverul local (`astro dev` și `astro preview`).
   Cerut de Marius pe 24 septembrie 2026: vrea să expună public serverul local, printr-un tunel, ca să arate
@@ -43,8 +43,7 @@ const ROBOTI_BLOCATI = 'noindex, nofollow, noarchive, nosnippet, noimageindex, n
 const TUNELURI = ['.bitup.ro', '.trycloudflare.com', '.ngrok-free.app', '.ngrok.io', '.ngrok.app', '.loca.lt', '.serveo.net'];
 
 export default defineConfig({
-  // Markdown: fără smartypants (Astro 7 îl are pornit implicit și transforma "…" și ' din textul EN în “…” și ’, adică alt text decât cel din spec).
-  markdown: { smartypants: false },
+  // Markdown: opțiunea `smartypants` e depreciată în Astro 7 și s-a scos în faza 1; ghilimelele din articole se verifică în faza 4.
   site: 'https://bitup.ro',
   // Doar serverul local; vezi comentariile de sus. Nu are efect asupra `dist/`.
   // `host` rămâne implicit (doar loopback): expunerea în rețea se cere explicit, cu `--host`.
@@ -74,13 +73,10 @@ export default defineConfig({
     // Alternativele de limbă (hreflang) se generează din src/i18n/routes.ts prin `serialize`, în Faza 5;
     // opțiunea `i18n` a integrării presupune același slug în ambele limbi, ceea ce nu e cazul aici.
     sitemap({
-      // Excluse: 404, pagina de mulțumire (noindex), pagina de QA (doar dev/staging) și /echipa,
-      // care stă în afara sitemap-ului cât timp `[[ACORD_ECHIPA]]` e necompletat (16-echipa.md § Indexare).
-      filter: (page) => !/\/(404|multumesc|en\/thank-you|qa|echipa|en\/team)(\/|$)/.test(page),
+      // Excluse: 404 și /styleguide (pagină internă, noindex; scoasă din build-ul de producție în faza 6).
+      filter: (page) => !/\/(404|styleguide)(\/|$)/.test(page),
     }),
-    // Doar setul `lucide`, maximum 16 iconițe în tot site-ul (DESIGN.md § Imagini și grafică, 26 sept. 2026).
-    // Lista crește pe măsură ce sunt folosite: sun/moon la comutatorul de temă, headset / scan-eye / workflow în panoul
-    // „Servicii”, shield / cloud / code-xml / zap / sparkles pe plăcile din HeroStack (modelul lui Marius, 25 oct. 2026).
-    icon({ include: { lucide: ['sun', 'moon', 'headset', 'scan-eye', 'workflow', 'shield', 'cloud', 'code-xml', 'zap', 'sparkles'] } }),
+    // Doar setul `lucide` (componente.md § Iconițe: un singur set de linie). Lista crește pe măsură ce iconițele sunt folosite.
+    icon({ include: { lucide: ['sun', 'moon', 'chevron-down', 'chevron-right', 'plus', 'mail', 'phone', 'shield', 'server', 'code-xml', 'workflow', 'bot', 'headset'] } }),
   ],
 });
