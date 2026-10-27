@@ -30,14 +30,14 @@
 /*
  * HeroStack (stiva din hero; src/components/home/HeroStack.astro). Marius, 28 octombrie 2026: stiva se copiază exact
  * cum e pe bitup.ro, cu aceleași nuanțe, scrise din paletă. Fiecare valoare e amestecul de tokens cel mai apropiat de
- * culoarea de până acum (ΔE CIEDE2000 în comentariu); unele nuanțe vechi ies din ce se poate obține din paletă, așa că
+ * culoarea de până acum (în comentariu: hexul de pe bitup.ro, scris fără „#”, și ΔE CIEDE2000); unele nuanțe vechi ies din ce se poate obține din paletă, așa că
  * diferența nu e zero. Fundația e teal, ca în manual, cu laturile întunecate în aceeași proporție ca fundația veche.
  */
 :root {
-  --hs-surface: var(--bu-white);                                                 /* #FFFFFF, identic */
-  --hs-line: color-mix(in srgb, var(--bu-teal-light) 5%, var(--bu-line));        /* #D6E0E1, ΔE 0,5 */
+  --hs-surface: var(--bu-white);                                                 /* FFFFFF, identic */
+  --hs-line: color-mix(in srgb, var(--bu-teal-light) 5%, var(--bu-line));        /* D6E0E1, ΔE 0,5 */
   --hs-text: var(--bu-navy);                                                     /* identic */
-  --hs-muted: color-mix(in srgb, var(--bu-navy) 67%, var(--bu-white));           /* #55686F, ΔE 1,3 */
+  --hs-muted: color-mix(in srgb, var(--bu-navy) 67%, var(--bu-white));           /* 55686F, ΔE 1,3 */
   --hs-teal: var(--bu-teal);                                                     /* identic */
   --hs-shade: var(--bu-navy);                                                    /* identic */
   --hs-shadow-ambient: 0.12;
@@ -46,22 +46,22 @@
   --hs-base-left: color-mix(in srgb, var(--bu-teal) 44%, var(--bu-navy));
   --hs-base-right: color-mix(in srgb, var(--bu-teal) 74%, var(--bu-navy));
   --hs-base-edge: color-mix(in srgb, var(--bu-teal) 72%, var(--bu-navy));
-  --hs-base-glyph: color-mix(in srgb, var(--bu-teal-light) 76%, var(--bu-white)); /* #7CC4C7, ΔE 2,9 */
+  --hs-base-glyph: color-mix(in srgb, var(--bu-teal-light) 76%, var(--bu-white)); /* 7CC4C7, ΔE 2,9 */
   /* Eticheta de pe placa activă: 14 → 16 px după lățimea desenului, ca înainte; padding orizontal 12 px = 3 × space-1. */
   --fs-hs-label: clamp(var(--fs-small), 3.2cqw, 1rem);
   --hs-label-px: calc(var(--space-1) * 3);
 }
 /*
- * Tema închisă. Fața plăcilor folosește suprafața închisă a site-ului, nu nuanța veche (#12232A): pe fundalul bleumarin
- * al v3, nuanța veche s-ar fi pierdut (contrast 1,04 față de 1,12 pe fundalul vechi #0C181D); suprafața păstrează
+ * Tema închisă. Fața plăcilor folosește suprafața închisă a site-ului, nu nuanța veche (12232A): pe fundalul bleumarin
+ * al v3, nuanța veche s-ar fi pierdut (contrast 1,04 față de 1,12 pe fundalul vechi 0C181D); suprafața păstrează
  * desprinderea de fundal (1,18).
  */
 :root[data-theme='dark'] {
   --hs-surface: var(--color-surface);
-  --hs-line: color-mix(in srgb, color-mix(in srgb, var(--bu-navy) 54%, var(--bu-slate)) 88%, var(--bu-teal)); /* #274047, ΔE 1,9 */
-  --hs-text: color-mix(in srgb, var(--bu-teal) 5%, var(--bu-fog));                                          /* #E4ECEE, ΔE 0,5 */
-  --hs-muted: color-mix(in srgb, color-mix(in srgb, var(--bu-navy) 24%, var(--bu-line)) 88%, var(--bu-teal-light)); /* #9FB3B8, ΔE 0,2 */
-  --hs-teal: color-mix(in srgb, var(--bu-teal-light) 94%, var(--bu-white));                                /* #5FB0B4, ΔE 1,6 */
+  --hs-line: color-mix(in srgb, color-mix(in srgb, var(--bu-navy) 54%, var(--bu-slate)) 88%, var(--bu-teal)); /* 274047, ΔE 1,9 */
+  --hs-text: color-mix(in srgb, var(--bu-teal) 5%, var(--bu-fog));                                          /* E4ECEE, ΔE 0,5 */
+  --hs-muted: color-mix(in srgb, color-mix(in srgb, var(--bu-navy) 24%, var(--bu-line)) 88%, var(--bu-teal-light)); /* 9FB3B8, ΔE 0,2 */
+  --hs-teal: color-mix(in srgb, var(--bu-teal-light) 94%, var(--bu-white));                                /* 5FB0B4, ΔE 1,6 */
   --hs-shadow-ambient: 0.4;
   --hs-shadow-base: 0.5;
   --hs-base-top: color-mix(in srgb, var(--bu-teal-light) 57%, var(--bu-teal));
