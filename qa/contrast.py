@@ -1,81 +1,67 @@
-# Verificare numerică de contrast WCAG pentru perechile de tokeni (DESIGN.md § Dark mode: „cu un instrument, nu din ochi”).
-# Rulare: python qa/contrast.py
+# Verificare numerică de contrast WCAG pentru perechile de roluri din brand/tokens.css (faza 1, v3).
+# Culorile se citesc din brand/brand-tokens.json; valorile derivate (color-mix în srgb) se calculează la fel ca în CSS.
+# Rulare: python -X utf8 qa/contrast.py   → cod de ieșire 1 dacă o pereche cade sub prag.
+# Praguri: 4,5 pentru text, 3 pentru elemente de interfață (focus, contururi de buton).
+import json, pathlib, sys
+
+ROOT = pathlib.Path(__file__).resolve().parent.parent
+C = {k: v['hex'] for k, v in json.loads((ROOT / 'brand' / 'brand-tokens.json').read_text(encoding='utf-8'))['colors'].items()}
+navy, teal, orange, teal_l, white, fog, slate, line = (C[k] for k in ('primary', 'secondary', 'accent', 'secondary_on_dark', 'neutral_white', 'neutral_light', 'neutral_dark', 'line'))
+
+def rgb(h): h = h.lstrip('#'); return [int(h[i:i + 2], 16) for i in (0, 2, 4)]
+def mix(a, b, pa):
+    """color-mix(in srgb, a pa%, b): medie ponderată pe canalele sRGB."""
+    ra, rb = rgb(a), rgb(b); return '#' + ''.join(f'{round(x * pa + y * (1 - pa)):02X}' for x, y in zip(ra, rb))
 def lum(h):
-    h = h.lstrip('#'); r, g, b = [int(h[i:i + 2], 16) / 255 for i in (0, 2, 4)]
-    f = lambda c: c / 12.92 if c <= 0.03928 else ((c + 0.055) / 1.055) ** 2.4
-    return 0.2126 * f(r) + 0.7152 * f(g) + 0.0722 * f(b)
-
+    f = lambda c: c / 12.92 if c <= 0.04045 else ((c + 0.055) / 1.055) ** 2.4
+    r, g, b = [f(c / 255) for c in rgb(h)]; return 0.2126 * r + 0.7152 * g + 0.0722 * b
 def ratio(a, b):
-    la, lb = lum(a), lum(b); hi, lo = max(la, lb), min(la, lb)
-    return (hi + 0.05) / (lo + 0.05)
+    la, lb = lum(a), lum(b); return (max(la, lb) + 0.05) / (min(la, lb) + 0.05)
 
-PAIRS = [
-    ('dark text #E4ECEE pe bg #0C181D', '#E4ECEE', '#0C181D', 4.5),
-    ('dark muted #9FB3B8 pe surface #12232A', '#9FB3B8', '#12232A', 4.5),
-    ('dark teal #5FB0B4 pe surface #12232A', '#5FB0B4', '#12232A', 4.5),
-    ('dark teal #5FB0B4 pe bg #0C181D', '#5FB0B4', '#0C181D', 4.5),
-    ('dark on-navy-muted #B9CCD0 pe navy-surface #0F2A36', '#B9CCD0', '#0F2A36', 4.5),
-    ('dark teal-2 #7CC4C7 pe navy-surface #0F2A36 (eyebrow)', '#7CC4C7', '#0F2A36', 4.5),
-    ('light text #14232A pe bg #F5F8F8', '#14232A', '#F5F8F8', 4.5),
-    ('light muted #55686F pe surface #FFFFFF', '#55686F', '#FFFFFF', 4.5),
-    ('light teal #20686C pe surface #FFFFFF', '#20686C', '#FFFFFF', 4.5),
-    ('light teal #20686C pe bg #FFFFFF', '#20686C', '#FFFFFF', 4.5),
-    ('buton: navy #00202E pe orange #FE982A', '#00202E', '#FE982A', 4.5),
-    ('light on-navy-muted #C9D8DB pe navy #00202E', '#C9D8DB', '#00202E', 4.5),
-    ('light teal-2 #4A9396 pe navy #00202E (eyebrow pe navy)', '#4A9396', '#00202E', 4.5),
-    ('buton plin teal: alb pe #20686C', '#FFFFFF', '#20686C', 4.5),
-    ('buton plin teal, dark: #00202E pe #5FB0B4', '#00202E', '#5FB0B4', 4.5),
-    # Faza 1: stări de hover/activ (Button, nav)
-    ('principal hover: navy #00202E pe #E9891F', '#00202E', '#E9891F', 4.5),
-    ('principal activ: navy #00202E pe #D97C17', '#00202E', '#D97C17', 4.5),
-    ('teal hover: alb pe navy-2 #003343', '#FFFFFF', '#003343', 4.5),
-    ('teal hover, dark: #00202E pe teal-2 #7CC4C7', '#00202E', '#7CC4C7', 4.5),
-    ('secundar hover: teal #20686C pe teal-soft #E3EFEF', '#20686C', '#E3EFEF', 4.5),
-    ('secundar hover, dark: teal #5FB0B4 pe teal-soft #16323A', '#5FB0B4', '#16323A', 4.5),
-    ('nav hover: teal #20686C pe surface #FFFFFF', '#20686C', '#FFFFFF', 4.5),
-    ('nav text: navy #00202E pe surface #FFFFFF', '#00202E', '#FFFFFF', 4.5),
-    ('nav text, dark: #E4ECEE pe surface #12232A', '#E4ECEE', '#12232A', 4.5),
-    ('muted, dark, pe bg: #9FB3B8 pe #0C181D', '#9FB3B8', '#0C181D', 4.5),
-    ('muted pe surface-2: #55686F pe #EEF3F3', '#55686F', '#EEF3F3', 4.5),
-    ('muted, dark, pe surface-2: #9FB3B8 pe #182E36', '#9FB3B8', '#182E36', 4.5),
-    # /echipa: rândurile de oameni stau pe --surface, iar substituentul de fotografie pe --surface-2
-    ('rol de echipă: teal #20686C pe surface #FFFFFF', '#20686C', '#FFFFFF', 4.5),
-    ('experiență: muted #55686F pe surface #FFFFFF', '#55686F', '#FFFFFF', 4.5),
-    ('experiență, dark: muted #9FB3B8 pe surface #12232A', '#9FB3B8', '#12232A', 4.5),
-    ('inițiale substituent: navy #00202E pe surface-2 #EEF3F3', '#00202E', '#EEF3F3', 4.5),
-    ('inițiale substituent, dark: #E4ECEE pe surface-2 #182E36', '#E4ECEE', '#182E36', 4.5),
-    # stilul nou (26 sept. 2026): cardurile stau pe --surface-2, iar titlurile au un cuvânt în teal
-    ('teal pe surface-2 (etichetă de card): #20686C pe #EEF3F3', '#20686C', '#EEF3F3', 4.5),
-    ('teal pe surface-2, dark: #5FB0B4 pe #182E36', '#5FB0B4', '#182E36', 4.5),
-    ('muted pe surface-2, dark: #9FB3B8 pe #182E36', '#9FB3B8', '#182E36', 4.5),
-    ('navy pe surface-2 (titlu de card): #00202E pe #EEF3F3', '#00202E', '#EEF3F3', 4.5),
-    ('navy pe surface-2, dark: #E4ECEE pe #182E36', '#E4ECEE', '#182E36', 4.5),
-    ('accent în titlu: teal #20686C pe bg #FFFFFF', '#20686C', '#FFFFFF', 4.5),
-    ('accent în titlu, dark: teal #5FB0B4 pe bg #0C181D', '#5FB0B4', '#0C181D', 4.5),
-    ('accent pe navy: #7CC4C7 pe navy-surface #00202E', '#7CC4C7', '#00202E', 4.5),
-    ('accent pe navy, dark: #7CC4C7 pe navy-surface #0F2A36', '#7CC4C7', '#0F2A36', 4.5),
-    ('eyebrow: navy #00202E pe bg #FFFFFF', '#00202E', '#FFFFFF', 4.5),
-    ('eyebrow, dark: #E4ECEE pe bg #0C181D', '#E4ECEE', '#0C181D', 4.5),
-    ('text pe navy: alb pe navy-surface dark #0F2A36', '#FFFFFF', '#0F2A36', 4.5),
-    ('secundar pe navy, dark: #B9CCD0 pe #0F2A36', '#B9CCD0', '#0F2A36', 4.5),
-    # marca LinkedIn: „in” alb pe albastrul oficial; pătratul albastru față de fundalul secțiunii e graniță non-text
-    ('marca LinkedIn: alb pe #2867B3', '#FFFFFF', '#2867B3', 4.5),
-    ('marca LinkedIn pe surface #FFFFFF (non-text)', '#2867B3', '#FFFFFF', 3),
-    ('marca LinkedIn, dark, pe surface #12232A (logotip: exceptat de WCAG 1.4.11)', '#2867B3', '#12232A', 3),
-    ('Steps: alb pe teal #20686C (cifră)', '#FFFFFF', '#20686C', 4.5),
-    ('Steps, dark: #00202E pe teal #5FB0B4', '#00202E', '#5FB0B4', 4.5),
-    ('linie --line pe bg (non-text): #D6E0E1 pe #FFFFFF', '#D6E0E1', '#FFFFFF', 1),
-    ('focus: teal #20686C pe surface #FFFFFF (non-text)', '#20686C', '#FFFFFF', 3),
-    ('focus, dark: teal #5FB0B4 pe surface #12232A (non-text)', '#5FB0B4', '#12232A', 3),
-    ('focus: teal #20686C pe bg #F5F8F8 (non-text)', '#20686C', '#F5F8F8', 3),
-    ('focus: teal #5FB0B4 pe bg #0C181D (non-text)', '#5FB0B4', '#0C181D', 3),
-    ('focus: navy #00202E pe orange #FE982A (non-text)', '#00202E', '#FE982A', 3),
-    ('orange #FE982A pe bg #FFFFFF (de ce NU e focus)', '#FE982A', '#FFFFFF', 3),
+# Valorile derivate din brand/tokens.css (tema închisă) și src/styles/global.css (.on-navy)
+surface_dark = mix(navy, white, 0.94)
+muted_dark = mix(fog, navy, 0.78)
+TEXT, UI = 4.5, 3.0
+
+contexts = {
+    'deschis, pe alb': dict(bg=white, text=navy, muted=slate, heading=navy, link=teal, focus=teal),
+    'deschis, pe ceață': dict(bg=fog, text=navy, muted=slate, heading=navy, link=teal, focus=teal),
+    'închis, pe bleumarin': dict(bg=navy, text=fog, muted=muted_dark, heading=white, link=teal_l, focus=teal_l),
+    'închis, pe suprafață': dict(bg=surface_dark, text=fog, muted=muted_dark, heading=white, link=teal_l, focus=teal_l),
+}
+pairs = []
+for name, c in contexts.items():
+    pairs += [
+        (f'{name}: text', c['text'], c['bg'], TEXT),
+        (f'{name}: text secundar', c['muted'], c['bg'], TEXT),
+        (f'{name}: titlu, eroare, cifră', c['heading'], c['bg'], TEXT),
+        (f'{name}: link, etichetă', c['link'], c['bg'], TEXT),
+        (f'{name}: inelul de focus', c['focus'], c['bg'], UI),
+    ]
+pairs += [
+    ('buton principal, deschis: alb pe bleumarin', white, navy, TEXT),
+    ('buton principal, închis: bleumarin pe portocaliu', navy, orange, TEXT),
+    ('buton secundar hover, deschis: alb pe bleumarin', white, navy, TEXT),
+    ('buton secundar hover, închis: bleumarin pe alb', navy, white, TEXT),
+    ('buton secundar hover, închis pe suprafață: suprafață pe alb', surface_dark, white, TEXT),
+    ('cifră-cheie portocalie pe bleumarin', orange, navy, TEXT),
+    ('cifră-cheie portocalie pe suprafața închisă', orange, surface_dark, TEXT),
+    ('conturul butonului secundar, deschis: bleumarin pe alb', navy, white, UI),
+    ('conturul butonului secundar, închis: alb pe bleumarin', white, navy, UI),
+]
+# De urmărit, nu blocante: componente.md cere aceste valori; informația e purtată de text, nu de ele.
+notes = [
+    ('conturul câmpului (--color-border) pe alb', line, white),
+    ('conturul câmpului, închis (teal 45 % + bleumarin) pe bleumarin', mix(teal, navy, 0.45), navy),
+    ('bara portocalie a erorii pe alb', orange, white),
 ]
 
-if __name__ == '__main__':
-    bad = 0
-    for name, a, b, need in PAIRS:
-        r = ratio(a, b); ok = r >= need; bad += not ok
-        print(f"{'OK ' if ok else 'NU '} {r:5.2f}:1  (min {need})  {name}")
-    print(f"\n{len(PAIRS) - bad}/{len(PAIRS)} perechi trec.")
+fail = 0
+for label, fg, bg, need in pairs:
+    r = ratio(fg, bg); ok = r >= need; fail += not ok
+    print(f"{'OK ' if ok else 'NU '} {r:5.2f} (prag {need})  {label}  [{fg} pe {bg}]")
+print('\nDe urmărit (WCAG 1.4.11, elemente de interfață):')
+for label, fg, bg in notes:
+    print(f"     {ratio(fg, bg):5.2f}  {label}  [{fg} pe {bg}]")
+print(f"\n{len(pairs) - fail}/{len(pairs)} perechi trec." + ('' if not fail else f' {fail} NU trec.'))
+sys.exit(1 if fail else 0)

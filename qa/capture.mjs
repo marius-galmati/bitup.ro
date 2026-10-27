@@ -1,9 +1,9 @@
 /**
- * Capturi Playwright pentru QA (CLAUDE.md § Cum verifici):
+ * Capturi Playwright pentru QA:
  *   node qa/capture.mjs <faza> <cale> [<cale>…]
  * Exemplu: node qa/capture.mjs faza-0 /faza-0
- * Face capturi full-page la 375, 768, 1024 și 1440 px, în light și dark, și le salvează în qa/<faza>/.
- * În plus, listează toate gazdele externe cerute de pagină (trebuie să fie zero în afara celor din ARHITECTURA § Domenii permise).
+ * Face capturi full-page la 390, 768 și 1440 px (CLAUDE.md § Cum lucrăm), în light și dark, și le salvează în qa/<faza>/.
+ * În plus, listează toate gazdele externe cerute de pagină (trebuie să fie zero).
  * Serverul trebuie să ruleze deja (npm run preview → http://localhost:4321) sau se dă BASE_URL.
  */
 import { chromium } from 'playwright';
@@ -18,7 +18,7 @@ if (!phase || paths.length === 0) {
   process.exit(1);
 }
 const BASE_URL = process.env.BASE_URL ?? 'http://localhost:4321';
-const WIDTHS = [375, 768, 1024, 1440];
+const WIDTHS = [390, 768, 1440];
 const THEMES = ['light', 'dark'];
 const outDir = path.join('qa', phase);
 await mkdir(outDir, { recursive: true });
