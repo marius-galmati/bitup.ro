@@ -1,0 +1,581 @@
+{
+  "brand": "BitUp Technology",
+  "version": "1.4",
+  "date": "2026-10-07",
+  "note": "CMYK și Pantone sunt aproximări. Se confirmă cu tipografia sau cu un Pantone Formula Guide fizic.",
+  "changelog": [
+    {
+      "version": "1.0",
+      "date": "2026-10-07",
+      "change": "Prima versiune: Montserrat (titluri) + Source Sans 3 (text)."
+    },
+    {
+      "version": "1.1",
+      "date": "2026-10-07",
+      "change": "Tipografia înlocuită cu IBM Plex Sans (titluri, text, etichete, butoane) și IBM Plex Mono (doar cifre și coduri). Ierarhie, butoane și ritm noi. Logo-ul neschimbat."
+    },
+    {
+      "version": "1.2",
+      "date": "2026-10-07",
+      "change": "Social Media Kit: specificațiile pentru postări și Stories (scara tipografică, logo, buton, șabloane). Culoarea utilitară „Linie” #DCE3E5, folosită deja în manual pentru chenare, trece în tokens. Nicio valoare existentă schimbată."
+    },
+    {
+      "version": "1.3",
+      "date": "2026-10-07",
+      "change": "Social Media Kit v2: elementul „Straturi în spațiu” (plăci 3D din simbol) pentru postări și Stories; limite de text actualizate. Paleta, fonturile și logo-ul neschimbate."
+    },
+    {
+      "version": "1.4",
+      "date": "2026-10-07",
+      "change": "Logo E1: un singur desen al simbolului (liniile groase) pentru toate mărimile; stratul de jos de 1,5 ori mai gros = fundația (securitatea); lățimea principalului 6,57x; simbol minim 16 px. „Straturi în spațiu”: placa de jos = fundația (de 2 ori mai groasă, opacă). Kit v3 cu coperta de Reel (R1). Paleta și fonturile neschimbate."
+    }
+  ],
+  "colors": {
+    "primary": {
+      "name": "Bleumarin BitUp",
+      "hex": "#00202E",
+      "rgb": [
+        0,
+        32,
+        46
+      ],
+      "cmyk_approx": [
+        100,
+        30,
+        0,
+        82
+      ],
+      "role": "Culoarea principală: logo, titluri, fundaluri închise",
+      "usage": 0.45,
+      "pantone_approx": "de ales cu tipografia, pe Pantone Formula Guide, pornind de la HEX și CMYK"
+    },
+    "secondary": {
+      "name": "Teal",
+      "hex": "#20686C",
+      "rgb": [
+        32,
+        104,
+        108
+      ],
+      "cmyk_approx": [
+        70,
+        4,
+        0,
+        58
+      ],
+      "role": "Secundară: „UP”, linkuri, elementul grafic, accente pe alb",
+      "usage": 0.1,
+      "pantone_approx": "de ales cu tipografia, pe Pantone Formula Guide, pornind de la HEX și CMYK"
+    },
+    "accent": {
+      "name": "Portocaliu",
+      "hex": "#FE982A",
+      "rgb": [
+        254,
+        152,
+        42
+      ],
+      "cmyk_approx": [
+        0,
+        40,
+        83,
+        0
+      ],
+      "role": "Accent: marcaje, cifre-cheie, butonul principal pe închis. Niciodată text pe alb",
+      "usage": 0.05,
+      "pantone_approx": "de ales cu tipografia, pe Pantone Formula Guide, pornind de la HEX și CMYK"
+    },
+    "secondary_on_dark": {
+      "name": "Teal deschis",
+      "hex": "#5FA8AB",
+      "rgb": [
+        95,
+        168,
+        171
+      ],
+      "cmyk_approx": [
+        44,
+        2,
+        0,
+        33
+      ],
+      "role": "Teal-ul folosit pe bleumarin: „UP” în negativ, linkuri pe închis",
+      "usage": 0.0,
+      "pantone_approx": "de ales cu tipografia, pe Pantone Formula Guide, pornind de la HEX și CMYK"
+    },
+    "neutral_white": {
+      "name": "Alb",
+      "hex": "#FFFFFF",
+      "rgb": [
+        255,
+        255,
+        255
+      ],
+      "cmyk_approx": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "role": "Fundalul de bază",
+      "usage": 0.25,
+      "pantone_approx": "—"
+    },
+    "neutral_light": {
+      "name": "Ceață",
+      "hex": "#EEF2F3",
+      "rgb": [
+        238,
+        242,
+        243
+      ],
+      "cmyk_approx": [
+        2,
+        0,
+        0,
+        5
+      ],
+      "role": "Fundal secundar: carduri, tabele, secțiuni",
+      "usage": 0.1,
+      "pantone_approx": "de ales cu tipografia, pe Pantone Formula Guide, pornind de la HEX și CMYK"
+    },
+    "neutral_dark": {
+      "name": "Ardezie",
+      "hex": "#4E5D66",
+      "rgb": [
+        78,
+        93,
+        102
+      ],
+      "cmyk_approx": [
+        24,
+        9,
+        0,
+        60
+      ],
+      "role": "Text secundar, note, legende",
+      "usage": 0.05,
+      "pantone_approx": "de ales cu tipografia, pe Pantone Formula Guide, pornind de la HEX și CMYK"
+    },
+    "line": {
+      "name": "Linie",
+      "hex": "#DCE3E5",
+      "rgb": [
+        220,
+        227,
+        229
+      ],
+      "cmyk_approx": [
+        4,
+        1,
+        0,
+        10
+      ],
+      "role": "Utilitară: linii subțiri, chenare, separatoare, bara de progres. Niciodată text.",
+      "usage": 0.0,
+      "pantone_approx": "—"
+    }
+  },
+  "contrast_text_allowed": [
+    [
+      "primary",
+      "neutral_white",
+      16.85
+    ],
+    [
+      "primary",
+      "neutral_light",
+      14.95
+    ],
+    [
+      "neutral_white",
+      "primary",
+      16.85
+    ],
+    [
+      "secondary",
+      "neutral_white",
+      6.45
+    ],
+    [
+      "secondary",
+      "neutral_light",
+      5.72
+    ],
+    [
+      "neutral_dark",
+      "neutral_white",
+      6.81
+    ],
+    [
+      "neutral_dark",
+      "neutral_light",
+      6.05
+    ],
+    [
+      "accent",
+      "primary",
+      7.82
+    ],
+    [
+      "secondary_on_dark",
+      "primary",
+      6.16
+    ]
+  ],
+  "contrast_text_forbidden": [
+    [
+      "accent",
+      "neutral_white",
+      2.16
+    ],
+    [
+      "secondary_on_dark",
+      "neutral_white",
+      2.74
+    ],
+    [
+      "secondary",
+      "primary",
+      2.61
+    ],
+    [
+      "neutral_dark",
+      "primary",
+      2.47
+    ]
+  ],
+  "typography": {
+    "heading": {
+      "family": "IBM Plex Sans",
+      "weights": [
+        600
+      ],
+      "use": "titluri (Display, Titlu 1–3)",
+      "source": "Google Fonts",
+      "license": "SIL Open Font License 1.1",
+      "fallback": "Arial",
+      "canva": "IBM Plex Sans (de verificat în cont)"
+    },
+    "body": {
+      "family": "IBM Plex Sans",
+      "weights": [
+        400,
+        500,
+        600
+      ],
+      "use": "text și note (400), butoane (500), etichete și accente în text (600), tabele, documente lungi",
+      "source": "Google Fonts",
+      "license": "SIL Open Font License 1.1",
+      "fallback": "Arial",
+      "canva": "IBM Plex Sans (de verificat în cont)"
+    },
+    "data": {
+      "family": "IBM Plex Mono",
+      "weights": [
+        500
+      ],
+      "use": "doar cifre în tabele de date, coduri de tichet, ID-uri tehnice; nu pentru etichete sau titluri",
+      "source": "Google Fonts",
+      "license": "SIL Open Font License 1.1",
+      "fallback": "Consolas, Courier New",
+      "canva": "IBM Plex Mono (de verificat în cont)"
+    },
+    "logo_wordmark": {
+      "family": "Montserrat",
+      "weights": [
+        800,
+        470
+      ],
+      "note": "Doar în fișierul de logo, convertit în contururi. Nu se rescrie cu fontul și nu se folosește în alte materiale."
+    },
+    "hierarchy": {
+      "display": {
+        "font": "IBM Plex Sans",
+        "weight": 600,
+        "px": 60,
+        "pt": 36,
+        "line_height": 1.08,
+        "letter_spacing_em": -0.02
+      },
+      "h1": {
+        "font": "IBM Plex Sans",
+        "weight": 600,
+        "px": 42,
+        "pt": 26,
+        "line_height": 1.12,
+        "letter_spacing_em": -0.015
+      },
+      "h2": {
+        "font": "IBM Plex Sans",
+        "weight": 600,
+        "px": 30,
+        "pt": 18,
+        "line_height": 1.2,
+        "letter_spacing_em": -0.01
+      },
+      "h3": {
+        "font": "IBM Plex Sans",
+        "weight": 600,
+        "px": 21,
+        "pt": 13,
+        "line_height": 1.3,
+        "letter_spacing_em": 0
+      },
+      "body": {
+        "font": "IBM Plex Sans",
+        "weight": 400,
+        "px": 17,
+        "pt": 10,
+        "line_height": 1.6,
+        "letter_spacing_em": 0
+      },
+      "small": {
+        "font": "IBM Plex Sans",
+        "weight": 400,
+        "px": 14,
+        "pt": 8.5,
+        "line_height": 1.5,
+        "letter_spacing_em": 0
+      },
+      "label": {
+        "font": "IBM Plex Sans",
+        "weight": 600,
+        "px": 12,
+        "pt": 7.5,
+        "line_height": 1.3,
+        "letter_spacing_em": 0.08,
+        "case": "majuscule",
+        "marker": "romb portocaliu în față"
+      },
+      "button": {
+        "font": "IBM Plex Sans",
+        "weight": 500,
+        "px": 15,
+        "pt": 9.5,
+        "line_height": 1.0,
+        "letter_spacing_em": 0
+      },
+      "data": {
+        "font": "IBM Plex Mono",
+        "weight": 500,
+        "px": 15,
+        "pt": 9,
+        "line_height": 1.4,
+        "letter_spacing_em": 0
+      }
+    },
+    "case_rule": "Titlurile se scriu cu literă mare doar la început, ca o propoziție. Majusculele sunt doar pentru etichete."
+  },
+  "buttons": {
+    "font": "IBM Plex Sans",
+    "weight": 500,
+    "size_px": 15,
+    "height_px": 48,
+    "padding_x_px": 22,
+    "radius_px": 0,
+    "primary_on_light": {
+      "background": "#00202E",
+      "text": "#FFFFFF",
+      "arrow": "→ după text"
+    },
+    "primary_on_dark": {
+      "background": "#FE982A",
+      "text": "#00202E",
+      "arrow": "→ după text"
+    },
+    "secondary": {
+      "background": "transparent",
+      "border": "1 px #00202E (pe închis: 1 px #FFFFFF)",
+      "text": "#00202E"
+    },
+    "tertiary": {
+      "style": "link subliniat, teal #20686C (pe închis: #5FA8AB)"
+    }
+  },
+  "logo": {
+    "unit_x": "înălțimea literei B din BITUP (înălțimea majusculelor)",
+    "proportions_x": {
+      "principal_width": 6.57,
+      "principal_height": 1.77,
+      "symbol_height": 1.77
+    },
+    "clear_space": "1x pe toate laturile",
+    "min_width_px": {
+      "principal": 120,
+      "vertical": 100,
+      "symbol": 16
+    },
+    "min_width_mm": {
+      "principal": 30,
+      "vertical": 25,
+      "symbol": 8
+    },
+    "variants": [
+      "pozitiv",
+      "negativ",
+      "mono-negru",
+      "mono-alb",
+      "o-culoare"
+    ],
+    "layouts": [
+      "principal",
+      "vertical",
+      "simbol",
+      "wordmark"
+    ],
+    "negative_colors": {
+      "BIT": "#FFFFFF",
+      "straturi": "#FFFFFF",
+      "UP": "#5FA8AB",
+      "romb": "#FE982A"
+    },
+    "symbol": {
+      "drawing": "un singur desen pentru toate mărimile (din v1.4): liniile groase ale fostului „simbol mic”",
+      "base_layer": "stratul de jos are de 1,5 ori grosimea celorlalte: fundația (securitatea)",
+      "meaning": "de jos în sus: securitate cibernetică (fundația), infrastructură, software și automatizări, rombul portocaliu = AI"
+    }
+  },
+  "graphic_element": {
+    "name": "Straturile",
+    "slope": "1:2 (26,6°)",
+    "color": "secondary",
+    "opacity": 0.55,
+    "background": "primary",
+    "rule": "pornesc de la marginea de jos; cel mult unul pe compoziție",
+    "marker": "romb portocaliu în contur, pentru etichete și cifre-cheie"
+  },
+  "spacing": {
+    "base": 8,
+    "scale": [
+      4,
+      8,
+      16,
+      24,
+      32,
+      48,
+      64,
+      96
+    ],
+    "margins_mm": {
+      "A4": 20
+    },
+    "radius_px": 2,
+    "rhythm_px": {
+      "title_to_text": 16,
+      "paragraph": 12,
+      "section": 64
+    },
+    "radius_note": "Maximum 2 px. Butoanele au colțuri drepte (0 px)."
+  },
+  "social": {
+    "post": [
+      1080,
+      1350
+    ],
+    "post_square": [
+      1080,
+      1080
+    ],
+    "story": [
+      1080,
+      1920
+    ],
+    "story_safe_top": 250,
+    "story_safe_bottom": 340,
+    "avatar": [
+      1080,
+      1080
+    ],
+    "margin_px": 88,
+    "logo": {
+      "variant": "principal",
+      "height_px": 52,
+      "position": "stânga sus, la 88 px de margini (Stories: la 250 px de sus)"
+    },
+    "type_px": {
+      "title": [
+        76,
+        64
+      ],
+      "title_small": [
+        64,
+        56
+      ],
+      "carousel_cover": [
+        84,
+        72
+      ],
+      "story_title": [
+        92,
+        80
+      ],
+      "text": 32,
+      "list_item": [
+        34,
+        30
+      ],
+      "label": 24,
+      "button": 30,
+      "meta": 24,
+      "name": 64,
+      "index": 200,
+      "key_figure": 56
+    },
+    "type_note": "Titlurile coboară automat la a doua mărime când textul e lung; dacă nici așa nu încape, textul se scurtează. Nimic sub 24 px.",
+    "button": {
+      "height_px": 84,
+      "padding_x_px": 40,
+      "on_dark": "portocaliu #FE982A, text bleumarin",
+      "on_light": "bleumarin #00202E, text alb"
+    },
+    "templates": {
+      "P1": "Anunț / ofertă",
+      "P2": "Ghid în puncte",
+      "P3": "Specialist din echipă",
+      "P4": "Studiu de caz",
+      "P5": "Copertă de carusel",
+      "P6": "Pagină de carusel",
+      "S1": "Story: anunț cu link",
+      "S2": "Story: întrebare / sondaj",
+      "S3": "Story: fotografie cu bandă",
+      "R1": "Copertă de Reel (1080 × 1920; conținutul în zona 4:5 din feed, y 285–1635)"
+    },
+    "stories_platforms": [
+      "Instagram",
+      "Facebook"
+    ],
+    "carousel": "LinkedIn: document PDF cu pagini 1080 × 1350",
+    "graphic_element_3d": {
+      "name": "Straturi în spațiu",
+      "geometry": "plăci izometrice cu fața în romb 2 : 1 (unghiul simbolului), grosime 10–22 px",
+      "top_plate": "fața bleumarin (pe închis) sau albă (pe deschis), contur și laturi portocalii #FE982A, ridicată față de celelalte",
+      "plates_on_dark": "teal #20686C: fața 32%, latura stângă 85%, latura dreaptă 50%; contur teal deschis #5FA8AB, 2 px",
+      "plates_on_light": "fața ceață #EEF2F3 (pe alb) sau albă (pe ceață), laturi #DCE3E5, contur ardezie #4E5D66, 2 px",
+      "rule": "o singură stivă pe compoziție; mare pe bleumarin (P1, P5, S1, R1), mică pe alb și pe ceață (P2, P3, P4, S2), peste marginea benzii pe S3",
+      "carousel_steps": "P6: pasul 1 = placa de sus; pași parcurși teal, pasul curent portocaliu, pași următori linie; 2–7 pași",
+      "replaces_on_social": "câmpul de chevroane „Straturile” (rămâne pentru copertă de raport, carte de vizită, print)",
+      "base_plate": "placa de jos = fundația (securitatea): de 2 ori mai groasă decât celelalte, opacă; pe închis teal #20686C (fața 100%, laturile 62% și 38%, contur #5FA8AB); pe deschis fața teal #20686C, laturile bleumarin #00202E (100% și 82%), contur teal"
+    },
+    "templates_version": "v3",
+    "reel_cover": {
+      "size": [
+        1080,
+        1920
+      ],
+      "feed_crop_4_5": [
+        285,
+        1635
+      ],
+      "grid_crop_3_4": [
+        240,
+        1680
+      ],
+      "limits": {
+        "label": 32,
+        "titlu": 45,
+        "text": 60
+      }
+    }
+  }
+}

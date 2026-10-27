@@ -1,0 +1,112 @@
+/* BitUp · tokens de design pentru web (derivate din brand-tokens.json v1.4 și Manualul de brand v1.3).
+   Sursa de adevăr: brand-tokens.json. Nu adăuga culori, fonturi sau raze care nu sunt aici.
+   Tema: deschisă implicit; închisă cu [data-theme="dark"] sau prefers-color-scheme (vezi finalul fișierului). */
+
+@import url("./fonts.css");
+
+:root {
+  /* ---- Paleta (exact 8 culori; nimic altceva) ---- */
+  --bu-navy: #00202E;        /* primară: logo, titluri, fundaluri închise */
+  --bu-teal: #20686C;        /* secundară: linkuri, accente pe alb, elementul grafic */
+  --bu-orange: #FE982A;      /* accent: marcaje, cifre-cheie, butonul principal pe închis. NICIODATĂ text pe alb */
+  --bu-teal-light: #5FA8AB;  /* teal-ul folosit pe bleumarin */
+  --bu-white: #FFFFFF;
+  --bu-fog: #EEF2F3;         /* fundal secundar: carduri, tabele, secțiuni alternante */
+  --bu-slate: #4E5D66;       /* text secundar pe alb */
+  --bu-line: #DCE3E5;        /* linii, borduri */
+
+  /* ---- Roluri semantice (tema deschisă) ---- */
+  --color-bg: var(--bu-white);
+  --color-surface: var(--bu-fog);
+  --color-text: var(--bu-navy);
+  --color-text-muted: var(--bu-slate);
+  --color-heading: var(--bu-navy);
+  --color-link: var(--bu-teal);
+  --color-border: var(--bu-line);
+  --color-marker: var(--bu-orange);       /* doar forme: romb, bară, cifră mare pe închis */
+  --color-section-dark: var(--bu-navy);   /* secțiunile închise din pagina deschisă */
+  --btn-primary-bg: var(--bu-navy);
+  --btn-primary-fg: var(--bu-white);
+  --btn-secondary-border: var(--bu-navy);
+  --btn-secondary-fg: var(--bu-navy);
+  --focus-ring: var(--bu-teal);
+
+  /* ---- Tipografie (IBM Plex; fallback Arial) ---- */
+  --font-sans: "IBM Plex Sans", Arial, sans-serif;
+  --font-mono: "IBM Plex Mono", Consolas, "Courier New", monospace;   /* doar cifre în tabele, coduri, ID-uri */
+
+  /* Ierarhia (desktop = valorile din manual; pe mobil scade prin clamp) */
+  --fs-display: clamp(2.375rem, 1.6rem + 3.2vw, 3.75rem);  /* 38 → 60 px */
+  --lh-display: 1.08;  --ls-display: -0.02em;
+  --fs-h1: clamp(1.875rem, 1.4rem + 2vw, 2.625rem);         /* 30 → 42 px */
+  --lh-h1: 1.12;       --ls-h1: -0.015em;
+  --fs-h2: clamp(1.5rem, 1.25rem + 1vw, 1.875rem);          /* 24 → 30 px */
+  --lh-h2: 1.2;        --ls-h2: -0.01em;
+  --fs-h3: 1.3125rem;  /* 21 px */  --lh-h3: 1.3;
+  --fs-body: 1.0625rem; /* 17 px */ --lh-body: 1.6;
+  --fs-small: 0.875rem; /* 14 px */ --lh-small: 1.5;
+  --fs-label: 0.75rem;  /* 12 px, MAJUSCULE, 600, +0.08em, cu romb portocaliu în față */
+  --ls-label: 0.08em;
+  --fs-button: 0.9375rem; /* 15 px, 500 */
+  --fs-data: 0.9375rem;   /* 15 px, Mono 500 */
+  --fw-regular: 400; --fw-medium: 500; --fw-semibold: 600;
+
+  /* ---- Spațiere (bază 8) ---- */
+  --space-1: 4px; --space-2: 8px; --space-3: 16px; --space-4: 24px;
+  --space-5: 32px; --space-6: 48px; --space-7: 64px; --space-8: 96px;
+  --gap-title-text: 16px; --gap-paragraph: 12px; --gap-section: 64px;
+  --container: 1200px;
+  --gutter: clamp(16px, 4vw, 48px);
+
+  /* ---- Forme ---- */
+  --radius: 2px;          /* maximum 2 px oriunde */
+  --radius-button: 0;     /* butoanele au colțuri drepte */
+  --border-width: 1px;
+  --button-height: 48px;
+  --button-padding-x: 22px;
+
+  /* ---- Elementul grafic „Straturile” ---- */
+  --straturi-color: var(--bu-teal);
+  --straturi-opacity: 0.55;   /* doar pe bleumarin, pornesc din marginea de jos, cel mult unul pe compoziție */
+}
+
+/* ---- Tema închisă: bleumarin ca fundal; suprafața e derivată (bleumarin + 6 % alb), nu o culoare nouă ---- */
+:root[data-theme="dark"] {
+  --color-bg: var(--bu-navy);
+  --color-surface: color-mix(in srgb, var(--bu-navy) 94%, var(--bu-white));
+  --color-text: var(--bu-fog);
+  --color-text-muted: color-mix(in srgb, var(--bu-fog) 78%, var(--bu-navy));
+  --color-heading: var(--bu-white);
+  --color-link: var(--bu-teal-light);
+  --color-border: color-mix(in srgb, var(--bu-teal) 45%, var(--bu-navy));
+  --color-section-dark: color-mix(in srgb, var(--bu-navy) 94%, var(--bu-white));
+  --btn-primary-bg: var(--bu-orange);
+  --btn-primary-fg: var(--bu-navy);
+  --btn-secondary-border: var(--bu-white);
+  --btn-secondary-fg: var(--bu-white);
+  --focus-ring: var(--bu-teal-light);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --color-bg: var(--bu-navy);
+    --color-surface: color-mix(in srgb, var(--bu-navy) 94%, var(--bu-white));
+    --color-text: var(--bu-fog);
+    --color-text-muted: color-mix(in srgb, var(--bu-fog) 78%, var(--bu-navy));
+    --color-heading: var(--bu-white);
+    --color-link: var(--bu-teal-light);
+    --color-border: color-mix(in srgb, var(--bu-teal) 45%, var(--bu-navy));
+    --color-section-dark: color-mix(in srgb, var(--bu-navy) 94%, var(--bu-white));
+    --btn-primary-bg: var(--bu-orange);
+    --btn-primary-fg: var(--bu-navy);
+    --btn-secondary-border: var(--bu-white);
+    --btn-secondary-fg: var(--bu-white);
+    --focus-ring: var(--bu-teal-light);
+  }
+}
+
+/* ---- Bază minimă (opțională; componentele sunt descrise în .claude/skills/bitup-brand/references/componente.md) ---- */
+html { font-family: var(--font-sans); font-size: 100%; color: var(--color-text); background: var(--color-bg); }
+body { font-size: var(--fs-body); line-height: var(--lh-body); font-weight: var(--fw-regular); }
+h1, h2, h3 { font-weight: var(--fw-semibold); color: var(--color-heading); }
+.bu-label { font-size: var(--fs-label); font-weight: var(--fw-semibold); letter-spacing: var(--ls-label); text-transform: uppercase; color: var(--color-link); }
+.bu-data { font-family: var(--font-mono); font-weight: var(--fw-medium); font-size: var(--fs-data); }
