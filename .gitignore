@@ -21,3 +21,4 @@ playwright-report/
 # sistem
 .DS_Store
 Thumbs.db
+qa/**/*.html

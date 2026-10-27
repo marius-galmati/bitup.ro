@@ -1,29 +1,42 @@
 ---
 /**
- * Pagina principală, temporar (faza 1, branch-ul v3): doar un semn că site-ul se reface și linkul spre /styleguide.
- * Pagina Acasă reală vine în faza 2 (docs/brief-site-v3.md § 3 și § 5). noindex până atunci.
+ * Pagina Acasă (docs/brief-site-v3.md § 3 și § 5). noindex până la lansare (faza 6).
  */
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Section from '../components/ui/Section.astro';
-import Logo from '../components/ui/Logo.astro';
 import Label from '../components/ui/Label.astro';
 import Button from '../components/ui/Button.astro';
-import { t } from '../i18n';
-const d = t('ro');
+import HeroStack from '../components/home/HeroStack.astro';
+import { localePath } from '../i18n';
+const lang = 'ro';
 ---
-<BaseLayout lang="ro" title="BitUp Technology" description="BitUp Technology, Cluj-Napoca." routeKey="home" noindex>
-  <Section tone="white">
-    <div class="stub">
-      <Logo label={d.siteName} id="logo-stub" />
-      <Label>BitUp Technology</Label>
-      <h1 class="display">Proiectăm, securizăm, automatizăm și administrăm <span class="nowrap">IT-ul</span> companiilor în creștere.</h1>
-      <p class="measure">Pagina Acasă vine în faza 2. Până atunci, componentele sunt pe pagina sistemului de design.</p>
-      <div><Button href="/styleguide">Vezi sistemul de design</Button></div>
+<BaseLayout lang={lang} title="BitUp Technology" description="BitUp Technology, Cluj-Napoca." routeKey="home" noindex>
+  <Section tone="white" class="hero" labelledby="hero-titlu">
+    <div class="hero__grid">
+      <div class="hero__text">
+        <Label>BitUp Technology</Label>
+        <h1 id="hero-titlu" class="display hero__h1">Proiectăm, securizăm, automatizăm și administrăm <span class="nowrap">IT-ul</span> companiilor în creștere.</h1>
+        <p class="hero__lead">Un singur sistem, cu o singură echipă care răspunde de tot, de la servere și securitate la automatizări și agenți AI.</p>
+        <div class="hero__actions">
+          <Button href={`${localePath('contact', lang)}#formular`} block>Spune-ne problema de IT care te costă cel mai mult</Button>
+          <Button href={localePath('services', lang)} variant="tertiary">Vezi serviciile</Button>
+        </div>
+      </div>
+      <HeroStack lang={lang} class="hero__graphic" />
     </div>
   </Section>
 </BaseLayout>
 
 <style>
-  .stub { display: grid; gap: var(--space-4); justify-items: start; padding-block: var(--space-6); }
-  .stub h1 { max-width: 20ch; }
+  .hero__grid { display: grid; gap: var(--space-6); align-items: center; }
+  .hero__text { display: grid; gap: var(--gap-title-text); justify-items: start; }
+  .hero__h1 { max-width: 20ch; }
+  .hero__lead { max-width: 60ch; }
+  .hero__actions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-3) var(--space-4); margin-top: var(--space-4); width: 100%; }
+  /* Sub 1200 px stiva stă sub butoane, cu loc deasupra pentru eticheta stratului 5 și plăcile depărtate (ca pe bitup.ro). */
+  .hero__grid :global(.hero__graphic) { padding-top: var(--space-6); }
+  @media (min-width: 1200px) {
+    .hero__grid { grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); }
+    .hero__grid :global(.hero__graphic) { padding-top: 0; }
+  }
 </style>

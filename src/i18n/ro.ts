@@ -24,6 +24,13 @@ export const ro = {
     managed: 'IT administrat și suport',
   },
 
+  /** Stiva din hero (HeroStack): numele straturilor, ca în diagramă; textul pentru cititoarele de ecran, ca pe bitup.ro. */
+  heroStack: {
+    straturi: ['Securitate cibernetică', 'Infrastructură', 'Dezvoltare software', 'Automatizări', 'Agenți AI'],
+    fundatia: 'fundația',
+    ariaLabel: 'Securitatea stă la baza fiecărui serviciu',
+  },
+
   consent: {
     title: 'Cookie-uri de statistici, doar cu acordul tău',
     text: 'Folosim Google Analytics ca să vedem ce pagini se citesc și de unde vin vizitatorii. Nu pornește până nu accepți. Poți schimba alegerea oricând din „Setări cookie-uri”, jos în pagină.',

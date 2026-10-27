@@ -23,6 +23,12 @@ export const en: typeof ro = {
     managed: 'Managed IT and support',
   },
 
+  heroStack: {
+    straturi: ['Cybersecurity', 'Infrastructure', 'Software development', 'Automation', 'AI agents'],
+    fundatia: 'the foundation',
+    ariaLabel: 'Security sits at the base of every service',
+  },
+
   consent: {
     title: 'Statistics cookies, only with your consent',
     text: 'We use Google Analytics to see which pages get read and where visitors come from. It does not start until you accept. You can change your choice anytime from "Cookie settings" at the bottom of the page.',
