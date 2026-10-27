@@ -1,0 +1,49 @@
+---
+/**
+ * Card (componente.md § Carduri): fundal --color-surface sau contur 1 px --color-border, rază 2 px, padding 24–32 px,
+ * titlu H3, text 17 px, link terțiar la final. Fără umbre. Pe hover (când cardul are link), conturul devine teal.
+ * Linkul de la final acoperă tot cardul (o singură țintă, un singur nume accesibil).
+ */
+import Icon from './Icon.astro';
+interface Props {
+  title: string;
+  href?: string;
+  linkLabel?: string;
+  /** 'surface' = fundal ceață; 'outline' = doar contur. */
+  look?: 'surface' | 'outline';
+  icon?: string;
+  headingLevel?: 'h2' | 'h3' | 'h4';
+  state?: 'hover' | 'focus';
+  class?: string;
+}
+const { title, href, linkLabel, look = 'outline', icon, headingLevel: H = 'h3', state, class: className } = Astro.props;
+---
+<article class:list={['card', `card--${look}`, href && 'card--link', state && `is-${state}`, className]}>
+  {icon && <Icon name={icon} size="large" class="card__icon" />}
+  <H class="card__title">{title}</H>
+  <div class="card__body"><slot /></div>
+  {href && linkLabel && <a class="card__link" href={href}>{linkLabel}<span aria-hidden="true"> →</span></a>}
+</article>
+
+<style>
+  .card {
+    position: relative; display: flex; flex-direction: column; gap: var(--gap-title-text);
+    padding: var(--space-4); border: var(--border-width) solid var(--color-border); border-radius: var(--radius);
+    background: var(--color-bg); transition: border-color var(--dur);
+  }
+  @media (min-width: 768px) { .card { padding: var(--space-5); } }
+  .card--surface { background: var(--color-surface); border-color: transparent; }
+  .card__title { font-size: var(--fs-h3); line-height: var(--lh-h3); }
+  .card__body { color: var(--color-text); }
+  .card__body :global(p + p) { margin-top: var(--gap-paragraph); }
+  .card :global(.card__icon) { color: var(--color-heading); }
+  .card__link {
+    margin-top: auto; padding-top: var(--space-2); color: var(--color-link); font-weight: var(--fw-medium);
+    text-decoration: underline; text-decoration-thickness: var(--border-width); text-underline-offset: 0.25em;
+  }
+  .card__link::after { content: ''; position: absolute; inset: 0; }
+  .card__link:focus-visible { outline: none; }
+  .card--link:hover, .card.is-hover { border-color: var(--color-link); }
+  .card--link:has(.card__link:focus-visible), .card.is-focus { outline: var(--rule-strong) solid var(--focus-ring); outline-offset: var(--rule-strong); }
+  .card--link:hover .card__link, .card.is-hover .card__link { text-decoration-thickness: var(--rule-strong); }
+</style>

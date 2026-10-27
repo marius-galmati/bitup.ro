@@ -1,0 +1,29 @@
+---
+/**
+ * Bifă (componente.md § Formulare): pentru acordul de prelucrare a datelor. Căsuța nativă, colorată din --color-link,
+ * ținta de atingere de 48 px pe rând; eroarea la fel ca la câmpuri (text bleumarin cu bară portocalie).
+ * Textul etichetei vine prin slot, ca să poată conține linkul spre Confidențialitate.
+ */
+interface Props { id: string; name: string; required?: boolean; checked?: boolean; disabled?: boolean; error?: string; state?: 'focus' }
+const { id, name, required = false, checked = false, disabled = false, error, state } = Astro.props;
+const errorId = error ? `${id}-error` : undefined;
+---
+<div class:list={['check', error && 'check--error']}>
+  <div class="check__row">
+    <input class:list={['check__box', state === 'focus' && 'is-focus']} type="checkbox" id={id} name={name} required={required} checked={checked} disabled={disabled} aria-invalid={error ? true : undefined} aria-describedby={errorId} />
+    <label class="check__label" for={id}><slot /></label>
+  </div>
+  {error && <p class="check__error" id={errorId}>{error}</p>}
+</div>
+
+<style>
+  .check { display: grid; gap: var(--space-2); }
+  .check__row { display: flex; align-items: flex-start; gap: var(--space-3); min-height: var(--button-height); padding-top: var(--space-2); }
+  .check__box { flex: none; width: calc(var(--space-4) - var(--space-1)); height: calc(var(--space-4) - var(--space-1)); margin: 0; accent-color: var(--color-link); cursor: pointer; }
+  .check__box.is-focus { outline: var(--rule-strong) solid var(--focus-ring); outline-offset: var(--rule-strong); }
+  .check__label { font-size: var(--fs-small); line-height: var(--lh-small); color: var(--color-text); padding-top: 1px; }
+  .check__error {
+    margin: 0; padding: var(--space-1) 0 var(--space-1) var(--space-3); border-left: var(--error-bar) solid var(--color-marker);
+    font-size: var(--fs-small); line-height: var(--lh-small); font-weight: var(--fw-medium); color: var(--color-heading);
+  }
+</style>

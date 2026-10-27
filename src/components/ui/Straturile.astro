@@ -1,0 +1,21 @@
+---
+/**
+ * Elementul grafic „Straturile” (manualul § Elementul grafic; SKILL bitup-brand): linii teal la 55 %, care pornesc din marginea de jos,
+ * DOAR pe bleumarin, cel mult unul pe compoziție. Se folosește varianta transparentă: fundalul vine din secțiunea bleumarin.
+ * Se așază absolut, lipit de marginea de jos a părintelui (care are `position: relative` și `overflow: hidden`).
+ */
+import sectiune from '../../../brand/graphic/straturi_sectiune_1440x560_transparent.svg?raw';
+import banda from '../../../brand/graphic/straturi_banda_1440x360_transparent.svg?raw';
+import { inlineSvg } from '../../lib/svg';
+interface Props { format?: 'sectiune' | 'banda'; class?: string }
+const { format = 'banda', class: className } = Astro.props;
+const svg = inlineSvg(format === 'sectiune' ? sectiune : banda, { prefix: `straturi-${format}`, class: 'straturi__svg' });
+---
+<div class:list={['straturi', `straturi--${format}`, className]} aria-hidden="true" set:html={svg} />
+
+<style>
+  .straturi { position: absolute; inset: auto 0 0 0; pointer-events: none; }
+  .straturi--banda { height: min(25vw, calc(var(--space-8) * 3.75)); }
+  .straturi--sectiune { height: min(39vw, calc(var(--space-8) * 5.83)); }
+  .straturi :global(.straturi__svg) { width: 100%; height: 100%; }
+</style>

@@ -1,0 +1,30 @@
+---
+/**
+ * Diagrama serviciilor („Straturi în spațiu”, cele 5 straturi; brand/graphic/bitup_diagrama_servicii_*).
+ * Fișierele reparate de Marius: textul e în contururi și „5” e bleumarin pe alb. Puse inline (lib/svg.ts), fără modificări de desen;
+ * varianta pe deschis sau pe închis se alege după temă sau după contextul `.on-navy`.
+ * Pentru cititoarele de ecran, desenul e ascuns, iar straturile sunt o listă (de jos în sus: 1 = fundația).
+ */
+import deschis from '../../../brand/graphic/bitup_diagrama_servicii_deschis.svg?raw';
+import inchis from '../../../brand/graphic/bitup_diagrama_servicii_inchis.svg?raw';
+import { inlineSvg } from '../../lib/svg';
+import { t, type Locale } from '../../i18n';
+interface Props { lang: Locale; id?: string; class?: string }
+const { lang, id = 'diagrama', class: className } = Astro.props;
+const d = t(lang).layers;
+const svgD = inlineSvg(deschis, { prefix: `${id}-d`, class: 'diagrama__svg', dropBackground: true });
+const svgI = inlineSvg(inchis, { prefix: `${id}-i`, class: 'diagrama__svg', dropBackground: true });
+---
+<figure class:list={['diagrama', className]}>
+  <span class="theme-light-only" set:html={svgD} />
+  <span class="theme-dark-only" set:html={svgI} />
+  <figcaption class="visually-hidden">
+    {d.ariaLabel}
+    <ol>{d.items.map((s, i) => <li>{s}{i === 0 && `, ${d.foundation}`}</li>)}</ol>
+  </figcaption>
+</figure>
+
+<style>
+  .diagrama { margin: 0; width: 100%; }
+  .diagrama :global(.diagrama__svg) { width: 100%; height: auto; }
+</style>

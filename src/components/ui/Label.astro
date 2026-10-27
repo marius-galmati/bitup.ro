@@ -1,0 +1,22 @@
+---
+/**
+ * Eticheta (componente.md § Eticheta): rombul portocaliu din brand/graphic/marcaj-romb.svg + text 12 px, 600, spațiere 0,08 em, teal
+ * (pe închis teal deschis, prin --color-link). Majusculele vin din CSS: textul sursă rămâne „Servicii”, nu „SERVICII”.
+ */
+import romb from '../../../brand/graphic/marcaj-romb.svg?raw';
+import { inlineSvg } from '../../lib/svg';
+interface Props { tag?: 'p' | 'span' | 'div'; class?: string; id?: string }
+const { tag: Tag = 'p', class: className, id } = Astro.props;
+const svg = inlineSvg(romb, { prefix: 'romb', class: 'label__romb' });
+---
+<Tag class:list={['label', className]} id={id}><Fragment set:html={svg} /><span><slot /></span></Tag>
+
+<style>
+  .label {
+    display: inline-flex; align-items: center; gap: var(--space-2);
+    font-size: var(--fs-label); font-weight: var(--fw-semibold); letter-spacing: var(--ls-label); line-height: 1.4;
+    text-transform: uppercase; color: var(--color-link);
+  }
+  /* 12 × 6 px (componente.md); fișierul are 14 × 7, deci doar se scalează. */
+  .label :global(.label__romb) { width: var(--fs-label); height: auto; flex: none; }
+</style>

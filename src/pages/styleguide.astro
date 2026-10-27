@@ -1,0 +1,426 @@
+---
+/**
+ * /styleguide (faza 1): toate componentele din src/components/ui, cu variantele și stările lor, în tema curentă.
+ * Tema se schimbă din comutatorul de sus; capturile se fac în ambele teme. Pagină internă: noindex, în afara sitemap-ului,
+ * scoasă din build-ul de producție în faza 6. Textele de exemplu vin din copy.md și din brief, nu sunt inventate.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Section from '../components/ui/Section.astro';
+import Container from '../components/ui/Container.astro';
+import Logo from '../components/ui/Logo.astro';
+import Button from '../components/ui/Button.astro';
+import Label from '../components/ui/Label.astro';
+import Card from '../components/ui/Card.astro';
+import Stat from '../components/ui/Stat.astro';
+import Table from '../components/ui/Table.astro';
+import Field from '../components/ui/Field.astro';
+import Checkbox from '../components/ui/Checkbox.astro';
+import Icon from '../components/ui/Icon.astro';
+import DiagramaServicii from '../components/ui/DiagramaServicii.astro';
+import PlaciStraturi from '../components/ui/PlaciStraturi.astro';
+import Breadcrumb from '../components/ui/Breadcrumb.astro';
+import Faq from '../components/ui/Faq.astro';
+import CtaBand from '../components/ui/CtaBand.astro';
+import ThemeToggle from '../components/ui/ThemeToggle.astro';
+import LangSwitch from '../components/ui/LangSwitch.astro';
+import ConsentBanner from '../components/ui/ConsentBanner.astro';
+import tokens from '../../brand/brand-tokens.json';
+import { t } from '../i18n';
+
+const lang = 'ro' as const;
+const d = t(lang);
+
+const colorKeys = {
+  primary: '--bu-navy', secondary: '--bu-teal', accent: '--bu-orange', secondary_on_dark: '--bu-teal-light',
+  neutral_white: '--bu-white', neutral_light: '--bu-fog', neutral_dark: '--bu-slate', line: '--bu-line',
+} as const;
+type ColorKey = keyof typeof colorKeys;
+const swatches = (Object.keys(colorKeys) as ColorKey[]).map((k) => ({ key: k, token: colorKeys[k], name: tokens.colors[k].name, hex: tokens.colors[k].hex }));
+const colorName = (k: string) => tokens.colors[k as ColorKey]?.name ?? k;
+const ratio = (n: number) => n.toLocaleString('ro-RO', { minimumFractionDigits: 2 });
+const allowed = (tokens.contrast_text_allowed as [string, string, number][]).map(([fg, bg, r]) => [colorName(fg), colorName(bg), ratio(r)]);
+const forbidden = (tokens.contrast_text_forbidden as [string, string, number][]).map(([fg, bg, r]) => [colorName(fg), colorName(bg), ratio(r)]);
+
+const spaces = [1, 2, 3, 4, 5, 6, 7, 8].map((n) => ({ token: `--space-${n}`, px: [4, 8, 16, 24, 32, 48, 64, 96][n - 1] }));
+
+const serviceIcons = [
+  { name: 'shield', label: d.layers.items[0] },
+  { name: 'server', label: d.layers.items[1] },
+  { name: 'code-xml', label: d.layers.items[2] },
+  { name: 'workflow', label: d.layers.items[3] },
+  { name: 'bot', label: d.layers.items[4] },
+  { name: 'headset', label: d.layers.managed },
+];
+const uiIcons = ['chevron-down', 'chevron-right', 'plus', 'moon', 'sun', 'mail', 'phone'];
+
+const angajati = [
+  { value: '1-9', label: '1–9' }, { value: '10-49', label: '10–49' }, { value: '50-249', label: '50–249' }, { value: '250+', label: 'peste 250' },
+];
+
+const faq = [
+  { q: 'Când primesc recomandarea?', a: 'În 24 de ore lucrătoare de la mesajul tău. Primești o recomandare scrisă: ce am face noi în locul tău, chiar dacă nu lucrăm împreună.' },
+  { q: 'Cine face auditul pentru NIS2?', a: 'Un auditor acreditat de DNSC, independent de consultant. Noi facem consultanța și implementarea tehnică a controalelor și pregătim compania pentru audit.' },
+  { q: 'Cât durează încadrarea NIS2?', a: 'Aproximativ 3 minute, pe nis2.cyberxscore.ro. Rezultatul e o estimare; încadrarea finală o face DNSC.' },
+];
+---
+<BaseLayout lang={lang} title="Sistemul de design · BitUp Technology" description="Componentele site-ului BitUp, în ambele teme." path="/styleguide" noindex noAlternates>
+  <header slot="header" class="sg-bar">
+    <Container class="sg-bar__inner">
+      <Logo href="/styleguide" label={d.logoAlt} id="logo-bar" />
+      <div class="sg-bar__tools">
+        <LangSwitch lang={lang} altHref="/styleguide" />
+        <ThemeToggle lang={lang} />
+      </div>
+    </Container>
+  </header>
+
+  <Section tone="white" labelledby="sg-titlu">
+    <Label>Sistemul de design</Label>
+    <h1 id="sg-titlu" class="display sg-h1">Componentele site-ului BitUp</h1>
+    <p class="measure sg-lead">Toate valorile vin din <code class="data">brand/tokens.css</code>. Comutatorul din dreapta sus schimbă tema; fiecare componentă de mai jos trebuie să arate corect în ambele.</p>
+    <nav class="sg-toc" aria-label="Cuprins">
+      <ul role="list">
+        {['Culori', 'Tipografie', 'Spațiere', 'Butoane', 'Etichete', 'Logo', 'Iconițe', 'Carduri', 'Cifre-cheie', 'Tabele', 'Formulare', 'Navigare', 'Întrebări', 'Ilustrații', 'Cookie-uri', 'Îndemn'].map((s, i) => (
+          <li><a href={`#sg-${i + 1}`}>{s}</a></li>
+        ))}
+      </ul>
+    </nav>
+  </Section>
+
+  <!-- 1. Culori -->
+  <Section tone="fog" id="sg-1" labelledby="sg-1-t">
+    <Label>Culori</Label>
+    <h2 id="sg-1-t">Paleta: opt culori, nimic altceva</h2>
+    <ul class="sg-swatches" role="list">
+      {swatches.map((s) => (
+        <li class="sg-swatch">
+          <span class="sg-swatch__chip" style={`background: var(${s.token})`}></span>
+          <span class="sg-swatch__name">{s.name}</span>
+          <code class="data sg-swatch__meta">{s.token}</code>
+          <code class="data sg-swatch__meta">{s.hex}</code>
+        </li>
+      ))}
+    </ul>
+    <div class="sg-grid-2">
+      <Table caption="Perechi de text permise (contrast)" columns={[{ label: 'Text' }, { label: 'Fundal' }, { label: 'Contrast', numeric: true }]} rows={allowed} />
+      <Table caption="Perechi interzise pentru text" columns={[{ label: 'Text' }, { label: 'Fundal' }, { label: 'Contrast', numeric: true }]} rows={forbidden} />
+    </div>
+  </Section>
+
+  <!-- 2. Tipografie -->
+  <Section tone="white" id="sg-2" labelledby="sg-2-t">
+    <Label>Tipografie</Label>
+    <h2 id="sg-2-t">IBM Plex Sans și IBM Plex Mono</h2>
+    <div class="sg-type">
+      <div class="sg-type__row"><code class="data muted">Display · 600 · 38→60</code><p class="display sg-type__sample">Proiectăm, securizăm, automatizăm și administrăm IT-ul companiilor în creștere.</p></div>
+      <div class="sg-type__row"><code class="data muted">H1 · 600 · 30→42</code><p class="sg-type__sample sg-h1like">Un singur sistem, cu o singură echipă</p></div>
+      <div class="sg-type__row"><code class="data muted">H2 · 600 · 24→30</code><p class="sg-type__sample sg-h2like">Securitatea e fundația</p></div>
+      <div class="sg-type__row"><code class="data muted">H3 · 600 · 21</code><p class="sg-type__sample sg-h3like">Infrastructură</p></div>
+      <div class="sg-type__row"><code class="data muted">Text · 400 · 17</code><p class="sg-type__sample measure">Un singur sistem, cu o singură echipă care răspunde de tot, de la servere și securitate la automatizări și agenți AI.</p></div>
+      <div class="sg-type__row"><code class="data muted">Mic · 400 · 14</code><p class="sg-type__sample small muted">Intervenții la sediul clientului în Cluj și Transilvania; de la distanță în toată țara.</p></div>
+      <div class="sg-type__row"><code class="data muted">Etichetă · 600 · 12</code><div class="sg-type__sample"><Label tag="span">Studiu de caz</Label></div></div>
+      <div class="sg-type__row"><code class="data muted">Buton · 500 · 15</code><div class="sg-type__sample"><Button href="#sg-4">Vezi serviciile</Button></div></div>
+      <div class="sg-type__row"><code class="data muted">Date · Mono 500 · 15</code><p class="sg-type__sample data">99,98 % · J12/1556/2020</p></div>
+      <div class="sg-type__row"><code class="data muted">Link · teal</code><p class="sg-type__sample">Încadrarea NIS2 pe <a href="#sg-2">nis2.cyberxscore.ro</a>, în aproximativ 3 minute.</p></div>
+    </div>
+  </Section>
+
+  <!-- 3. Spațiere -->
+  <Section tone="fog" id="sg-3" labelledby="sg-3-t">
+    <Label>Spațiere</Label>
+    <h2 id="sg-3-t">Scara de 8 px</h2>
+    <ul class="sg-spaces" role="list">
+      {spaces.map((s) => (
+        <li><code class="data sg-spaces__k">{s.token}</code><span class="sg-spaces__bar" style={`width: var(${s.token})`}></span><span class="data muted">{s.px}</span></li>
+      ))}
+    </ul>
+    <p class="small muted sg-note">Secțiuni: 64 px pe desktop, 48 px pe mobil. Raza: 2 px pe carduri și câmpuri, 0 pe butoane. Textul lung: cel mult 68 de caractere pe rând.</p>
+  </Section>
+
+  <!-- 4. Butoane -->
+  <Section tone="white" id="sg-4" labelledby="sg-4-t">
+    <Label>Butoane</Label>
+    <h2 id="sg-4-t">Principal, secundar, terțiar</h2>
+    <div class="sg-states">
+      {(['primary', 'secondary', 'tertiary'] as const).map((v) => (
+        <div class="sg-states__row">
+          <p class="sg-states__name data muted">{v === 'primary' ? 'Principal' : v === 'secondary' ? 'Secundar' : 'Terțiar'}</p>
+          <div class="sg-states__item"><Button variant={v} href="#sg-4">Spune-ne problema</Button><span class="sg-cap">Normal</span></div>
+          <div class="sg-states__item"><Button variant={v} href="#sg-4" state="hover">Spune-ne problema</Button><span class="sg-cap">Hover</span></div>
+          <div class="sg-states__item"><Button variant={v} href="#sg-4" state="focus">Spune-ne problema</Button><span class="sg-cap">Focus</span></div>
+          <div class="sg-states__item"><Button variant={v} disabled>Spune-ne problema</Button><span class="sg-cap">Dezactivat</span></div>
+        </div>
+      ))}
+    </div>
+    <div class="on-navy sg-panel">
+      <p class="sg-panel__title">Pe bleumarin</p>
+      <div class="sg-row">
+        <Button href="#sg-4">Spune-ne problema de IT care te costă cel mai mult</Button>
+        <Button variant="secondary" href="#sg-4">Vezi serviciile</Button>
+        <Button variant="tertiary" href="#sg-4">Programează o discuție</Button>
+      </div>
+      <div class="sg-row">
+        <Button href="#sg-4" state="hover">Hover</Button>
+        <Button variant="secondary" href="#sg-4" state="hover">Hover</Button>
+        <Button href="#sg-4" state="focus">Focus</Button>
+      </div>
+    </div>
+    <p class="small muted sg-note">Butonul principal de pe mobil ia toată lățimea (<code class="data">block</code>). O singură acțiune principală pe ecran.</p>
+    <div class="sg-mobile-demo"><Button href="#sg-4" block>Trimite problema</Button></div>
+  </Section>
+
+  <!-- 5. Etichete -->
+  <Section tone="fog" id="sg-5" labelledby="sg-5-t">
+    <Label>Etichete</Label>
+    <h2 id="sg-5-t">Rombul portocaliu și textul teal</h2>
+    <div class="sg-row">
+      <Label tag="span">Servicii</Label><Label tag="span">NIS2</Label><Label tag="span">Studiu de caz</Label><Label tag="span">BitUp Technology</Label>
+    </div>
+    <div class="on-navy sg-panel">
+      <div class="sg-row"><Label tag="span">Servicii</Label><Label tag="span">Construite de noi</Label></div>
+    </div>
+  </Section>
+
+  <!-- 6. Logo -->
+  <Section tone="white" id="sg-6" labelledby="sg-6-t">
+    <Label>Logo</Label>
+    <h2 id="sg-6-t">Pozitiv pe deschis, negativ pe închis</h2>
+    <div class="sg-grid-2">
+      <div class="sg-logo sg-logo--light">
+        <span class="sg-logo__clear"><Logo label="BitUp Technology" variant="positive" id="logo-p1" /></span>
+        <p class="sg-cap">Pozitiv, 40 px, cu zona de protecție (1 × înălțimea literei B)</p>
+      </div>
+      <div class="sg-logo on-navy">
+        <span class="sg-logo__clear"><Logo label="BitUp Technology" variant="negative" id="logo-n1" /></span>
+        <p class="sg-cap">Negativ, pe bleumarin</p>
+      </div>
+    </div>
+    <div class="sg-row sg-logo-auto">
+      <Logo label="BitUp Technology" id="logo-a1" size="large" />
+      <p class="small muted">Varianta automată, 64 px: se schimbă cu tema.</p>
+    </div>
+  </Section>
+
+  <!-- 7. Iconițe -->
+  <Section tone="fog" id="sg-7" labelledby="sg-7-t">
+    <Label>Iconițe</Label>
+    <h2 id="sg-7-t">Lucide, linie de 1,5 px, o singură culoare</h2>
+    <ul class="sg-icons" role="list">
+      {serviceIcons.map((i) => <li><Icon name={i.name} size="large" /><span class="small">{i.label}</span></li>)}
+    </ul>
+    <ul class="sg-icons sg-icons--ui" role="list">
+      {uiIcons.map((n) => <li><Icon name={n} /><code class="data muted">{n}</code></li>)}
+      <li><Icon name="shield" active /><code class="data muted">activ (teal)</code></li>
+    </ul>
+    <p class="small muted sg-note">Propunerea de iconițe pentru cele 6 servicii; se confirmă odată cu meniul, în faza 2.</p>
+  </Section>
+
+  <!-- 8. Carduri -->
+  <Section tone="white" id="sg-8" labelledby="sg-8-t">
+    <Label>Carduri</Label>
+    <h2 id="sg-8-t">Contur, suprafață, hover</h2>
+    <div class="sg-cards">
+      <Card title={d.layers.items[0]} icon="shield" href="#sg-8" linkLabel="Vezi serviciul">
+        <p>Evaluarea riscului și a maturității, pregătirea și implementarea ISO 27001 și NIS2, protecția stațiilor (EDR/XDR), actualizări automate.</p>
+      </Card>
+      <Card title={d.layers.items[1]} icon="server" href="#sg-8" linkLabel="Vezi serviciul" state="hover">
+        <p>Microsoft 365, Active Directory hibrid, rețele, servere și BitUp Cloud.</p>
+        <p class="sg-cap">Hover</p>
+      </Card>
+      <Card title={d.layers.managed} icon="headset" href="#sg-8" linkLabel="Vezi serviciul" state="focus">
+        <p>Preluăm întreaga infrastructură a firmei plus suportul pentru utilizatori; un singur partener, în locul mai multor furnizori.</p>
+        <p class="sg-cap">Focus</p>
+      </Card>
+    </div>
+    <div class="sg-cards sg-cards--2">
+      <Card title="Card pe suprafață, fără link" look="surface">
+        <p>Fundal ceață, fără contur. Fără umbre, rază 2 px.</p>
+      </Card>
+      <Card title="Card cu contur, fără link">
+        <p>Conturul rămâne gri: fără link nu există hover.</p>
+      </Card>
+    </div>
+  </Section>
+
+  <!-- 9. Cifre-cheie -->
+  <Section tone="fog" id="sg-9" labelledby="sg-9-t">
+    <Label>Cifre-cheie</Label>
+    <h2 id="sg-9-t">Doar cifre aprobate</h2>
+    <div class="sg-stats">
+      <Stat value="2020" caption="Pe piață din iunie 2020" />
+      <Stat value="99,98 %" caption="Disponibilitatea BitUp Cloud" />
+      <Stat value="≈ 6 ani" caption="De când operăm cloudul privat BitUp" />
+    </div>
+    <div class="on-navy sg-panel">
+      <div class="sg-stats">
+        <Stat value="99,98 %" caption="Disponibilitatea BitUp Cloud" accent />
+        <Stat value="4" caption="Oameni în echipă, cu nume și rol" accent />
+      </div>
+    </div>
+  </Section>
+
+  <!-- 10. Tabele -->
+  <Section tone="white" id="sg-10" labelledby="sg-10-t">
+    <Label>Tabele</Label>
+    <h2 id="sg-10-t">Fără linii verticale, fără zebră</h2>
+    <Table
+      caption="BitUp Cloud, pe scurt"
+      columns={[{ label: 'Ce' }, { label: 'Detalii' }, { label: 'Valoare', numeric: true }]}
+      rows={[
+        ['Disponibilitate', 'Cloudul privat BitUp', '99,98 %'],
+        ['Operat de', 'Aproximativ', '6 ani'],
+        ['Rulează pe el', 'Hostero, platforma publică de găzduire', 'hostero.ro'],
+      ]}
+    />
+  </Section>
+
+  <!-- 11. Formulare -->
+  <Section tone="fog" id="sg-11" labelledby="sg-11-t">
+    <Label>Formulare</Label>
+    <h2 id="sg-11-t">Câmpurile ofertei principale</h2>
+    <div class="sg-grid-2 sg-form">
+      <form class="sg-form__col" method="dialog" aria-label="Exemplu de formular, stare normală">
+        <Field lang={lang} control="textarea" id="f-problema" name="problema" label="Problema de IT care te costă cel mai mult" hint="În 24 de ore lucrătoare primești o recomandare scrisă." required />
+        <Field lang={lang} control="select" id="f-angajati" name="angajati" label="Numărul de angajați" emptyOption="Alege" options={angajati} required />
+        <Field lang={lang} id="f-nume" name="nume" label="Nume" autocomplete="name" required />
+        <Field lang={lang} id="f-email" name="email" type="email" label="Email de serviciu" autocomplete="email" required />
+        <Field lang={lang} id="f-telefon" name="telefon" type="tel" label="Telefon" autocomplete="tel" />
+        <Field lang={lang} id="f-firma" name="firma" label="Firma" autocomplete="organization" required />
+        <Checkbox id="f-acord" name="acord" required>Sunt de acord cu prelucrarea datelor, conform <a href="#sg-11">politicii de confidențialitate</a>.</Checkbox>
+        <Button type="submit" block>Trimite problema</Button>
+      </form>
+      <form class="sg-form__col" method="dialog" aria-label="Exemplu de formular, stări">
+        <Field lang={lang} id="f2-focus" name="x1" label="Focus" value="Popescu Ana" state="focus" required />
+        <Field lang={lang} id="f2-email" name="x2" type="email" label="Email de serviciu" value="ana@firma" error="Adresa de email pare incompletă. Verifică partea de după @." required />
+        <Field lang={lang} control="textarea" id="f2-problema" name="x3" label="Problema de IT care te costă cel mai mult" error="Scrie pe scurt problema, ca să știm de unde pornim." required rows={3} />
+        <Field lang={lang} id="f2-dis" name="x4" label="Dezactivat" value="Nu se poate modifica" disabled required />
+        <Checkbox id="f2-acord" name="x5" required error="Avem nevoie de acordul tău ca să-ți putem răspunde.">Sunt de acord cu prelucrarea datelor, conform <a href="#sg-11">politicii de confidențialitate</a>.</Checkbox>
+        <Button type="submit" disabled>Se trimite…</Button>
+      </form>
+    </div>
+  </Section>
+
+  <!-- 12. Navigare -->
+  <Section tone="white" id="sg-12" labelledby="sg-12-t">
+    <Label>Navigare</Label>
+    <h2 id="sg-12-t">Breadcrumb, limbă, temă</h2>
+    <div class="sg-stack">
+      <Breadcrumb lang={lang} items={[{ label: d.breadcrumb.home, href: '/' }, { label: 'Servicii', href: '#sg-12' }, { label: d.layers.items[0] }]} />
+      <div class="sg-row"><LangSwitch lang="ro" altHref="#sg-12" /><LangSwitch lang="en" altHref="#sg-12" /><ThemeToggle lang={lang} /></div>
+    </div>
+  </Section>
+
+  <!-- 13. Întrebări -->
+  <Section tone="fog" id="sg-13" labelledby="sg-13-t">
+    <Label>Întrebări frecvente</Label>
+    <h2 id="sg-13-t">Răspunsuri scurte, din tastatură</h2>
+    <div class="measure sg-faq"><Faq items={faq} open={0} /></div>
+  </Section>
+
+  <!-- 14. Ilustrații -->
+  <Section tone="white" id="sg-14" labelledby="sg-14-t">
+    <Label>Straturi în spațiu</Label>
+    <h2 id="sg-14-t">Diagrama serviciilor și plăcile</h2>
+    <div class="sg-illus">
+      <DiagramaServicii lang={lang} id="diag-1" />
+      <PlaciStraturi id="placi-1" />
+    </div>
+    <div class="on-navy sg-panel sg-illus">
+      <DiagramaServicii lang={lang} id="diag-2" />
+      <PlaciStraturi id="placi-2" />
+    </div>
+  </Section>
+
+  <!-- 15. Cookie-uri -->
+  <Section tone="fog" id="sg-15" labelledby="sg-15-t">
+    <Label>Cookie-uri</Label>
+    <h2 id="sg-15-t">Accept și Refuz, egale</h2>
+    <div class="sg-consent"><ConsentBanner lang={lang} visible inline /></div>
+  </Section>
+
+  <!-- 16. Îndemn -->
+  <div id="sg-16">
+    <CtaBand
+      label="Oferta principală"
+      title="Scrie-ne problema de IT care te costă cel mai mult."
+      text="În 24 de ore lucrătoare primești o recomandare scrisă: ce am face noi în locul tău, chiar dacă nu lucrăm împreună."
+      cta="Spune-ne problema"
+      href="#sg-11"
+    >
+      <Button variant="tertiary" href="#sg-16">Programează o discuție</Button>
+    </CtaBand>
+  </div>
+</BaseLayout>
+
+<style>
+  .sg-bar { border-bottom: var(--border-width) solid var(--color-border); background: var(--color-bg); }
+  .sg-bar :global(.sg-bar__inner) { display: flex; align-items: center; justify-content: space-between; gap: var(--space-4); min-height: calc(var(--space-7) + var(--space-3)); }
+  .sg-bar__tools { display: flex; align-items: center; gap: var(--space-3); }
+
+  .sg-h1 { margin-top: var(--space-3); max-width: 18ch; }
+  .sg-lead { margin-top: var(--gap-title-text); }
+  .sg-toc ul { display: flex; flex-wrap: wrap; gap: var(--space-2) var(--space-4); margin-top: var(--space-5); font-size: var(--fs-small); }
+
+  h2 { margin-top: var(--space-3); margin-bottom: var(--space-5); }
+  .sg-note { margin-top: var(--space-4); max-width: var(--measure); }
+  .sg-cap { display: block; margin-top: var(--space-2); font-size: var(--fs-small); color: var(--color-text-muted); }
+  .sg-row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-4); }
+  .sg-stack { display: grid; gap: var(--space-5); }
+  .sg-grid-2 { display: grid; gap: var(--space-5); }
+  @media (min-width: 768px) { .sg-grid-2 { grid-template-columns: 1fr 1fr; } }
+  .sg-panel { margin-top: var(--space-5); padding: var(--space-5) var(--space-4); border: var(--border-width) solid var(--color-border); border-radius: var(--radius); display: grid; gap: var(--space-4); }
+  .sg-panel__title { font-weight: var(--fw-semibold); color: var(--color-heading); }
+
+  .sg-swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(calc(var(--space-8) + var(--space-7)), 1fr)); gap: var(--space-4); margin-bottom: var(--space-6); }
+  .sg-swatch { display: grid; gap: var(--space-1); }
+  .sg-swatch__chip { display: block; height: var(--space-7); border: var(--border-width) solid var(--color-border); border-radius: var(--radius); margin-bottom: var(--space-2); }
+  .sg-swatch__name { font-weight: var(--fw-semibold); color: var(--color-heading); }
+  .sg-swatch__meta { font-size: var(--fs-small); color: var(--color-text-muted); }
+
+  .sg-type { display: grid; }
+  .sg-type__row { display: grid; gap: var(--space-2); padding-block: var(--space-4); border-bottom: var(--border-width) solid var(--color-border); }
+  @media (min-width: 1024px) { .sg-type__row { grid-template-columns: calc(var(--space-8) * 2.5) 1fr; align-items: baseline; gap: var(--space-5); } }
+  .sg-type__row code { font-size: var(--fs-small); }
+  .sg-type__sample { margin: 0; }
+  .sg-h1like { font-size: var(--fs-h1); line-height: var(--lh-h1); letter-spacing: var(--ls-h1); font-weight: var(--fw-semibold); color: var(--color-heading); }
+  .sg-h2like { font-size: var(--fs-h2); line-height: var(--lh-h2); letter-spacing: var(--ls-h2); font-weight: var(--fw-semibold); color: var(--color-heading); }
+  .sg-h3like { font-size: var(--fs-h3); line-height: var(--lh-h3); font-weight: var(--fw-semibold); color: var(--color-heading); }
+  .display.sg-type__sample { font-weight: var(--fw-semibold); color: var(--color-heading); max-width: 22ch; }
+
+  .sg-spaces { display: grid; gap: var(--space-3); }
+  .sg-spaces li { display: grid; grid-template-columns: calc(var(--space-8) + var(--space-3)) auto 1fr; align-items: center; gap: var(--space-3); }
+  .sg-spaces__k { font-size: var(--fs-small); }
+  .sg-spaces__bar { display: block; height: var(--space-3); background: var(--color-link); }
+
+  .sg-states { display: grid; gap: var(--space-5); }
+  .sg-states__row { display: flex; flex-wrap: wrap; align-items: flex-start; gap: var(--space-4) var(--space-5); }
+  .sg-states__name { width: 100%; font-size: var(--fs-small); }
+  .sg-states__item { display: grid; justify-items: start; }
+  .sg-mobile-demo { margin-top: var(--space-3); }
+
+  .sg-logo { padding: var(--space-5); border: var(--border-width) solid var(--color-border); border-radius: var(--radius); }
+  .sg-logo--light { background: var(--bu-white); }
+  .sg-logo--light .sg-cap { color: var(--bu-slate); }
+  .sg-logo__clear { display: inline-block; outline: var(--border-width) dashed var(--color-link); outline-offset: 0; }
+  .sg-logo__clear :global(.logo) { padding: var(--logo-clear); }
+  .sg-logo-auto { margin-top: var(--space-5); }
+
+  .sg-icons { display: grid; grid-template-columns: repeat(auto-fill, minmax(calc(var(--space-8) * 1.5), 1fr)); gap: var(--space-4); }
+  .sg-icons li { display: grid; justify-items: start; gap: var(--space-2); }
+  .sg-icons--ui { margin-top: var(--space-5); }
+  .sg-icons--ui code { font-size: var(--fs-small); }
+
+  .sg-cards { display: grid; gap: var(--space-4); }
+  @media (min-width: 768px) { .sg-cards { grid-template-columns: repeat(3, 1fr); } .sg-cards--2 { grid-template-columns: repeat(2, 1fr); } }
+  .sg-cards--2 { margin-top: var(--space-4); }
+
+  .sg-stats { display: grid; gap: var(--space-5); }
+  @media (min-width: 768px) { .sg-stats { grid-template-columns: repeat(3, 1fr); } }
+
+  .sg-form__col { display: grid; gap: var(--space-4); align-content: start; }
+
+  .sg-illus { display: grid; gap: var(--space-5); align-items: center; }
+  @media (min-width: 768px) { .sg-illus { grid-template-columns: 3fr 2fr; } }
+
+  .sg-consent { max-width: calc(var(--space-8) * 4.4); }
+</style>

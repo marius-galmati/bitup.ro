@@ -1,0 +1,63 @@
+---
+/**
+ * Button (componente.md § Butoane). 48 px, padding 22 px, colțuri 0, IBM Plex Sans 500 15 px, „→” după text la butoanele care duc mai departe.
+ * Culorile vin din rolurile semantice (--btn-*), deci varianta de pe închis apare singură în tema închisă și în `.on-navy`.
+ * Principal: bleumarin / alb (pe închis: portocaliu / bleumarin). Secundar: contur 1 px. Terțiar: link subliniat teal.
+ * `state` forțează aspectul de hover / focus, doar pentru /styleguide.
+ */
+import type { HTMLAttributes } from 'astro/types';
+
+type Props = {
+  variant?: 'primary' | 'secondary' | 'tertiary';
+  href?: string;
+  type?: 'button' | 'submit';
+  /** Săgeata „→”: implicit da (butonul duce mai departe). */
+  arrow?: boolean;
+  /** Pe toată lățimea pe mobil (sub 768 px). */
+  block?: boolean;
+  disabled?: boolean;
+  state?: 'hover' | 'focus';
+  class?: string;
+} & Omit<HTMLAttributes<'a'>, 'type' | 'class'>;
+
+const { variant = 'primary', href, type = 'button', arrow = true, block = false, disabled = false, state, class: className, ...rest } = Astro.props;
+const classes = ['btn', `btn--${variant}`, block && 'btn--block', state && `is-${state}`, className];
+---
+{href ? (
+  <a class:list={classes} href={href} {...rest}><span class="btn__text"><slot /></span>{arrow && <span class="btn__arrow" aria-hidden="true">→</span>}</a>
+) : (
+  <button class:list={classes} type={type} disabled={disabled} {...(rest as HTMLAttributes<'button'>)}><span class="btn__text"><slot /></span>{arrow && <span class="btn__arrow" aria-hidden="true">→</span>}</button>
+)}
+
+<style>
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: var(--space-2);
+    min-height: var(--button-height); padding: 0 var(--button-padding-x);
+    border: var(--border-width) solid transparent; border-radius: var(--radius-button);
+    font-family: var(--font-sans); font-size: var(--fs-button); font-weight: var(--fw-medium); line-height: 1.2;
+    text-decoration: none; cursor: pointer; text-align: center;
+    justify-self: start; /* într-o grilă nu se întinde pe toată lățimea; doar `block`, pe mobil */
+    transition: background-color var(--dur), color var(--dur), border-color var(--dur);
+  }
+  .btn__arrow { display: inline-block; transition: transform var(--dur); }
+  .btn:hover .btn__arrow, .btn.is-hover .btn__arrow { transform: translateX(var(--space-1)); }
+  .btn.is-focus { outline: var(--rule-strong) solid var(--focus-ring); outline-offset: var(--rule-strong); }
+
+  .btn--primary { background: var(--btn-primary-bg); color: var(--btn-primary-fg); border-color: var(--btn-primary-bg); }
+
+  /* Secundarul se umple la hover: aceleași două culori, inversate (contrastul rămâne cel al principalului). */
+  .btn--secondary { background: transparent; color: var(--btn-secondary-fg); border-color: var(--btn-secondary-border); }
+  .btn--secondary:hover, .btn--secondary.is-hover { background: var(--btn-secondary-border); color: var(--color-bg); }
+
+  /* Terțiarul: link subliniat; linia stă doar sub text, nu și sub săgeată. */
+  .btn--tertiary { min-height: auto; padding: 0; border: 0; background: none; color: var(--color-link); }
+  .btn--tertiary .btn__text { text-decoration: underline; text-decoration-thickness: var(--border-width); text-underline-offset: 0.25em; }
+  .btn--tertiary:hover .btn__text, .btn--tertiary.is-hover .btn__text { text-decoration-thickness: var(--rule-strong); }
+
+  /* Dezactivat: suprafață, contur și text secundar, din roluri (o opacitate peste portocaliu ar da o culoare din afara paletei). */
+  .btn--primary:disabled, .btn--secondary:disabled { cursor: not-allowed; background: var(--color-surface); border-color: var(--color-border); color: var(--color-text-muted); }
+  .btn--tertiary:disabled { cursor: not-allowed; color: var(--color-text-muted); }
+  .btn:disabled .btn__arrow { transform: none; }
+
+  @media (max-width: 767px) { .btn--block { width: 100%; justify-self: stretch; } }
+</style>

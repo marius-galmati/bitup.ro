@@ -1,0 +1,39 @@
+---
+/**
+ * Logo (componente.md § Antet; manualul § Logo). Doar fișierele din brand/logo/, puse în pagină fără modificări (lib/svg.ts).
+ * Pozitiv pe deschis, negativ pe închis: varianta se alege după temă sau după contextul `.on-navy` (global.css).
+ * Înălțimea în antet: 40 px (manualul: 40–48 px; componente.md: 32–40 px). Lățimea rezultă ~148 px, peste minimul de 120 px.
+ * Zona de protecție (1 × înălțimea literei B ≈ 0,565 din înălțimea logo-ului) e expusă ca `--logo-clear`.
+ */
+import poz from '../../../brand/logo/bitup_principal_pozitiv.svg?raw';
+import neg from '../../../brand/logo/bitup_principal_negativ.svg?raw';
+import { inlineSvg } from '../../lib/svg';
+
+interface Props {
+  /** Link (de obicei pagina principală). Fără el, logo-ul e doar imagine. */
+  href?: string;
+  /** Textul accesibil al linkului sau al imaginii. */
+  label: string;
+  /** 'auto' = după temă și context; 'positive' / 'negative' forțează varianta. */
+  variant?: 'auto' | 'positive' | 'negative';
+  size?: 'header' | 'large';
+  /** Prefix unic pe pagină pentru id-urile din SVG. */
+  id?: string;
+  class?: string;
+}
+const { href, label, variant = 'auto', size = 'header', id = 'logo', class: className } = Astro.props;
+const svgPoz = inlineSvg(poz, { prefix: `${id}-p`, class: 'logo__svg', keepSize: true });
+const svgNeg = inlineSvg(neg, { prefix: `${id}-n`, class: 'logo__svg', keepSize: true });
+const Tag = href ? 'a' : 'span';
+---
+<Tag class:list={['logo', `logo--${size}`, className]} href={href} aria-label={label} role={href ? undefined : 'img'}>
+  {variant !== 'negative' && <span class={variant === 'auto' ? 'theme-light-only' : undefined} set:html={svgPoz} />}
+  {variant !== 'positive' && <span class={variant === 'auto' ? 'theme-dark-only' : undefined} set:html={svgNeg} />}
+</Tag>
+
+<style>
+  .logo { --logo-h: calc(var(--space-5) + var(--space-2)); --logo-clear: calc(var(--logo-h) * 0.565); display: inline-flex; align-items: center; line-height: 0; }
+  .logo--large { --logo-h: var(--space-7); }
+  .logo :global(.logo__svg) { height: var(--logo-h); width: auto; }
+  a.logo:focus-visible { outline-offset: var(--space-1); }
+</style>

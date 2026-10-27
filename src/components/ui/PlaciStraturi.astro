@@ -1,0 +1,22 @@
+---
+/**
+ * „Straturi în spațiu”, varianta simplă cu trei plăci (brand/graphic/placi_straturi_pe_*): fundația teal jos, placa portocalie sus.
+ * Ilustrație decorativă, pusă inline fără modificări; varianta după temă sau după `.on-navy`.
+ */
+import deschis from '../../../brand/graphic/placi_straturi_pe_deschis.svg?raw';
+import inchis from '../../../brand/graphic/placi_straturi_pe_inchis.svg?raw';
+import { inlineSvg } from '../../lib/svg';
+interface Props { id?: string; class?: string }
+const { id = 'placi', class: className } = Astro.props;
+const svgD = inlineSvg(deschis, { prefix: `${id}-d`, class: 'placi__svg' });
+const svgI = inlineSvg(inchis, { prefix: `${id}-i`, class: 'placi__svg' });
+---
+<div class:list={['placi', className]} aria-hidden="true">
+  <span class="theme-light-only" set:html={svgD} />
+  <span class="theme-dark-only" set:html={svgI} />
+</div>
+
+<style>
+  .placi { width: 100%; }
+  .placi :global(.placi__svg) { width: 100%; height: auto; }
+</style>

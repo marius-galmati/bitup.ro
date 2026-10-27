@@ -1,0 +1,47 @@
+---
+/**
+ * ThemeToggle (componente.md § Antet: discret, pictogramă de linie; spec-tehnica § 5). Buton 44 × 44 px, lună în tema deschisă,
+ * soare în cea închisă. Pornește de la preferința sistemului; alegerea se salvează în localStorage['bitup-theme'].
+ * aria-pressed = tema închisă activă.
+ */
+import Icon from './Icon.astro';
+import { t, type Locale } from '../../i18n';
+interface Props { lang: Locale; class?: string }
+const { lang, class: className } = Astro.props;
+const label = t(lang).theme.ariaLabel;
+---
+<button type="button" class:list={['theme-toggle', className]} data-theme-toggle aria-label={label} title={label} aria-pressed="false">
+  <span class="theme-light-only"><Icon name="moon" /></span>
+  <span class="theme-dark-only"><Icon name="sun" /></span>
+</button>
+
+<style>
+  .theme-toggle {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: calc(var(--space-6) - var(--space-1)); height: calc(var(--space-6) - var(--space-1)); padding: 0;
+    border: var(--border-width) solid transparent; border-radius: var(--radius-button); background: none; color: var(--color-heading);
+    transition: border-color var(--dur);
+  }
+  .theme-toggle:hover { border-color: var(--color-border); }
+</style>
+
+<script>
+  const KEY = 'bitup-theme';
+  const root = document.documentElement;
+  const media = window.matchMedia('(prefers-color-scheme: dark)');
+  const current = () => root.getAttribute('data-theme') ?? (media.matches ? 'dark' : 'light');
+  const sync = () => {
+    const dark = current() === 'dark';
+    document.querySelectorAll<HTMLButtonElement>('[data-theme-toggle]').forEach((b) => b.setAttribute('aria-pressed', String(dark)));
+  };
+  document.querySelectorAll<HTMLButtonElement>('[data-theme-toggle]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const next = current() === 'dark' ? 'light' : 'dark';
+      root.setAttribute('data-theme', next);
+      try { localStorage.setItem(KEY, next); } catch {}
+      sync();
+    });
+  });
+  media.addEventListener('change', sync);
+  sync();
+</script>

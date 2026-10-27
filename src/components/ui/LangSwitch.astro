@@ -1,0 +1,36 @@
+---
+/**
+ * LangSwitch (componente.md § Antet; spec-tehnica § 4): text discret „RO / EN”, fără steaguri.
+ * Limba curentă e text în 600 cu linie de 2 px dedesubt (ca starea activă din navigație); cealaltă e link spre pagina pereche.
+ * Ținta de atingere: 44 px înălțime.
+ */
+import { t, type Locale } from '../../i18n';
+interface Props { lang: Locale; altHref: string; class?: string }
+const { lang, altHref, class: className } = Astro.props;
+const d = t(lang).langSwitch;
+const items = [
+  { code: 'ro' as const, label: d.ro },
+  { code: 'en' as const, label: d.en },
+];
+---
+<nav class:list={['lang', className]} aria-label={d.ariaLabel}>
+  {items.map((it, i) => (
+    <>
+      {i > 0 && <span class="lang__sep" aria-hidden="true">/</span>}
+      {it.code === lang
+        ? <span class="lang__item lang__item--current" aria-current="true" lang={it.code}>{it.label}</span>
+        : <a class="lang__item" href={altHref} hreflang={it.code} lang={it.code}>{it.label}</a>}
+    </>
+  ))}
+</nav>
+
+<style>
+  .lang { display: inline-flex; align-items: center; gap: var(--space-1); font-size: var(--fs-small); font-weight: var(--fw-medium); line-height: 1; }
+  .lang__item {
+    display: inline-flex; align-items: center; min-height: calc(var(--space-6) - var(--space-1)); padding-inline: var(--space-1);
+    border-bottom: var(--rule-strong) solid transparent; color: var(--color-text); text-decoration: none;
+  }
+  a.lang__item:hover { border-bottom-color: var(--color-border); }
+  .lang__item--current { font-weight: var(--fw-semibold); color: var(--color-heading); border-bottom-color: var(--color-link); }
+  .lang__sep { color: var(--color-text-muted); }
+</style>

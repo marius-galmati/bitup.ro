@@ -1,5 +1,29 @@
 ---
-import HomePage from '../components/home/HomePage.astro';
-import { homeRo } from '../copy/home.ro';
+/**
+ * Pagina principală, temporar (faza 1, branch-ul v3): doar un semn că site-ul se reface și linkul spre /styleguide.
+ * Pagina Acasă reală vine în faza 2 (docs/brief-site-v3.md § 3 și § 5). noindex până atunci.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Section from '../components/ui/Section.astro';
+import Logo from '../components/ui/Logo.astro';
+import Label from '../components/ui/Label.astro';
+import Button from '../components/ui/Button.astro';
+import { t } from '../i18n';
+const d = t('ro');
 ---
-<HomePage lang="ro" copy={homeRo} />
+<BaseLayout lang="ro" title="BitUp Technology" description="BitUp Technology, Cluj-Napoca." routeKey="home" noindex>
+  <Section tone="white">
+    <div class="stub">
+      <Logo label={d.siteName} id="logo-stub" />
+      <Label>BitUp Technology</Label>
+      <h1 class="display">Proiectăm, securizăm, automatizăm și administrăm <span class="nowrap">IT-ul</span> companiilor în creștere.</h1>
+      <p class="measure">Pagina Acasă vine în faza 2. Până atunci, componentele sunt pe pagina sistemului de design.</p>
+      <div><Button href="/styleguide">Vezi sistemul de design</Button></div>
+    </div>
+  </Section>
+</BaseLayout>
+
+<style>
+  .stub { display: grid; gap: var(--space-4); justify-items: start; padding-block: var(--space-6); }
+  .stub h1 { max-width: 20ch; }
+</style>

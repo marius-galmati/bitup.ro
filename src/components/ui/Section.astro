@@ -1,0 +1,26 @@
+---
+/**
+ * Section (componente.md § Secțiuni): ritm 64 px pe desktop, 48 px pe mobil; alternanță alb → ceață → alb;
+ * o singură secțiune bleumarin pe pagină (de obicei îndemnul final). Bleumarinul pune contextul `.on-navy` (global.css).
+ */
+import Container from './Container.astro';
+interface Props {
+  tone?: 'white' | 'fog' | 'navy';
+  /** Fără Container în interior (de exemplu pentru o bandă pe toată lățimea). */
+  bare?: boolean;
+  narrow?: boolean;
+  id?: string;
+  class?: string;
+  labelledby?: string;
+}
+const { tone = 'white', bare = false, narrow = false, id, class: className, labelledby } = Astro.props;
+---
+<section class:list={['section', `section--${tone}`, tone === 'navy' && 'on-navy', className]} id={id} aria-labelledby={labelledby}>
+  {bare ? <slot /> : <Container narrow={narrow}><slot /></Container>}
+</section>
+
+<style>
+  .section { position: relative; padding-block: var(--section-y); background: var(--color-bg); }
+  .section--fog { background: var(--color-surface); }
+  .section--navy { overflow: hidden; }
+</style>

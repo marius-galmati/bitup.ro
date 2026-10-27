@@ -1,0 +1,26 @@
+---
+/**
+ * Icon (componente.md § Iconițe; manualul § Iconografie): un singur set de linie (Lucide, prin astro-icon), linie de 1,5 px,
+ * o singură culoare: bleumarin pe deschis, alb pe închis (--color-heading); teal doar pentru starea activă (`active`).
+ * Fără `label`, iconița e decorativă.
+ */
+import { Icon as AstroIcon } from 'astro-icon/components';
+interface Props { name: string; size?: 'small' | 'medium' | 'large'; label?: string; active?: boolean; class?: string }
+const { name, size = 'medium', label, active = false, class: className } = Astro.props;
+const fullName = name.includes(':') ? name : `lucide:${name}`;
+---
+<AstroIcon
+  name={fullName}
+  class:list={['icon', `icon--${size}`, active && 'icon--active', className]}
+  aria-hidden={label ? undefined : 'true'}
+  aria-label={label}
+  role={label ? 'img' : undefined}
+/>
+
+<style>
+  .icon { flex: none; color: var(--color-heading); stroke-width: 1.5; }
+  .icon--small { width: var(--space-3); height: var(--space-3); }
+  .icon--medium { width: calc(var(--space-4) - var(--space-1)); height: calc(var(--space-4) - var(--space-1)); }
+  .icon--large { width: var(--space-5); height: var(--space-5); }
+  .icon--active { color: var(--color-link); }
+</style>

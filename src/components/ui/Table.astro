@@ -1,0 +1,38 @@
+---
+/**
+ * Tabel (componente.md § Tabele): antet cu etichete 12 px MAJUSCULE în culoarea secundară, linie de jos 2 px bleumarin;
+ * rânduri cu linie de jos 1 px, fără linii verticale, fără zebră; cifrele aliniate la dreapta, în Mono.
+ * Pe ecrane înguste, tabelul se derulează în containerul lui, nu împinge pagina.
+ */
+interface Column { label: string; numeric?: boolean }
+interface Props { caption: string; columns: Column[]; rows: string[][]; captionHidden?: boolean; class?: string }
+const { caption, columns, rows, captionHidden = false, class: className } = Astro.props;
+---
+<div class:list={['table-wrap', className]} role="region" aria-label={caption} tabindex="0">
+  <table class="table">
+    <caption class:list={[captionHidden ? 'visually-hidden' : 'table__caption']}>{caption}</caption>
+    <thead>
+      <tr>{columns.map((c) => <th scope="col" class:list={[c.numeric && 'is-num']}>{c.label}</th>)}</tr>
+    </thead>
+    <tbody>
+      {rows.map((r) => (
+        <tr>{r.map((cell, i) => (i === 0 ? <th scope="row">{cell}</th> : <td class:list={[columns[i]?.numeric && 'is-num']}>{cell}</td>))}</tr>
+      ))}
+    </tbody>
+  </table>
+</div>
+
+<style>
+  .table-wrap { overflow-x: auto; }
+  .table { width: 100%; }
+  .table__caption { text-align: left; font-weight: var(--fw-semibold); color: var(--color-heading); padding-bottom: var(--space-3); }
+  th, td { padding: var(--space-3) var(--space-3) var(--space-3) 0; text-align: left; vertical-align: top; border-bottom: var(--border-width) solid var(--color-border); }
+  th:last-child, td:last-child { padding-right: 0; }
+  thead th {
+    padding-block: 0 var(--space-2); border-bottom: var(--rule-strong) solid var(--color-heading);
+    font-size: var(--fs-label); font-weight: var(--fw-semibold); letter-spacing: var(--ls-label); text-transform: uppercase; color: var(--color-text-muted);
+  }
+  tbody th { font-weight: var(--fw-medium); color: var(--color-heading); }
+  .is-num { text-align: right; white-space: nowrap; overflow-wrap: normal; }
+  td.is-num { font-family: var(--font-mono); font-weight: var(--fw-medium); font-size: var(--fs-data); font-variant-numeric: tabular-nums; }
+</style>

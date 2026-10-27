@@ -1,0 +1,38 @@
+---
+/**
+ * Bannerul de cookie-uri (spec-tehnica § 7): „Accept” și „Refuz” egale ca vizibilitate (două butoane secundare identice),
+ * link spre politica de cookie-uri. Pe mobil, toată lățimea, jos; de la 768 px, casetă în colțul din dreapta jos.
+ * Fundal --color-bg, contur 1 px, rază 2 px, fără umbră. Logica (Consent Mode v2, GA4 după acord) se leagă în faza 2.
+ * `inline` îl afișează în flux, pentru /styleguide.
+ */
+import Button from './Button.astro';
+import { t, localePath, type Locale } from '../../i18n';
+interface Props { lang: Locale; visible?: boolean; inline?: boolean }
+const { lang, visible = false, inline = false } = Astro.props;
+const c = t(lang).consent;
+---
+<div class:list={['consent', inline && 'consent--inline']} role="region" aria-label={c.regionLabel} tabindex="-1" data-consent-banner hidden={!visible}>
+  <p class="consent__title">{c.title}</p>
+  <p class="consent__text">{c.text} <a href={localePath('cookies', lang)}>{c.linkLabel}</a></p>
+  <div class="consent__actions">
+    <Button variant="secondary" arrow={false} data-consent="accept">{c.accept}</Button>
+    <Button variant="secondary" arrow={false} data-consent="decline">{c.decline}</Button>
+  </div>
+</div>
+
+<style>
+  .consent {
+    position: fixed; inset: auto 0 0 0; z-index: 40; display: grid; gap: var(--space-3);
+    padding: var(--space-4) var(--gutter); background: var(--color-bg); color: var(--color-text);
+    border-top: var(--border-width) solid var(--color-border);
+  }
+  .consent[hidden] { display: none; }
+  @media (min-width: 768px) {
+    .consent { inset: auto var(--space-4) var(--space-4) auto; width: calc(var(--space-8) * 4.4); padding: var(--space-4); border: var(--border-width) solid var(--color-border); border-radius: var(--radius); }
+  }
+  .consent--inline { position: static; inset: auto; }
+  .consent__title { font-weight: var(--fw-semibold); color: var(--color-heading); }
+  .consent__text { margin: 0; font-size: var(--fs-small); line-height: var(--lh-small); }
+  .consent__actions { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-3); margin-top: var(--space-1); }
+  .consent__actions :global(.btn) { width: 100%; }
+</style>

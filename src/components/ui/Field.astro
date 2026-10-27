@@ -1,0 +1,97 @@
+---
+/**
+ * Câmp de formular (componente.md § Formulare): înalt de 48 px, contur 1 px --color-border, rază 2 px, eticheta deasupra (14 px, 500).
+ * Focus: contur 2 px teal. Eroarea: text bleumarin (alb pe închis) cu bară portocalie în stânga, nu text roșu sau portocaliu.
+ * Un singur component pentru input, textarea și select, ca etichetele, indiciile și erorile să fie identice peste tot.
+ * Câmpurile opționale primesc „(opțional)”; cele obligatorii au doar `required` (majoritatea câmpurilor sunt obligatorii).
+ */
+import Icon from './Icon.astro';
+import { t, type Locale } from '../../i18n';
+
+interface Option { value: string; label: string }
+interface Props {
+  lang: Locale;
+  id: string;
+  name: string;
+  label: string;
+  control?: 'input' | 'textarea' | 'select';
+  type?: 'text' | 'email' | 'tel';
+  autocomplete?: string;
+  required?: boolean;
+  disabled?: boolean;
+  value?: string;
+  placeholder?: string;
+  hint?: string;
+  error?: string;
+  options?: Option[];
+  /** Textul primei opțiuni goale din select („Alege…”). */
+  emptyOption?: string;
+  rows?: number;
+  maxlength?: number;
+  /** Doar pentru /styleguide: forțează aspectul de focus. */
+  state?: 'focus';
+}
+const {
+  lang, id, name, label, control = 'input', type = 'text', autocomplete, required = false, disabled = false, value, placeholder,
+  hint, error, options = [], emptyOption, rows = 5, maxlength, state,
+} = Astro.props;
+const dict = t(lang).form;
+const hintId = hint ? `${id}-hint` : undefined;
+const errorId = error ? `${id}-error` : undefined;
+const describedBy = [errorId, hintId].filter(Boolean).join(' ') || undefined;
+const common = {
+  id, name, required, disabled,
+  'aria-invalid': error ? ('true' as const) : undefined,
+  'aria-describedby': describedBy,
+  class: ['field__control', state === 'focus' && 'is-focus'].filter(Boolean).join(' '),
+};
+---
+<div class:list={['field', error && 'field--error', `field--${control}`]}>
+  <label class="field__label" for={id}>{label}{!required && <span class="field__optional"> ({dict.optional})</span>}</label>
+  {hint && <p class="field__hint" id={hintId}>{hint}</p>}
+  {control === 'textarea' && <textarea {...common} rows={rows} maxlength={maxlength} placeholder={placeholder}>{value}</textarea>}
+  {control === 'select' && (
+    <div class="field__select">
+      <select {...common} autocomplete={autocomplete}>
+        {emptyOption && <option value="" selected={!value}>{emptyOption}</option>}
+        {options.map((o) => <option value={o.value} selected={o.value === value}>{o.label}</option>)}
+      </select>
+      <Icon name="chevron-down" size="small" class="field__chevron" />
+    </div>
+  )}
+  {control === 'input' && <input {...common} type={type} autocomplete={autocomplete} value={value} placeholder={placeholder} maxlength={maxlength} />}
+  {error && <p class="field__error" id={errorId}>{error}</p>}
+</div>
+
+<style>
+  .field { display: grid; gap: var(--space-2); }
+  .field__label { font-size: var(--fs-small); line-height: var(--lh-small); font-weight: var(--fw-medium); color: var(--color-heading); }
+  .field__optional { font-weight: var(--fw-regular); color: var(--color-text-muted); }
+  .field__hint { font-size: var(--fs-small); line-height: var(--lh-small); color: var(--color-text-muted); margin: 0; }
+
+  .field__control {
+    width: 100%; min-height: var(--button-height); padding: var(--space-2) var(--space-3);
+    border: var(--border-width) solid var(--color-border); border-radius: var(--radius);
+    background: var(--color-bg); color: var(--color-text); font-size: var(--fs-body); line-height: var(--lh-small);
+    transition: border-color var(--dur);
+  }
+  .field__control::placeholder { color: var(--color-text-muted); opacity: 1; }
+  .field__control:hover:not(:disabled) { border-color: var(--color-text-muted); }
+  /* Focus: contur 2 px teal. `outline` peste bordură, ca dimensiunea câmpului să nu se schimbe. */
+  .field__control:focus-visible, .field__control:focus, .field__control.is-focus {
+    outline: var(--rule-strong) solid var(--focus-ring); outline-offset: calc(-1 * var(--border-width)); border-color: var(--focus-ring);
+  }
+  .field__control:disabled { cursor: not-allowed; background: var(--color-surface); color: var(--color-text-muted); }
+  textarea.field__control { min-height: calc(var(--button-height) * 3); resize: vertical; padding-block: var(--space-3); }
+
+  .field__select { position: relative; }
+  select.field__control { appearance: none; padding-right: calc(var(--space-3) * 2 + var(--space-3)); cursor: pointer; }
+  .field__select :global(.field__chevron) { position: absolute; right: var(--space-3); top: 50%; transform: translateY(-50%); pointer-events: none; }
+
+  .field--error .field__control { border-color: var(--color-heading); }
+  .field__error {
+    margin: 0; padding: var(--space-1) 0 var(--space-1) var(--space-3);
+    border-left: var(--error-bar) solid var(--color-marker);
+    font-size: var(--fs-small); line-height: var(--lh-small); font-weight: var(--fw-medium); color: var(--color-heading);
+  }
+</style>
