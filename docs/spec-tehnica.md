@@ -68,7 +68,7 @@ docker-compose.yml          serviciile web și api, pentru Dokploy
 - `title` (≤ 60 de caractere) și `description` (≤ 155) pe fiecare pagină, în ambele limbi.
 - Imagini OG 1200 × 630 generate la build, după modelul din `references/componente.md`.
 - `sitemap.xml` (cu alternativele de limbă), `robots.txt`, URL-uri canonice.
-- Schema.org: `Organization` (cu logo, `sameAs`: LinkedIn), `ProfessionalService` cu zona deservită, `Article` pe blog, `BreadcrumbList`.
+- Schema.org: `Organization` (cu logo, `sameAs`: LinkedIn), `ProfessionalService` cu adresa „Cluj-Napoca” și `areaServed` România (intervenții la sediu în Cluj și Transilvania, de la distanță în toată țara), `Service` pe fiecare pagină de serviciu (același `areaServed`), `FAQPage` din aceleași întrebări ca cele vizibile, `Article` pe blog, `BreadcrumbList`.
 - Fără adresă de domiciliu; doar „Cluj-Napoca”.
 
 ## 9. Deploy pe BitUp Cloud (Dokploy + Docker Compose)

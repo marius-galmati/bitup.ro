@@ -1,4 +1,4 @@
-# Brief site bitup.ro · v3.2 (27 octombrie 2026, cu răspunsurile lui Marius la întrebările din faza 0)
+# Brief site bitup.ro · v3.3 (28 octombrie 2026, cu răspunsurile lui Marius la întrebările din faza 0)
 
 Înlocuiește poziționarea, designul și oferta stabilite în septembrie 2026. Partea tehnică este în `docs/spec-tehnica.md`.
 
@@ -23,9 +23,9 @@
 - Etichetă: `BITUP TECHNOLOGY`
 - Titlu: „Proiectăm, securizăm, automatizăm și administrăm IT-ul companiilor în creștere.”
 - Text: „Un singur sistem, cu o singură echipă care răspunde de tot, de la servere și securitate la automatizări și agenți AI.”
-- Buton principal: „Spune-ne problema de IT care te costă cel mai mult →” (duce la formular)
+- Buton principal: „Scrie-ne problema de IT care te costă cel mai mult →” (duce la formular). Un singur verb pentru formular, peste tot: „Scrie-ne”. Butonul din antet: „Scrie-ne problema →”, în stil secundar (contur), ca în primul ecran să existe o singură acțiune principală.
 - Secundar: link „Vezi serviciile”
-- Dreapta: ilustrația „Straturi în spațiu” sau diagrama serviciilor.
+- Dreapta: diagrama interactivă din hero-ul actual bitup.ro (HeroStack), copiată exact (geometrie, animații, umbre, comportament la hover). Diferențe aprobate: fundația teal, IBM Plex, linkurile spre paginile noi, „Securitate cibernetică · fundația”, culorile din tokens.
 
 ## 4. Oferta principală și formularul
 Aceeași ofertă ca în campania Meta 2, ca omul să găsească pe site exact ce a văzut în reclamă:
@@ -88,7 +88,7 @@ Astro static · deploy pe BitUp Cloud cu Dokploy și Docker Compose (nginx pentr
 - Datele de identificare a firmei (denumirea, sediul social din Câmpia Turzii, J12/1556/2020, CUI RO42613248) apar **numai în paginile legale** (Termeni, Confidențialitate), ca text. Legea 365/2002 (comerțul electronic) cere ca site-ul să afișeze aceste date. Nu intră în datele structurate și nici în subsol, deci nu concurează cu „Cluj-Napoca” pentru SEO local.
 
 ## 7. Decizii (stare la 27 octombrie 2026)
-Închise: hero-ul și oferta (secțiunile 3–4), 24 de ore lucrătoare, 6 servicii, pagina Proiecte, BitUp Cloud = cloudul pe care rulează Hostero, NIS2 Ready (nis2-ready.cyberxscore.ro), acordul Cosmio, engleza completă la lansare, Calendly ca link, păstrarea proprietății GA4 (ID de măsurare G-N5DY194K0T).
+Închise: hero-ul și oferta (secțiunile 3–4), verbul „Scrie-ne” peste tot, butonul din antet secundar, HeroStack copiat de pe bitup.ro (excepție aprobată de la regula „fără umbre”, doar pentru această diagramă), programul 08:00–18:00 în datele structurate (identic cu Google Business Profile; ca text vizibil doar pe IT administrat și Contact), textele scrise de la zero din `copy.md`, 24 de ore lucrătoare, 6 servicii, pagina Proiecte, BitUp Cloud = cloudul pe care rulează Hostero, NIS2 Ready (nis2-ready.cyberxscore.ro), acordul Cosmio, engleza completă la lansare, Calendly ca link, păstrarea proprietății GA4 (ID de măsurare G-N5DY194K0T).
 Deschise:
 1. Agentul AI din helpdesk: ce face concret și ce cifre se pot publica.
 2. Fotografia lui Petre (cea existentă nu e bună).
