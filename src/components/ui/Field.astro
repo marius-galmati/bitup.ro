@@ -1,8 +1,9 @@
 ---
 /**
  * Câmp de formular (componente.md § Formulare): înalt de 48 px, contur 1 px, rază 2 px, eticheta deasupra (14 px, 500).
- * Conturul e slate (--color-text-muted), nu --color-border: linia de brand are 1,30:1 pe alb, sub pragul de 3:1 din WCAG 1.4.11
- * (Marius, 28 octombrie 2026). Cardurile și separatoarele păstrează --color-border.
+ * Conturul vine din --field-border (global.css, „Valori derivate”): slate pe deschis; în tema închisă, un gri din ceață și
+ * bleumarin, cu 4,12:1 pe fundalul câmpului. Linia de brand (--color-border) are 1,30:1 pe alb, sub pragul de 3:1 din
+ * WCAG 1.4.11 (Marius, 28 octombrie 2026). Cardurile și separatoarele păstrează --color-border.
  * Focus: contur 2 px teal. Eroarea: text bleumarin (alb pe închis) cu bară portocalie în stânga, nu text roșu sau portocaliu.
  * Un singur component pentru input, textarea și select, ca etichetele, indiciile și erorile să fie identice peste tot.
  * Câmpurile opționale primesc „(opțional)”; cele obligatorii au doar `required` (majoritatea câmpurilor sunt obligatorii).
@@ -73,7 +74,7 @@ const common = {
 
   .field__control {
     width: 100%; min-height: var(--button-height); padding: var(--space-2) var(--space-3);
-    border: var(--border-width) solid var(--color-text-muted); border-radius: var(--radius);
+    border: var(--border-width) solid var(--field-border); border-radius: var(--radius);
     background: var(--color-bg); color: var(--color-text); font-size: var(--fs-body); line-height: var(--lh-small);
     transition: border-color var(--dur);
   }

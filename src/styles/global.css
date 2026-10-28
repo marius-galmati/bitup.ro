@@ -28,6 +28,37 @@
 }
 
 /*
+ * Butoane, câmpuri, căsuța de bifat (Marius, 28 octombrie 2026; componente.md § Butoane și § Formulare).
+ * - Hover pe butonul principal: pe deschis, fundalul devine teal cu text alb (6,45:1); pe bleumarin și în tema închisă
+ *   rămâne portocaliu, cu text bleumarin (se mișcă doar săgeata).
+ * - Conturul câmpurilor: slate pe deschis (6,81:1 pe alb); în tema închisă și pe bleumarin, un gri din ceață și bleumarin
+ *   (ceață 46 %): 4,12:1 pe fundalul câmpului (bleumarin), 3,51:1 pe suprafața închisă, diferit de conturul de focus (teal deschis).
+ * - Bifa din căsuța bifată: albă pe teal (deschis), bleumarin pe teal deschis (închis).
+ */
+:root {
+  --btn-primary-bg-hover: var(--bu-teal);
+  --btn-primary-fg-hover: var(--bu-white);
+  --field-border: var(--bu-slate);
+  --check-fg: var(--bu-white);
+  /* Căsuța de bifat: 20 px = 16 + 4 (scara de spațiere). */
+  --check-size: calc(var(--space-3) + var(--space-1));
+}
+:root[data-theme='dark'] {
+  --btn-primary-bg-hover: var(--bu-orange);
+  --btn-primary-fg-hover: var(--bu-navy);
+  --field-border: color-mix(in srgb, var(--bu-fog) 46%, var(--bu-navy));
+  --check-fg: var(--bu-navy);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --btn-primary-bg-hover: var(--bu-orange);
+    --btn-primary-fg-hover: var(--bu-navy);
+    --field-border: color-mix(in srgb, var(--bu-fog) 46%, var(--bu-navy));
+    --check-fg: var(--bu-navy);
+  }
+}
+
+/*
  * HeroStack (stiva din hero; src/components/home/HeroStack.astro). Marius, 28 octombrie 2026: stiva se copiază exact
  * cum e pe bitup.ro, cu aceleași nuanțe, scrise din paletă. Fiecare valoare e amestecul de tokens cel mai apropiat de
  * culoarea de până acum (în comentariu: hexul de pe bitup.ro, scris fără „#”, și ΔE CIEDE2000); unele nuanțe vechi ies din ce se poate obține din paletă, așa că
@@ -100,9 +131,13 @@
   --color-border: color-mix(in srgb, var(--bu-teal) 45%, var(--bu-navy));
   --btn-primary-bg: var(--bu-orange);
   --btn-primary-fg: var(--bu-navy);
+  --btn-primary-bg-hover: var(--bu-orange);
+  --btn-primary-fg-hover: var(--bu-navy);
   --btn-secondary-border: var(--bu-white);
   --btn-secondary-fg: var(--bu-white);
   --focus-ring: var(--bu-teal-light);
+  --field-border: color-mix(in srgb, var(--bu-fog) 46%, var(--bu-navy));
+  --check-fg: var(--bu-navy);
   background: var(--color-bg);
   color: var(--color-text);
 }

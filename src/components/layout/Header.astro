@@ -2,7 +2,8 @@
 /**
  * Antetul (componente.md § Antet; brief § 5). Logo 40 px stânga; navigația în Plex 500: Servicii (buton cu aria-expanded,
  * cele 6 servicii în ordine, BitUp Cloud sub Infrastructură, „Toate serviciile”) · Proiecte · NIS2 · Despre · Blog · Contact;
- * dreapta: limba, tema și un singur buton principal. Linie de jos 1 px, fără umbră; activ: subliniere 2 px teal.
+ * dreapta: limba, tema și butonul spre formular, secundar (contur), ca în primul ecran acțiunea principală să fie una
+ * singură, cea din hero (Marius, 28 octombrie 2026). Linie de jos 1 px, fără umbră; activ: subliniere 2 px teal.
  * Limba și tema stau în bară la orice lățime. Sub 1200 px: butonul „Meniu” deschide un panou pe toată înălțimea, cu aceleași linkuri. Esc și butonul îl închid,
  * focusul rămâne în panou cât e deschis și revine pe buton; pagina din spate nu se derulează.
  * Logica de deschidere vine din antetul vechi (git e3556a4^), restilizată din tokens.
@@ -69,7 +70,7 @@ const ctaHref = `${localePath('contact', lang)}#formular`;
     <div class="header__tools">
       <LangSwitch lang={lang} altHref={altHref} class="header__lang" />
       <ThemeToggle lang={lang} class="header__theme" />
-      <Button href={ctaHref} class="header__cta">{nav.cta}</Button>
+      <Button href={ctaHref} variant="secondary" class="header__cta">{nav.cta}</Button>
       <button type="button" class="header__burger" data-menu-toggle aria-expanded="false" aria-controls="meniu-mobil" aria-label={nav.menuOpen} data-label-open={nav.menuOpen} data-label-close={nav.menuClose}>
         <span class="burger" aria-hidden="true"><span></span><span></span><span></span></span>
         <span class="header__burger-text" aria-hidden="true">{nav.menu}</span>

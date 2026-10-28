@@ -1,7 +1,9 @@
 ---
 /**
- * Bifă (componente.md § Formulare): pentru acordul de prelucrare a datelor. Căsuța nativă, colorată din --color-link,
- * ținta de atingere de 48 px pe rând; eroarea la fel ca la câmpuri (text bleumarin cu bară portocalie).
+ * Bifă (componente.md § Formulare): pentru acordul de prelucrare a datelor. Căsuța e desenată din tokens (appearance: none,
+ * Marius, 28 octombrie 2026): 20 px, același contur ca restul câmpurilor (--field-border), rază 2 px; bifată: fundal
+ * --color-link (teal; teal deschis în tema închisă) cu bifa în --check-fg (albă; bleumarin în tema închisă); focus cu --focus-ring.
+ * Ținta de atingere: rândul de 48 px. Eroarea la fel ca la câmpuri (text bleumarin cu bară portocalie).
  * Textul etichetei vine prin slot, ca să poată conține linkul spre Confidențialitate.
  */
 interface Props { id: string; name: string; required?: boolean; checked?: boolean; disabled?: boolean; error?: string; state?: 'focus' }
@@ -19,8 +21,25 @@ const errorId = error ? `${id}-error` : undefined;
 <style>
   .check { display: grid; gap: var(--space-2); }
   .check__row { display: flex; align-items: flex-start; gap: var(--space-3); min-height: var(--button-height); padding-top: var(--space-2); }
-  .check__box { flex: none; width: calc(var(--space-4) - var(--space-1)); height: calc(var(--space-4) - var(--space-1)); margin: 0; accent-color: var(--color-link); cursor: pointer; }
-  .check__box.is-focus { outline: var(--rule-strong) solid var(--focus-ring); outline-offset: var(--rule-strong); }
+  .check__box {
+    appearance: none; flex: none; display: grid; place-content: center;
+    width: var(--check-size); height: var(--check-size); margin: 0;
+    background: var(--color-bg); border: var(--border-width) solid var(--field-border); border-radius: var(--radius);
+    cursor: pointer; transition: background-color var(--dur), border-color var(--dur);
+  }
+  /* Bifa: un unghi din două laturi de 2 px, rotit; 5 × 10 px, ridicat cu 2 px ca să stea optic la mijloc. */
+  .check__box::before {
+    content: ''; width: calc(var(--space-1) + var(--border-width)); height: calc(var(--space-2) + var(--rule-strong));
+    margin-top: calc(-1 * var(--rule-strong));
+    border: solid var(--check-fg); border-width: 0 var(--rule-strong) var(--rule-strong) 0;
+    transform: rotate(45deg) scale(0); transition: transform var(--dur);
+  }
+  .check__box:checked { background: var(--color-link); border-color: var(--color-link); }
+  .check__box:checked::before { transform: rotate(45deg) scale(1); }
+  .check__box:hover:not(:disabled):not(:checked) { border-color: var(--color-heading); }
+  .check__box:focus-visible, .check__box.is-focus { outline: var(--rule-strong) solid var(--focus-ring); outline-offset: var(--rule-strong); }
+  .check__box:disabled { cursor: not-allowed; background: var(--color-surface); border-color: var(--color-border); }
+  .check--error .check__box:not(:checked) { border-color: var(--color-heading); }
   .check__label { font-size: var(--fs-small); line-height: var(--lh-small); color: var(--color-text); padding-top: 1px; }
   .check__error {
     margin: 0; padding: var(--space-1) 0 var(--space-1) var(--space-3); border-left: var(--error-bar) solid var(--color-marker);

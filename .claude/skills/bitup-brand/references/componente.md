@@ -18,6 +18,8 @@ Toate valorile vin din `brand/tokens.css`. Exemplele folosesc variabilele de aco
 
 Înălțime 48 px, padding orizontal 22 px, colțuri 0, IBM Plex Sans 500 15 px, săgeata „→” după text la butoanele care duc mai departe. O singură acțiune principală pe ecran.
 
+Hover pe butonul principal: pe fundal deschis, fundalul devine teal (`--bu-teal`, text alb), iar săgeata se deplasează puțin spre dreapta. Pe bleumarin și în tema închisă, butonul rămâne portocaliu și se mișcă doar săgeata. Cu `prefers-reduced-motion`, săgeata nu se mișcă.
+
 ## Eticheta (label)
 Rombul portocaliu (`brand/graphic/marcaj-romb.svg`, 12 × 6 px) + text 12 px, 600, MAJUSCULE, spațiere 0,08 em, teal (pe închis teal deschis). Stă deasupra titlurilor de secțiune. Exemple: „SERVICII”, „NIS2”, „STUDIU DE CAZ”.
 

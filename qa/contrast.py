@@ -21,6 +21,7 @@ def ratio(a, b):
 # Valorile derivate din brand/tokens.css (tema închisă) și src/styles/global.css (.on-navy)
 surface_dark = mix(navy, white, 0.94)
 muted_dark = mix(fog, navy, 0.78)
+field_dark = mix(fog, navy, 0.46)  # --field-border în tema închisă și pe bleumarin (global.css)
 TEXT, UI = 4.5, 3.0
 
 contexts = {
@@ -48,9 +49,19 @@ pairs += [
     ('cifră-cheie portocalie pe suprafața închisă', orange, surface_dark, TEXT),
     ('conturul butonului secundar, deschis: bleumarin pe alb', navy, white, UI),
     ('conturul butonului secundar, închis: alb pe bleumarin', white, navy, UI),
-    # Câmpurile de formular: contur slate (Marius, 28 octombrie 2026; WCAG 1.4.11).
+    # Câmpurile de formular și căsuța de bifat: --field-border (Marius, 28 octombrie 2026; WCAG 1.4.11).
     ('conturul câmpului, deschis: slate pe alb', slate, white, UI),
-    ('conturul câmpului, închis: text secundar pe bleumarin', muted_dark, navy, UI),
+    ('conturul câmpului, deschis: slate pe ceață', slate, fog, UI),
+    ('conturul câmpului, închis: ceață 46 % + bleumarin pe fundalul câmpului (bleumarin)', field_dark, navy, UI),
+    ('conturul câmpului, închis: ceață 46 % + bleumarin pe suprafața închisă', field_dark, surface_dark, UI),
+    # Hover pe butonul principal (pe deschis: teal cu text alb).
+    ('buton principal hover, deschis: alb pe teal', white, teal, TEXT),
+    ('buton principal hover, deschis: teal pe alb (forma)', teal, white, UI),
+    # Căsuța bifată: fundal --color-link, bifa --check-fg.
+    ('căsuța bifată, deschis: bifa albă pe teal', white, teal, UI),
+    ('căsuța bifată, deschis: teal pe alb', teal, white, UI),
+    ('căsuța bifată, închis: bifa bleumarin pe teal deschis', navy, teal_l, UI),
+    ('căsuța bifată, închis: teal deschis pe bleumarin', teal_l, navy, UI),
 ]
 # Stiva din hero (blocul HeroStack din global.css): eticheta plăcii active și iconițele.
 hs_glyph_base = mix(teal_l, white, 0.76)

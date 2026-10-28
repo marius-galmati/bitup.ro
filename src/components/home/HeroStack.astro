@@ -224,7 +224,9 @@ const eticheta = (y: number) => ({
       if (ready) return;
       ready = true;
       fig.classList.add('is-ready');
-      if (!reduce) { fig.classList.add('is-live'); spin = performance.now(); go(); }
+      // Tura pornește doar dacă tab-ul e vizibil (28 octombrie 2026): o pagină deschisă în fundal nu o mai joacă la revenire.
+      // În repaus nu rămâne nimic activ: bucla rAF se oprește când stiva s-a așezat, iar blurul există doar în starea activă.
+      if (!reduce) { fig.classList.add('is-live'); if (!document.hidden) { spin = performance.now(); go(); } }
     };
     if (reduce) onReady();
     else {

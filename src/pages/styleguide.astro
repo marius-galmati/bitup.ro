@@ -145,17 +145,17 @@ const faq = [
       {(['primary', 'secondary', 'tertiary'] as const).map((v) => (
         <div class="sg-states__row">
           <p class="sg-states__name data muted">{v === 'primary' ? 'Principal' : v === 'secondary' ? 'Secundar' : 'Terțiar'}</p>
-          <div class="sg-states__item"><Button variant={v} href="#sg-4">Spune-ne problema</Button><span class="sg-cap">Normal</span></div>
-          <div class="sg-states__item"><Button variant={v} href="#sg-4" state="hover">Spune-ne problema</Button><span class="sg-cap">Hover</span></div>
-          <div class="sg-states__item"><Button variant={v} href="#sg-4" state="focus">Spune-ne problema</Button><span class="sg-cap">Focus</span></div>
-          <div class="sg-states__item"><Button variant={v} disabled>Spune-ne problema</Button><span class="sg-cap">Dezactivat</span></div>
+          <div class="sg-states__item"><Button variant={v} href="#sg-4">Scrie-ne problema</Button><span class="sg-cap">Normal</span></div>
+          <div class="sg-states__item"><Button variant={v} href="#sg-4" state="hover">Scrie-ne problema</Button><span class="sg-cap">Hover</span></div>
+          <div class="sg-states__item"><Button variant={v} href="#sg-4" state="focus">Scrie-ne problema</Button><span class="sg-cap">Focus</span></div>
+          <div class="sg-states__item"><Button variant={v} disabled>Scrie-ne problema</Button><span class="sg-cap">Dezactivat</span></div>
         </div>
       ))}
     </div>
     <div class="on-navy sg-panel">
       <p class="sg-panel__title">Pe bleumarin</p>
       <div class="sg-row">
-        <Button href="#sg-4">Spune-ne problema de IT care te costă cel mai mult</Button>
+        <Button href="#sg-4">Scrie-ne problema de IT care te costă cel mai mult</Button>
         <Button variant="secondary" href="#sg-4">Vezi serviciile</Button>
         <Button variant="tertiary" href="#sg-4">Programează o discuție</Button>
       </div>
@@ -249,7 +249,7 @@ const faq = [
     <div class="sg-stats">
       <Stat value="2020" caption="Pe piață din iunie 2020" />
       <Stat value="99,98 %" caption="Disponibilitatea BitUp Cloud" />
-      <Stat value="≈ 6 ani" caption="De când operăm cloudul privat BitUp" />
+      <Stat value="6 ani" caption="De aproximativ 6 ani operăm cloudul privat BitUp" />
     </div>
     <div class="on-navy sg-panel">
       <div class="sg-stats">
@@ -294,6 +294,8 @@ const faq = [
         <Field lang={lang} id="f2-email" name="x2" type="email" label="Email de serviciu" value="ana@firma" error="Adresa de email pare incompletă. Verifică partea de după @." required />
         <Field lang={lang} control="textarea" id="f2-problema" name="x3" label="Problema de IT care te costă cel mai mult" error="Scrie pe scurt problema, ca să știm de unde pornim." required rows={3} />
         <Field lang={lang} id="f2-dis" name="x4" label="Dezactivat" value="Nu se poate modifica" disabled required />
+        <Checkbox id="f2-bifat" name="x6" checked>Bifată</Checkbox>
+        <Checkbox id="f2-bifat-focus" name="x7" checked state="focus">Bifată, cu focus</Checkbox>
         <Checkbox id="f2-acord" name="x5" required error="Avem nevoie de acordul tău ca să-ți putem răspunde.">Sunt de acord cu prelucrarea datelor, conform <a href="#sg-11">politicii de confidențialitate</a>.</Checkbox>
         <Button type="submit" disabled>Se trimite…</Button>
       </form>
@@ -344,7 +346,7 @@ const faq = [
       label="Oferta principală"
       title="Scrie-ne problema de IT care te costă cel mai mult."
       text="În 24 de ore lucrătoare primești o recomandare scrisă: ce am face noi în locul tău, chiar dacă nu lucrăm împreună."
-      cta="Spune-ne problema"
+      cta="Scrie-ne problema"
       href="#sg-11"
     >
       <Button variant="tertiary" href="#sg-16">Programează o discuție</Button>

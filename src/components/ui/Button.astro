@@ -3,6 +3,9 @@
  * Button (componente.md § Butoane). 48 px, padding 22 px, colțuri 0, IBM Plex Sans 500 15 px, „→” după text la butoanele care duc mai departe.
  * Culorile vin din rolurile semantice (--btn-*), deci varianta de pe închis apare singură în tema închisă și în `.on-navy`.
  * Principal: bleumarin / alb (pe închis: portocaliu / bleumarin). Secundar: contur 1 px. Terțiar: link subliniat teal.
+ * Hover pe principal (Marius, 28 octombrie 2026): pe deschis fundalul devine teal cu text alb, plus deplasarea săgeții;
+ * pe bleumarin și în tema închisă rămâne portocaliu și se mișcă doar săgeata (--btn-primary-*-hover, global.css).
+ * Cu prefers-reduced-motion, săgeata nu se mișcă.
  * `state` forțează aspectul de hover / focus, doar pentru /styleguide.
  */
 import type { HTMLAttributes } from 'astro/types';
@@ -44,6 +47,7 @@ const classes = ['btn', `btn--${variant}`, block && 'btn--block', state && `is-$
   .btn.is-focus { outline: var(--rule-strong) solid var(--focus-ring); outline-offset: var(--rule-strong); }
 
   .btn--primary { background: var(--btn-primary-bg); color: var(--btn-primary-fg); border-color: var(--btn-primary-bg); }
+  .btn--primary:hover:not(:disabled), .btn--primary.is-hover { background: var(--btn-primary-bg-hover); border-color: var(--btn-primary-bg-hover); color: var(--btn-primary-fg-hover); }
 
   /* Secundarul se umple la hover: aceleași două culori, inversate (contrastul rămâne cel al principalului). */
   .btn--secondary { background: transparent; color: var(--btn-secondary-fg); border-color: var(--btn-secondary-border); }
@@ -60,4 +64,6 @@ const classes = ['btn', `btn--${variant}`, block && 'btn--block', state && `is-$
   .btn:disabled .btn__arrow { transform: none; }
 
   @media (max-width: 767px) { .btn--block { width: 100%; justify-self: stretch; } }
+  /* Fără mișcare: săgeata rămâne pe loc (comutatorul global din global.css doar scurtează tranziția). */
+  @media (prefers-reduced-motion: reduce) { .btn:hover .btn__arrow, .btn.is-hover .btn__arrow { transform: none; } }
 </style>
