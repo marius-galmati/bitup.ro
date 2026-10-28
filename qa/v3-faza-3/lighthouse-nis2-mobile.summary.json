@@ -1,0 +1,18 @@
+{
+  "url": "http://localhost:4321/nis2",
+  "performance": 100,
+  "accessibility": 100,
+  "bestPractices": 100,
+  "seo": 63,
+  "lcp": "1.4 s",
+  "cls": "0",
+  "tbt": "40 ms",
+  "transferKiB": 102,
+  "failed": [
+    "first-contentful-paint: First Contentful Paint",
+    "max-potential-fid: Max Potential First Input Delay",
+    "is-crawlable: Page is blocked from indexing",
+    "network-dependency-tree-insight: Network dependency tree",
+    "render-blocking-insight: Render-blocking requests"
+  ]
+}

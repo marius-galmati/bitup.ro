@@ -1,0 +1,20 @@
+{
+  "url": "http://localhost:4321/servicii",
+  "performance": 98,
+  "accessibility": 100,
+  "bestPractices": 100,
+  "seo": 63,
+  "lcp": "1.5 s",
+  "cls": "0",
+  "tbt": "150 ms",
+  "transferKiB": 126,
+  "failed": [
+    "first-contentful-paint: First Contentful Paint",
+    "total-blocking-time: Total Blocking Time",
+    "max-potential-fid: Max Potential First Input Delay",
+    "is-crawlable: Page is blocked from indexing",
+    "forced-reflow-insight: Forced reflow",
+    "network-dependency-tree-insight: Network dependency tree",
+    "render-blocking-insight: Render-blocking requests"
+  ]
+}
