@@ -77,6 +77,6 @@ export default defineConfig({
       filter: (page) => !/\/(404|styleguide)(\/|$)/.test(page),
     }),
     // Doar setul `lucide` (componente.md § Iconițe: un singur set de linie). Lista crește pe măsură ce iconițele sunt folosite.
-    icon({ include: { lucide: ['sun', 'moon', 'chevron-down', 'chevron-right', 'plus', 'mail', 'phone', 'shield', 'cloud', 'code-xml', 'zap', 'sparkles', 'headset'] } }),
+    icon({ include: { lucide: ['sun', 'moon', 'chevron-down', 'chevron-right', 'plus', 'mail', 'phone', 'shield', 'cloud', 'code-xml', 'zap', 'sparkles', 'headset', 'check', 'x'] } }),
   ],
 });

@@ -1,0 +1,152 @@
+---
+/**
+ * Șablonul celor 6 pagini de servicii (brief § 5; planul fazei 3). Structura e fixă: hero (traseu, etichetă, titlu, text,
+ * butonul spre formular) → problema → ce costă → varianta bine organizată → [secțiunea specifică paginii] → ce facem
+ * concret (pași) → proiecte legate (colecția `proiecte`) → întrebări frecvente → banda de îndemn (singura bleumarin).
+ * Secțiunile alternează alb / ceață. JSON-LD: BreadcrumbList, Service, FAQPage, din aceleași date ca textul vizibil.
+ */
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Section from '../ui/Section.astro';
+import Label from '../ui/Label.astro';
+import Button from '../ui/Button.astro';
+import Stat from '../ui/Stat.astro';
+import Steps from '../ui/Steps.astro';
+import Faq from '../ui/Faq.astro';
+import ServiceHero from './ServiceHero.astro';
+import RelatedProjects from './RelatedProjects.astro';
+import CtaBand from '../ui/CtaBand.astro';
+import { t, localePath, absoluteUrl, type Locale } from '../../i18n';
+import { breadcrumbList, faqPage, service as serviceLd } from '../../lib/schema';
+import { SERVICES } from '../../lib/services';
+import type { ServiceCopy } from '../../copy/servicii/types';
+
+interface Props { lang: Locale; copy: ServiceCopy }
+const { lang, copy: c } = Astro.props;
+const d = t(lang);
+const icon = SERVICES.find((s) => s.key === c.key)?.icon;
+const pageUrl = localePath(c.key, lang);
+const formHref = `${localePath('contact', lang)}#formular`;
+
+const crumbs = [
+  { label: d.breadcrumb.home, href: localePath('home', lang) },
+  { label: d.nav.services, href: localePath('services', lang) },
+  { label: c.hero.label, href: pageUrl },
+];
+
+
+const jsonLd = [
+  breadcrumbList(crumbs.map((x) => ({ name: x.label, url: absoluteUrl(x.href) }))),
+  serviceLd(lang, c.hero.label, c.meta.description, absoluteUrl(pageUrl)),
+  faqPage(c.faq.items),
+];
+
+// Alternanța alb / ceață după hero, în ordinea secțiunilor care există pe pagină.
+const order = ['problem', 'cost', 'wellRun', ...(c.extra ? ['extra'] : []), 'steps', 'projects', 'faq'];
+const tone = (id: string) => (order.indexOf(id) % 2 === 0 ? 'fog' : 'white') as 'fog' | 'white';
+---
+<BaseLayout lang={lang} title={c.meta.title} description={c.meta.description} routeKey={c.key} jsonLd={jsonLd} noindex>
+  <Section tone="white" labelledby="sv-titlu">
+    <ServiceHero lang={lang} crumbs={crumbs} label={c.hero.label} h1={c.hero.h1} lead={c.hero.lead} icon={icon} />
+  </Section>
+
+  <Section tone={tone('problem')} labelledby="sv-problema">
+    <div class="sv-split">
+      <h2 id="sv-problema" class="sv-h2">{c.problem.h2}</h2>
+      <div class="measure">{c.problem.paragraphs.map((p) => <p>{p}</p>)}</div>
+    </div>
+  </Section>
+
+  <Section tone={tone('cost')} labelledby="sv-cost">
+    <div class="sv-split">
+      <h2 id="sv-cost" class="sv-h2">{c.cost.h2}</h2>
+      <div class="measure">{c.cost.paragraphs.map((p) => <p>{p}</p>)}</div>
+    </div>
+  </Section>
+
+  <Section tone={tone('wellRun')} labelledby="sv-bine">
+    <div class="sv-head">
+      <h2 id="sv-bine" class="sv-h2">{c.wellRun.h2}</h2>
+      {c.wellRun.intro && <p class="measure">{c.wellRun.intro}</p>}
+    </div>
+    <ul class="sv-grid" role="list">
+      {c.wellRun.items.map((it) => (
+        <li class="sv-point">
+          <h3 class="sv-point__title">{it.title}</h3>
+          <p>{it.text}</p>
+        </li>
+      ))}
+    </ul>
+  </Section>
+
+  {c.extra && (
+    <Section tone={tone('extra')} id={c.extra.id} labelledby={`${c.extra.id}-titlu`}>
+      <div class="sv-head">
+        <Label>{c.extra.label}</Label>
+        <h2 id={`${c.extra.id}-titlu`} class="sv-h2">{c.extra.h2}</h2>
+        {c.extra.paragraphs.map((p) => <p class="measure">{p}</p>)}
+      </div>
+      {c.extra.stats && (
+        <div class="sv-stats">{c.extra.stats.map((s) => <Stat value={s.value} caption={s.caption} />)}</div>
+      )}
+      {c.extra.items && (
+        <ul class="sv-grid" role="list">
+          {c.extra.items.map((it) => (
+            <li class="sv-point">
+              <h3 class="sv-point__title">{it.title}</h3>
+              <p>{it.text}</p>
+            </li>
+          ))}
+        </ul>
+      )}
+      {c.extra.link && <Button href={c.extra.link.href} variant="tertiary" class="sv-more">{c.extra.link.label}</Button>}
+    </Section>
+  )}
+
+  <Section tone={tone('steps')} labelledby="sv-pasi">
+    <div class="sv-head">
+      <h2 id="sv-pasi" class="sv-h2">{c.steps.h2}</h2>
+      {c.steps.intro && <p class="measure">{c.steps.intro}</p>}
+    </div>
+    <Steps items={c.steps.items} />
+  </Section>
+
+  <Section tone={tone('projects')} labelledby="sv-proiecte">
+    <div class="sv-head">
+      <h2 id="sv-proiecte" class="sv-h2">{c.projects.h2}</h2>
+      {c.projects.intro && <p class="measure">{c.projects.intro}</p>}
+    </div>
+    <RelatedProjects lang={lang} service={c.key} empty={c.projects.empty} />
+  </Section>
+
+  <Section tone={tone('faq')} labelledby="sv-intrebari">
+    <div class="sv-faq">
+      <h2 id="sv-intrebari" class="sv-h2">{c.faq.h2}</h2>
+      <Faq items={c.faq.items} />
+    </div>
+  </Section>
+
+  <CtaBand label={c.cta.label} title={c.cta.title} text={c.cta.text} cta={d.nav.cta} href={formHref} />
+</BaseLayout>
+
+<style>
+
+  .sv-h2 { max-width: 26ch; }
+  .sv-head { display: grid; gap: var(--gap-title-text); justify-items: start; margin-bottom: var(--space-5); }
+  .sv-split { display: grid; gap: var(--space-4); }
+  @media (min-width: 1024px) { .sv-split { grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); gap: var(--space-6); align-items: start; } }
+
+  /* Varianta bine organizată și punctele secțiunii în plus: rânduri cu linie de 1 px deasupra, fără carduri. */
+  .sv-grid { display: grid; gap: var(--space-5); }
+  @media (min-width: 768px) { .sv-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-5) var(--space-6); } }
+  @media (min-width: 1200px) { .sv-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  .sv-point { padding-top: var(--space-3); border-top: var(--border-width) solid var(--color-border); }
+  .sv-point__title { font-size: var(--fs-h3); line-height: var(--lh-h3); margin-bottom: var(--space-2); }
+
+  .sv-stats { display: grid; gap: var(--space-4); margin-bottom: var(--space-5); }
+  @media (min-width: 768px) { .sv-stats { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+
+  :global(.sv-more) { margin-top: var(--space-5); }
+
+  .sv-faq { display: grid; gap: var(--space-5); }
+  @media (min-width: 1024px) { .sv-faq { grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr); gap: var(--space-6); align-items: start; } }
+</style>

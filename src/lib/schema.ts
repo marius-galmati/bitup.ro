@@ -9,6 +9,9 @@ const ORG_ID = `${site.url}/#organization`;
 const SERVICE_ID = `${site.url}/#professionalservice`;
 const FOUNDER_ID = `${site.url}/#founder`;
 
+/** Aria deservită: toată țara (Marius, 28 octombrie 2026). Adresa publicată rămâne doar „Cluj-Napoca”. */
+const areaServed = (locale: Locale) => ({ '@type': 'Country', name: site.country[locale] });
+
 export function organization(locale: Locale) {
   return {
     '@type': 'Organization',
@@ -51,7 +54,8 @@ export function professionalService(locale: Locale) {
       addressRegion: site.region,
       addressCountry: site.country.code,
     },
-    areaServed: site.areaServed,
+    areaServed: areaServed(locale),
+    // Program identic cu Google Business Profile (Marius, 28 octombrie 2026); ca text vizibil, doar pe IT administrat și Contact.
     openingHoursSpecification: {
       '@type': 'OpeningHoursSpecification',
       dayOfWeek: site.hours.schemaDays,
@@ -73,8 +77,24 @@ export function service(locale: Locale, name: string, description: string, url: 
     url,
     // fără `inLanguage`: și pe Service e UNKNOWN_FIELD la validator.schema.org (Faza 2b); limba e dată de `url` și de `areaServed`
     provider: { '@id': ORG_ID },
-    areaServed: locale === 'ro' ? 'România' : 'Romania',
+    areaServed: areaServed(locale),
     serviceType: name,
+  };
+}
+
+/** BreadcrumbList, din aceleași elemente ca traseul vizibil (Breadcrumb.astro). Ultimul element e pagina curentă. */
+export function breadcrumbList(items: { name: string; url: string }[]) {
+  return {
+    '@type': 'BreadcrumbList',
+    itemListElement: items.map((it, i) => ({ '@type': 'ListItem', position: i + 1, name: it.name, item: it.url })),
+  };
+}
+
+/** FAQPage, din aceleași perechi ca întrebările vizibile (Faq.astro). */
+export function faqPage(items: { q: string; a: string }[]) {
+  return {
+    '@type': 'FAQPage',
+    mainEntity: items.map((it) => ({ '@type': 'Question', name: it.q, acceptedAnswer: { '@type': 'Answer', text: it.a } })),
   };
 }
 

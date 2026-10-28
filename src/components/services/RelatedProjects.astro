@@ -1,0 +1,46 @@
+---
+/**
+ * Proiectele legate de o pagină (colecția `proiecte`, câmpul `services`), ca și carduri: studiul de caz duce la pagina lui,
+ * produsele la ancora lor de pe /proiecte. `exclude` scoate proiecte deja prezentate pe pagină (Cosmio pe /bitup-cloud).
+ * Dacă nu există niciunul, se afișează `empty` (de obicei un [DE CONFIRMAT]).
+ */
+import { getCollection } from 'astro:content';
+import Card from '../ui/Card.astro';
+import Button from '../ui/Button.astro';
+import { localePath, dynamicPath, type Locale, type RouteKey } from '../../i18n';
+
+interface Props { lang: Locale; service: RouteKey; exclude?: string[]; empty?: string }
+const { lang, service, exclude = [], empty } = Astro.props;
+const items = (await getCollection('proiecte', (e) => e.id.startsWith(`${lang}/`) && !e.data.draft && e.data.services.includes(service as never)))
+  .filter((e) => !exclude.includes(e.id.split('/')[1]))
+  .sort((a, b) => a.data.order - b.data.order)
+  .map((e) => {
+    const slug = e.id.split('/')[1];
+    const client = e.data.kind === 'client';
+    return {
+      title: e.data.title,
+      summary: e.data.summary,
+      client,
+      href: client ? dynamicPath('project', lang, slug) : localePath('projects', lang, e.data.anchor),
+    };
+  });
+---
+{items.length > 0 ? (
+  <div class="rp">
+    {items.map((p) => (
+      <Card title={p.title} href={p.href} linkLabel={p.client ? 'Citește studiul de caz' : 'Vezi proiectul'}>
+        <p class="small muted">{p.client ? 'Studiu de caz' : 'Construit de noi'}</p>
+        <p>{p.summary}</p>
+      </Card>
+    ))}
+  </div>
+) : (
+  empty && <p class="measure">{empty}</p>
+)}
+<Button href={localePath('projects', lang)} variant="tertiary" class="rp__all">Toate proiectele</Button>
+
+<style>
+  .rp { display: grid; gap: var(--space-4); }
+  @media (min-width: 768px) { .rp { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  :global(.rp__all) { margin-top: var(--space-5); }
+</style>

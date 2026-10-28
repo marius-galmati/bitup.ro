@@ -11,8 +11,6 @@ export const site = {
   city: 'Cluj-Napoca',
   region: 'Cluj',
   country: { ro: 'România', en: 'Romania', code: 'RO' },
-  /** Aria deservită (JSON-LD `areaServed`). */
-  areaServed: ['Cluj-Napoca', 'România'],
 
   /** Sediul social: DOAR în paginile legale (Legea 365/2002), ca text. Nu în subsol, Contact sau JSON-LD. */
   registeredOffice: 'Câmpia Turzii, Str. Lazăr Gheorghe nr. 60, jud. Cluj',

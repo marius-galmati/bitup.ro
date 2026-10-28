@@ -1,0 +1,35 @@
+---
+/**
+ * Hero-ul paginilor de servicii, al hub-ului de nișă (/bitup-cloud, /nis2): traseul, iconița și eticheta, titlul, textul,
+ * apoi acțiunile (slot; implicit butonul spre formular). Tipografic, fără ilustrație (componente.md § Hero).
+ */
+import Breadcrumb from '../ui/Breadcrumb.astro';
+import Label from '../ui/Label.astro';
+import Icon from '../ui/Icon.astro';
+import Button from '../ui/Button.astro';
+import { t, localePath, type Locale } from '../../i18n';
+
+interface Props { lang: Locale; crumbs: { label: string; href?: string }[]; label: string; h1: string; lead: string; icon?: string; id?: string }
+const { lang, crumbs, label, h1, lead, icon, id = 'sv-titlu' } = Astro.props;
+const d = t(lang);
+---
+<div class="sv-hero">
+  <Breadcrumb lang={lang} items={crumbs} />
+  <div class="sv-hero__label">
+    {icon && <Icon name={icon} size="large" />}
+    <Label tag="span">{label}</Label>
+  </div>
+  <h1 id={id} class="sv-hero__h1">{h1}</h1>
+  <p class="sv-hero__lead">{lead}</p>
+  <div class="sv-hero__actions">
+    {Astro.slots.has('default') ? <slot /> : <Button href={`${localePath('contact', lang)}#formular`} block>{d.nav.cta}</Button>}
+  </div>
+</div>
+
+<style>
+  .sv-hero { display: grid; gap: var(--gap-title-text); justify-items: start; }
+  .sv-hero__label { display: flex; align-items: center; gap: var(--space-3); margin-top: var(--space-4); }
+  .sv-hero__h1 { max-width: 22ch; }
+  .sv-hero__lead { max-width: 60ch; }
+  .sv-hero__actions { margin-top: var(--space-3); width: 100%; display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-3) var(--space-4); }
+</style>

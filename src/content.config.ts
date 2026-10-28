@@ -43,4 +43,27 @@ const blog = defineCollection({
     }),
 });
 
-export const collections = { cases, blog };
+/**
+ * Proiectele (brief § 5, /proiecte): studiile de caz pentru clienți și produsele construite de BitUp.
+ * Faza 3 folosește doar datele din frontmatter, ca paginile de servicii să-și listeze proiectele legate; paginile
+ * /proiecte și /proiecte/cosmio (cu corpul textului) vin în faza 4. Id-ul: „ro/cosmio”, „en/cosmio”.
+ * Faptele: doar din copy.md sau din studiul de caz aprobat; ce lipsește, [DE CONFIRMAT].
+ */
+const SERVICE_KEYS = ['security', 'infrastructure', 'software', 'automation', 'aiAgents', 'managedIt', 'cloud', 'nis2'] as const;
+const proiecte = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/proiecte' }),
+  schema: () =>
+    z.object({
+      title: z.string(),
+      kind: z.enum(['client', 'produs']),     // „Pentru clienți” / „Construite de noi”
+      summary: z.string(),                    // o frază, pentru cardurile de pe paginile de servicii
+      services: z.array(z.enum(SERVICE_KEYS)), // cheile din src/i18n/routes.ts unde apare proiectul
+      anchor: z.string(),                     // ancora secțiunii de pe /proiecte
+      url: z.url().optional(),       // site-ul produsului
+      order: z.number(),
+      consent: z.string().optional(),         // obligatoriu pentru clienți: acordul scris de publicare
+      draft: z.boolean().default(false),
+    }),
+});
+
+export const collections = { cases, blog, proiecte };

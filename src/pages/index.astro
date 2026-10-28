@@ -13,25 +13,19 @@ import Button from '../components/ui/Button.astro';
 import Card from '../components/ui/Card.astro';
 import Icon from '../components/ui/Icon.astro';
 import CtaBand from '../components/ui/CtaBand.astro';
+import Steps from '../components/ui/Steps.astro';
 import DiagramaServicii from '../components/ui/DiagramaServicii.astro';
 import PlaciStraturi from '../components/ui/PlaciStraturi.astro';
 import HeroStack from '../components/home/HeroStack.astro';
 import { t, localePath, dynamicPath } from '../i18n';
 import { services } from '../lib/services';
+import { descrieri } from '../copy/servicii/comun.ro';
 
 const lang = 'ro';
 const d = t(lang);
 const svc = services(lang);
 const formHref = `${localePath('contact', lang)}#formular`;
 
-/** Descrierile scurte ale straturilor, din copy.md § Serviciile, ca straturi (în aceeași ordine). */
-const descrieri = [
-  'Evaluarea riscului și a maturității, ISO 27001 și NIS2, protecția stațiilor (EDR/XDR), actualizări automate.',
-  'Microsoft 365, Active Directory hibrid, rețele, servere și BitUp Cloud, cloudul nostru privat.',
-  'Aplicații și panouri de indicatori care aduc datele din toate sistemele într-un singur loc.',
-  'Programe care comunică între ele, așa că datele se introduc o singură dată.',
-  'AI care preia munca repetitivă și predă omului doar ce cere o decizie.',
-];
 
 const pasi = [
   { titlu: 'Proiectăm', text: 'Ne uităm la ce folosește firma azi și la ce o încurcă. Stabilim ce rămâne, ce se schimbă și în ce ordine.' },
@@ -125,7 +119,7 @@ const echipa = [
             <Icon name={s.icon} class="layer__icon" />
             <div>
               <h3 class="layer__title"><a href={localePath(s.key, lang)}>{s.name}</a>{i === 0 && <span class="layer__tag"> · {d.layers.foundation}</span>}</h3>
-              <p class="layer__text">{descrieri[i]}</p>
+              <p class="layer__text">{descrieri[s.key as keyof typeof descrieri]}</p>
             </div>
           </li>
         ))}
@@ -133,7 +127,7 @@ const echipa = [
     </div>
     <div class="managed">
       <Card title={svc[5].name} icon={svc[5].icon} href={localePath('managedIt', lang)} linkLabel="Vezi serviciul" look="surface">
-        <p>Preluăm toată infrastructura firmei și suportul pentru utilizatori. Un singur partener, în locul mai multor furnizori.</p>
+        <p>{descrieri.managedIt}</p>
       </Card>
       <Button href={localePath('services', lang)} variant="tertiary">Vezi toate serviciile</Button>
     </div>
@@ -145,15 +139,7 @@ const echipa = [
       <Label>Cum lucrăm</Label>
       <h2 id="pasi-titlu">Aceeași echipă, de la proiect până la administrare</h2>
     </div>
-    <ol class="steps" role="list">
-      {pasi.map((p, i) => (
-        <li class="step">
-          <span class="step__n" aria-hidden="true">{i + 1}</span>
-          <h3 class="step__title">{p.titlu}</h3>
-          <p>{p.text}</p>
-        </li>
-      ))}
-    </ol>
+    <Steps items={pasi.map((p) => ({ title: p.titlu, text: p.text }))} />
   </Section>
 
   {/* 5. Proiecte alese: studiul de caz Cosmio (acord scris) și produsele proprii. Fără garanțiile IT-ului administrat. */}
@@ -247,14 +233,6 @@ const echipa = [
   .managed :global(.card) { width: 100%; }
   /* Aceeași grilă ca diagrama și lista: cardul sub diagramă, linkul spre hub sub listă. */
   @media (min-width: 1024px) { .managed { grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: var(--space-6); align-items: center; } }
-
-  /* Cum lucrăm: patru pași, cu linie de 2 px deasupra și numărul pasului. */
-  .steps { display: grid; gap: var(--space-5); counter-reset: none; }
-  @media (min-width: 768px) { .steps { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-  @media (min-width: 1200px) { .steps { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
-  .step { display: grid; gap: var(--space-2); align-content: start; padding-top: var(--space-3); border-top: var(--rule-strong) solid var(--color-heading); }
-  .step__n { font-size: var(--fs-h3); font-weight: var(--fw-semibold); line-height: 1; color: var(--color-link); }
-  .step__title { margin-top: var(--space-2); }
 
   /* Proiecte: studiul de caz pe toată lățimea, produsele câte două (câte patru, rândurile ar avea 6–8 cuvinte). */
   .projects { display: grid; gap: var(--space-4); }

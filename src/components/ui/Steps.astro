@@ -1,0 +1,32 @@
+---
+/**
+ * Pași numerotați (doar pentru secvențe reale: „Cum lucrăm”, „Ce facem concret”). Linie de 2 px deasupra fiecărui pas,
+ * numărul pasului în teal (text, nu formă), titlu H3 și text. 1 coloană pe mobil, 2 de la 768 px, 4 de la 1200 px
+ * (sau 3, când sunt 3 sau 6 pași). Folosit pe Acasă și pe paginile de servicii.
+ */
+interface Step { title: string; text: string }
+interface Props { items: Step[]; headingLevel?: 'h3' | 'h4'; class?: string }
+const { items, headingLevel: H = 'h3', class: className } = Astro.props;
+const cols = items.length % 3 === 0 ? 3 : 4;
+---
+<ol class:list={['steps', `steps--${cols}`, className]} role="list">
+  {items.map((p, i) => (
+    <li class="step">
+      <span class="step__n" aria-hidden="true">{i + 1}</span>
+      <H class="step__title">{p.title}</H>
+      <p>{p.text}</p>
+    </li>
+  ))}
+</ol>
+
+<style>
+  .steps { display: grid; gap: var(--space-5); }
+  @media (min-width: 768px) { .steps { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (min-width: 1200px) {
+    .steps--4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .steps--3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  }
+  .step { display: grid; gap: var(--space-2); align-content: start; padding-top: var(--space-3); border-top: var(--rule-strong) solid var(--color-heading); }
+  .step__n { font-size: var(--fs-h3); font-weight: var(--fw-semibold); line-height: 1; color: var(--color-link); }
+  .step__title { margin-top: var(--space-2); font-size: var(--fs-h3); line-height: var(--lh-h3); }
+</style>
