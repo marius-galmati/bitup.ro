@@ -1,0 +1,103 @@
+---
+/**
+ * /nis2 (brief § 5): ce cere NIS2 în România, încadrarea gratuită, NIS2 Ready, consultanță și implementare, nu audit.
+ * Faptele legale: copy.md § NIS2 în România. Traseul: Acasă › NIS2. JSON-LD: BreadcrumbList, Service, FAQPage.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Section from '../components/ui/Section.astro';
+import Button from '../components/ui/Button.astro';
+import Table from '../components/ui/Table.astro';
+import Steps from '../components/ui/Steps.astro';
+import Faq from '../components/ui/Faq.astro';
+import Icon from '../components/ui/Icon.astro';
+import CtaBand from '../components/ui/CtaBand.astro';
+import ServiceHero from '../components/services/ServiceHero.astro';
+import RelatedProjects from '../components/services/RelatedProjects.astro';
+import { t, localePath, absoluteUrl } from '../i18n';
+import { breadcrumbList, faqPage, service } from '../lib/schema';
+import { nis2 as c } from '../copy/servicii/nis2.ro';
+
+const lang = 'ro';
+const d = t(lang);
+const crumbs = [
+  { label: d.breadcrumb.home, href: localePath('home', lang) },
+  { label: c.hero.label, href: localePath('nis2', lang) },
+];
+const jsonLd = [
+  breadcrumbList(crumbs.map((x) => ({ name: x.label, url: absoluteUrl(x.href) }))),
+  service(lang, 'Consultanță și implementare NIS2', c.meta.description, absoluteUrl(localePath('nis2', lang))),
+  faqPage(c.faq.items),
+];
+---
+<BaseLayout lang={lang} title={c.meta.title} description={c.meta.description} routeKey="nis2" jsonLd={jsonLd} noindex>
+  <Section tone="white" labelledby="sv-titlu">
+    <ServiceHero lang={lang} crumbs={crumbs} label={c.hero.label} h1={c.hero.h1} lead={c.hero.lead} icon="shield">
+      <Button href={c.hero.primary.href} rel="noopener" block>{c.hero.primary.label}</Button>
+      <p class="small muted n2-note">{c.hero.secondaryNote}</p>
+    </ServiceHero>
+  </Section>
+
+  <Section tone="fog" labelledby="n2-lege">
+    <h2 id="n2-lege" class="n2-h2">{c.law.h2}</h2>
+    <div class="n2-law">
+      <Table caption={c.law.basics.caption} columns={c.law.basics.columns} rows={c.law.basics.rows} class="n2-law__wide" />
+      <Table caption={c.law.incidents.caption} columns={c.law.incidents.columns} rows={c.law.incidents.rows} />
+      <Table caption={c.law.fines.caption} columns={c.law.fines.columns} rows={c.law.fines.rows} />
+    </div>
+  </Section>
+
+  <Section tone="white" labelledby="n2-pasi">
+    <h2 id="n2-pasi" class="n2-h2">{c.steps.h2}</h2>
+    <Steps items={c.steps.items} />
+  </Section>
+
+  <Section tone="fog" labelledby="n2-roluri">
+    <h2 id="n2-roluri" class="n2-h2">{c.roles.h2}</h2>
+    <div class="n2-roles">
+      {[c.roles.we, c.roles.notWe].map((col, i) => (
+        <div class="n2-role">
+          <h3 class="n2-role__title">{col.title}</h3>
+          <ul role="list">
+            {col.items.map((it) => (
+              <li><Icon name={i === 0 ? 'check' : 'x'} size="small" class="n2-role__icon" /><span>{it}</span></li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+  </Section>
+
+  <Section tone="white" labelledby="n2-proiecte">
+    <h2 id="n2-proiecte" class="n2-h2">{c.projects.h2}</h2>
+    <RelatedProjects lang={lang} service="nis2" />
+  </Section>
+
+  <Section tone="fog" labelledby="n2-intrebari">
+    <div class="n2-faq">
+      <h2 id="n2-intrebari" class="n2-h2">{c.faq.h2}</h2>
+      <Faq items={c.faq.items} />
+    </div>
+  </Section>
+
+  <CtaBand label={c.cta.label} title={c.cta.title} text={c.cta.text} cta={d.nav.cta} href={`${localePath('contact', lang)}#formular`} />
+</BaseLayout>
+
+<style>
+  .n2-note { flex-basis: 100%; }
+  .n2-h2 { max-width: 26ch; margin-bottom: var(--space-5); }
+  .n2-law { display: grid; gap: var(--space-6); }
+  @media (min-width: 1024px) {
+    .n2-law { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .n2-law :global(.n2-law__wide) { grid-column: 1 / -1; }
+  }
+  .n2-roles { display: grid; gap: var(--space-5); }
+  @media (min-width: 768px) { .n2-roles { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-6); } }
+  .n2-role { padding-top: var(--space-3); border-top: var(--rule-strong) solid var(--color-heading); }
+  .n2-role__title { margin-bottom: var(--space-3); }
+  .n2-role ul { display: grid; gap: var(--space-3); }
+  .n2-role li { display: grid; grid-template-columns: auto 1fr; gap: var(--space-3); align-items: start; }
+  .n2-role :global(.n2-role__icon) { margin-top: var(--space-1); }
+  .n2-faq { display: grid; gap: var(--space-5); }
+  .n2-faq .n2-h2 { margin-bottom: 0; }
+  @media (min-width: 1024px) { .n2-faq { grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr); gap: var(--space-6); align-items: start; } }
+</style>

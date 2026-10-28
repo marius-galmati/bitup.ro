@@ -1,0 +1,92 @@
+---
+/**
+ * /bitup-cloud: cloudul privat BitUp, produsul stratului de infrastructură (brief § 5). Legat din Infrastructură și din Proiecte.
+ * Traseul: Acasă › Servicii › Infrastructură › BitUp Cloud. JSON-LD: BreadcrumbList, Service, FAQPage.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Section from '../components/ui/Section.astro';
+import Label from '../components/ui/Label.astro';
+import Button from '../components/ui/Button.astro';
+import Stat from '../components/ui/Stat.astro';
+import Table from '../components/ui/Table.astro';
+import Faq from '../components/ui/Faq.astro';
+import CtaBand from '../components/ui/CtaBand.astro';
+import ServiceHero from '../components/services/ServiceHero.astro';
+import RelatedProjects from '../components/services/RelatedProjects.astro';
+import { t, localePath, dynamicPath, absoluteUrl } from '../i18n';
+import { breadcrumbList, faqPage, service } from '../lib/schema';
+import { bitupCloud as c } from '../copy/servicii/bitup-cloud.ro';
+
+const lang = 'ro';
+const d = t(lang);
+const crumbs = [
+  { label: d.breadcrumb.home, href: localePath('home', lang) },
+  { label: d.nav.services, href: localePath('services', lang) },
+  { label: d.layers.items[1], href: localePath('infrastructure', lang) },
+  { label: c.hero.label, href: localePath('cloud', lang) },
+];
+const jsonLd = [
+  breadcrumbList(crumbs.map((x) => ({ name: x.label, url: absoluteUrl(x.href) }))),
+  service(lang, c.hero.label, c.meta.description, absoluteUrl(localePath('cloud', lang))),
+  faqPage(c.faq.items),
+];
+---
+<BaseLayout lang={lang} title={c.meta.title} description={c.meta.description} routeKey="cloud" jsonLd={jsonLd} noindex>
+  <Section tone="white" labelledby="sv-titlu">
+    <ServiceHero lang={lang} crumbs={crumbs} label={c.hero.label} h1={c.hero.h1} lead={c.hero.lead} icon="cloud" />
+    <div class="cl-stats">{c.stats.map((s) => <Stat value={s.value} caption={s.caption} />)}</div>
+  </Section>
+
+  <Section tone="fog" labelledby="cl-oferta">
+    <h2 id="cl-oferta" class="cl-h2">{c.offer.h2}</h2>
+    <ul class="cl-grid" role="list">
+      {c.offer.items.map((it) => (
+        <li class="cl-point"><h3 class="cl-point__title">{it.title}</h3><p>{it.text}</p></li>
+      ))}
+    </ul>
+  </Section>
+
+  <Section tone="white" id="cosmio" labelledby="cl-cosmio">
+    <div class="cl-case">
+      <div class="cl-case__text">
+        <Label>{c.cosmio.label}</Label>
+        <h2 id="cl-cosmio" class="cl-h2">{c.cosmio.h2}</h2>
+        {c.cosmio.paragraphs.map((p) => <p>{p}</p>)}
+        <Button href={dynamicPath('project', lang, 'cosmio')} variant="tertiary">{c.cosmio.link}</Button>
+      </div>
+      <Table caption={c.cosmio.table.caption} columns={c.cosmio.table.columns} rows={c.cosmio.table.rows} />
+    </div>
+  </Section>
+
+  <Section tone="fog" labelledby="cl-proiecte">
+    <h2 id="cl-proiecte" class="cl-h2">{c.projects.h2}</h2>
+    <RelatedProjects lang={lang} service="cloud" exclude={['cosmio']} />
+  </Section>
+
+  <Section tone="white" labelledby="cl-intrebari">
+    <div class="cl-faq">
+      <h2 id="cl-intrebari" class="cl-h2">{c.faq.h2}</h2>
+      <Faq items={c.faq.items} />
+    </div>
+  </Section>
+
+  <CtaBand label={c.cta.label} title={c.cta.title} text={c.cta.text} cta={d.nav.cta} href={`${localePath('contact', lang)}#formular`} />
+</BaseLayout>
+
+<style>
+  .cl-stats { display: grid; gap: var(--space-4); margin-top: var(--space-6); max-width: calc(var(--space-8) * 7); }
+  @media (min-width: 768px) { .cl-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  .cl-h2 { max-width: 26ch; margin-bottom: var(--space-5); }
+  .cl-grid { display: grid; gap: var(--space-5); }
+  @media (min-width: 768px) { .cl-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-5) var(--space-6); } }
+  @media (min-width: 1200px) { .cl-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  .cl-point { padding-top: var(--space-3); border-top: var(--border-width) solid var(--color-border); }
+  .cl-point__title { font-size: var(--fs-h3); line-height: var(--lh-h3); margin-bottom: var(--space-2); }
+  .cl-case { display: grid; gap: var(--space-5); align-items: start; }
+  .cl-case__text { display: grid; gap: var(--gap-title-text); justify-items: start; max-width: var(--measure); }
+  .cl-case__text .cl-h2 { margin-bottom: 0; }
+  @media (min-width: 1024px) { .cl-case { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--space-6); } }
+  .cl-faq { display: grid; gap: var(--space-5); }
+  .cl-faq .cl-h2 { margin-bottom: 0; }
+  @media (min-width: 1024px) { .cl-faq { grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr); gap: var(--space-6); align-items: start; } }
+</style>

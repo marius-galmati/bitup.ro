@@ -1,0 +1,85 @@
+---
+/**
+ * /servicii: hub-ul scurt (brief § 5). Diagrama celor 5 straturi (de la 768 px; sub atât, plăcile), apoi cele 6 servicii ca
+ * carduri cu link spre paginile lor, apoi banda de îndemn. Traseul și „Vezi serviciile” duc aici.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Section from '../components/ui/Section.astro';
+import Label from '../components/ui/Label.astro';
+import Card from '../components/ui/Card.astro';
+import Breadcrumb from '../components/ui/Breadcrumb.astro';
+import CtaBand from '../components/ui/CtaBand.astro';
+import DiagramaServicii from '../components/ui/DiagramaServicii.astro';
+import PlaciStraturi from '../components/ui/PlaciStraturi.astro';
+import { t, localePath, absoluteUrl } from '../i18n';
+import { services } from '../lib/services';
+import { breadcrumbList } from '../lib/schema';
+import { cta, descrieri } from '../copy/servicii/comun.ro';
+
+const lang = 'ro';
+const d = t(lang);
+const crumbs = [
+  { label: d.breadcrumb.home, href: localePath('home', lang) },
+  { label: d.nav.services, href: localePath('services', lang) },
+];
+const jsonLd = [breadcrumbList(crumbs.map((c) => ({ name: c.label, url: absoluteUrl(c.href) })))];
+---
+<BaseLayout
+  lang={lang}
+  title="Servicii IT pentru companii în creștere · BitUp"
+  description="Securitate cibernetică, infrastructură, dezvoltare software, automatizări, agenți AI și IT administrat: un singur sistem, cu o singură echipă."
+  routeKey="services"
+  jsonLd={jsonLd}
+  noindex
+>
+  <Section tone="white" labelledby="hub-titlu">
+    <div class="hub">
+      <div class="hub__text">
+        <Breadcrumb lang={lang} items={crumbs} />
+        <Label>{d.nav.services}</Label>
+        <h1 id="hub-titlu">Șase servicii, un singur sistem</h1>
+        <p class="hub__lead">Cinci servicii sunt straturi peste fundația de securitate. Al șaselea, IT-ul administrat, le ține pe toate în funcțiune.</p>
+      </div>
+      <div class="hub__art">
+        <DiagramaServicii lang={lang} id="diagrama-hub" class="hub__diagram" />
+        <PlaciStraturi id="placi-hub" class="hub__plates" />
+      </div>
+    </div>
+  </Section>
+
+  <Section tone="fog" labelledby="hub-lista">
+    <h2 id="hub-lista" class="visually-hidden">{d.nav.services}</h2>
+    <ul class="hub__cards" role="list">
+      {services(lang).map((s, i) => (
+        <li>
+          <Card title={s.name} icon={s.icon} href={localePath(s.key, lang)} linkLabel="Vezi serviciul" look="outline" class="hub__card">
+            {i === 0 && <p class="small muted">{d.layers.foundation}</p>}
+            <p>{descrieri[s.key]}</p>
+          </Card>
+        </li>
+      ))}
+    </ul>
+  </Section>
+
+  <CtaBand label={cta.label} title={cta.title} text={cta.text} cta={d.nav.cta} href={`${localePath('contact', lang)}#formular`} />
+</BaseLayout>
+
+<style>
+  .hub { display: grid; gap: var(--space-5); align-items: center; }
+  .hub__text { display: grid; gap: var(--gap-title-text); justify-items: start; }
+  .hub__text :global(.crumbs) { margin-bottom: var(--space-4); }
+  .hub__lead { max-width: 52ch; }
+  .hub__art :global(.hub__diagram) { display: none; }
+  .hub__art :global(.hub__plates) { max-width: calc(var(--space-8) * 3); margin-inline: auto; }
+  @media (min-width: 768px) {
+    .hub__art :global(.hub__diagram) { display: block; }
+    .hub__art :global(.hub__plates) { display: none; }
+  }
+  @media (min-width: 1024px) { .hub { grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); gap: var(--space-6); } }
+
+  .hub__cards { display: grid; gap: var(--space-4); }
+  .hub__cards > li { display: grid; }
+  @media (min-width: 768px) { .hub__cards { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (min-width: 1200px) { .hub__cards { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  .hub__cards :global(.hub__card) { background: var(--color-bg); }
+</style>
